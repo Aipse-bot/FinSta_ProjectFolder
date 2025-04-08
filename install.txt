@@ -1,0 +1,10 @@
+#installing tailwind 
+#must have node.js install
+#refer to this video on how to install (https://www.youtube.com/watch?v=REnumA4TNu4)
+pip install 'django-tailwind[reload]'
+python -m pip install django-tailwind
+
+
+
+#Starting tailwind
+python manage.py tailwind start
