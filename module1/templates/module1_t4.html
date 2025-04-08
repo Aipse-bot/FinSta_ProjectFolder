@@ -9,48 +9,7 @@
     <script type="text/javaScript" src="{% static 'mod1.js' %}"></script>
     <link rel="stylesheet" href="{% static 'mod1.css' %}">
     <title>Project Ideation transaction 4</title>
-    <style>
-    .name-options{
-     border-style: dashed;
-    background-color: red; 
-    width: 100%;
 
-    }
-    .business-name-input{
-        border-style: dashed;
-    }
-    .name-header{
-        border-style: dashed;
-        border-color: #fff;
-        margin: 2.5%;
-
-        display: flex;
-        height: 60%;
-    }
-    .or{
-        border-style: dashed;
-        border-color: #fff;
-        justify-content: center;
-        margin: 2.5%;
-        display: flex;
-        height: 5% 
-    }
-    .business-name-input{
-        border-style: dashed;
-        border-color: #fff;
-        justify-content: center;
-        margin: 2.5%;
-        display: flex;
-        height: 10% 
-    }
-    .businessNameInput{
-        height:100% ;
-        width: 20%;
-
-        border-radius: 10px;
-    }
-    
-    </style>
 </head>
 <body>
     <div class="mycontainer">
@@ -62,12 +21,16 @@
                     <div class="goals-container">
 
                         <div class="name-options">
+                            <!-- TO DO:
+                            5.) If one of the following is click create a alert to simulate the next phase of the game -->
                             <div class="name-header">                            
                                 <div class="goal-icon">name option 1</div>
                                 <div class="goal-icon">name option 1</div>
                                 <div class="goal-icon">name option 1</div>
                             </div>
                             <div class="or">Or create you own Business name</div>
+                            <!-- TO DO:
+                            6.) if the input field is not empty, goal-icons div should not be clickable (disabled) -->
                             <div class="business-name-input">
                                 <input type="text" placeholder="Enter your business name" class="businessNameInput">
                             </div>
