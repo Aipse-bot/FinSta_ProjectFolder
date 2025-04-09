@@ -1,9 +1,7 @@
 function openModal(optId){
 
     let id = optId;
-    // TO DO:
-    //2.) store this 'options' array into the django data base
-    //3s.) use it to dynamically display 'innerText = options[id].type' & 'innerText = options[id].descr' see the usage of it below
+
     let options = [
         {
             type: "Tech Repair and Support Service",
