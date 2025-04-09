@@ -184,7 +184,13 @@ function openModal(optId){
 
 }
 
+<<<<<<< HEAD:module1/static/module1.js
 function showAlert() {
     alert("You have selected a business goal!");
     // You can add more sophisticated logic here if needed.
   }
+=======
+function redirectToPage(link){
+    window.location.href = link
+}
+>>>>>>> 9f3e51c9f909c155f6040bb431b08d782c8eb479:module1/static/mod1.js
