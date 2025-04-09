@@ -184,3 +184,7 @@ function openModal(optId){
 
 }
 
+function showAlert() {
+    alert("You have selected a business goal!");
+    // You can add more sophisticated logic here if needed.
+  }

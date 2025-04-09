@@ -1,4 +1,5 @@
 {% load static %}
+{% load tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Own script and CSS file -->
-    <script type="text/javaScript" src="{% static 'mod1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'module1.js' %}"></script>
     <link rel="stylesheet" href="{% static 'mod1.css' %}">
     <title>Project Ideation transaction 3</title>
-
+    {% tailwind_css %}
 </head>
 <body>
     <div class="mycontainer">
@@ -22,26 +23,36 @@
                 <!-- TO DO:
                     4.) After clicking the colored boxes it should redirect to 'mod1t4.html'  -->
                     <div class="goals-container">
-                        <div id="goal-opt1" class="options-1">
-                            <div class="goal-header">                            
-                                <div class="goal-icon">icon</div>
-                                <div class="goal-name">business goal</div>
-                            </div>
-                            <div class="goal-description">business goal description</div>
+
+                        <div id="goal-opt1" class="options-1 cursor-pointer">
+                            <a href="{% url 'module1t4' %}" class = "no-underline !important text-white !important">
+                                <div class="goal-header">                            
+                                    <div class="goal-icon">icon</div>
+                                    <div class="goal-name">Community Impact</div> <!--Display the goals depending on the kind of business-->
+                                </div>
+                                <div class="goal-description">Provide top notch service to people.Provide top notch service to people.Provide top notch service to people.</div> <!--Display the goals depending on the kind of business-->
+                            </a>
+                            <button onclick="showAlert()" class="goal-button bg-yellow-500 text-black py-2 px-4 rounded hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2">Select</button>
                         </div>
-                        <div id="goal-opt2" class="options-2">
+
+                        <div id="goal-opt2" class="options-2 cursor-pointer">
+                            <a href="{% url 'module1t4' %}" class = "no-underline !important text-white !important">
                             <div class="goal-header">                            
                                 <div class="goal-icon">icon</div>
-                                <div class="goal-name">business goal</div>
+                                <div class="goal-name">business goal</div> <!--Display the goals depending on the kind of business-->
                             </div>
-                            <div class="goal-description">business goal description</div>
+                            <div class="goal-description">business goal description</div> <!--Display the goals depending on the kind of business-->
+                            </a>
                         </div>
-                        <div id="goal-opt3" class="options-3">
-                            <div class="goal-header">                            
-                                <div class="goal-icon">icon</div>
-                                <div class="goal-name">business goal</div>
-                            </div>
-                            <div class="goal-description">business goal description</div>
+
+                        <div id="goal-opt3" class="options-3 cursor-pointer bg-yellow-200">
+                            <a href="{% url 'module1t4' %}" class = "no-underline !important text-white !important">
+                                <div class="goal-header">                            
+                                    <div class="goal-icon">icon</div>
+                                    <div class="goal-name">business goal</div> <!--Display the goals depending on the kind of business-->
+                                </div>
+                                <div class="goal-description">business goal description</div> <!--Display the goals depending on the kind of business-->
+                            </a>
                         </div>
 
                     </div>
@@ -50,5 +61,6 @@
 
         </div>
     </div>
+    
 </body>
 </html>
