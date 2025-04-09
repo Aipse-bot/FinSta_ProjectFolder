@@ -184,3 +184,6 @@ function openModal(optId){
 
 }
 
+function redirectToPage(link){
+    window.location.href = link
+}
