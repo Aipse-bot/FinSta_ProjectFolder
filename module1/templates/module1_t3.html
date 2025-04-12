@@ -22,21 +22,7 @@
                 <!-- TO DO:
                     4.) After clicking the colored boxes it should redirect to 'mod1t4.html'  -->
                     <div class="goals-container">
-                        <div id="goal-opt1" class="options-1">
-                            <div class="goal-header">                            
-                                <div class="goal-icon">icon</div>
-                                <div class="goal-name">business goal</div>
-                            </div>
-                            <div class="goal-description">business goal description</div>
-                        </div>
-                        <div id="goal-opt2" class="options-2">
-                            <div class="goal-header">                            
-                                <div class="goal-icon">icon</div>
-                                <div class="goal-name">business goal</div>
-                            </div>
-                            <div class="goal-description">business goal description</div>
-                        </div>
-                        <div id="goal-opt3" class="options-3">
+                        <div id="goal-opt1" class="options-1" onclick="redirectToPage('{% url 'module1t4' %}')">
                             <div class="goal-header">                            
                                 <div class="goal-icon">icon</div>
                                 <div class="goal-name">business goal</div>
@@ -44,6 +30,24 @@
                             <div class="goal-description">business goal description</div>
                         </div>
 
+                        <div id="goal-opt2" class="options-2" onclick="redirectToPage('{% url 'module1t4' %}')">
+                            <div class="goal-header">                            
+                                <div class="goal-icon">icon</div>
+                                <div class="goal-name">business goal</div>
+                            </div>
+                            <div class="goal-description">business goal description</div>
+                        </div>
+
+                        <div id="goal-opt3" class="options-3" onclick="redirectToPage('{% url 'module1t4' %}')">
+                            <div class="goal-header">                            
+                                <div class="goal-icon">icon</div>
+                                <div class="goal-name">business goal</div>
+                            </div>
+                            <div class="goal-description">business goal description</div>
+                        </div>
+                        <!-- {% csrf_token %}
+                        {% for business-goal in business_goals %}
+                        {% endfor %} -->
                     </div>
                 </div>
             </div>
