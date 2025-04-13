@@ -186,7 +186,7 @@ function redirectToPage(link){
     window.location.href = link
 }
 
-// todo 4-6
+// todo 4-6 done
 document.addEventListener('DOMContentLoaded', function() {
     // todo 4.) After clicking the colored boxes it should redirect to 'mod1t4.html'
     const goalOptions = document.querySelectorAll('#goal-opt1, #goal-opt2, #goal-opt3');
