@@ -1,2 +1,5 @@
 myvenv/
 *.pyc
+/FinSta/__pycache__
+/module1/__pycache__
+*.pyc
