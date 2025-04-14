@@ -192,9 +192,6 @@ function redirectToPage(link){
     window.location.href = link
 }
 
-<<<<<<< HEAD:module1/static/mod1.js
-=======
-
 function choiceT1T2(choiceID){
     let id = choiceID;
     console.log(`Option 1: ${id}`)
@@ -237,4 +234,4 @@ function getOption3(){
     let storedOption3 = sessionStorage.getItem('option3');
     return storedOption3;
 }
->>>>>>> 6c3c422907883ec49801e730ea5de957089cc0cb:module1/static/test1.js
+
