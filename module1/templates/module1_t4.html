@@ -4,6 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Ideation - Business Name</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javaScript" src="{% static 'mod1.js' %}"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
 
     <!-- Own script and CSS file -->
     <script type="text/javaScript" src="{% static 'test1.js' %}"></script>
@@ -11,36 +16,113 @@
     <title>Project Ideation transaction 4</title>
 
 </head>
-<body>
-    <div class="mycontainer">
-        <div class="mycard-container">
-            <div class="mycard-vertical">
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-12">
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="p-8">
+                    <a href="javascript:history.back()" class="inline-flex items-center text-gray-600 hover:text-gray-900 mb-6 transition-colors">
+                        <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
+                        Back to goals
+                    </a>
 
-                <div class="mycard goal">
-                    <div class="business-goal">Select your Business Name</div>
-                    <div class="goals-container">
-
-                        <div class="name-options">
-                            <!-- TO DO:
-                            5.) If one of the following is click create a alert to simulate the next phase of the game -->
-                            <div class="name-header">                            
-                                <div class="goal-icon">Name Option 1</div>
-                                <div class="goal-icon">Name Option 2</div>
-                                <div class="goal-icon">Name Option 3</div>
+                    <h1 class="text-3xl font-bold text-center text-gray-800 mb-10">Select your Business Name</h1>
+                    
+                    <div class="bg-white rounded-xl p-6">
+                        <div class="name-options bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-6 border border-indigo-100">
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                                <div class="name-option bg-white rounded-lg p-4 shadow hover:shadow-md transition-all cursor-pointer border border-indigo-200 hover:border-indigo-400 text-center" onclick="selectBusinessName('InnovateX')">
+                                    <div class="flex items-center justify-center mb-2">
+                                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
+                                            <i data-feather="zap" class="w-5 h-5 text-indigo-600"></i>
+                                        </div>
+                                    </div>
+                                    <h3 class="font-medium text-gray-800">MarketSoar</h3>
+                                </div>
+                                
+                                <div class="name-option bg-white rounded-lg p-4 shadow hover:shadow-md transition-all cursor-pointer border border-purple-200 hover:border-purple-400 text-center" onclick="selectBusinessName('GrowthForge')">
+                                    <div class="flex items-center justify-center mb-2">
+                                        <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                                            <i data-feather="trending-up" class="w-5 h-5 text-purple-600"></i>
+                                        </div>
+                                    </div>
+                                    <h3 class="font-medium text-gray-800">OptimizePro</h3>
+                                </div>
+                                
+                                <div class="name-option bg-white rounded-lg p-4 shadow hover:shadow-md transition-all cursor-pointer border border-blue-200 hover:border-blue-400 text-center" onclick="selectBusinessName('OptimizePro')">
+                                    <div class="flex items-center justify-center mb-2">
+                                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                            <i data-feather="settings" class="w-5 h-5 text-blue-600"></i>
+                                        </div>
+                                    </div>
+                                    <h3 class="font-medium text-gray-800">ProfitReach</h3>
+                                </div>
                             </div>
-                            <div class="or">Or create you own Business Name</div>
-                            <!-- TO DO:
-                            6.) if the input field is not empty, goal-icons div should not be clickable (disabled) -->
-                            <div class="business-name-input">
-                                <input type="text" placeholder="Enter your business Name" class="businessNameInput" id="businessNameInput" <!--onkeyup="checkInput()"-->>
+                            
+                            <div class="text-center text-gray-500 font-medium mb-6">Or create your own Business Name</div>
+                            
+                            <div class="flex justify-center">
+                                <div class="w-full max-w-md">
+                                    <div class="relative">
+                                        <input 
+                                            type="text" 
+                                            placeholder="Enter your business name" 
+                                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
+                                            id="businessNameInput" 
+                                            onkeyup="checkInput()">
+                                        <button 
+                                            onclick="submitCustomName()" 
+                                            class="absolute right-2 top-2 bg-indigo-600 text-white px-4 py-1 rounded-md hover:bg-indigo-700 transition-colors">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>           
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <script type="text/javaScript" src="{% static 'mod1_t4.js' %}"></script>
+
+    <script>
+        // icons
+        document.addEventListener('DOMContentLoaded', function() {
+            feather.replace();
+        });
+        
+        function checkInput() {
+            const input = document.getElementById('businessNameInput');
+            const nameOptions = document.querySelectorAll('.name-option');
+            
+            if (input.value.trim() !== '') {
+                nameOptions.forEach(option => {
+                    option.classList.add('opacity-50', 'pointer-events-none');
+                });
+            } else {
+                nameOptions.forEach(option => {
+                    option.classList.remove('opacity-50', 'pointer-events-none');
+                });
+            }
+        }
+        
+        // handle name option selection
+        function selectBusinessName(name) {
+            alert('You selected: ' + name + '\nMoving to the next phase...');
+        }
+        
+        // custome  name
+        function submitCustomName() {
+            const input = document.getElementById('businessNameInput');
+            const name = input.value.trim();
+            
+            if (name !== '') {
+                alert('You entered: ' + name + '\nMoving to the next phase...');
+            } else {
+                alert('Please enter a business name');
+            }
+        }
+    </script>
 </body>
 </html>
