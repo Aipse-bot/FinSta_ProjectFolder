@@ -185,3 +185,32 @@ function openModal(optId){
 function redirectToPage(link){
     window.location.href = link
 }
+
+let selectedOptionNumber = null;
+
+function saveOptionAndRedirect() {
+    if (selectedOptionNumber !== null) {
+        fetch('/module1_t1_t2/', { // Replace with your actual URL
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken'), // Make sure you have this function
+            },
+            body: JSON.stringify({ 'option': selectedOptionNumber }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                redirectToPage('mod1t3'); // Redirect after successful save
+            } else {
+                alert('Error saving option.'); // Handle potential errors
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while saving.');
+        });
+    } else {
+        alert('No option selected.');
+    }
+}
