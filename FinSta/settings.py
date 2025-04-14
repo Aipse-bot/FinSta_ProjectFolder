@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'theme',  # The name of your Tailwind app
     'django_browser_reload',  # For live reloading
     'module1', #module 1 app
+    'crispy_forms',
 
 ]
 

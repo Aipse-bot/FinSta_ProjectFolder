@@ -1,4 +1,5 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse
+from django.contrib import messages
 
 def test(request):
     return render(request, "module1.html")
@@ -11,4 +12,6 @@ def module1_t3(request):
 
 def module1_t4(request):
     return render(request, "module1_t4.html")
+
+
 
