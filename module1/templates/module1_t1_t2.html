@@ -16,86 +16,81 @@
 </head>
 <body>
     <div class="mycontainer">
-        <div class="description">Select your kind of Business</div>
-        <div class="mycard-container">
-            <div class="mycard-vertical left">
-                <div class="mycard tech">
-                    <div class="business-category">Tech</div>
+        <div class="description"><h1>Select your kind of Business</h1></div>
+        <div class="mycard-container flex flex-wrap gap-4 justify-center">
+            <div class="mycard tech">
+                <div class="business-category">Tech</div>
 
-                    <div class="options">
-                        <div id="tech-opt1" class="options-1" onclick="openModal(0)">
-                            <div class="icon">icon</div>
-                            <div class="type">Tech Repair and Support Service</div>
-                        </div>
-                        <div id="tech-opt2" class="options-2" onclick="openModal(1)">
-                            <div class="icon">icon</div>
-                            <div class="type">IoT Device Development</div>
-                        </div>
-                        <div id="tech-opt3" class="options-3" onclick="openModal(2)">
-                            <div class="icon">icon</div>
-                            <div class="type">Web Development Service</div>
-                        </div>
+                <div class="options">
+                    <div id="tech-opt1" class="options-1" onclick="openModal(0)">
+                        <div class="icon"><img src="{% static 'module1/images/technical-support.png' %}" alt="Tech Repair and Support Service" class="option-icon"></div>
+                        <div class="type">Tech Repair and Support Service</div>
                     </div>
-                </div>
-                <div class="mycard food">
-                    <div class="business-category">Food</div>
-
-                    <div class="options">
-                        <div id="food-opt1" class="options-1" onclick="openModal(3)">
-                            <div class="icon">icon</div>
-                            <div class="type">Specialty Coffee Shop</div>
-                        </div>
-                        <div id="food-opt2"  class="options-2" onclick="openModal(4)">
-                            <div class="icon">icon</div>
-                            <div class="type">Artisan Bakery</div>
-                        </div>
-                        <div id="food-opt3" class="options-3" onclick="openModal(5)">
-                            <div class="icon">icon</div>
-                            <div class="type">Food Truck Business</div>
-                        </div>
+                    <div id="tech-opt2" class="options-2" onclick="openModal(1)">
+                        <div class="icon"><img src="{% static 'module1/images/internet-of-things(1).png' %}" alt="IoT Device Development" class="option-icon"></div>
+                        <div class="type">IoT Device Development</div>
+                    </div>
+                    <div id="tech-opt3" class="options-3" onclick="openModal(2)">
+                        <div class="icon"><img src="{% static 'module1/images/web-programming.png' %}" alt="Web Development Service" class="option-icon"></div>
+                        <div class="type">Web Development Service</div>
                     </div>
                 </div>
             </div>
-            <div class="mycard-vertical right">
-                <div class="mycard clothing">
-                    <div class="business-category">Clothing</div>
+            <div class="mycard food">
+                <div class="business-category">Food</div>
 
-                    <div class="options">
-                        <div id="cloth-opt1" class="options-1" onclick="openModal(6)">
-                            <div class="icon">icon</div>
-                            <div class="type">Custom Tailored Clothing Service</div>
-                        </div>
-                        <div id="cloth-opt2" class="options-2" onclick="openModal(7)">
-                            <div class="icon">icon</div>
-                            <div class="type">Activewear Line</div>
-                        </div>
-                        <div id="cloth-opt3" class="options-3" onclick="openModal(8)">
-                            <div class="icon">icon</div>
-                            <div class="type">Online T-Shirt Printing</div>
-                        </div>
+                <div class="options">
+                    <div id="food-opt1" class="options-1" onclick="openModal(3)">
+                        <div class="icon"><img src="{% static 'module1/images/coffee-machine.png' %}" alt="Specialty Coffee Shop" class="option-icon"></div>
+                        <div class="type">Specialty Coffee Shop</div>
                     </div>
-                </div>
-                <div class="mycard services">
-                    <div class="business-category">Services</div>
-
-                    <div class="options">
-                        <div id="services-opt1" class="options-1" onclick="openModal(9)">
-                            <div class="icon">icon</div>
-                            <div class="type">Spa and Massage Center</div>
-                        </div>
-                        <div id="services-opt2" class="options-2" onclick="openModal(10)">
-                            <div class="icon">icon</div>
-                            <div class="type">Home Cleaning Service</div>
-                        </div>
-                        <div id="services-opt3" class="options-3" onclick="openModal(11)">
-                            <div class="icon">icon</div>
-                            <div class="type">Interior Design and Home Staging</div>
-                        </div>
-
+                    <div id="food-opt2"  class="options-2" onclick="openModal(4)">
+                        <div class="icon"><img src="{% static 'module1/images/bakery.png' %}" alt="Artisan Bakery" class="option-icon"></div>
+                        <div class="type">Artisan Bakery</div>
+                    </div>
+                    <div id="food-opt3" class="options-3" onclick="openModal(5)">
+                        <div class="icon"><img src="{% static 'module1/images/food-truck.png' %}" alt="Food Truck Business" class="option-icon"></div>
+                        <div class="type">Food Truck Business</div>
                     </div>
                 </div>
             </div>
+            <div class="mycard clothing">
+                <div class="business-category">Clothing</div>
 
+                <div class="options">
+                    <div id="cloth-opt1" class="options-1" onclick="openModal(6)">
+                        <div class="icon"><img src="{% static 'module1/images/suit.png' %}" alt="Custom Tailored Clothing Service" class="option-icon"></div>
+                        <div class="type">Custom Tailored Clothing Service</div>
+                    </div>
+                    <div id="cloth-opt2" class="options-2" onclick="openModal(7)">
+                        <div class="icon"><img src="{% static 'module1/images/sportwear.png' %}" alt="Activewear Line" class="option-icon"></div>
+                        <div class="type">Activewear Line</div>
+                    </div>
+                    <div id="cloth-opt3" class="options-3" onclick="openModal(8)">
+                        <div class="icon"><img src="{% static 'module1/images/tshirt.png' %}" alt="Online T-Shirt Printing" class="option-icon"></div>
+                        <div class="type">Online T-Shirt Printing</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mycard services">
+                <div class="business-category">Services</div>
+
+                <div class="options">
+                    <div id="services-opt1" class="options-1" onclick="openModal(9)">
+                        <div class="icon"><img src="{% static 'module1/images/spa.png' %}" alt="Spa and Massage Center" class="option-icon"></div>
+                        <div class="type">Spa and Massage Center</div>
+                    </div>
+                    <div id="services-opt2" class="options-2" onclick="openModal(10)">
+                        <div class="icon"><img src="{% static 'module1/images/house.png' %}" alt="Home Cleaning Service" class="option-icon"></div>
+                        <div class="type">Home Cleaning Service</div>
+                    </div>
+                    <div id="services-opt3" class="options-3" onclick="openModal(11)">
+                        <div class="icon"><img src="{% static 'module1/images/interior-design.png' %}" alt="Interior Design and Home Staging" class="option-icon"></div>
+                        <div class="type">Interior Design and Home Staging</div>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
 </body>
