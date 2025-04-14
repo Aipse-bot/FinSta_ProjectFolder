@@ -12,6 +12,7 @@
     <!-- Own script and CSS file -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="text/javaScript" src="{% static 'mod1.js' %}"></script>
+    <script type="text/javaScript" src="{% static 'test1.js' %}"></script>
     <link rel="stylesheet" href="{% static 'mod1.css' %}">
     <title>Project Ideation transaction 1 & 2</title>
 </head>
@@ -26,15 +27,15 @@
                         <div class="business-category"><span class="text-sm">▶ </span> Tech</div>
 
                         <div class="options">
-                            <div id="tech-opt1" class="options-1 transform transition-all hover:-translate-y-1 hover:brightness-95 transition-all duration-300" onclick="openModal(0)">
+                            <div id="tech-opt1" class="options-1 transform transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 hover:brightness-90  hover:shadow-xl" onclick="openModal(0)">
                                 <div class="icon"><img src="{% static 'module1/images/technical-support.png' %}" alt="Tech Repair and Support Service" class="option-icon"></div>
                                 <div class="type text-sm">Tech Repair and Support Service</div>
                             </div>
-                            <div id="tech-opt2" class="options-2 hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1" onclick="openModal(1)">
+                            <div id="tech-opt2" class="options-2 transform transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 hover:brightness-90  hover:shadow-xl" onclick="openModal(1)">
                                 <div class="icon"><img src="{% static 'module1/images/internet-of-things(1).png' %}" alt="IoT Device Development" class="option-icon"></div>
                                 <div class="type text-sm">IoT Device Development</div>
                             </div>
-                            <div id="tech-opt3" class="options-3 hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1" onclick="openModal(2)">
+                            <div id="tech-opt3" class="options-3 transform transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 hover:brightness-90  hover:shadow-xl" onclick="openModal(2)">
                                 <div class="icon"><img src="{% static 'module1/images/web-programming.png' %}" alt="Web Development Service" class="option-icon"></div>
                                 <div class="type text-sm">Web Development Service</div>
                             </div>
@@ -44,15 +45,15 @@
                         <div class="business-category"> ▶ Food</div>
 
                         <div class="options">
-                            <div id="food-opt1" class="options-1 transform transition-all hover:-translate-y-1 hover:brightness-95 transition-all duration-300" onclick="openModal(3)">
+                            <div id="food-opt1" class="options-1 transform transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 hover:brightness-90  hover:shadow-xl" onclick="openModal(3)">
                                 <div class="icon"><img src="{% static 'module1/images/coffee-machine.png' %}" alt="Specialty Coffee Shop" class="option-icon"></div>
                                 <div class="type text-sm">Specialty Coffee Shop</div>
                             </div>
-                            <div id="food-opt2"  class="options-2 transform transition-all hover:-translate-y-1 hover:brightness-95 transition-all duration-300" onclick="openModal(4)">
+                            <div id="food-opt2"  class="options-2 transform transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 hover:brightness-90  hover:shadow-xl" onclick="openModal(4)">
                                 <div class="icon"><img src="{% static 'module1/images/bakery.png' %}" alt="Artisan Bakery" class="option-icon"></div>
                                 <div class="type text-sm">Artisan Bakery</div>
                             </div>
-                            <div id="food-opt3" class="options-3 transform transition-all hover:-translate-y-1 hover:brightness-95 transition-all duration-300" onclick="openModal(5)">
+                            <div id="food-opt3" class="options-3 transform transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 hover:brightness-90  hover:shadow-xl" onclick="openModal(5)">
                                 <div class="icon"><img src="{% static 'module1/images/food-truck.png' %}" alt="Food Truck Business" class="option-icon"></div>
                                 <div class="type text-sm">Food Truck Business</div>
                             </div>
@@ -62,15 +63,15 @@
                         <div class="business-category"> ▶ Clothing</div>
 
                         <div class="options">
-                            <div id="cloth-opt1" class="options-1 transform transition-all hover:-translate-y-1 hover:brightness-95 transition-all duration-300" onclick="openModal(6)">
+                            <div id="cloth-opt1" class="options-1 transform transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 hover:brightness-90  hover:shadow-xl" onclick="openModal(6)">
                                 <div class="icon"><img src="{% static 'module1/images/suit.png' %}" alt="Custom Tailored Clothing Service" class="option-icon"></div>
                                 <div class="type text-sm">Custom Tailored Clothing Service</div>
                             </div>
-                            <div id="cloth-opt2" class="options-2 transform transition-all hover:-translate-y-1 hover:brightness-95 transition-all duration-300" onclick="openModal(7)">
+                            <div id="cloth-opt2" class="options-2 transform transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 hover:brightness-90  hover:shadow-xl" onclick="openModal(7)">
                                 <div class="icon"><img src="{% static 'module1/images/sportwear.png' %}" alt="Activewear Line" class="option-icon"></div>
                                 <div class="type text-sm">Activewear Line</div>
                             </div>
-                            <div id="cloth-opt3" class="options-3 transform transition-all hover:-translate-y-1 hover:brightness-95 transition-all duration-300" onclick="openModal(8)">
+                            <div id="cloth-opt3" class="options-3 transform transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 hover:brightness-90  hover:shadow-xl" onclick="openModal(8)">
                                 <div class="icon"><img src="{% static 'module1/images/tshirt.png' %}" alt="Online T-Shirt Printing" class="option-icon"></div>
                                 <div class="type text-sm">Online T-Shirt Printing</div>
                             </div>
@@ -80,15 +81,15 @@
                         <div class="business-category"> ▶ Services</div>
 
                         <div class="options">
-                            <div id="services-opt1" class="options-1 transform transition-all hover:-translate-y-1 hover:brightness-95 transition-all duration-300" onclick="openModal(9)">
+                            <div id="services-opt1" class="options-1 transform transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 hover:brightness-90  hover:shadow-xl" onclick="openModal(9)">
                                 <div class="icon"><img src="{% static 'module1/images/spa.png' %}" alt="Spa and Massage Center" class="option-icon"></div>
                                 <div class="type text-sm">Spa and Massage Center</div>
                             </div>
-                            <div id="services-opt2" class="options-2 transform transition-all hover:-translate-y-1 hover:brightness-95 transition-all duration-300" onclick="openModal(10)">
+                            <div id="services-opt2" class="options-2 transform transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 hover:brightness-90  hover:shadow-xl" onclick="openModal(10)">
                                 <div class="icon"><img src="{% static 'module1/images/house.png' %}" alt="Home Cleaning Service" class="option-icon"></div>
                                 <div class="type text-sm">Home Cleaning Service</div>
                             </div>
-                            <div id="services-opt3" class="options-3 transform transition-all hover:-translate-y-1 hover:brightness-95 transition-all duration-300" onclick="openModal(11)">
+                            <div id="services-opt3" class="options-3 transform transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 hover:brightness-90  hover:shadow-xl" onclick="openModal(11)">
                                 <div class="icon"><img src="{% static 'module1/images/interior-design.png' %}" alt="Interior Design and Home Staging" class="option-icon"></div>
                                 <div class="type text-sm">Interior Design and Home Staging</div>
                             </div>
@@ -115,6 +116,10 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
               <button type="button" class="btn btn-primary" onclick="redirectToPage('mod1t3')">Let's go!</button>
+
+                <!--Add here form to save into database-->
+                {% comment %} <p id='choice1'> </p> {% endcomment %}
+                
             </div>
           </div>
         </div>
