@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Own script and CSS file -->
-    <script type="text/javaScript" src="{% static 'mod1.js' %}"></script>
+    <script type="text/javaScript" src="{% static 'test1.js' %}"></script>
     <link rel="stylesheet" href="{% static 'mod1.css' %}">
     <title>Project Ideation transaction 3</title>
 
@@ -19,10 +19,9 @@
 
                 <div class="mycard goal">
                     <div class="business-goal">Select your business Goals</div>
-                <!-- TO DO:
-                    4.) After clicking the colored boxes it should redirect to 'mod1t4.html'  -->
                     <div class="goals-container">
-                        <div id="goal-opt1" class="options-1" onclick="redirectToPage('{% url 'module1t4' %}')">
+
+                        <div id="goal-opt1" class="options-1" onclick = "choiceT3(0)">
                             <div class="goal-header">                            
                                 <div class="goal-icon">icon</div>
                                 <div class="goal-name">business goal</div>
@@ -30,7 +29,7 @@
                             <div class="goal-description">business goal description</div>
                         </div>
 
-                        <div id="goal-opt2" class="options-2" onclick="redirectToPage('{% url 'module1t4' %}')">
+                        <div id="goal-opt2" class="options-2" onclick = "choiceT3(1)">
                             <div class="goal-header">                            
                                 <div class="goal-icon">icon</div>
                                 <div class="goal-name">business goal</div>
@@ -38,16 +37,17 @@
                             <div class="goal-description">business goal description</div>
                         </div>
 
-                        <div id="goal-opt3" class="options-3" onclick="redirectToPage('{% url 'module1t4' %}')">
+                        <div id="goal-opt3" class="options-3" onclick = "choiceT3(2)">
                             <div class="goal-header">                            
                                 <div class="goal-icon">icon</div>
                                 <div class="goal-name">business goal</div>
                             </div>
                             <div class="goal-description">business goal description</div>
                         </div>
-                        <!-- {% csrf_token %}
-                        {% for business-goal in business_goals %}
-                        {% endfor %} -->
+
+                        <!--Add here form to save into database-->
+                        {% comment %} <p id = 'choice2'> </p> {% endcomment %}
+
                     </div>
                 </div>
             </div>

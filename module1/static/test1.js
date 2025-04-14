@@ -1,3 +1,9 @@
+let selectedOptionNumber = null;
+let option1;
+let option2;
+let option3;
+
+
 function openModal(optId){
 
     let id = optId;
@@ -177,12 +183,58 @@ function openModal(optId){
     document.querySelector('#staticBackdrop .modal-body').innerText = options[id].descr;
     var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
     myModal.show();
-
+    choiceT1T2(optId);
     console.log(`click option of ${optId}`)
-
+    selectedOptionNumber = optId;
 }
 
 function redirectToPage(link){
     window.location.href = link
 }
 
+<<<<<<< HEAD:module1/static/mod1.js
+=======
+
+function choiceT1T2(choiceID){
+    let id = choiceID;
+    console.log(`Option 1: ${id}`)
+    option1 = id;
+    sessionStorage.setItem('option1', option1);
+    let storedOption1 = sessionStorage.getItem('option1');
+    console.log(storedOption1)
+
+}
+
+function choiceT3(choiceID){
+    let id = choiceID;
+    console.log(`Option 2: ${id}`)
+    option2 = id;
+    sessionStorage.setItem('option2', option2);
+    let storedOption2 = sessionStorage.getItem('option2');
+    console.log(storedOption2)
+    redirectToPage('mod1t4');
+}
+
+function choiceT4(choiceID){
+    let id = choiceID;
+    console.log(`Option 3: ${id}`)
+    option3 = id;
+    sessionStorage.setItem('option3', option3);
+    let storedOption3 = sessionStorage.getItem('option3');
+    console.log(storedOption3)
+}
+
+
+function getOption1(){
+    let storedOption1 = sessionStorage.getItem('option1');
+    return storedOption1;
+}
+function getOption2(){
+    let storedOption2 = sessionStorage.getItem('option2');
+    return storedOption2;
+}
+function getOption3(){
+    let storedOption3 = sessionStorage.getItem('option3');
+    return storedOption3;
+}
+>>>>>>> 6c3c422907883ec49801e730ea5de957089cc0cb:module1/static/test1.js
