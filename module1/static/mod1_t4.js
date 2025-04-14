@@ -81,3 +81,38 @@ function goalIconAlert(id) {
 //         });
 //     }
 // });
+
+
+
+
+
+// mod t4 script
+
+
+// document.addEventListener('DOMContentLoaded', function() {
+//     feather.replace();
+// });
+
+// function checkInput() {
+//     const input = document.getElementById('businessNameInput');
+//     const nameOptions = document.querySelectorAll('.name-option');
+    
+//     if (input.value.trim() !== '') {
+//         nameOptions.forEach(option => {
+//             option.classList.add('opacity-30', 'pointer-events-none');
+//         });
+//     } 
+// }
+
+// function selectBusinessName(namecustome) {
+//     alert('You selected: ' + namecustome + '\nMoving to the next phase...');
+// }
+
+// function submitCustomName() {
+//     const input = document.getElementById('businessNameInput');
+//     const namecustome = input.value.trim();
+    
+//     if (namecustome !== '') {
+//         alert('You entered: ' + namecustome + '\nMoving to the next phase...');
+//     } 
+// }

@@ -4,55 +4,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Own script and CSS file -->
+    <title>Project Ideation - Business Goals</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
     <script type="text/javaScript" src="{% static 'mod1.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'mod1.css' %}">
-    <title>Project Ideation transaction 3</title>
-
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
-<body>
-    <div class="mycontainer">
-        <div class="mycard-container">
-
-            <div class="mycard-vertical">
-
-                <div class="mycard goal">
-                    <div class="business-goal">Select your business Goals</div>
-                <!-- TO DO:
-                    4.) After clicking the colored boxes it should redirect to 'mod1t4.html'  -->
-                    <div class="goals-container">
-                        <div id="goal-opt1" class="options-1" onclick="redirectToPage('{% url 'module1t4' %}')">
-                            <div class="goal-header">                            
-                                <div class="goal-icon">icon</div>
-                                <div class="goal-name">business goal</div>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-12">
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="p-8">
+                    <h1 class="text-3xl font-bold text-center text-gray-800 mb-10">Select your Business Goals</h1>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div id="goal-opt1" 
+                             onclick="redirectToPage('{% url 'module1t4' %}')"
+                             class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-6 text-white shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-blue-400 bg-opacity-30 rounded-full flex items-center justify-center">
+                                    <i data-feather="trending-up" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="ml-4 text-xl font-semibold">Increase Market Reach</h3>
                             </div>
-                            <div class="goal-description">business goal description</div>
+                            <p class="text-blue-100">Expand brand presence by targeting new customer segments and increasing online visibility through digital marketing and outreach campaigns.</p>
                         </div>
 
-                        <div id="goal-opt2" class="options-2" onclick="redirectToPage('{% url 'module1t4' %}')">
-                            <div class="goal-header">                            
-                                <div class="goal-icon">icon</div>
-                                <div class="goal-name">business goal</div>
+                        <div id="goal-opt2" 
+                             onclick="redirectToPage('{% url 'module1t4' %}')"
+                             class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl p-6 text-white shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-green-400 bg-opacity-30 rounded-full flex items-center justify-center">
+                                    <i data-feather="settings" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="ml-4 text-xl font-semibold">Optimize Operations</h3>
                             </div>
-                            <div class="goal-description">business goal description</div>
+                            <p class="text-green-100">Improve internal processes by automating workflows, reducing overhead costs, and enhancing employee efficiency through better tools and training.</p>
                         </div>
 
-                        <div id="goal-opt3" class="options-3" onclick="redirectToPage('{% url 'module1t4' %}')">
-                            <div class="goal-header">                            
-                                <div class="goal-icon">icon</div>
-                                <div class="goal-name">business goal</div>
+                        <div id="goal-opt3" 
+                             onclick="redirectToPage('{% url 'module1t4' %}')"
+                             class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl p-6 text-white shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-purple-400 bg-opacity-30 rounded-full flex items-center justify-center">
+                                    <i data-feather="dollar-sign" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="ml-4 text-xl font-semibold">Boost Profitability</h3>
                             </div>
-                            <div class="goal-description">business goal description</div>
+                            <p class="text-purple-100">Increase revenue and net profits by optimizing pricing strategies, expanding product offerings, and improving customer retention rates.</p>
                         </div>
-                        <!-- {% csrf_token %}
-                        {% for business-goal in business_goals %}
-                        {% endfor %} -->
                     </div>
+                    
+                    {% csrf_token %}
+                    {% comment %}
+                    {% for business-goal in business_goals %}
+                    {% endfor %}
+                    {% endcomment %}
                 </div>
             </div>
-
         </div>
     </div>
+
+    <!-- icons -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            feather.replace();
+        });
+    </script>
 </body>
 </html>
