@@ -13,6 +13,10 @@
 
     <div class="bg-[#2c2365] text-white min-h-screen flex items-center justify-center p-6">
         <div class="bg-[#4a3c8d] rounded-xl p-8 w-full max-w-6xl shadow-xl border-4 border-purple-700">
+          <a href="javascript:history.back()" class="inline-flex items-center text-white hover:text-gray-900 mb-6 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left w-4 h-4 mr-2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Back to goals
+        </a>
           <h2 class="text-center text-2xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-pink-400 text-black py-2 rounded-t-md">Fundraising</h2>
           <p class="text-center mb-8 text-lg">Pitch your idea to your investor</p>
       
@@ -112,44 +116,6 @@
 </html>
 
       <!-- Modal -->
-      <!-- <div class="modal fade" id="pitch-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">Reviewing the Offer</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Your {bank/investor} offers a capital of {$money}.
-                With the expected {interest %  if from bank / percent % of profit if from investor}  
-            </div>
-            <div class="modal-body" style="display: none;" id="negotiate-option">
-                <h4>Negotiate</h4>
-                <br>
-                <label for="amount">Amount:</label>
-                <input type="text" id="amount" placeholder="$2000">
-                <br><br>
-                <label for="percent">Percent:</label>
-                <input type="text" id="percent" placeholder="20%">
-            </div>
-            
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Deal</button>
-                <button type="button" class="btn btn-secondary" id="negotiateButton">Negotiate</button>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No Deal</button>
-
-
-            </div>
-            <script>
-                document.getElementById('negotiateButton').addEventListener('click', function() {
-                    // Show the hidden modal body
-                    document.getElementById('negotiateModal').style.display = 'block';
-                });
-            </script> 
-          </div>
-        </div>
-      </div> -->
-
       <div class="modal fade" id="pitch-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -164,15 +130,15 @@
                 <div class="modal-body" style="display: none;" id="negotiate-option">
                     <h4>Your Counter Offer</h4>
                     <br>
-                    <label for="amount">Amount:</label>
-                    <input type="text" id="amount" placeholder="$2000">
+                    <label for="amount">Enter desired Amount:</label>
+                    <input type="text" id="amount" placeholder="e.g., 20000" class="px-1 py-1.5">
                     <br><br>
-                    <label for="percent">Percent:</label>
-                    <input type="text" id="percent" placeholder="20%">
+                    <label for="percent">Enter desired Percentage:</label>
+                    <input type="text" id="percent" placeholder="e.g., 20" class="px-1 py-1.5">
                 </div>
     
                 <div class="modal-footer" id="button-holder">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Deal</button>
+                    <button type="button" class="btn btn-primary" onclick="deal()">Deal</button>
                     <button type="button" class="btn btn-secondary" id="negotiateButton">Negotiate</button>
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No Deal</button>
                 </div>
@@ -200,5 +166,8 @@
             document.getElementById('counter-offer').style.display = 'none';
 
         });
+        function deal(){
+          window.location.href = "mod3t4"
+        }
     </script>
     

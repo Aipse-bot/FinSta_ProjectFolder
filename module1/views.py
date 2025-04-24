@@ -14,5 +14,14 @@ def module1_t3(request):
 def module1_t4(request):
     return render(request, "module1_t4.html")
 
+def module2_t1_t2_t3(request):
+    return render(request, "mod2_t1_t2_t3.html")
 
+def module2_t4(request):
+    return render(request, "mod2_t4.html")
 
+def module3_t1_t2_t3(request):
+    return render(request, "mod3_t1_t2_t3.html")
+
+def module3_t4(request):
+    return render(request, "mod3_t4.html")

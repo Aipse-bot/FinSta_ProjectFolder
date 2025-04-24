@@ -7,19 +7,17 @@
     <title>Project Ideation - Business Name</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <script type="text/javaScript" src="{% static 'mod1.js' %}"></script>
     <script src="https://unpkg.com/feather-icons"></script>
 
     <!-- Own script and CSS file -->
-    <script type="text/javaScript" src="{% static 'test1.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'mod1.css' %}">
+
     <title>Project Ideation transaction 4</title>
 
 </head>
 <body class="bg-gray-100 min-h-screen">
     <div class="container mx-auto px-4 py-12">
         <div class="max-w-5xl mx-auto">
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="bg-gradient-to-tr from-green-300 to-purple-300 rounded-xl shadow-lg overflow-hidden">
                 <div class="p-8">
                     <a href="javascript:history.back()" class="inline-flex items-center text-gray-600 hover:text-gray-900 mb-6 transition-colors">
                         <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
@@ -86,6 +84,25 @@
         </div>
     </div>
 
+    <!-- Business Name Selection Modal -->
+    <div id="businessNameModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 mx-4 text-center">
+          <h2 class="text-xl font-bold text-gray-800 mb-4">Business Name Selected</h2>
+          <p id="businessNameText" class="text-gray-700 mb-6"></p>
+          
+          <div class="flex justify-center gap-4">
+            <button onclick="proceedToNextPhase()" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
+              Continue
+            </button>
+            <button onclick="closeBusinessNameModal()" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 transition">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+      
+  
+
     <script>
         // icons
         document.addEventListener('DOMContentLoaded', function() {
@@ -109,9 +126,25 @@
         
         // handle name option selection
         function selectBusinessName(name) {
-            alert('You selected: ' + name + '\nMoving to the next phase...');
+            const modal = document.getElementById("businessNameModal");
+            const text = document.getElementById("businessNameText");
+            text.textContent = `You selected: "${name}". Moving to the next phase...`;
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
         }
-        
+
+        function closeBusinessNameModal() {
+            const modal = document.getElementById("businessNameModal");
+            modal.classList.remove("flex");
+            modal.classList.add("hidden");
+        }
+        function proceedToNextPhase() {
+        // If using Django, replace this with the appropriate URL or route
+        window.location.href = "{% url 'mod2t1t2t3' %}"; // Replace with actual URL or route
+        }
+
+
+
         // custome  name
         function submitCustomName() {
             const input = document.getElementById('businessNameInput');
@@ -124,5 +157,6 @@
             }
         }
     </script>
+    <script type="text/javaScript" src="{% static 'test1.js' %}"></script>
 </body>
 </html>
