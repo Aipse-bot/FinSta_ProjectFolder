@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="bg-[#2c2365] text-white min-h-screen flex items-center justify-center p-6">
+        <div class="bg-[#4a3c8d] rounded-xl p-8 w-full max-w-6xl shadow-xl border-4 border-purple-700">
+          <h2 class="text-center text-2xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-pink-400 text-black py-2 rounded-t-md">Fundraising</h2>
+          <p class="text-center mb-8 text-lg">Pitch your idea to your investor</p>
+      
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- BANK Column -->
+            <!-- TO DO: 
+                1.) MAKE THE ELEMENTS BIGGER (checkbox, ? icon, etc..)
+                2.) ALIGN THE ELEMENTS UNIFORMLY -->
+
+            <div class="bg-white text-black rounded-lg p-5 shadow-md">
+              <h3 class="text-xl font-extrabold text-center border-b pb-2 mb-4">BANK</h3>
+              <ul class="space-y-4">
+                <li class="flex justify-between items-center">
+                  <input type="checkbox" class="form-checkbox text-purple-600">
+                  <span>Micro loans</span>
+                  <span class="text-green-600 font-semibold">$20,000</span>
+                  <button class="text-gray-400">?</button>
+                </li>
+                <li class="flex justify-between items-center">
+                  <input type="checkbox" class="form-checkbox text-purple-600">
+                  <span>Equipment Financing</span>
+                  <span class="text-green-600 font-semibold">$5,000</span>
+                  <button class="text-gray-400">?</button>
+                </li>
+                <li class="flex justify-between items-center">
+                  <input type="checkbox" class="form-checkbox text-purple-600">
+                  <span>CDFI loans</span>
+                  <span class="text-green-600 font-semibold">$30,000</span>
+                  <button class="text-gray-400">?</button>
+                </li>
+              </ul>
+            </div>
+      
+            <!-- SAVINGS Column -->
+            <!-- TO DO: 
+                3.) MAKE THE ELEMENTS BIGGER (checkbox, ? icon, etc..)
+                4.) ALIGN THE ELEMENTS UNIFORMLY -->
+            <div class="bg-white text-black rounded-lg p-5 shadow-md">
+              <h3 class="text-xl font-extrabold text-center border-b pb-2 mb-4">SAVINGS</h3>
+              <ul class="space-y-4">
+                <li class="flex justify-between items-center">
+                  <input type="checkbox" class="form-checkbox text-purple-600">
+                  <span>Own Money</span>
+                  <span class="text-green-600 font-semibold">$5,000</span>
+                  <button class="text-gray-400">?</button>
+                </li>
+
+              </ul>
+            </div>
+      
+            <!-- INVESTOR Column -->
+            <!-- TO DO: 
+                5.) MAKE THE ELEMENTS BIGGER (checkbox, ? icon, etc..)
+                6.) ALIGN THE ELEMENTS UNIFORMLY -->
+            <div class="bg-white text-black rounded-lg p-5 shadow-md">
+              <h3 class="text-xl font-extrabold text-center border-b pb-2 mb-4">INVESTOR</h3>
+              <ul class="space-y-4">
+                <li class="flex justify-between items-center">
+                  <input type="checkbox" class="form-checkbox text-purple-600">
+                  <span>Family</span>
+                  <span class="text-green-600 font-semibold">$10,000</span>
+                  <button class="text-gray-400">?</button>
+                </li>
+                <li class="flex justify-between items-center">
+                  <input type="checkbox" class="form-checkbox text-purple-600">
+                  <span>Angel Investor</span>
+                  <span class="text-green-600 font-semibold">$25,000</span>
+                  <button class="text-gray-400">?</button>
+                </li>
+                <li class="flex justify-between items-center">
+                  <input type="checkbox" class="form-checkbox text-purple-600">
+                  <span>Small Private Investor</span>
+                  <span class="text-green-600 font-semibold">$10,000</span>
+                  <button class="text-gray-400">?</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+      
+          <!-- PITCH Button -->
+          <div class="flex justify-center mt-8">
+            <button class="bg-gray-400 hover:bg-gray-500 text-black font-bold py-3 px-8 rounded-full border-2 border-purple-500 shadow-md text-xl" data-bs-toggle="modal" data-bs-target="#pitch-modal">
+              PITCH!
+            </button>
+            
+        <!-- <button class="cursor-pointer bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" data-bs-toggle="modal" data-bs-target="#home-based-modal">
+            Do Market Research
+          </button> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- TO DO:
+        7.) ADD FUNCTIONALTY (js script) -->
+
+</body>
+</html>
+
+      <!-- Modal -->
+      <!-- <div class="modal fade" id="pitch-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Reviewing the Offer</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Your {bank/investor} offers a capital of {$money}.
+                With the expected {interest %  if from bank / percent % of profit if from investor}  
+            </div>
+            <div class="modal-body" style="display: none;" id="negotiate-option">
+                <h4>Negotiate</h4>
+                <br>
+                <label for="amount">Amount:</label>
+                <input type="text" id="amount" placeholder="$2000">
+                <br><br>
+                <label for="percent">Percent:</label>
+                <input type="text" id="percent" placeholder="20%">
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Deal</button>
+                <button type="button" class="btn btn-secondary" id="negotiateButton">Negotiate</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No Deal</button>
+
+
+            </div>
+            <script>
+                document.getElementById('negotiateButton').addEventListener('click', function() {
+                    // Show the hidden modal body
+                    document.getElementById('negotiateModal').style.display = 'block';
+                });
+            </script> 
+          </div>
+        </div>
+      </div> -->
+
+      <div class="modal fade" id="pitch-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Reviewing the Offer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Your {bank/investor} offers a capital of {$money}.
+                    With the expected {interest %  if from bank / percent % of profit if from investor}  
+                </div>
+                <div class="modal-body" style="display: none;" id="negotiate-option">
+                    <h4>Your Counter Offer</h4>
+                    <br>
+                    <label for="amount">Amount:</label>
+                    <input type="text" id="amount" placeholder="$2000">
+                    <br><br>
+                    <label for="percent">Percent:</label>
+                    <input type="text" id="percent" placeholder="20%">
+                </div>
+    
+                <div class="modal-footer" id="button-holder">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Deal</button>
+                    <button type="button" class="btn btn-secondary" id="negotiateButton">Negotiate</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No Deal</button>
+                </div>
+                <div class="modal-footer" id="counter-offer" style="display: none;">
+                    <button type="button" class="btn btn-warning">Offer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script>
+        // Show the hidden modal body when the Negotiate button is clicked
+        document.getElementById('negotiateButton').addEventListener('click', function() {
+            document.getElementById('negotiate-option').removeAttribute('style')
+            document.getElementById('button-holder').style.display = 'none';
+            document.getElementById('counter-offer').removeAttribute('style')
+        });
+    
+        // Reset the modal when it is closed
+        var pitchModal = new bootstrap.Modal(document.getElementById('pitch-modal'));
+        document.getElementById('pitch-modal').addEventListener('hidden.bs.modal', function () {
+            document.getElementById('negotiate-option').style.display = 'none'; // Hide the negotiate option when modal is closed
+            document.getElementById('button-holder').removeAttribute('style')
+            document.getElementById('counter-offer').style.display = 'none';
+
+        });
+    </script>
+    
