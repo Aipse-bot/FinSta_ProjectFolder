@@ -109,7 +109,7 @@ function openModal(optId){
         },
         {
             type: "Activewear Line",
-            descr: "reating stylish and functional gym and sports clothing for both comfort and performance.",
+            descr: "Creating stylish and functional gym and sports clothing for both comfort and performance.",
             suggested_name: [
                 "FlexFit Apparel",
                 "ActiVate",
