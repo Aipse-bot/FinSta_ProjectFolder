@@ -1,71 +1,70 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Ideation - Business Plan</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Document</title>
 </head>
-<body style="display: block; align-items: center;  padding-top: 100px; justify-content: space-evenly;" class="bg-purple-400">
-  
-    <div class="max-w-4xl mx-auto bg-gradient-to-tr from-green-300 to-purple-300 border-[6px] border-purple-700 rounded-xl shadow-xl p-6 text-center">
-        <h2 class="text-2xl font-bold text-purple-900 mb-4">{user name} Business Plan</h2>
-        <p class="text-lg text-purple-800 mb-6">
-            Thoroughly evaluate your business plan, as it will play a crucial role in securing specific types of financing and determining the overall success or failure of your journey.
-        </p>
-        
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-left">
-          <!-- Company Name -->
-          <div>
-            <p class="text-lg text-blue-800 font-semibold">COMPANY NAME</p>
-            <p class="text-lg font-bold text-gray-900 bg-white p-2 rounded-lg">{business name}</p>
-          </div>
+<body class="bg-[#1F2937] min-h-screen flex items-center justify-center font-sans">
+    <div class="container mx-auto px-4 py-12">
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-[#3B82F6]/10 rounded-xl shadow-lg p-8 border border-gray-200">
+                <a href="javascript:history.back()" class="inline-flex items-center text-[#E5E7EB] hover:text-[#22C55E] mb-6 transition-colors">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    Back
+                </a>
+                <h2 class="text-3xl font-bold text-center text-[#E5E7EB] mb-10">{user name} Business Plan</h2>
+                <p class="text-base text-[#E5E7EB] text-center mb-6">
+                    Thoroughly evaluate your business plan, as it will play a crucial role in securing specific types of financing and determining the overall success or failure of your journey.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center">
+                    <!-- Company Name -->
+                    <div class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm">
+                        <p class="text-base text-[#3B82F6] font-semibold">COMPANY NAME</p>
+                        <p class="text-lg font-bold text-[#1F2937] mt-2">{business name}</p>
+                    </div>
       
-          <!-- Location -->
-          <div>
-            <p class="text-lg text-blue-800 font-semibold">LOCATION</p>
-            <p class="text-lg font-bold text-gray-900 bg-white p-2 rounded-lg">{home-based/physcal store/commercial space}</p>
-          </div>
+                    <!-- Location -->
+                    <div class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm">
+                        <p class="text-base text-[#3B82F6] font-semibold">LOCATION</p>
+                        <p class="text-lg font-bold text-[#1F2937] mt-2">{home-based/physical store/commercial space}</p>
+                    </div>
       
-          <!-- Business type -->
-          <div>
-            <p class="text-lg text-blue-800 font-semibold">BUSINESS</p>
-            <p class="text-lg font-bold text-gray-900 bg-white p-2 rounded-lg">{business type}</p>
-          </div>
+                    <!-- Business Type -->
+                    <div class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm">
+                        <p class="text-base text-[#3B82F6] font-semibold">BUSINESS</p>
+                        <p class="text-lg font-bold text-[#1F2937] mt-2">{business type}</p>
+                    </div>
       
-          <!-- Market -->
-          <div>
-            <p class="text-lg text-blue-800 font-semibold">MARKET</p>
-            <p class="text-lg font-bold text-gray-900 bg-white p-2 rounded-lg">{target market}</p>
-          </div>
+                    <!-- Market -->
+                    <div class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm">
+                        <p class="text-base text-[#3B82F6] font-semibold">MARKET</p>
+                        <p class="text-lg font-bold text-[#1F2937] mt-2">{target market}</p>
+                    </div>
       
-          <!-- Business Goal -->
-          <div>
-            <p class="text-lg text-blue-800 font-semibold">BUSINESS GOAL</p>
-            <p class="text-lg font-bold text-gray-900 bg-white p-2 rounded-lg">{business goal}</p>
-          </div>
+                    <!-- Business Goal -->
+                    <div class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm">
+                        <p class="text-base text-[#3B82F6] font-semibold">BUSINESS GOAL</p>
+                        <p class="text-lg font-bold text-[#1F2937] mt-2">{business goal}</p>
+                    </div>
+                </div>
       
+                <div class="mt-8 flex justify-center space-x-4">
+                    <button class="bg-[#25c247] text-white font-semibold py-2 px-6 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300" onclick="proceed()">
+                        CONTINUE
+                    </button>
+                    <button class="bg-[#c22525] text-white font-semibold py-2 px-6 rounded-lg hover:bg-[#bf1717]/80 transition-all duration-300" onclick="reset()">
+                        RESET
+                    </button>
+                </div>
+            </div>
         </div>
-      
-        <div class="mt-6">
-            <button class="bg-purple-700 hover:bg-purple-400 text-white font-bold py-2 px-6 rounded-full" onclick="proceed()">
-                CONTINUE
-            </button>
-            <!-- Soft Gray -->
-            <button class="bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 px-6 rounded-full" onclick="reset()">
-                RESET
-            </button>
-  
-        </div>
-      </div>
-      <script>
-        function reset(){
-          window.location.href = "mod1t1t2"
-        }
-        function proceed(){
-          window.location.href = "mod3t1t2t3"
-        }
-      </script>
-      
+    </div>
+    <script type="text/javascript" src="{% static 'mod2_t4.js' %}"></script>
 </body>
 </html>
