@@ -1,0 +1,196 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Project Ideation Journey</title>
+</head>
+<body>
+    <div class="relative h-screen">
+        <!-- Sidebar -->
+        <div class="absolute top-0 left-0 w-1/3 bg-blue-900 text-white p-4 z-20 flex">
+            <div>
+                <nav class="w-full flex flex-col space-y-4">
+                    <div class="flex space-x-2">
+                      <div class="w-24 h-24 bg-amber-50 text-amber-950">{icon}</div>
+                      <div>
+                        <div class="text-3xl">{Business name}</div>
+                        <div class="text-2xl">{Business type}</div>
+                      </div>
+                    </div>
+        
+                    <div class="w-64 bg-gray-300 rounded-full h-6 overflow-hidden">
+                        <div class="bg-green-500 h-full" style="width: 50%"></div>
+                      </div>
+        
+
+                  </nav>
+            </div>
+            <div class=" m-2 w-1 bg-black"></div>
+
+            <div class="">
+                <div class="flex space-x-4">
+                    <div class="text-2xl"s>{quarter}</div>
+                    <div class="text-2xl">{balance}</div>
+                    <div class="text-2xl">{employees}</div>
+                  </div>
+                  <div class="text-2xl">{goals}</div>
+            </div>
+
+
+        </div>
+      
+        <!-- Main content -->
+        <main class="relative bg-green-300 p-8 z-10 h-full w-full ">
+          <h1 class="text-3xl font-semibold mb-4">Welcome to the Project Ideation Journey</h1>
+          <p class="text-gray-700">Start your business simulation by selecting an option from the sidebar.</p>
+        </main>
+      </div>
+      
+        <div class="absolute bottom-0 left-0 p-4 h-2/3 w-1/4 bg-amber-300 z-10">
+            <div class="text-3xl mb-2">Actions</div>
+
+            <div id="dropdown-1" onclick="openDropDown(1)" class="inline-block relative w-full border-2">
+                <!-- Button that triggers dropdown -->
+                <div id="operations-btn"  class="bg-blue-900 text-white px-4 py-2 w-full flex " >
+                    <div>{icon}</div>
+                    Operations
+                    <div>{dropdown icon}</div>
+                </div>
+                <!-- Dropdown menu -->
+                <div id="dropdownMenu1" class="hidden bg-white text-black rounded  w-full">
+                    <div onclick="openModal('{Step 1}')" class="block px-4 py-2 hover:bg-gray-100 w-full">{Step 1}</div>
+                    <div onclick="openModal('{Step 2}')" class="block px-4 py-2 hover:bg-gray-100 w-full">{Step 2}</div>
+                    <div onclick="openModal('{Step 3}')" class="block px-4 py-2 hover:bg-gray-100 w-full">{Step 3}</div>
+                    <div onclick="openModal('Engage with Customers')" class="block px-4 py-2 hover:bg-gray-100 w-full">Engage with Customers</div>
+                    <div onclick="openModal('Post on Social Media')" class="block px-4 py-2 hover:bg-gray-100 w-full">Post on Social Media</div>
+                </div>
+            </div>
+            <div id="dropdown-2" onclick="openDropDown(2)" class="inline-block relative w-full border-2">
+                <!-- Button that triggers dropdown -->
+
+                <div id="operations-btn"  class="bg-blue-900 text-white px-4 py-2 w-full flex " >
+                    <div>{icon}</div>
+                    Hire people
+                    <div>{dropdown icon}</div>
+                </div>
+                <!-- Dropdown menu -->
+                <div id="dropdownMenu2" class="hidden bg-white text-black rounded  w-full">
+                    <div onclick="openModal('Local Outreach')" class="block px-4 py-2 hover:bg-gray-100">Local Outreach</div>
+                    <div onclick="openModal('Online Websites')" class="block px-4 py-2 hover:bg-gray-100">Online Websites</div>
+                    <div onclick="openModal('Recruiter')" class="block px-4 py-2 hover:bg-gray-100">Recruiter</div>
+                    <div onclick="openModal('Fire a Person')" class="block px-4 py-2 hover:bg-gray-100">Fire a Person</div>
+                </div>
+            </div>
+            <div id="dropdown-3" onclick="openDropDown(3)" class="inline-block relative w-full border-2">
+                <!-- Button that triggers dropdown -->
+
+                <div id="operations-btn"  class="bg-blue-900 text-white px-4 py-2 w-full flex " >
+                    <div>{icon}</div>
+                    Hire services
+                    <div>{dropdown icon}</div>
+                </div>
+                <!-- Dropdown menu -->
+                <div id="dropdownMenu3" class="hidden bg-white text-black rounded  w-full">
+                    <div onclick="openModal('Hire a Lawyer')" class="block px-4 py-2 hover:bg-gray-100">Hire a Lawyer</div>
+                    <div onclick="openModal('Purchase Business Insurance')" class="block px-4 py-2 hover:bg-gray-100">Purchase Business Insurance</div>
+                    <div onclick="openModal('Marketing')" class="block px-4 py-2 hover:bg-gray-100">Marketing</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-0 right-0 p-0 h-1/2 w-1/5 bg-amber-500 z-10 overflow-y-auto ">
+            <div class="text-3xl m-4 bg-amber-600">Business Activity Log</div>
+            <div id="activity-log" class="">
+
+            </div>
+        </div>
+    
+
+
+<!-- Action Modal -->
+<div id="modalBackdrop" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <!-- Modal Box -->
+  <div class="bg-white rounded-lg shadow-lg w-96 p-6">
+    <h2 class="text-xl font-semibold mb-4"></h2>
+    <p class="text-gray-700 mb-4">This is the modal content.</p>
+    <div class="text-right">
+      <button onclick="closeModal()" class="bg-blue-500 text-white px-4 py-2 rounded">
+        Do it
+      </button>
+      <button onclick="closeModal()" class="bg-red-500 text-white px-4 py-2 rounded">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Background Overlay (Hidden initially) -->
+<div id="randomModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+  <!-- Modal Container -->
+  <div class="flex items-center justify-center h-full">
+      <!-- Modal Box -->
+      <div class="bg-white rounded-lg shadow-lg w-96 p-6">
+          <h2 class="text-xl font-semibold mb-4"></h2>
+          <p class="text-gray-700 mb-4">This is the modal content.</p>
+          <div class="text-right">
+              <button onclick="closeModalRandomModal()" class="bg-gray-500 text-white px-4 py-2 rounded">
+                  Confirm
+              </button>
+          </div>
+      </div>
+  </div>
+</div>
+  
+          
+<script>
+    function openDropDown(n){
+     let el = document.getElementById(`dropdownMenu${n}`)
+     el.classList.toggle('hidden')
+    }
+    function openModal(str) {
+     let modal = document.getElementById('modalBackdrop')
+     modal.querySelector('h2').textContent = str
+     modal.classList.remove('hidden');
+     businessLog(str);
+    }
+ 
+    function closeModal() {
+     document.getElementById('modalBackdrop').classList.add('hidden');
+    //random scenario
+    const randomNumber = Math.floor(Math.random() * 100) + 1; // 1–100
+    if (randomNumber <= 50) { // 50% chance
+        openRandomModal();
+    }
+     
+    }
+    function openRandomModal() {
+        setTimeout(() => {
+            let modal = document.getElementById('randomModal');
+            modal.querySelector('h2').textContent = "Random Event";
+            modal.classList.remove('hidden');
+        }, 700); // 2000 milliseconds = 2 seconds delay
+    }
+
+    function closeModalRandomModal() {
+     document.getElementById('randomModal').classList.add('hidden');
+     businessLog("Event")
+    }
+
+    function businessLog(action){
+    let log = document.getElementById('activity-log');
+
+    let newEntry = document.createElement("div");
+    newEntry.className = "bg-amber-200 w-full border-t-2 border-b-2 border-black text-2xl mt-0 p-4";
+    newEntry.textContent = action;
+
+    log.appendChild(newEntry);
+
+    // Auto-scroll to the latest entry
+    log.scrollTop = log.scrollHeight;
+}
+ </script>      
+</body>
+</html>

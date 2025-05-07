@@ -66,8 +66,9 @@ function continueAction() {
     const selectedLocationData = locationData[current_open_modal_id];
     sessionStorage.setItem('location', selectedLocationData.location);
     sessionStorage.setItem('targetMarket', selectedLocationData.targetMarket);
-
+    updatePlayerProperty("businessLocation", selectedLocationData.location)
     console.log("Continue action triggered.");
     closeModal();  // Close the modal after the action
-    window.location.href = "mod2t4";
+    printPlayerInfo()
+    //window.location.href = "mod2t4";
 }

@@ -1,6 +1,7 @@
+let name = null;
+// icons
 document.addEventListener('DOMContentLoaded', function() {
     feather.replace();
-    checkInput();
 });
 
 function checkInput() {
@@ -18,42 +19,42 @@ function checkInput() {
     }
 }
 
-let selectedBusinessName = ""; // temp var kay di jd mo sud
-
-function selectBusinessName(name) {
-    selectedBusinessName = name; // Store the name temporarily
+// handle name option selection
+function selectBusinessName(str) {
+    name = str;
     const modal = document.getElementById("businessNameModal");
     const text = document.getElementById("businessNameText");
-    text.innerHTML = `"<strong>${name}</strong>". Proceed?`;
+    text.innerHTML = `"<strong>${str}</strong>". Proceed?`;
     modal.classList.remove("hidden");
     modal.classList.add("flex");
-}
-
-function proceedToNextPhase() {
-    if (selectedBusinessName) {
-        // Store the business name in sessionStorage only when the user confirms
-        sessionStorage.setItem('option3', selectedBusinessName);
-        console.log("Business name stored:", selectedBusinessName);
-    }
-    window.location.href = "mod2t1t2t3";
 }
 
 function closeBusinessNameModal() {
     const modal = document.getElementById("businessNameModal");
     modal.classList.remove("flex");
     modal.classList.add("hidden");
-    selectedBusinessName = ""; // Clear the temporary variable if the user cancels
 }
 
+function proceedToNextPhase() {
+    if(name==null){
+        console.log("name: null")
+        return;
+    }
+    updatePlayerProperty("businessName",name)
+    printPlayerInfo()
+    //window.location.href = "{% url 'mod2t1t2t3' %}";
+}
+
+// custom name
 function submitCustomName() {
     const input = document.getElementById('businessNameInput');
-    const name = input.value.trim();
+    const str = input.value.trim();
     
-    if (name !== '') {
-        selectedBusinessName = name; // Store the custom name temporarily
+    if (str !== '') {
         const modal = document.getElementById("businessNameModal");
         const text = document.getElementById("businessNameText");
-        text.innerHTML = `"<strong>${name}</strong>". Proceed?`;
+        text.innerHTML = `"<strong>${str}</strong>". Proceed?`;
+        updatePlayerProperty("businessName",name)
         modal.classList.remove("hidden");
         modal.classList.add("flex");
     } else {

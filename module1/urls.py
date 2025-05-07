@@ -10,5 +10,6 @@ urlpatterns = [
     path('mod2t4', views.module2_t4, name='mod2t4'),
     path('mod3t1t2t3', views.module3_t1_t2_t3, name='mod3t1t2t3'),
     path('mod3t4', views.module3_t4, name='mod3t4'),
+    path('mod4t1', views.module4_t1, name='mod4t1'),
 
 ]

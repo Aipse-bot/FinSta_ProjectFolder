@@ -79,7 +79,8 @@
         </div>
     </div>
       
-    <script type="text/javascript" src="{% static 'mod1_t3.js' %}"></script> 
+    <script type="text/javascript" src="{% static 'mod1_t3.js' %}?v={{now}}"></script> 
+    <script type="text/javascript" src="{% static 'player.js' %}?v={{now}}"></script> 
     <!-- icons -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {

@@ -22,15 +22,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const location = sessionStorage.getItem('location'); // Location type
     const targetMarket = sessionStorage.getItem('targetMarket'); // Target market
 
+    // Retrieve player data from sessionStorage
+    let storedPlayer = JSON.parse(sessionStorage.getItem("playerData"));
     const userName = "User";
 
     const businessType = option1 !== null && businessTypes[parseInt(option1)] ? businessTypes[parseInt(option1)] : "Not Selected";
 
     console.log("Retrieved Values:");
-    console.log("Option1 (Business Type Index):", option1);
-    console.log("Business Goal (option2):", businessGoal);
-    console.log("Business Name (option3):", businessName);
-    console.log("Location:", location);
+    console.log("Option1 (Business Type Index):", storedPlayer.businessType);
+    console.log("Business Goal (option2):", storedPlayer.businessGoal);
+    console.log("Business Name (option3):", storedPlayer.businessName);
+    console.log("Location:", storedPlayer.businessLocation);
     console.log("Target Market:", targetMarket);
 
     const userNameElements = document.querySelectorAll('h2');
@@ -45,15 +47,15 @@ document.addEventListener('DOMContentLoaded', function() {
     businessNameElements.forEach(p => {
         if (p.innerText.includes('{business name}')) {
             console.log("Replacing business name with:", businessName || "Not Selected");
-            p.innerText = p.innerText.replace('{business name}', businessName || "Not Selected");
+            p.innerText = p.innerText.replace('{business name}', storedPlayer.businessName || "Not Selected");
             p.classList.add('business-name');
         }
         if (p.innerText.includes('{home-based/physical store/commercial space}')) {
-            p.innerText = p.innerText.replace('{home-based/physical store/commercial space}', location || "Not Selected");
+            p.innerText = p.innerText.replace('{home-based/physical store/commercial space}', storedPlayer.businessLocation || "Not Selected");
             p.classList.add('location');
         }
         if (p.innerText.includes('{business type}')) {
-            p.innerText = p.innerText.replace('{business type}', businessType);
+            p.innerText = p.innerText.replace('{business type}', storedPlayer.businessType);
             p.classList.add('business-type');
         }
         if (p.innerText.includes('{target market}')) {
@@ -61,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
             p.classList.add('target-market');
         }
         if (p.innerText.includes('{business goal}')) {
-            p.innerText = p.innerText.replace('{business goal}', businessGoal || "Not Selected");
+            p.innerText = p.innerText.replace('{business goal}', storedPlayer.businessGoal || "Not Selected");
             p.classList.add('business-goal');
         }
     });

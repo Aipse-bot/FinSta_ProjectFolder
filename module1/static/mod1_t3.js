@@ -23,6 +23,8 @@ function showConfirmationModal() {
 function confirmRedirect() {
     // Store the selected goal in sessionStorage as option2
     sessionStorage.setItem('option2', selectedGoal);
+    updatePlayerProperty("businessGoal", selectedGoal)
+    printPlayerInfo()
     window.location.href = redirectUrl;
 }
 

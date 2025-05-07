@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,38 +16,99 @@
         <div class="bg-[#4a3c8d] rounded-xl p-8 w-full max-w-6xl shadow-xl border-4 border-purple-700">
           <a href="javascript:history.back()" class="inline-flex items-center text-white hover:text-gray-900 mb-6 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left w-4 h-4 mr-2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-            Back to goals
+            Go back
         </a>
           <h2 class="text-center text-2xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-pink-400 text-black py-2 rounded-t-md">Fundraising</h2>
           <p class="text-center mb-8 text-lg">Pick Your Repayment Options</p>
       
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-            <div class="bg-white text-black rounded-lg p-5 shadow-md hover:shadow-lg hover:ring-2 hover:ring-purple-300 transform hover:-translate-y-1 transition duration-300">
+            <div id="1" class="bg-white text-black rounded-lg p-5 shadow-md hover:shadow-lg hover:ring-2 hover:ring-purple-300 transform hover:-translate-y-1 transition duration-300" onclick="pick(id)">
               <h3 class="text-xl font-extrabold text-center border-b pb-2 mb-4">Option A</h3>
               <p><strong>Repayment Term:</strong> 3 years</p>
               <p><strong>Payment Frequency:</strong> Every 3 months (Quarterly)</p>
               <small class="text-gray-500 italic">More frequent payments, but you're debt-free faster.</small>
             </div>
             
-            
-      
-            <div class="bg-white text-black rounded-lg p-5 shadow-md hover:shadow-lg hover:ring-2 hover:ring-purple-300 transform hover:-translate-y-1 transition duration-300">
+            <div id="2" class="bg-white text-black rounded-lg p-5 shadow-md hover:shadow-lg hover:ring-2 hover:ring-purple-300 transform hover:-translate-y-1 transition duration-300" onclick="pick(id)">
               <h3 class="text-xl font-extrabold text-center border-b pb-2 mb-4">Option B</h3>
               <p><strong>Repayment Term:</strong> 6 years</p>
               <p><strong>Payment Frequency:</strong> Every 6 months (Semi-Annually)</p>
               <small class="text-gray-500 italic">Fewer payments than quarterly, with a balanced repayment time.</small>
             </div>
       
-            <div class="bg-white text-black rounded-lg p-5 shadow-md hover:shadow-lg hover:ring-2 hover:ring-purple-300 transform hover:-translate-y-1 transition duration-300">
+            <div id="3" class="bg-white text-black rounded-lg p-5 shadow-md hover:shadow-lg hover:ring-2 hover:ring-purple-300 transform hover:-translate-y-1 transition duration-300" onclick="pick(id)">
               <h3 class="text-xl font-extrabold text-center border-b pb-2 mb-4">Option C</h3>
               <p><strong>Repayment Term:</strong> 10 years</p>
               <p><strong>Payment Frequency:</strong> Every 12 months (Annually)</p>
-              <small class="text-gray-500 italic">Least frequent payments, but you’ll carry the debt the longest.</small>
+              <small class="text-gray-500 italic">Least frequent payments, but you'll carry the debt the longest.</small>
             </div>
           </div>
 
         </div>
       </div>
+
+    <script>
+    </script>
+
+            <!-- confirmation modal -->
+            <div id="confirmation-modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
+              <div class="bg-white p-6 rounded-lg shadow-lg w-1/5 h-fit">
+                  <h2 class="text-2xl font-semibold">Are you sure?</h2>
+                  <!-- Horizontal Bar -->
+                  <hr class="border-t border-b-gray-700 mt-2 mb-2">
+                  <p class="text-xl text-black">Is this the payment option you want? Remember this will greatly affect the success of you business.</p>
+                  <br>
+                  <!-- Close Button -->
+                  <div class="flex justify-end mt-4">
+                      <button type="button" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" onclick="deal()">Deal</button>
+                      <button id="close-modal" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                          Close
+                      </button>
+                  </div>
+              </div>
+          </div>
+
+      <script type="text/javascript" src="{% static 'player.js' %}?v={{ now }}"></script>
+
+      <script>
+        let paymentType = null
+        let paymentOptions = [
+            { term: 36, frequency: 3 },
+            { term: 72, frequency: 6 },
+            { term: 120, frequency: 12 }
+        ]; 
+        
+        function pick(n) {
+            paymentType = paymentOptions[n - 1];
+            console.log(paymentType); // Debugging
+        
+            let confirmationModal = document.getElementById("confirmation-modal");
+            let modalText = confirmationModal.querySelector("p.text-xl");
+        
+            if (!confirmationModal || !modalText) {
+                console.error("Modal or content not found!");
+                return;
+            }
+        
+            // Update modal content dynamically
+            modalText.textContent = `You chose ${paymentType.term/12} years with payments every ${paymentType.frequency} months.`;
+            // Show the modal
+            confirmationModal.classList.remove("hidden");
+        }
+        function deal(){
+          if(paymentType==null){
+            console.log("null")
+            return
+          }
+            updatePlayerProperty("repaymentOption",paymentType)
+            //TODO: delay the redirect (loading screen needed)--------------------------------------------<>
+            window.location.href = "mod4t1"
+        } 
+        // Fix close button function
+        document.getElementById("close-modal").addEventListener("click", function () {
+            document.getElementById("confirmation-modal").classList.add("hidden");
+        });
+        </script>
 </body>
 </html>

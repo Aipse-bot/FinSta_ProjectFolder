@@ -25,3 +25,6 @@ def module3_t1_t2_t3(request):
 
 def module3_t4(request):
     return render(request, "mod3_t4.html")
+
+def module4_t1(request):
+    return render(request, "mod4_t1.html")
