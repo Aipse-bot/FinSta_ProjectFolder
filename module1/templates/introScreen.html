@@ -34,12 +34,15 @@
     <!-- Modal (Hidden by Default) -->
     <div id="nameModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <div class="bg-gray-800 p-6 rounded-lg shadow-lg text-center relative">
-            <h2 class="text-2xl font-bold mb-4">Whar is your Name?</h2>
-            <input type="text" id="playerName" class="w-full p-3 rounded bg-gray-700 text-white mb-4"
-                placeholder="Your name..." />
-            <button onclick="submitName()" class="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded">
-                Confirm
-            </button>
+            <h2 class="text-2xl font-bold mb-4 mt-3">Whar is your Name?</h2>
+                <form id="nameForm" method="POST" action="{% url 'save_player_name' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded">
+                        Confirm
+                    </button>
+                </form>
+
             <button onclick="closeModal()" class="absolute top-2 right-2 text-gray-400 hover:text-white text-lg">
                 ✖
             </button>
@@ -53,17 +56,6 @@
 
         function closeModal() {
             document.getElementById("nameModal").classList.add("hidden");
-        }
-
-        function submitName() {
-            let playerName = document.getElementById("playerName").value;
-            if (playerName.trim() === "") {
-                alert("Please enter a name!");
-                return;
-            }
-            console.log("Player Name:", playerName);
-            alert("Name saved! Proceeding to the next step...");
-            closeModal(); // Hides modal after confirming name
         }
     </script>
 
