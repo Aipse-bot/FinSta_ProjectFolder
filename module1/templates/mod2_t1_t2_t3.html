@@ -7,27 +7,26 @@
     <title>Project Ideation - Business Type</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#1F2937] min-h-screen flex items-center justify-center font-sans">
-    <div class="container mx-auto px-4 py-12">
-        <div class="max-w-5xl mx-auto">
-            <h3 class="text-3xl font-bold text-center text-[#E5E7EB] mb-10">Where would you like to start your journey?</h3>
+<body class="bg-[#1F2937] min-h-screen font-sans">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-4xl font-bold text-center text-[#E5E7EB] mb-10">Where would you like to start your journey?</h3>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Home-Based Business -->
-                <div class="max-w-sm bg-[#E5E7EB] rounded-xl shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 p-6 relative">
-                    <img src="{% static 'module1/images/laptop.png' %}" alt="Laptop icon" class="absolute w-16 h-16 bg-white rounded-lg shadow top-[120px] right-9 z-10">
-                    <div class="w-full h-32 rounded-lg mb-4 overflow-hidden">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="bg-[#E5E7EB] rounded-xl shadow-lg hover:shadow-xl hover:border-[#22C55E] transition-all duration-300 p-6 relative">
+                    <img src="{% static 'module1/images/laptop.png' %}" alt="Laptop icon" class="absolute w-16 h-16 bg-white rounded-lg shadow top-[120px] right-8 z-10">
+                    <div class="w-full h-36 rounded-lg mb-4 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Home office" class="w-full h-full object-cover">
                     </div>
-                    <div class="text-xl font-bold text-[#1F2937]">HOME-BASED</div>
-                    <div class="text-sm text-[#3B82F6] font-semibold">$2000 - $10000 / MONTH</div>
-                    <p class="text-sm text-[#1F2937] mt-2 h-40">
+                    <div class="text-xl font-bold text-[#1F2937] mb-1">HOME-BASED</div>
+                    <div class="text-sm text-[#3B82F6] font-semibold mb-3">$2000 - $10000 / MONTH</div>
+                    <p class="text-sm text-[#1F2937] mt-2 mb-4">
                         A home-based business is a company run from the owner's home, offering flexibility and low startup costs. 
                         It often includes freelancing, e-commerce, or consulting, allowing entrepreneurs to manage their schedules and reduce overhead expenses. 
                         However, challenges like limited growth potential and distractions may arise.
                     </p>
                     <span class="text-sm font-semibold text-[#1F2937]">Target Market</span>
-                    <ul class="list-disc pl-5 space-y-1 text-[#1F2937] text-sm">
+                    <ul class="list-disc pl-5 space-y-1 text-[#1F2937] text-sm my-2">
                         <li>Teens and young adults</li>
                         <li>Small businesses</li>
                         <li>Event organizers</li>
@@ -64,25 +63,25 @@
                     <div class="mt-4 text-[#3B82F6] font-semibold text-sm">
                         3 Employees max
                     </div>
-                    <button class="mt-4 bg-[#25c247] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300" onclick="openModal('home-based-modal')">
+                    <button class="mt-4 w-full bg-[#25c247] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300" onclick="openModal('home-based-modal')">
                         Do Market Research
                     </button>
                 </div>
 
                 <!-- Physical Store -->
-                <div class="max-w-sm bg-[#E5E7EB] rounded-xl shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 p-6 relative">
-                    <img src="{% static 'module1/images/shoppingbag.png' %}" alt="Shopping bag icon" class="absolute w-16 h-16 bg-white rounded-lg shadow top-[120px] right-9 z-10">
-                    <div class="w-full h-32 rounded-lg mb-4 overflow-hidden">
+                <div class="bg-[#E5E7EB] rounded-xl shadow-lg hover:shadow-xl hover:border-[#22C55E] transition-all duration-300 p-6 relative">
+                    <img src="{% static 'module1/images/shoppingbag.png' %}" alt="Shopping bag icon" class="absolute w-16 h-16 bg-white rounded-lg shadow top-[120px] right-8 z-10">
+                    <div class="w-full h-36 rounded-lg mb-4 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8" alt="Retail store" class="w-full h-full object-cover">
                     </div>
-                    <div class="text-xl font-bold text-[#1F2937]">PHYSICAL STORE</div>
-                    <div class="text-sm text-[#3B82F6] font-semibold">$5000 - $20,000 / MONTH</div>
-                    <p class="text-sm text-[#1F2937] mt-2 h-40">
+                    <div class="text-xl font-bold text-[#1F2937] mb-1">PHYSICAL STORE</div>
+                    <div class="text-sm text-[#3B82F6] font-semibold mb-3">$5000 - $20,000 / MONTH</div>
+                    <p class="text-sm text-[#1F2937] mt-2 mb-4">
                         Physical store businesses are brick-and-mortar establishments where products or services are sold directly to customers. 
                         These businesses operate from a fixed location, such as a retail shop, restaurant, or boutique, and rely on in-person transactions and customer interaction.
                     </p>
                     <span class="text-sm font-semibold text-[#1F2937]">Target Market</span>
-                    <ul class="list-disc pl-5 space-y-1 text-[#1F2937] text-sm">
+                    <ul class="list-disc pl-5 space-y-1 text-[#1F2937] text-sm my-2">
                         <li>Professionals needing bespoke suits</li>
                         <li>Fashion-forward individuals</li>
                         <li>High-income earners</li>
@@ -119,25 +118,25 @@
                     <div class="mt-4 text-[#3B82F6] font-semibold text-sm">
                         10 Employees max
                     </div>
-                    <button class="mt-4 bg-[#25c247] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300" onclick="openModal('physical-store-modal')">
+                    <button class="mt-4 w-full bg-[#25c247] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300" onclick="openModal('physical-store-modal')">
                         Do Market Research
                     </button>
                 </div>
 
                 <!-- Commercial Space -->
-                <div class="max-w-sm bg-[#E5E7EB] rounded-xl shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 p-6 relative">
-                    <img src="{% static 'module1/images/building.png' %}" alt="Building icon" class="absolute w-16 h-16 bg-white rounded-lg shadow top-[120px] right-9 z-10">
-                    <div class="w-full h-32 rounded-lg mb-4 overflow-hidden">
+                <div class="bg-[#E5E7EB] rounded-xl shadow-lg hover:shadow-xl hover:border-[#22C55E] transition-all duration-300 p-6 relative">
+                    <img src="{% static 'module1/images/building.png' %}" alt="Building icon" class="absolute w-16 h-16 bg-white rounded-lg shadow top-[120px] right-8 z-10">
+                    <div class="w-full h-36 rounded-lg mb-4 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab" alt="Office building" class="w-full h-full object-cover">
                     </div>
-                    <div class="text-xl font-bold text-[#1F2937]">COMMERCIAL SPACE</div>
-                    <div class="text-sm text-[#3B82F6] font-semibold">$7000 - $25,000 / MONTH</div>
-                    <p class="text-sm text-[#1F2937] mt-2 h-40">
+                    <div class="text-xl font-bold text-[#1F2937] mb-1">COMMERCIAL SPACE</div>
+                    <div class="text-sm text-[#3B82F6] font-semibold mb-3">$7000 - $25,000 / MONTH</div>
+                    <p class="text-sm text-[#1F2937] mt-2 mb-4">
                         Commercial space businesses involve renting or leasing properties that are used for business purposes, such as office buildings, retail spaces, or industrial facilities. 
                         These businesses cater to organizations or individuals who need a physical location for operations, offering a range of services from leasing to property management.
                     </p>
                     <span class="text-sm font-semibold text-[#1F2937]">Target Market</span>
-                    <ul class="list-disc pl-5 space-y-1 text-[#1F2937] text-sm">
+                    <ul class="list-disc pl-5 space-y-1 text-[#1F2937] text-sm my-2">
                         <li>Working professionals</li>
                         <li>Stress-relief seekers</li>
                         <li>Health-conscious individuals</li>
@@ -174,7 +173,7 @@
                     <div class="mt-4 text-[#3B82F6] font-semibold text-sm">
                         20 Employees max
                     </div>
-                    <button class="mt-4 bg-[#25c247] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300" onclick="openModal('commercial-space-modal')">
+                    <button class="mt-4 w-full bg-[#25c247] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300" onclick="openModal('commercial-space-modal')">
                         Do Market Research
                     </button>
                 </div>

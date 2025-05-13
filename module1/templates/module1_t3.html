@@ -9,71 +9,80 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
-<body class="bg-[#1F2937] min-h-screen flex items-center justify-center font-sans">
-    <div class="container mx-auto px-4 py-12">
-        <div class="max-w-5xl mx-auto">
-            <div class="bg-[#3B82F6]/10 rounded-xl shadow-lg p-8 border border-gray-200">
-                <a href="javascript:history.back()" class="inline-flex items-center text-[#E5E7EB] hover:text-[#22C55E] mb-6 transition-colors">
-                    <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
-                    Back
-                </a>
-                <h1 class="text-3xl font-bold text-center text-[#E5E7EB] mb-10">Select your Business Goals</h1>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div id="goal-opt1"
-                         data-url="{% url 'module1t4' %}" 
-                         onclick="showConfirmationModal()"
-                         class="bg-[#E5E7EB] rounded-xl p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 cursor-pointer">
-                        <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
-                                <i data-feather="trending-up" class="w-6 h-6 text-[#1F2937]"></i>
-                            </div>
-                            <h3 class="ml-4 text-xl font-semibold text-[#1F2937]">Increase Market Reach</h3>
+<body class="bg-[#1F2937] min-h-screen font-sans">
+    <div class="container mx-auto px-4 py-8">
+        <div class="relative flex items-center justify-center mb-16">
+            <a href="javascript:history.back()" class="absolute left-0 inline-flex items-center text-[#E5E7EB] hover:text-[#22C55E] transition-colors">
+                <i data-feather="arrow-left" class="w-6 h-6 mr-2"></i>
+                <span class="text-lg">Back</span>
+            </a>
+            
+            <h1 class="text-5xl font-bold text-center text-[#E5E7EB]">Select your Business Goals</h1>
+        </div>
+        
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div id="goal-opt1"
+                     data-url="{% url 'module1t4' %}" 
+                     onclick="showConfirmationModal()"
+                     class="bg-[#E5E7EB] rounded-xl p-10 shadow-xl hover:shadow-2xl hover:border-[#22C55E] transition-all duration-300 cursor-pointer min-h-[450px] flex flex-col">
+                    <div class="flex items-center mb-8">
+                        <div class="w-20 h-20 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
+                            <i data-feather="trending-up" class="w-10 h-10 text-[#1F2937]"></i>
                         </div>
-                        <p class="text-[#1F2937] text-sm">Expand brand presence by targeting new customer segments and increasing online visibility through digital marketing and outreach campaigns.</p>
+                        <h3 class="ml-5 text-3xl font-semibold text-[#1F2937]">Increase Market Reach</h3>
                     </div>
-
-                    <div id="goal-opt2" 
-                         data-url="{% url 'module1t4' %}" 
-                         onclick="showConfirmationModal()"
-                         class="bg-[#E5E7EB] rounded-xl p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 cursor-pointer">
-                        <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
-                                <i data-feather="settings" class="w-6 h-6 text-[#1F2937]"></i>
-                            </div>
-                            <h3 class="ml-4 text-xl font-semibold text-[#1F2937]">Optimize Operations</h3>
-                        </div>
-                        <p class="text-[#1F2937] text-sm">Improve internal processes by automating workflows, reducing overhead costs, and enhancing employee efficiency through better tools and training.</p>
-                    </div>
-
-                    <div id="goal-opt3" 
-                         data-url="{% url 'module1t4' %}" 
-                         onclick="showConfirmationModal()"
-                         class="bg-[#E5E7EB] rounded-xl p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 cursor-pointer">
-                        <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
-                                <i data-feather="dollar-sign" class="w-6 h-6 text-[#1F2937]"></i>
-                            </div>
-                            <h3 class="ml-4 text-xl font-semibold text-[#1F2937]">Boost Profitability</h3>
-                        </div>
-                        <p class="text-[#1F2937] text-sm">Increase revenue and net profits by optimizing pricing strategies, expanding product offerings, and improving customer retention rates.</p>
-                    </div>
+                    <p class="text-[#1F2937] text-lg flex-grow leading-relaxed">
+                        Expand your brand's presence by targeting new customer segments and enhancing online visibility through digital marketing and outreach campaigns. According to Investopedia, digital marketing significantly boosts online visibility, with 45% of consumers likely to visit a physical location after an online search (Investopedia). Strategies include building a robust social media presence, implementing search engine optimization (SEO) to improve website rankings, and forming partnerships with complementary businesses to access their customer bases.
+                        By broadening your market reach, you create more growth opportunities and position your business as an industry leader. 
+                        
                 </div>
-                
-                {% csrf_token %}
+
+                <div id="goal-opt2" 
+                     data-url="{% url 'module1t4' %}" 
+                     onclick="showConfirmationModal()"
+                     class="bg-[#E5E7EB] rounded-xl p-10 shadow-xl hover:shadow-2xl hover:border-[#22C55E] transition-all duration-300 cursor-pointer min-h-[450px] flex flex-col">
+                    <div class="flex items-center mb-8">
+                        <div class="w-20 h-20 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
+                            <i data-feather="settings" class="w-10 h-10 text-[#1F2937]"></i>
+                        </div>
+                        <h3 class="ml-5 text-3xl font-semibold text-[#1F2937]">Optimize Operations</h3>
+                    </div>
+                    <p class="text-[#1F2937] text-lg flex-grow leading-relaxed">
+                        Enhance internal processes by automating workflows, reducing overhead costs, and boosting employee efficiency with advanced tools and training. PNC Insights suggests that optimizing operations involves assessing cost structures to eliminate unnecessary expenses and automating repetitive tasks to improve efficiency (PNC Insights). This strategy streamlines operations, minimizing waste and errors while maximizing productivity.
+                        Implementing these improvements fosters an agile business capable of adapting swiftly to market shifts while maintaining high quality and service standards. Operational excellence enables efficient delivery of products and services, enhancing customer satisfaction and loyalty.
+                        
+                </div>
+
+                <div id="goal-opt3" 
+                     data-url="{% url 'module1t4' %}" 
+                     onclick="showConfirmationModal()"
+                     class="bg-[#E5E7EB] rounded-xl p-10 shadow-xl hover:shadow-2xl hover:border-[#22C55E] transition-all duration-300 cursor-pointer min-h-[450px] flex flex-col">
+                    <div class="flex items-center mb-8">
+                        <div class="w-20 h-20 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
+                            <i data-feather="dollar-sign" class="w-10 h-10 text-[#1F2937]"></i>
+                        </div>
+                        <h3 class="ml-5 text-3xl font-semibold text-[#1F2937]">Boost Profitability</h3>
+                    </div>
+                    <p class="text-[#1F2937] text-lg flex-grow leading-relaxed">
+                        Boost revenue and net profits by refining pricing strategies, diversifying product offerings, and enhancing customer retention rates. HubSpot reports that a 5% increase in customer retention can increase company revenue by 25-95% (HubSpot). Optimizing pricing and expanding product lines are also key tactics to improve financial performance.
+                        Focusing on profitability ensures your business remains financially sustainable, equipped to invest in future growth and resilient against economic fluctuations. This involves analyzing cost structures to identify expense reduction opportunities without compromising quality or customer satisfaction. 
+                </div>
             </div>
+            
+            {% csrf_token %}
         </div>
     </div>
 
     <!-- Confirmation Modal -->
     <div id="confirmationModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
         <div class="flex items-center justify-center min-h-screen">
-            <div class="bg-[#E5E7EB] border border-[#62666e] rounded-xl shadow-lg p-6 w-96 mx-auto">
-                <h2 class="text-xl font-semibold text-[#1F2937] mb-4">Confirm Selection</h2>
-                <p class="text-[#1F2937] text-base mb-6">Are you sure you want to choose <strong>"Increase Market Reach"</strong>?</p>
+            <div class="bg-[#E5E7EB] border border-[#62666e] rounded-xl shadow-lg p-8 w-[500px] mx-auto">
+                <h2 class="text-2xl font-semibold text-[#1F2937] mb-6">Confirm Selection</h2>
+                <p class="text-[#1F2937] text-lg mb-8">Are you sure you want to choose <strong>"Increase Market Reach"</strong>?</p>
                 <div class="flex justify-between">
-                    <button onclick="closeModal()" class="bg-[#c22525] text-white px-4 py-2 rounded-lg hover:bg-[#bf1717]/80 transition-all duration-300">Cancel</button>
-                    <button onclick="confirmRedirect()" class="bg-[#25c247] text-white px-4 py-2 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300">Yes, Proceed</button>
+                    <button onclick="closeModal()" class="bg-[#c22525] text-white px-6 py-3 rounded-lg hover:bg-[#bf1717]/80 transition-all duration-300 text-lg">Cancel</button>
+                    <button onclick="confirmRedirect()" class="bg-[#25c247] text-white px-6 py-3 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300 text-lg">Yes, Proceed</button>
                 </div>
             </div>
         </div>
