@@ -18,6 +18,7 @@ from .models import Player
 
 @login_required
 def save_player_name(request):
+    print("-------------save_player_name------------")
     if request.method == "POST":
         form = PlayerForm(request.POST)
         if form.is_valid():
@@ -30,10 +31,143 @@ def save_player_name(request):
             print(player)
             print(player.name)
 
-            return redirect("intro")  # Redirect after saving
+            return redirect("mod2t1t2")  # Redirect after saving
 
-    return redirect("register")  # If invalid, reload registration page
+    return redirect("login")  # If invalid, reload registration page
 
+@login_required
+def save_business_category_type(request):
+    print("-------------save_business_category_type------------")
+    print(request.POST)  # ✅ See if businessCategory & businessType are received
+    if request.method == "POST":
+        print(request.POST)  # ✅ See if businessCategory & businessType are received
+        form = PlayerForm(request.POST)
+        if form.is_valid():
+            player = Player.objects.get(user=request.user)
+
+            # ✅ Update business details
+            player.businessCategory = form.cleaned_data["businessCategory"]
+            player.businessType = form.cleaned_data["businessType"]
+            player.save()
+
+            print(player.businessCategory)
+            print(player.businessType)
+
+            return redirect("mod2t3")  # Redirect after saving
+        else:
+            print("not valid form: ", form.errors)
+    return redirect("login")  # If invalid, reload form
+
+@login_required
+def save_business_goals(request):
+    print("-------------save_business_goals------------")
+    print(request.POST)  # ✅ See if businessCategory & businessType are received
+    if request.method == "POST":
+        print(request.POST)  
+        form = PlayerForm(request.POST)
+        if form.is_valid():
+            player = Player.objects.get(user=request.user)
+
+            # ✅ Update business details
+            player.businessGoal = form.cleaned_data["businessGoal"]
+
+            player.save()
+
+            print(player.businessGoal)
+
+
+            return redirect("mod2t4")  # Redirect after saving
+        else:
+            print("not valid form: ", form.errors)
+    return redirect("login")  # If invalid, reload form
+
+@login_required
+def save_business_name(request):
+    print("-------------save_business_name------------")
+    print(request.POST)  # ✅ See if businessCategory & businessType are received
+    if request.method == "POST":
+        print(request.POST)  
+        form = PlayerForm(request.POST)
+        if form.is_valid():
+            player = Player.objects.get(user=request.user)
+
+            # ✅ Update business details
+            player.businessName = form.cleaned_data["businessName"]
+
+            player.save()
+
+            print(player.businessName)
+            print("--------------proceed to mod 3----------------------")
+            return redirect("mod3t1t2t3")  # Redirect after saving
+        else:
+            print("not valid form: ", form.errors)
+    return redirect("login")  # If invalid, reload form
+
+@login_required
+def save_business_location(request):
+    print(request.POST)  # ✅ See if businessCategory & businessType are received
+    if request.method == "POST":
+        print(request.POST)  
+        form = PlayerForm(request.POST)
+        if form.is_valid():
+            player = Player.objects.get(user=request.user)
+
+            # ✅ Update business details
+            player.businessLocation = form.cleaned_data["businessLocation"]
+
+            player.save()
+
+            print(player.businessLocation)
+            print("--------------proceed to t4----------------------")
+            return redirect("mod3t4")  # Redirect after saving
+        else:
+            print("not valid form: ", form.errors)
+    return redirect("login")  # If invalid, reload form
+
+@login_required
+def mod2t1t2_view(request):
+    print("-------------mod2t1t2_view------------")
+    player = Player.objects.get(user=request.user)  # Get existing player data
+    form = PlayerForm(instance=player)  # Load player's current data into form
+    return render(request, "mod2_t1_t2.html", {"form": form})
+
+@login_required
+def mod2t3_view(request):
+    print("-------------mod2t3_view------------")
+    player = Player.objects.get(user=request.user)  # Get existing player data
+    form = PlayerForm(instance=player)  # Load player's current data into form
+    return render(request, "mod2_t3.html", {"form": form})
+
+@login_required
+def mod2t4_view(request):
+    print("-------------mod2t4_view------------")
+    player = Player.objects.get(user=request.user)  # Get existing player data
+    form = PlayerForm(instance=player)  # Load player's current data into form
+    return render(request, "mod2_t4.html", {"form": form})
+
+@login_required
+def mod3t1t2t3_view(request):
+    print("-------------mod3t1t2t3_view------------")
+    player = Player.objects.get(user=request.user)  # Get existing player data
+    form = PlayerForm(instance=player)  # Load player's current data into form
+    return render(request, "mod3_t1_t2_t3.html", {"form": form})
+
+@login_required
+def mod3t4_view(request):
+    print("-------------mod3t4_view------------")
+    player = Player.objects.get(user=request.user)  # Get existing player data
+
+    context = {
+        "name": player.name,  # ✅ Pass player name
+        "businessName": player.businessName,  # ✅ Pass business name
+        "businessLocation": player.businessLocation,  # ✅ Pass location
+        "businessType": player.businessType,  # ✅ Pass business type
+        # "target_market": player.targetMarket,  # ✅ Pass target market
+        "businessGoal": player.businessGoal,  # ✅ Pass business goal
+    }
+    return render(request, "mod3_t4.html", context)  # ✅ Pass data to template
+
+@login_required
 def intro_view(request):
     form = PlayerForm()
     return render(request, "introScreen.html", {"form": form})
@@ -56,7 +190,6 @@ def login_view(request):
 
     return render(request, "login.html", {"form": form})
         
-
 def register_view(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
@@ -75,30 +208,3 @@ def register_view(request):
         form = RegisterForm()
 
     return render(request, "register.html", {"form": form})
-
-def test(request):
-    return render(request, "module1.html")
-
-def module1t1t2(request):
-    return render(request, "module1_t1_t2.html")
-
-def module1_t3(request):
-    return render(request, "module1_t3.html")
-
-def module1_t4(request):
-    return render(request, "module1_t4.html")
-
-def module2_t1_t2_t3(request):
-    return render(request, "mod2_t1_t2_t3.html")
-
-def module2_t4(request):
-    return render(request, "mod2_t4.html")
-
-def module3_t1_t2_t3(request):
-    return render(request, "mod3_t1_t2_t3.html")
-
-def module3_t4(request):
-    return render(request, "mod3_t4.html")
-
-def module4_t1(request):
-    return render(request, "mod4_t1.html")

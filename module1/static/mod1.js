@@ -189,29 +189,44 @@ let options = [
     },
 ]
 
-function openModal(optId){
-    id = optId
-    document.getElementById('staticBackdropLabel').innerText = options[id].type;
-    document.querySelector('#staticBackdrop .modal-body').innerText = options[id].descr;
-    var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
-    myModal.show();
-    choiceT1T2(optId);
-    console.log(`click option of ${optId}`)
-    selectedOptionNumber = optId;
+// function openModal(optId) {
+//     id = optId;
+
+//     // ✅ Set modal title and description dynamically
+//     document.getElementById('modal').innerText = options[id].type;
+//     document.querySelector('#modal .modal-body').innerText = options[id].descr;
+
+//     // ✅ Show modal using Tailwind classes
+//     document.getElementById('modal').classList.remove("hidden");
+
+//     choiceT1T2(optId);  // Call additional logic if needed
+
+//     console.log(`Click option of ${optId}`);
+//     selectedOptionNumber = optId;
+// }
+function openModal(optId) {
+    // Get modal elements
+    document.getElementById("modalTitle").innerText = options[optId].type;
+    document.getElementById("modalBody").innerText = options[optId].descr;
+
+    // Assign selected values to hidden inputs
+    document.getElementById("businessCategory").value = options[optId].category;
+    document.getElementById("businessType").value = options[optId].type;
+
+    // Show modal
+    document.getElementById("modal").classList.remove("hidden");
+
+    choiceT1T2(optId); // Call additional logic if needed
+    console.log(`Clicked option: ${optId}`);
 }
 
-function redirectToPage(link){
-    businessCategory = options[id].category
-    businessType = options[id].type
-    if(!(businessCategory===null && businessType===null)){
-        updatePlayerProperty("businessCategory", businessCategory)
-        updatePlayerProperty("businessType", businessType)
-        window.location.href = link
-    }else{
-        console.log("type: NULL, category: NULL")
-    }
-
+function closeModal() {
+    document.getElementById("modal").classList.add("hidden");
 }
+function closeModal() {
+    document.getElementById("modal").classList.add("hidden");
+}
+
 
 function choiceT1T2(choiceID){
     let id = choiceID;
@@ -230,7 +245,6 @@ function choiceT3(choiceID){
     sessionStorage.setItem('option2', option2);
     let storedOption2 = sessionStorage.getItem('option2');
     console.log(storedOption2)
-    redirectToPage('mod1t4');
 }
 
 function choiceT4(choiceID){
@@ -242,17 +256,4 @@ function choiceT4(choiceID){
     console.log(storedOption3)
 }
 
-
-function getOption1(){
-    let storedOption1 = sessionStorage.getItem('option1');
-    return storedOption1;
-}
-function getOption2(){
-    let storedOption2 = sessionStorage.getItem('option2');
-    return storedOption2;
-}
-function getOption3(){
-    let storedOption3 = sessionStorage.getItem('option3');
-    return storedOption3;
-}
 

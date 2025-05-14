@@ -9,14 +9,39 @@ from .models import Player
 
 class PlayerForm(forms.ModelForm):
     name = forms.CharField(
-        label='',  # Removes the default label
-        widget=forms.TextInput(attrs={"class": "w-full p-3 mb-5 rounded bg-gray-700 text-white", "placeholder": "Your name..."})
+        label= '',
+        required= True,
+        widget=forms.TextInput(attrs={"id":"name", "class": "w-full p-3 rounded bg-gray-700 text-white", "placeholder": "Your in-game name"})
+    )
+    businessCategory = forms.CharField(
+        label= '',
+        required= False,
+        widget=forms.TextInput(attrs={"id":"businessCategory","class": "w-full p-3 rounded bg-gray-700 text-white hidden", "placeholder": "Business Category"})
+    )
+    businessType = forms.CharField(
+        label= '',
+        required= False,
+        widget=forms.TextInput(attrs={"id":"businessType","class": "w-full p-3 rounded bg-gray-700 text-white hidden", "placeholder": "Business Type"})
+    )
+    businessGoal = forms.CharField(
+        label= '',
+        required= False,
+        widget=forms.Textarea(attrs={"id":"businessGoal","class": "w-full p-3 rounded bg-gray-700 text-white hidden", "placeholder": "Describe your business goal..."})
+    )
+    businessName = forms.CharField(
+        label= '',
+        required= False,
+        widget=forms.TextInput(attrs={"id":"businessName","class": "hidden w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-[#3B82F6]", "placeholder": "Enter your business name"})
+    )
+    businessLocation = forms.CharField(
+        label= '',
+        required= False,
+        widget=forms.TextInput(attrs={"id":"businessLocation","class": "w-full p-3 rounded bg-gray-700 text-white hidden", "placeholder": "Business Location"})
     )
 
     class Meta:
         model = Player
-        fields = ["name"]
-
+        fields = ["name", "businessCategory", "businessType", "businessGoal", "businessName", "businessLocation"]
 class RegisterForm(forms.ModelForm):
     username = forms.CharField(
         widget=forms.TextInput(attrs={"class": "w-full px-4 py-2 border rounded-lg", "placeholder": "Enter Username"})

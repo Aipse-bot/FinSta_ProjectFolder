@@ -4,147 +4,339 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Ideation - Business Type</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Document</title>
 </head>
-<body>
+<body class="bg-[#1F2937] min-h-screen flex items-center justify-center font-sans">
+    <div class="container mx-auto px-4 py-12">
+        <div class="max-w-5xl mx-auto">
+            <h3 class="text-3xl font-bold text-center text-[#E5E7EB] mb-10">Where would you like to start your journey?</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Home-Based Business -->
+                <div class="max-w-sm bg-[#E5E7EB] rounded-xl shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 p-6 relative">
+                    <img src="{% static 'module1/images/laptop.png' %}" alt="Laptop icon" class="absolute w-16 h-16 bg-white rounded-lg shadow top-[120px] right-9 z-10">
+                    <div class="w-full h-32 rounded-lg mb-4 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Home office" class="w-full h-full object-cover">
+                    </div>
+                    <div class="text-xl font-bold text-[#1F2937]">HOME-BASED</div>
+                    <div class="text-sm text-[#3B82F6] font-semibold">$2000 - $10000 / MONTH</div>
+                    <p class="text-sm text-[#1F2937] mt-2 h-40">
+                        A home-based business is a company run from the owner's home, offering flexibility and low startup costs. 
+                        It often includes freelancing, e-commerce, or consulting, allowing entrepreneurs to manage their schedules and reduce overhead expenses. 
+                        However, challenges like limited growth potential and distractions may arise.
+                    </p>
+                    <span class="text-sm font-semibold text-[#1F2937]">Target Market</span>
+                    <ul class="list-disc pl-5 space-y-1 text-[#1F2937] text-sm">
+                        <li>Teens and young adults</li>
+                        <li>Small businesses</li>
+                        <li>Event organizers</li>
+                    </ul>
+                    <div class="mt-4 space-y-2 text-sm text-[#1F2937]">
+                        <div class="flex items-center justify-between">
+                            <span>Foot Traffic</span>
+                            <div class="flex space-x-1">
+                                <div class="w-4 h-4 bg-[#3B82F6] rounded"></div>
+                                <div class="w-4 h-4 bg-gray-200 rounded"></div>
+                                <div class="w-4 h-4 bg-gray-200 rounded"></div>
+                                <div class="w-4 h-4 bg-gray-200 rounded"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Resources</span>
+                            <div class="flex space-x-1">
+                                <div class="w-4 h-4 bg-[#3B82F6] rounded"></div>
+                                <div class="w-4 h-4 bg-[#3B82F6] rounded"></div>
+                                <div class="w-4 h-4 bg-gray-200 rounded"></div>
+                                <div class="w-4 h-4 bg-gray-200 rounded"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Community</span>
+                            <div class="flex space-x-1">
+                                <div class="w-4 h-4 bg-[#3B82F6] rounded"></div>
+                                <div class="w-4 h-4 bg-[#3B82F6] rounded"></div>
+                                <div class="w-4 h-4 bg-gray-200 rounded"></div>
+                                <div class="w-4 h-4 bg-gray-200 rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-[#3B82F6] font-semibold text-sm">
+                        3 Employees max
+                    </div>
+                    <button class="mt-4 bg-[#25c247] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300" onclick="openModal('home-based')">
+                        Do Market Research
+                    </button>
+                </div>
 
-    <div class="bg-[#2c2365] text-white min-h-screen flex items-center justify-center p-6">
-        <div class="bg-[#4a3c8d] rounded-xl p-8 w-full max-w-6xl shadow-xl border-4 border-purple-700">
-          <a href="javascript:history.back()" class="inline-flex items-center text-white hover:text-gray-900 mb-6 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left w-4 h-4 mr-2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-            Back to Business Plan 
-        </a>
-          <h2 class="text-center text-2xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-pink-400 text-black py-2 rounded-t-md">Fundraising</h2>
-          <p class="text-center mb-8 text-lg">Pitch your idea to your investor</p>
-      
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- BANK Column -->
-            <div class="bg-white text-black rounded-lg p-2 shadow-md">
-              <h3 class="text-xl font-extrabold text-center border-b pb-2 mb-4">BANK</h3>
-              <ul class="space-y-8">
-                <li class="flex justify-between items-center">
-                  <input id="1" type="checkbox" class="form-checkbox text-purple-600 w-6 h-6">
-                  <div>Micro loans</div>
-                  <div class="text-green-600 font-semibold">$10,000</div>
-                  <button id="open-modal" class="text-black hover:bg-gray-400 cursor-pointer font-bold rounded-full bg-gray-200 w-8 h-8 flex justify-center items-center" onclick="showDescription(1)">?</button>
-                </li>
-                <li class="flex justify-between items-center">
-                  <input id="2" type="checkbox" class="form-checkbox text-purple-600 w-6 h-6">
-                  <div class="w-fit">Equipment Financing</div>
-                  <div class="text-green-600 font-semibold">$20,000</div>
-                  <button id="open-modal" class="text-black hover:bg-gray-400 cursor-pointer font-bold rounded-full bg-gray-200 w-8 h-8 flex justify-center items-center" onclick="showDescription(2)">?</button>
-                </li>
-                <li class="flex justify-between items-center">
-                  <input id="3" type="checkbox" class="form-checkbox text-purple-600 w-6 h-6">
-                  <div>CDFI loans</div>
-                  <div class="text-green-600 font-semibold">$30,000</div>
-                  <button id="open-modal" class="text-black hover:bg-gray-400 cursor-pointer font-bold rounded-full bg-gray-200 w-8 h-8 flex justify-center items-center" onclick="showDescription(3)">?</button>
-                </li>
-              </ul>
-            </div>
-      
-            <!-- SAVINGS Column -->
-            <div class="bg-white text-black rounded-lg p-2 shadow-md">
-              <h3 class="text-xl font-extrabold text-center border-b pb-2 mb-4">SAVINGS</h3>
-              <ul class="space-y-8">
-                <li class="flex justify-between items-center">
-                  <input id="4" type="checkbox" class="form-checkbox text-purple-600 w-6 h-6">
-                  <span>Own Money</span>
-                  <span class="text-green-600 font-semibold">$5,000</span>
-                  <button id="open-modal" class="text-black hover:bg-gray-400 cursor-pointer font-bold rounded-full bg-gray-200 w-8 h-8 flex justify-center items-center" onclick="showDescription(4)">?</button>
-                </li>
-              </ul>
-            </div>
-      
-            <!-- INVESTOR Column -->
-            <div class="bg-white text-black rounded-lg p-3 shadow-md w-full">
-              <h3 class="text-xl font-extrabold text-center border-b pb-2 mb-4">INVESTOR</h3>
-              <ul class="space-y-8 w-full">
-                <li class="flex justify-between items-center">
-                  <input id="5" type="checkbox" class="form-checkbox text-purple-600 w-6 h-6">
-                  <div>Family</div>
-                  <div class="text-green-600 font-semibold w-fit">$10,000</div>
-                  <button id="open-modal" class="text-black hover:bg-gray-400 cursor-pointer font-bold rounded-full bg-gray-200 w-8 h-8 flex justify-center items-center" onclick="showDescription(5)">?</button>
-                </li>
-                <li class="flex justify-between items-center gap-x-4">
-                  <input id="6" type="checkbox" class="form-checkbox text-purple-600 w-6 h-6">
-                  <div class="w-fit">Small Private Investor</div>
-                  <div class="text-green-600 font-semibold w-fit">$15,000</div>
-                  <button id="open-modal" class="text-black hover:bg-gray-400 cursor-pointer font-bold rounded-full bg-gray-200 w-8 h-8 flex justify-center items-center" onclick="showDescription(6)">?</button>
-                </li>
-                <li class="flex justify-between items-center gap-x-4">
-                  <input id="7" type="checkbox" class="form-checkbox text-purple-600 w-6 h-6">
-                  <div class="">Angel Investor</div>
-                  <div class="text-green-600 font-semibold w-fit">$25,000</div>
-                  <button id="open-modal" class="text-black hover:bg-gray-400 cursor-pointer font-bold rounded-full bg-gray-200 w-8 h-8 flex justify-center items-center" onclick="showDescription(7)">?</button>
-                </li>
-              </ul>
-            </div>
-          </div>
-      
-          <!-- PITCH Button -->
-          <div class="flex justify-center mt-8">
-            <button id="pitch-btn" class="bg-gray-400 text-black font-bold py-3 px-8 rounded-full border-2 border-black shadow-md text-xl" disabled>
-              PITCH!
-            </button>
-          </div>
-        </div>
-      </div>
+                <!-- Physical Store -->
+                <div class="max-w-sm bg-[#E5E7EB] rounded-xl shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 p-6 relative">
+                    <img src="{% static 'module1/images/shoppingbag.png' %}" alt="Shopping bag icon" class="absolute w-16 h-16 bg-white rounded-lg shadow top-[120px] right-9 z-10">
+                    <div class="w-full h-32 rounded-lg mb-4 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8" alt="Retail store" class="w-full h-full object-cover">
+                    </div>
+                    <div class="text-xl font-bold text-[#1F2937]">PHYSICAL STORE</div>
+                    <div class="text-sm text-[#3B82F6] font-semibold">$5000 - $20,000 / MONTH</div>
+                    <p class="text-sm text-[#1F2937] mt-2 h-40">
+                        Physical store businesses are brick-and-mortar establishments where products or services are sold directly to customers. 
+                        These businesses operate from a fixed location, such as a retail shop, restaurant, or boutique, and rely on in-person transactions and customer interaction.
+                    </p>
+                    <span class="text-sm font-semibold text-[#1F2937]">Target Market</span>
+                    <ul class="list-disc pl-5 space-y-1 text-[#1F2937] text-sm">
+                        <li>Professionals needing bespoke suits</li>
+                        <li>Fashion-forward individuals</li>
+                        <li>High-income earners</li>
+                    </ul>
+                    <div class="mt-4 space-y-2 text-sm text-[#1F2937]">
+                        <div class="flex items-center justify-between">
+                            <span>Foot Traffic</span>
+                            <div class="flex space-x-1">
+                                <div class="w-4 h-4 bg-[#3B82F6] rounded"></div>
+                                <div class="w-4 h-4 bg-[#3B82F6] rounded"></div>
+                                <div class="w-4 h-4 bg-[#3B82F6] rounded"></div>
+                                <div class="w-4 h-4 bg-gray-200 rounded"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Resources</span>
+                            <div class="flex space-x-1">
+                                <div class="w-4 h-4 bg-[#3B82F6] rounded"></div>
+                                <div class="w-4 h-4 bg-[#3B82F6] rounded"></div>
+                                <div class="w-4 h-4 bg-gray-200 rounded"></div>
+                                <div class="w-4 h-4 bg-gray-200 rounded"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Community</span>
+                            <div class="flex space-x-1">
+                                <div class="w-4 h-4 bg-[#3B82F6] rounded"></div>
+                                <div class="w-4 h-4 bg-[#3B82F6] rounded"></div>
+                                <div class="w-4 h-4 bg-gray-200 rounded"></div>
+                                <div class="w-4 h-4 bg-gray-200 rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-[#3B82F6] font-semibold text-sm">
+                        10 Employees max
+                    </div>
+                    <button class="mt-4 bg-[#25c247] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300" onclick="openModal('physical-store')">
+                        Do Market Research
+                    </button>
+                </div>
 
-        <!-- Modal -->
-      <div id="pitch-modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-1/5 h-fit">
-            <div class="modal-header">
-                <h5 class="text-2xl">Reviewing the Offer</h5>
-                <button id="close-modal" class="btn-close" onclick="closeModal()"></button>
-            </div>
-            <hr class="border-t border-b-gray-700 mt-2 mb-2">
-            <div id="content" class="text-xl"></div>
-
-            <div class="modal-body hidden" id="negotiate-option">
-                <h4>Your Counter Offer</h4>
-                <br>
-                <label for="amount">Enter desired Amount:</label>
-                <input type="text" id="amount" placeholder="e.g., 20000" class="px-1 py-1.5">
-                <br><br>
-            </div>
-
-            <div class="modal-footer" id="button-holder">
-                <button type="button" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" onclick="deal()">Deal</button>
-                <button id="negotiateButton" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600" >Negotiate</button>
-                <button id="close-modal" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" onclick="closeModal()">No Deal</button>
-            </div>
-            <div class="modal-footer hidden" id="counter-offer">
-              <button type="button" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" onclick="closeModal()">Cancel offer</button>
-                <button type="button" class="btn btn-warning" onclick="offer()">Offer</button>
-
+                <!-- Commercial Space -->
+                <div class="max-w-sm bg-[#E5E7EB] rounded-xl shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 p-6 relative">
+                    <img src="{% static 'module1/images/building.png' %}" alt="Building icon" class="absolute w-16 h-16 bg-white rounded-lg shadow top-[120px] right-9 z-10">
+                    <div class="w-full h-32 rounded-lg mb-4 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab" alt="Office building" class="w-full h-full object-cover">
+                    </div>
+                    <div class="text-xl font-bold text-[#1F2937]">COMMERCIAL SPACE</div>
+                    <div class="text-sm text-[#3B82F6] font-semibold">$7000 - $25,000 / MONTH</div>
+                    <p class="text-sm text-[#1F2937] mt-2 h-40">
+                        Commercial space businesses involve renting or leasing properties that are used for business purposes, such as office buildings, retail spaces, or industrial facilities. 
+                        These businesses cater to organizations or individuals who need a physical location for operations, offering a range of services from leasing to property management.
+                    </p>
+                    <span class="text-sm font-semibold text-[#1F2937]">Target Market</span>
+                    <ul class="list-disc pl-5 space-y-1 text-[#1F2937] text-sm">
+                        <li>Working professionals</li>
+                        <li>Stress-relief seekers</li>
+                        <li>Health-conscious individuals</li>
+                    </ul>
+                    <div class="mt-4 space-y-2 text-sm text-[#1F2937]">
+                        <div class="flex items-center justify-between">
+                            <span>Foot Traffic</span>
+                            <div class="flex space-x-1">
+                                <div class="w-4 h-4 bg-[#3B82F6] rounded"></div>
+                                <div class="w-4 h-4 bg-[#3B82F6] rounded"></div>
+                                <div class="w-4 h-4 bg-[#3B82F6] rounded"></div>
+                                <div class="w-4 h-4 bg-gray-200 rounded"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Resources</span>
+                            <div class="flex space-x-1">
+                                <div class="w-4 h-4 bg-[#3B82F6] rounded"></div>
+                                <div class="w-4 h-4 bg-[#3B82F6] rounded"></div>
+                                <div class="w-4 h-4 bg-[#3B82F6] rounded"></div>
+                                <div class="w-4 h-4 bg-gray-200 rounded"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Community</span>
+                            <div class="flex space-x-1">
+                                <div class="w-4 h-4 bg-[#3B82F6] rounded"></div>
+                                <div class="w-4 h-4 bg-[#3B82F6] rounded"></div>
+                                <div class="w-4 h-4 bg-[#3B82F6] rounded"></div>
+                                <div class="w-4 h-4 bg-gray-200 rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-[#3B82F6] font-semibold text-sm">
+                        20 Employees max
+                    </div>
+                    <button class="mt-4 bg-[#25c247] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300" onclick="openModal('commercial-space')">
+                        Do Market Research
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
-      <!-- info modal -->
-      <div id="result-modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-1/5 h-fit">
-            <h2 class="text-2xl font-semibold">Description ✅</h2>
-            <!-- Horizontal Bar -->
-            <hr class="border-t border-b-gray-700 mt-2 mb-2">
-            <p class="text-xl text-black"></p>
-            <br>
-            <!-- Close Button -->
-            <div class="flex justify-end mt-4">
-                <button id="close-modal" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
-                    Close
-                </button>
+    <!-- Market Research Findings Modal -->
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-[#E5E7EB] border border-[#62666e] rounded-xl shadow-lg p-6 w-96 mx-auto">
+                <div class="border-b border-[#62666e] p-4 relative">
+                    <h5 class="text-xl font-semibold text-[#1F2937]">Market Research Findings</h5>
+                </div>
+                <!-- Loading Placeholder -->
+                <div class="p-4" id="dummy-div">
+                    <p class="text-sm text-[#1F2937]">
+                        Loading results...
+                    </p>
+                </div>
+                <!-- Research Results -->
+                <div class="p-4 hidden" id="result-div">
+                    <p class="text-sm text-[#1F2937]" id="adv">
+                        
+                    </p><br>
+                    <p class="text-sm text-[#1F2937]" id="disadv">
+
+                    </p><br>
+                    <p class="text-sm text-[#1F2937]"><strong>Proceed?</strong></p>
+                    <!-- Form for Proceeding with Research -->
+                    <form id="marketResearchForm" method="POST" action="{% url 'save_business_location' %}">
+                        {% csrf_token %}
+                        <div class="hidden">
+                            {{form.name}}
+                        </div>
+                        
+                        {{form.businessLocation}}
+
+                        <div class="flex justify-between p-4 border-t border-[#62666e]">
+                            <button id="closebtn"  type="button" onclick="closeModal()" 
+                                class="bg-[#c22525] text-white px-4 py-2 rounded-lg hover:bg-[#bf1717]/80 transition-all duration-300">
+                                Cancel
+                            </button>
+                            
+                            <button type="submit" id="submitbtn"
+                                class="bg-[#25c247] text-white px-4 py-2 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300">
+                                Yes, Proceed
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
-      <script type="text/javascript" src="{% static 'player.js' %}?v={{ now }}"></script>
-      <script type="text/javascript" src="{% static 'mod3_t1t2t3.js' %}?v={{ now }}"></script>
+    <script type="text/javascript" src="{% static 'player.js' %}" ></script>
+     <script>// Function to show the modal
 
+        let current_open_modal_id = ""
+        let locationData = {
+                "home-based": {
+                    location: "Home-Based",
+                    targetMarket: "Teens and young adults, Small businesses, Event organizers",
+                    research_adv: "✅ Over 69% of home-based businesses earn at least $50,000 annually, showing strong potential for growth and profitability.",
+                    research_disadv: "⚠️ Over 50% of home-based businesses fail due to factors like cash flow issues and ineffective marketing strategies."
+                },
+                "physical-store": {
+                    location: "Physical Store",
+                    targetMarket: "Professionals needing bespoke suits, Fashion-forward individuals, High-income earners",
+                    research_adv: "✅ Over 55% of consumers still prefer to shop in physical stores engage products before purchasing.",
+                    research_disadv: "⚠️ Over 20% of physical stores businesses fail because of high overhead costs, poor location choices, and shifting consumer behavior toward online shopping"
+                },
+                "commercial-space": {
+                    location: "Commercial Space",
+                    targetMarket: "Working professionals, Stress-relief seekers, Health-conscious individuals",
+                    research_adv: "✅ Over 20-35% increase in customer acquisition compared to home-based operations, primarily due to increased visibility, foot traffic, and client trust.",
+                    research_disadv: "⚠️ Over 40% of businesses in commercial spaces fail because of high rent costs, bad location selection, and low demand factors."
+                }
+        };
+        function openModal(id) {
+           
+            const selectedLocationData = locationData[id];
+
+            console.log(locationData[id])
+
+            let modal = document.getElementById("modal");
+            let  adv = modal.querySelector("#adv").textContent = selectedLocationData.research_adv;
+            let disadv = modal.querySelector("#disadv").textContent = selectedLocationData.research_disadv;
+
+            let resultDiv = modal.querySelector("#result-div");
+            let dummyDiv = modal.querySelector("#dummy-div");
+            let cancelButton = modal.querySelector("#closebtn");
+            let proceedButton = modal.querySelector("#submitbtn");
+
+            document.getElementById("businessLocation").value = selectedLocationData.location
+            document.getElementById("name").removeAttribute("required");
+            cancelButton.disabled = true;
+            proceedButton.disabled = true;
+            cancelButton.classList.add("opacity-50", "cursor-not-allowed");
+            proceedButton.classList.add("opacity-50", "cursor-not-allowed");
+        
+            modal.classList.remove("hidden");  
+            resultDiv.classList.add("hidden"); 
+        
+            setTimeout(() => {
+                dummyDiv.classList.add("hidden");
+                resultDiv.classList.remove("hidden"); // Reveal after delay
+                cancelButton.disabled = false;
+                proceedButton.disabled = false;
+                cancelButton.classList.remove("opacity-50", "cursor-not-allowed");
+                proceedButton.classList.remove("opacity-50", "cursor-not-allowed");
+            }, 2000);
+        }
+        
+        // Function to close the modal
+        function closeModal() {
+            const modal = document.getElementById("modal");
+
+            const resultDiv = modal.querySelector("#result-div");
+            const dummyDiv = modal.querySelector("#dummy-div");
+            const cancelButton = modal.querySelector("#closebtn");
+            const proceedButton = modal.querySelector("#submitbtn");
+        
+            modal.classList.add("hidden");             
+            dummyDiv.classList.remove("hidden");       
+            resultDiv.classList.add("hidden");         
+        
+            document.getElementById("name").removeAttribute("required");
+
+            cancelButton.disabled = true;
+            proceedButton.disabled = true;
+            cancelButton.classList.add("opacity-50", "cursor-not-allowed");
+            proceedButton.classList.add("opacity-50", "cursor-not-allowed");
+        }
+        
+        // function continueAction() {
+        //     // Map modal IDs to location types and target markets
+        //     const locationData = {
+        //         "home-based-modal": {
+        //             location: "Home-Based",
+        //             targetMarket: "Teens and young adults, Small businesses, Event organizers"
+        //         },
+        //         "physical-store-modal": {
+        //             location: "Physical Store",
+        //             targetMarket: "Professionals needing bespoke suits, Fashion-forward individuals, High-income earners"
+        //         },
+        //         "commercial-space-modal": {
+        //             location: "Commercial Space",
+        //             targetMarket: "Working professionals, Stress-relief seekers, Health-conscious individuals"
+        //         }
+        //     };
+        
+        //     // Store the selected location and target market in sessionStorage
+        //     const selectedLocationData = locationData[current_open_modal_id];
+        //     sessionStorage.setItem('location', selectedLocationData.location);
+        //     sessionStorage.setItem('targetMarket', selectedLocationData.targetMarket);
+        //     updatePlayerProperty("businessLocation", selectedLocationData.location)
+        //     console.log("Continue action triggered.");
+        //     closeModal();  // Close the modal after the action
+        //     printPlayerInfo()
+        //     window.location.href = "mod2t4";
+        // }
+        </script>
 </body>
-</html>   
+</html>
