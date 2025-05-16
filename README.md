@@ -3,4 +3,4 @@
 - [x] UI for Module 1
 - [x] UI for Module 2
 - [x] UI for Module 3
-- [ ] Backend/Frontend: Module 2 - Transaction 4 (bruh (long))
+- [x] Backend/Frontend: Module 2 - Transaction 4 (bruh (long))
