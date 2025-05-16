@@ -9,64 +9,73 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
-<body class="bg-[#1F2937] min-h-screen flex items-center justify-center font-sans">
+<body class="bg-[#1F2937] min-h-screen font-sans">
     <div class="container mx-auto px-4 py-12">
-        <div class="max-w-5xl mx-auto">
-            <div class="bg-[#3B82F6]/10 rounded-xl shadow-lg p-8 border border-gray-200">
-                <a href="javascript:history.back()" class="inline-flex items-center text-[#E5E7EB] hover:text-[#22C55E] mb-6 transition-colors">
-                    <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
-                    Back
+        <div class="max-w-6xl mx-auto">
+            <!-- Removed the blue background container div -->
+            <!-- Header section with back button and title -->
+            <div class="relative flex items-center justify-center mb-12">
+                <!-- Back button positioned at left -->
+                <a href="javascript:history.back()" class="absolute left-0 inline-flex items-center text-[#E5E7EB] hover:text-[#22C55E] transition-colors">
+                    <i data-feather="arrow-left" class="w-5 h-5 mr-2"></i>
+                    <span class="text-lg">Back</span>
                 </a>
-                <h1 class="text-3xl font-bold text-center text-[#E5E7EB] mb-10">Select your Business Name</h1>
                 
-                <div class="bg-[#E5E7EB] rounded-xl p-6">
-                    <div class="name-options rounded-xl p-6">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                            <div class="name-option bg-white rounded-lg p-4 shadow-sm hover:shadow-md hover:bg-[#22C55E]/20 transition-all duration-300 cursor-pointer border border-gray-200 hover:border-[#22C55E] text-center" onclick="selectBusinessName('MarketSoar')">
-                                <div class="flex items-center justify-center mb-2">
-                                    <div class="w-10 h-10 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
-                                        <i data-feather="zap" class="w-5 h-5 text-[#1F2937]"></i>
-                                    </div>
+                <!-- Title centered -->
+                <h1 class="text-4xl font-bold text-center text-[#E5E7EB]">Select your Business Name</h1>
+            </div>
+            
+            <div class="bg-[#E5E7EB] rounded-xl p-8 shadow-lg">
+                <div class="name-options rounded-xl p-6">
+                    <!-- Made cards bigger -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                        <div class="name-option bg-white rounded-lg p-8 shadow-md hover:shadow-lg hover:bg-[#22C55E]/20 transition-all duration-300 cursor-pointer border border-gray-200 hover:border-[#22C55E] text-center transform hover:-translate-y-1" onclick="selectBusinessName('MarketSoar')">
+                            <div class="flex items-center justify-center mb-4">
+                                <div class="w-16 h-16 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
+                                    <i data-feather="zap" class="w-8 h-8 text-[#1F2937]"></i>
                                 </div>
-                                <h3 class="font-medium text-[#1F2937] text-sm">MarketSoar</h3>
                             </div>
-                            
-                            <div class="name-option bg-white rounded-lg p-4 shadow-sm hover:shadow-md hover:bg-[#22C55E]/20 transition-all duration-300 cursor-pointer border border-gray-200 hover:border-[#22C55E] text-center" onclick="selectBusinessName('OptimizePro')">
-                                <div class="flex items-center justify-center mb-2">
-                                    <div class="w-10 h-10 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
-                                        <i data-feather="trending-up" class="w-5 h-5 text-[#1F2937]"></i>
-                                    </div>
-                                </div>
-                                <h3 class="font-medium text-[#1F2937] text-sm">OptimizePro</h3>
-                            </div>
-                            
-                            <div class="name-option bg-white rounded-lg p-4 shadow-sm hover:shadow-md hover:bg-[#22C55E]/20 transition-all duration-300 cursor-pointer border border-gray-200 hover:border-[#22C55E] text-center" onclick="selectBusinessName('ProfitReach')">
-                                <div class="flex items-center justify-center mb-2">
-                                    <div class="w-10 h-10 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
-                                        <i data-feather="settings" class="w-5 h-5 text-[#1F2937]"></i>
-                                    </div>
-                                </div>
-                                <h3 class="font-medium text-[#1F2937] text-sm">ProfitReach</h3>
-                            </div>
+                            <h3 class="font-semibold text-[#1F2937] text-xl">MarketSoar</h3>
+                            <p class="text-gray-600 mt-2">Perfect for businesses focused on market expansion</p>
                         </div>
                         
-                        <div class="text-center text-[#1F2937] font-medium mb-6">Or create your own Business Name</div>
-                        
-                        <div class="flex justify-center">
-                            <div class="w-full max-w-md">
-                                <div class="relative">
-                                    <input 
-                                        type="text" 
-                                        placeholder="Enter your business name" 
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-[#3B82F6]" 
-                                        id="businessNameInput" 
-                                        onkeyup="checkInput()">
-                                    <button 
-                                        onclick="submitCustomName()" 
-                                        class="absolute right-2 top-2 bg-[#25c247] text-white px-4 py-1 rounded-md hover:bg-[#10942d]/80 transition-all duration-300">
-                                        Submit
-                                    </button>
+                        <div class="name-option bg-white rounded-lg p-8 shadow-md hover:shadow-lg hover:bg-[#22C55E]/20 transition-all duration-300 cursor-pointer border border-gray-200 hover:border-[#22C55E] text-center transform hover:-translate-y-1" onclick="selectBusinessName('OptimizePro')">
+                            <div class="flex items-center justify-center mb-4">
+                                <div class="w-16 h-16 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
+                                    <i data-feather="trending-up" class="w-8 h-8 text-[#1F2937]"></i>
                                 </div>
+                            </div>
+                            <h3 class="font-semibold text-[#1F2937] text-xl">OptimizePro</h3>
+                            <p class="text-gray-600 mt-2">Ideal for efficiency-focused operations</p>
+                        </div>
+                        
+                        <div class="name-option bg-white rounded-lg p-8 shadow-md hover:shadow-lg hover:bg-[#22C55E]/20 transition-all duration-300 cursor-pointer border border-gray-200 hover:border-[#22C55E] text-center transform hover:-translate-y-1" onclick="selectBusinessName('ProfitReach')">
+                            <div class="flex items-center justify-center mb-4">
+                                <div class="w-16 h-16 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
+                                    <i data-feather="settings" class="w-8 h-8 text-[#1F2937]"></i>
+                                </div>
+                            </div>
+                            <h3 class="font-semibold text-[#1F2937] text-xl">ProfitReach</h3>
+                            <p class="text-gray-600 mt-2">Great for businesses prioritizing profitability</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center text-[#1F2937] font-medium text-xl mb-8">Or create your own Business Name</div>
+                    
+                    <div class="flex justify-center">
+                        <div class="w-full max-w-lg">
+                            <div class="relative">
+                                <input 
+                                    type="text" 
+                                    placeholder="Enter your business name" 
+                                    class="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-[#3B82F6]" 
+                                    id="businessNameInput" 
+                                    onkeyup="checkInput()">
+                                <button 
+                                    onclick="submitCustomName()" 
+                                    class="absolute right-3 top-3 bg-[#25c247] text-white px-5 py-2 rounded-md hover:bg-[#10942d]/80 transition-all duration-300 text-lg">
+                                    Submit
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -76,43 +85,16 @@
     </div>
 
     <!-- Business Name Selection Modal -->
-    <!-- <div id="businessNameModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-        <div class="bg-[#E5E7EB] border border-[#62666e] rounded-xl shadow-lg p-6 w-96 mx-auto text-center">
-            <h2 class="text-xl font-semibold text-[#1F2937] mb-4">Business Name Chosen</h2>
-            <p id="businessNameText" class="text-[#1F2937] text-base mb-6"></p>
+    <div id="businessNameModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-[#E5E7EB] border border-[#62666e] rounded-xl shadow-lg p-8 w-[450px] mx-auto text-center">
+            <h2 class="text-2xl font-semibold text-[#1F2937] mb-6">Business Name Chosen</h2>
+            <p id="businessNameText" class="text-[#1F2937] text-xl mb-8"></p>
             <div class="flex justify-between">
-                <button onclick="closeBusinessNameModal()" class="bg-[#c22525] text-white px-4 py-2 rounded-lg hover:bg-[#bf1717]/80 transition-all duration-300">Cancel</button>
-                <button onclick="proceedToNextPhase()" class="bg-[#25c247] text-white px-4 py-2 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300">Continue</button>
+                <button onclick="closeBusinessNameModal()" class="bg-[#c22525] text-white px-6 py-3 rounded-lg hover:bg-[#bf1717]/80 transition-all duration-300 text-lg">Cancel</button>
+                <button onclick="proceedToNextPhase()" class="bg-[#25c247] text-white px-6 py-3 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300 text-lg">Continue</button>
             </div>
         </div>
-    </div> -->
-
-    <!-- Business Name Modal with Form Handling -->
-    <div id="businessNameModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-        <div class="bg-[#E5E7EB] border border-[#62666e] rounded-xl shadow-lg p-6 w-96 mx-auto text-center">
-            <h2 class="text-xl font-semibold text-[#1F2937] mb-4">Business Name Chosen</h2>
-            <p id="businessNameText" class="text-[#1F2937] text-base mb-6"></p>
-
-            <!-- Business Name Form -->
-            <form id="businessNameForm" method="POST" action="{% url 'save_business_name' %}">
-                {% csrf_token %}  <!-- ✅ Security token required for POST requests -->
-                {{ form.name}}
-                {{ form.businessName}}
-
-                <div class="flex justify-between mt-4">
-                    <button type="button" onclick="closeBusinessNameModal()" 
-                        class="bg-[#c22525] text-white px-4 py-2 rounded-lg hover:bg-[#bf1717]/80 transition-all duration-300">
-                        Cancel
-                    </button>
-                    
-                    <button type="submit" class="bg-[#25c247] text-white px-4 py-2 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300">
-                        Yes, Proceed
-                    </button>
-                </div>
-            </form>
-        </div>
     </div>
-
     <script type="text/javascript" src="{% static 'player.js' %}"></script>
 
     <script>
@@ -143,9 +125,6 @@ function selectBusinessName(str) {
     const modal = document.getElementById("businessNameModal");
     const text = document.getElementById("businessNameText");
     text.innerHTML = `"<strong>${str}</strong>". Proceed?`;
-    document.getElementById("name").classList.add("hidden")
-    document.getElementById("name").removeAttribute("required");
-    document.getElementById("businessName").value = str
     modal.classList.remove("hidden");
     modal.classList.add("flex");
 }
@@ -156,19 +135,26 @@ function closeBusinessNameModal() {
     modal.classList.add("hidden");
 }
 
+function proceedToNextPhase() {
+    if(name==null){
+        console.log("name: null")
+        return;
+    }
+    updatePlayerProperty("businessName",name)
+    printPlayerInfo()
+    window.location.href = "{% url 'mod3t1t2t3' %}";
+}
+
 // custom name
 function submitCustomName() {
     const input = document.getElementById('businessNameInput');
     const str = input.value.trim();
     
     if (str !== '') {
+        name = str;
         const modal = document.getElementById("businessNameModal");
         const text = document.getElementById("businessNameText");
         text.innerHTML = `"<strong>${str}</strong>". Proceed?`;
-        document.getElementById("name").classList.add("hidden")
-        document.getElementById("name").removeAttribute("required");
-        document.getElementById("businessName").value = str
-        updatePlayerProperty("businessName",name)
         modal.classList.remove("hidden");
         modal.classList.add("flex");
     } else {

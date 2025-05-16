@@ -8,3 +8,5 @@ python -m pip install django-tailwind
 
 #Starting tailwind
 python manage.py tailwind start
+
+pip install django-crispy-forms
