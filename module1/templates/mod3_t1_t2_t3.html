@@ -9,26 +9,27 @@
 </head>
 <body class="bg-[#1F2937] min-h-screen flex items-center justify-center font-sans">
     <div class="container mx-auto px-4 py-12">
-        <div class="max-w-5xl mx-auto">
-            <!-- Add Back Button Here -->
-            <a href="javascript:history.back()" class="inline-flex items-center text-[#E5E7EB] hover:text-[#22C55E] mb-6 transition-colors">
+        <div class="max-w-5xl mx-auto relative pt-14 md:pt-0">
+            <!-- Absolutely positioned back button -->
+            <a href="javascript:history.back()" 
+               class="inline-flex items-center text-[#E5E7EB] hover:text-[#22C55E] transition-colors absolute top-4 left-4 md:top-0 md:left-0 z-10">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                 </svg>
                 Back
             </a>
-            <h3 class="text-3xl font-bold text-center text-[#E5E7EB] mb-10">Where would you like to start your journey?</h3>
+            <h3 class="text-3xl font-bold text-center text-[#E5E7EB] mb-10 md:mx-16">Where would you like to start your journey?</h3>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center items-center">
                 <!-- Home-Based Business -->
-                <div class="max-w-sm bg-[#E5E7EB] rounded-xl shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 p-6 relative">
-                    <img src="{% static 'module1/images/laptop.png' %}" alt="Laptop icon" class="absolute w-16 h-16 bg-white rounded-lg shadow top-[120px] right-9 z-10">
+                <div class="max-w-sm bg-[#E5E7EB] rounded-xl shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 p-6 relative location-card" id="home-based-card">
+                    <img src="{% static 'module1/images/laptop.png' %}" alt="Laptop icon" class="absolute w-16 h-16 bg-white rounded-lg shadow top-[104px] right-9 z-10">
                     <div class="w-full h-32 rounded-lg mb-4 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Home office" class="w-full h-full object-cover">
                     </div>
-                    <div class="text-xl font-bold text-[#1F2937]">HOME-BASED</div>
+                    <div class="text-xl font-bold text-[#1F2937] location-title">HOME-BASED</div>
                     <div class="text-sm text-[#3B82F6] font-semibold">$2000 - $10000 / MONTH</div>
-                    <p class="text-sm text-[#1F2937] mt-2 h-40">
+                    <p class="desc-preview text-sm text-[#1F2937] mt-2 mb-2 h-40 line-clamp-6 text-ellipsis cursor-pointer hover:underline">
                         A home-based business is a company run from the owner's home, offering flexibility and low startup costs. 
                         It often includes freelancing, e-commerce, or consulting, allowing entrepreneurs to manage their schedules and reduce overhead expenses. 
                         However, challenges like limited growth potential and distractions may arise.
@@ -77,14 +78,14 @@
                 </div>
 
                 <!-- Physical Store -->
-                <div class="max-w-sm bg-[#E5E7EB] rounded-xl shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 p-6 relative">
-                    <img src="{% static 'module1/images/shoppingbag.png' %}" alt="Shopping bag icon" class="absolute w-16 h-16 bg-white rounded-lg shadow top-[120px] right-9 z-10">
+                <div class="max-w-sm bg-[#E5E7EB] rounded-xl shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 p-6 relative location-card" id="physical-store-card">
+                    <img src="{% static 'module1/images/shoppingbag.png' %}" alt="Shopping bag icon" class="absolute w-16 h-16 bg-white rounded-lg shadow top-[104px] right-9 z-10">
                     <div class="w-full h-32 rounded-lg mb-4 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8" alt="Retail store" class="w-full h-full object-cover">
                     </div>
-                    <div class="text-xl font-bold text-[#1F2937]">PHYSICAL STORE</div>
+                    <div class="text-xl font-bold text-[#1F2937] location-title">PHYSICAL STORE</div>
                     <div class="text-sm text-[#3B82F6] font-semibold">$5000 - $20,000 / MONTH</div>
-                    <p class="text-sm text-[#1F2937] mt-2 h-40">
+                    <p class="desc-preview text-sm text-[#1F2937] mt-2 mb-2 h-40 line-clamp-6 text-ellipsis cursor-pointer hover:underline">
                         Physical store businesses are brick-and-mortar establishments where products or services are sold directly to customers. 
                         These businesses operate from a fixed location, such as a retail shop, restaurant, or boutique, and rely on in-person transactions and customer interaction.
                     </p>
@@ -132,14 +133,14 @@
                 </div>
 
                 <!-- Commercial Space -->
-                <div class="max-w-sm bg-[#E5E7EB] rounded-xl shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 p-6 relative">
-                    <img src="{% static 'module1/images/building.png' %}" alt="Building icon" class="absolute w-16 h-16 bg-white rounded-lg shadow top-[120px] right-9 z-10">
+                <div class="max-w-sm bg-[#E5E7EB] rounded-xl shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 p-6 relative location-card" id="commercial-space-card">
+                    <img src="{% static 'module1/images/building.png' %}" alt="Building icon" class="absolute w-16 h-16 bg-white rounded-lg shadow top-[104px] right-9 z-10">
                     <div class="w-full h-32 rounded-lg mb-4 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab" alt="Office building" class="w-full h-full object-cover">
                     </div>
-                    <div class="text-xl font-bold text-[#1F2937]">COMMERCIAL SPACE</div>
+                    <div class="text-xl font-bold text-[#1F2937] location-title">COMMERCIAL SPACE</div>
                     <div class="text-sm text-[#3B82F6] font-semibold">$7000 - $25,000 / MONTH</div>
-                    <p class="text-sm text-[#1F2937] mt-2 h-40">
+                    <p class="desc-preview text-sm text-[#1F2937] mt-2 mb-2 h-40 line-clamp-6 text-ellipsis cursor-pointer hover:underline">
                         Commercial space businesses involve renting or leasing properties that are used for business purposes, such as office buildings, retail spaces, or industrial facilities. 
                         These businesses cater to organizations or individuals who need a physical location for operations, offering a range of services from leasing to property management.
                     </p>
@@ -237,6 +238,26 @@
         </div>
     </div>
 
+    <!-- Full Description Modal -->
+    <div id="desc-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-[#E5E7EB] border border-[#62666e] rounded-xl shadow-lg p-6 w-96 mx-auto">
+                <div class="border-b border-[#62666e] p-4 relative">
+                    <h5 class="text-xl font-semibold text-[#1F2937]" id="desc-modal-title"></h5>
+                </div>
+                <div class="p-4">
+                    <p class="text-sm text-[#1F2937]" id="desc-modal-text"></p>
+                </div>
+                <div class="flex justify-end p-4 border-t border-[#62666e]">
+                    <button type="button" onclick="closeDescModal()"
+                        class="bg-[#c22525] text-white px-4 py-2 rounded-lg hover:bg-[#bf1717]/80 transition-all duration-300">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript" src="{% static 'player.js' %}" ></script>
      <script>// Function to show the modal
 
@@ -316,7 +337,7 @@
             cancelButton.classList.add("opacity-50", "cursor-not-allowed");
             proceedButton.classList.add("opacity-50", "cursor-not-allowed");
         }
-        
+        // ToRemove
         // function continueAction() {
         //     // Map modal IDs to location types and target markets
         //     const locationData = {
@@ -344,6 +365,18 @@
         //     printPlayerInfo()
         //     window.location.href = "mod2t4";
         // }
+        document.querySelectorAll('.desc-preview').forEach(function(p) {
+            p.addEventListener('click', function() {
+                const card = p.closest('.location-card');
+                const title = card ? card.querySelector('.location-title').textContent : '';
+                document.getElementById('desc-modal-title').textContent = title;
+                document.getElementById('desc-modal-text').textContent = p.textContent;
+                document.getElementById('desc-modal').classList.remove('hidden');
+            });
+        });
+        function closeDescModal() {
+            document.getElementById('desc-modal').classList.add('hidden');
+        }
         </script>
 </body>
 </html>
