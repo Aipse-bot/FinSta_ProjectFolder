@@ -72,13 +72,23 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!businessNameElement) {
         console.error("Business name element not found in the DOM!");
     }
+
+    // Add redirect logic for summary cards
+    document.querySelectorAll('.summary-card').forEach(function(card) {
+        card.addEventListener('click', function() {
+            const url = card.getAttribute('data-redirect');
+            if (url) {
+                window.location.href = url;
+            }
+        });
+    });
 });
 
 function reset() {
     sessionStorage.clear();
-    window.location.href = "mod1t1t2";
+    window.location.href = "intro";
 }
 
 function proceed() {
-    window.location.href = "mod3t1t2t3";
+    window.location.href = "mod4t1";
 }
