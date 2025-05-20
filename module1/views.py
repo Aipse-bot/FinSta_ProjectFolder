@@ -105,6 +105,7 @@ def save_business_name(request):
 
 @login_required
 def save_business_location(request):
+    print("-------------save_business_location------------")
     print(request.POST)  # ✅ See if businessCategory & businessType are received
     if request.method == "POST":
         print(request.POST)  
@@ -156,14 +157,32 @@ def mod3t1t2t3_view(request):
 def mod3t4_view(request):
     print("-------------mod3t4_view------------")
     player = Player.objects.get(user=request.user)  # Get existing player data
-
+    # remove comments if location is saved to the database after mod3_t1t2t3
+    # location_map = {
+    #     "Home-Based": {
+    #         "targetMarket": "Teens and young adults, Small businesses, Event organizers",
+    #         "maxEmployee": 3
+    #     },
+    #     "Physical Store": {
+    #         "targetMarket": "Professionals needing bespoke suits, Fashion-forward individuals, High-income earners",
+    #         "maxEmployee": 10
+    #     },
+    #     "Commercial Space": {
+    #         "targetMarket": "Working professionals, Stress-relief seekers, Health-conscious individuals",
+    #         "maxEmployee": 20
+    #     }
+    # }
+    # loc = player.businessLocation
+    # targetMarket = location_map.get(loc, {}).get("targetMarket", "")
+    # maxEmployee = location_map.get(loc, {}).get("maxEmployee", "")
     context = {
-        "name": player.name,  # ✅ Pass player name
-        "businessName": player.businessName,  # ✅ Pass business name
-        "businessLocation": player.businessLocation,  # ✅ Pass location
-        "businessType": player.businessType,  # ✅ Pass business type
-        # "target_market": player.targetMarket,  # ✅ Pass target market
-        "businessGoal": player.businessGoal,  # ✅ Pass business goal
+        "name": player.name,
+        "businessName": player.businessName,
+        "businessLocation": player.businessLocation,
+        "businessType": player.businessType,
+        "businessGoal": player.businessGoal,
+        # "targetMarket": targetMarket,
+        # "maxEmployee": maxEmployee,
     }
     return render(request, "mod3_t4.html", context)  # ✅ Pass data to template
 
