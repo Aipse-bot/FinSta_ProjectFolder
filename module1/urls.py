@@ -23,5 +23,6 @@ urlpatterns = [
     path('mod3t1t2t3', views.mod3t1t2t3_view, name='mod3t1t2t3'),
     path('mod3t4', views.mod3t4_view, name='mod3t4'),
 
+    path('mod4t1', views.mod4t1_view, name='mod4t1'),
 
 ]

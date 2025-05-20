@@ -6,191 +6,709 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Project Ideation Journey</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif; /* Using Inter font */
+            margin: 0;
+            overflow: hidden; /* Prevent scrollbars */
+            display: flex; /* Ensure body takes full height for flex children */
+            min-height: 100vh; /* Ensure body takes at least full viewport height */
+        }
+        /* Custom scrollbar for the activity log and dropdowns */
+        .scrollable-dropdown::-webkit-scrollbar,
+        #activity-log::-webkit-scrollbar { /* Applied to the scrollable content div */
+            width: 8px;
+        }
+        .scrollable-dropdown::-webkit-scrollbar-track,
+        #activity-log::-webkit-scrollbar-track {
+            background: #4a5568; /* Tailwind gray-700 */
+            border-radius: 10px;
+        }
+        .scrollable-dropdown::-webkit-scrollbar-thumb,
+        #activity-log::-webkit-scrollbar-thumb {
+            background: #718096; /* Tailwind gray-600 */
+            border-radius: 10px;
+        }
+        .scrollable-dropdown::-webkit-scrollbar-thumb:hover,
+        #activity-log::-webkit-scrollbar-thumb:hover {
+            background: #a0aec0; /* Tailwind gray-500 */
+        }
+        .scrollable-dropdown {
+            max-height: 200px; /* Adjust as needed */
+            overflow-y: auto;
+        }
+        /* Ensure the main content area can scroll if its content overflows */
+        main {
+            overflow-y: auto;
+        }
+        aside#leftSidebar { /* Added ID for clarity */
+            display: flex;
+            flex-direction: column;
+        }
+        .finance-modal-text {
+            font-family: 'Courier New', Courier, monospace; /* Monospaced font for finance details */
+        }
+    </style>
+    <script>
+        // Define variables to hold the percentages and other game state
+        let companyHealthPercentage = 50;    // Default: 50%
+        let marketDominationPercentage = 1;  // Default: 1%
+        let customerSatisfactionPercentage = 1; // Default: 1%
+        let balancedBooksPercentage = 1;      // Default: 1% (Represents Legal Papers status)
+
+        let employees = 0;                   // Default: 0
+        let balance = 15000;
+        let businessName = "Stellar Tech";
+        let businessType = "Software Development";
+        let icon = "🚀"; // Default icon
+
+        let currentYear = 1;
+        let currentQuarter = 1; // Start at Q1 for consistency
+        let actionPoints = 4;
+
+        // Financial Tracking for the Current Quarter
+        let quarterlySales = 0; // Placeholder, can be developed further
+        let quarterlyIncomeFromActionsAndEvents = 0;
+        let quarterlyExpensesFromActionsAndEvents = 0;
+        let quarterlyServiceCosts = 0; // Costs from "Services" category actions
+        const RENT_PER_QUARTER = 7500;
+        const SALARY_PER_EMPLOYEE_PER_QUARTER = 1000; // Example salary
+        const LOAN_REPAYMENT_PER_QUARTER = 900;
+
+    </script>
 </head>
-<body>
-    <div class="relative h-screen">
-        <!-- Sidebar -->
-        <div class="absolute top-0 left-0 w-1/3 bg-blue-900 text-white p-4 z-20 flex">
-            <div>
-                <nav class="w-full flex flex-col space-y-4">
-                    <div class="flex space-x-2">
-                      <div class="w-24 h-24 bg-amber-50 text-amber-950">{icon}</div>
-                      <div>
-                        <div class="text-3xl">{Business name}</div>
-                        <div class="text-2xl">{Business type}</div>
-                      </div>
+<body class="bg-gray-800 text-white flex">
+
+    <aside id="leftSidebar" class="bg-slate-900 w-full md:w-1/4 flex flex-col p-4 md:p-6 space-y-4 md:space-y-6 h-screen overflow-y-auto">
+        <div id="businessInfoSection">
+            <div class="flex items-center mb-4">
+                <div id="businessIconDisplay" class="w-12 h-12 md:w-16 md:h-16 bg-amber-400 text-amber-900 flex items-center justify-center rounded-lg text-2xl md:text-3xl font-bold shadow-md"></div>
+                <div class="ml-3 md:ml-4">
+                    <div id="businessNameDisplay" class="text-lg md:text-xl font-semibold"></div>
+                    <div id="businessTypeDisplay" class="text-xs md:text-sm text-gray-400"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-slate-800 p-3 md:p-4 rounded-lg shadow">
+            <div id="yearQuarterDisplay" class="text-xs md:text-sm text-gray-400 mb-1 md:mb-2">Year 1, Q1</div>
+            <div class="flex flex-col sm:flex-row sm:justify-between space-y-1 sm:space-y-0 sm:space-x-2 text-xs md:text-sm">
+                <div>Employees: <span class="font-semibold text-sky-400" id="employeeCount"></span></div>
+                <div>Balance: <span class="font-semibold text-emerald-400" id="accountBalance"></span></div>
+            </div>
+        </div>
+        
+        <div class="bg-slate-800 p-3 md:p-4 rounded-lg shadow">
+            <div class="text-sm md:text-base font-semibold text-white mb-2 md:mb-3">Company Stats</div>
+            <div class="space-y-3 md:space-y-4"> 
+                <div class="text-xs md:text-sm">
+                    <span class="text-gray-300 block mb-1">Company Health</span>
+                    <div class="bg-gray-700 rounded-full h-2.5 md:h-3 w-full overflow-hidden">
+                        <div id="companyHealthBar" class="bg-sky-500 h-full rounded-full transition-all duration-500 ease-out" style="width: 50%"></div>
                     </div>
-        
-                    <div class="w-64 bg-gray-300 rounded-full h-6 overflow-hidden">
-                        <div class="bg-green-500 h-full" style="width: 50%"></div>
-                      </div>
-        
-
-                  </nav>
-            </div>
-            <div class=" m-2 w-1 bg-black"></div>
-
-            <div class="">
-                <div class="flex space-x-4">
-                    <div class="text-2xl"s>{quarter}</div>
-                    <div class="text-2xl">{balance}</div>
-                    <div class="text-2xl">{employees}</div>
-                  </div>
-                  <div class="text-2xl">{goals}</div>
-            </div>
-
-
-        </div>
-      
-        <!-- Main content -->
-        <main class="relative bg-green-300 p-8 z-10 h-full w-full ">
-          <h1 class="text-3xl font-semibold mb-4">Welcome to the Project Ideation Journey</h1>
-          <p class="text-gray-700">Start your business simulation by selecting an option from the sidebar.</p>
-        </main>
-      </div>
-      
-        <div class="absolute bottom-0 left-0 p-4 h-2/3 w-1/4 bg-amber-300 z-10">
-            <div class="text-3xl mb-2">Actions</div>
-
-            <div id="dropdown-1" onclick="openDropDown(1)" class="inline-block relative w-full border-2">
-                <!-- Button that triggers dropdown -->
-                <div id="operations-btn"  class="bg-blue-900 text-white px-4 py-2 w-full flex " >
-                    <div>{icon}</div>
-                    Operations
-                    <div>{dropdown icon}</div>
                 </div>
-                <!-- Dropdown menu -->
-                <div id="dropdownMenu1" class="hidden bg-white text-black rounded  w-full">
-                    <div onclick="openModal('{Step 1}')" class="block px-4 py-2 hover:bg-gray-100 w-full">{Step 1}</div>
-                    <div onclick="openModal('{Step 2}')" class="block px-4 py-2 hover:bg-gray-100 w-full">{Step 2}</div>
-                    <div onclick="openModal('{Step 3}')" class="block px-4 py-2 hover:bg-gray-100 w-full">{Step 3}</div>
-                    <div onclick="openModal('Engage with Customers')" class="block px-4 py-2 hover:bg-gray-100 w-full">Engage with Customers</div>
-                    <div onclick="openModal('Post on Social Media')" class="block px-4 py-2 hover:bg-gray-100 w-full">Post on Social Media</div>
+                <div class="text-xs md:text-sm">
+                    <span class="text-gray-300 block mb-1">Market Domination</span>
+                    <div class="bg-gray-700 rounded-full h-2.5 md:h-3 w-full overflow-hidden">
+                        <div id="marketDominationBar" class="bg-indigo-500 h-full rounded-full transition-all duration-500 ease-out" style="width: 1%"></div>
+                    </div>
                 </div>
-            </div>
-            <div id="dropdown-2" onclick="openDropDown(2)" class="inline-block relative w-full border-2">
-                <!-- Button that triggers dropdown -->
-
-                <div id="operations-btn"  class="bg-blue-900 text-white px-4 py-2 w-full flex " >
-                    <div>{icon}</div>
-                    Hire people
-                    <div>{dropdown icon}</div>
+                <div class="text-xs md:text-sm">
+                    <span class="text-gray-300 block mb-1">Customer Satisfaction</span>
+                    <div class="bg-gray-700 rounded-full h-2.5 md:h-3 w-full overflow-hidden">
+                        <div id="customerSatisfactionBar" class="bg-emerald-500 h-full rounded-full transition-all duration-500 ease-out" style="width: 1%"></div>
+                    </div>
                 </div>
-                <!-- Dropdown menu -->
-                <div id="dropdownMenu2" class="hidden bg-white text-black rounded  w-full">
-                    <div onclick="openModal('Local Outreach')" class="block px-4 py-2 hover:bg-gray-100">Local Outreach</div>
-                    <div onclick="openModal('Online Websites')" class="block px-4 py-2 hover:bg-gray-100">Online Websites</div>
-                    <div onclick="openModal('Recruiter')" class="block px-4 py-2 hover:bg-gray-100">Recruiter</div>
-                    <div onclick="openModal('Fire a Person')" class="block px-4 py-2 hover:bg-gray-100">Fire a Person</div>
-                </div>
-            </div>
-            <div id="dropdown-3" onclick="openDropDown(3)" class="inline-block relative w-full border-2">
-                <!-- Button that triggers dropdown -->
-
-                <div id="operations-btn"  class="bg-blue-900 text-white px-4 py-2 w-full flex " >
-                    <div>{icon}</div>
-                    Hire services
-                    <div>{dropdown icon}</div>
-                </div>
-                <!-- Dropdown menu -->
-                <div id="dropdownMenu3" class="hidden bg-white text-black rounded  w-full">
-                    <div onclick="openModal('Hire a Lawyer')" class="block px-4 py-2 hover:bg-gray-100">Hire a Lawyer</div>
-                    <div onclick="openModal('Purchase Business Insurance')" class="block px-4 py-2 hover:bg-gray-100">Purchase Business Insurance</div>
-                    <div onclick="openModal('Marketing')" class="block px-4 py-2 hover:bg-gray-100">Marketing</div>
+                <div class="text-xs md:text-sm">
+                    <span class="text-gray-300 block mb-1">Legal Papers</span>
+                    <div class="bg-gray-700 rounded-full h-2.5 md:h-3 w-full overflow-hidden">
+                        <div id="balancedBooksBar" class="bg-yellow-500 h-full rounded-full transition-all duration-500 ease-out" style="width: 1%"></div>
+                    </div>
                 </div>
             </div>
         </div>
+    </aside>
 
-        <div class="absolute bottom-0 right-0 p-0 h-1/2 w-1/5 bg-amber-500 z-10 overflow-y-auto ">
-            <div class="text-3xl m-4 bg-amber-600">Business Activity Log</div>
-            <div id="activity-log" class="">
+    <main class="flex-grow p-4 md:p-8 bg-cover bg-center bg-no-repeat" style="background-image: url('{% static 'mod4bg.gif' %}')">
+        <h1 id="mainContentHeader" class="text-xl sm:text-2xl md:text-3xl font-semibold mb-3 md:mb-4 text-shadow">Welcome to the Project Ideation Journey</h1>
+        <p id="mainContentSubtext" class="text-gray-300 text-sm md:text-base text-shadow-sm">Start your business simulation by selecting an option from the sidebar. Good luck!</p>
+    </main>
 
+    <aside class="bg-amber-600/80 backdrop-blur-sm fixed bottom-4 right-4 p-3 md:p-4 h-auto max-h-[33vh] w-full sm:w-1/3 md:w-1/4 lg:w-1/5 z-10 rounded-lg shadow-xl flex flex-col overflow-hidden" id="activityLogContainer">
+        <div class="text-base md:text-lg font-semibold mb-2 text-white bg-amber-700 p-2 rounded-md">Activity Log</div> 
+        <div id="activity-log" class="space-y-2 flex-grow overflow-y-auto">
+            </div>
+    </aside>
+
+    <div class="fixed top-6 right-6 z-30">
+        <div class="relative">
+            <button onclick="toggleActions()" class="bg-purple-700 hover:bg-purple-600 text-white py-2.5 md:py-3 px-3 md:px-4 rounded-lg w-auto flex items-center justify-between shadow-lg transition-colors duration-150">
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 md:w-6 md:h-6 mr-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                    <span class="text-sm md:text-base">Actions</span>
+                </div>
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2 transform transition-transform duration-300" id="actionsChevron">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                    </svg>
+                    <span id="actionPointsDisplay" class="font-semibold bg-purple-900 px-2 py-0.5 rounded-md text-xs md:text-sm"></span>
+                </div>
+            </button>
+            <div id="actionsDropdown" class="hidden absolute top-full right-0 mt-1 bg-purple-600 text-white rounded-lg shadow-xl w-72 z-20 overflow-hidden">
+                <div id="dropdown-1" class="relative border-b border-purple-500">
+                    <button onclick="openDropDown(1)" class="py-2 md:py-2.5 px-3 md:px-4 w-full flex items-center justify-between hover:bg-purple-500 transition-colors duration-150 text-sm md:text-base">
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5 mr-2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0l2-2m-2 2l-2-2" />
+                            </svg>
+                            Operations
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-2 transform transition-transform duration-300" data-chevron-id="1">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </button>
+                    <div id="dropdownMenu1" class="hidden bg-purple-500 text-white scrollable-dropdown">
+                        </div>
+                </div>
+                <div id="dropdown-2" class="relative border-b border-purple-500">
+                    <button onclick="openDropDown(2)" class="py-2 md:py-2.5 px-3 md:px-4 w-full flex items-center justify-between hover:bg-purple-500 transition-colors duration-150 text-sm md:text-base">
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5 mr-2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-3h-.75a2.25 2.25 0 00-2.25 2.25v1.5m0 0v1.5a2.25 2.25 0 002.25 2.25h.75m-2.25-3h-.75a2.25 2.25 0 00-2.25 2.25v1.5m0 0v1.5a2.25 2.25 0 002.25 2.25h.75m-6 3.75a2.25 2.25 0 012.25-2.25h1.5a2.25 0 012.25 2.25v1.5a2.25 0 01-2.25 2.25h-1.5a2.25 0 01-2.25-2.25v-1.5z" />
+                            </svg>
+                            Hiring
+                        </div>
+                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-2 transform transition-transform duration-300" data-chevron-id="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </button>
+                    <div id="dropdownMenu2" class="hidden bg-purple-500 text-white scrollable-dropdown">
+                        <div onclick="openModal('Local Outreach')" class="block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base">Local Outreach</div>
+                        <div onclick="openModal('Online Websites')" class="block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base">Online Websites</div>
+                        <div onclick="openModal('Recruiter')" class="block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base">Recruiter</div>
+                        <div onclick="openModal('Fire a Person')" class="block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base">Fire a Person</div>
+                    </div>
+                </div>
+                <div id="dropdown-3" class="relative">
+                    <button onclick="openDropDown(3)" class="py-2 md:py-2.5 px-3 md:px-4 w-full flex items-center justify-between hover:bg-purple-500 transition-colors duration-150 text-sm md:text-base">
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5 mr-2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a3 3 0 00-3-3H7.5a3 3 0 00-3 3v10.5a3 3 0 003 3h9a3 3 0 003-3V10.5M9 11.25h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v-.75a.75.75 0 01.75-.75zM13.5 11.25h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75H13.5a.75.75 0 01-.75-.75v-.75a.75.75 0 01.75-.75z" />
+                            </svg>
+                            Services
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-2 transform transition-transform duration-300" data-chevron-id="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </button>
+                    <div id="dropdownMenu3" class="hidden bg-purple-500 text-white scrollable-dropdown">
+                        <div onclick="openModal('Hire a Lawyer')" class="block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base">Hire a Lawyer</div>
+                        <div onclick="openModal('Purchase Business Insurance')" class="block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base">Purchase Business Insurance</div>
+                        <div onclick="openModal('Marketing Campaign')" class="block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base">Marketing Campaign</div>
+                    </div>
+                </div>
             </div>
         </div>
-    
-
-
-<!-- Action Modal -->
-<div id="modalBackdrop" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-  <!-- Modal Box -->
-  <div class="bg-white rounded-lg shadow-lg w-96 p-6">
-    <h2 class="text-xl font-semibold mb-4"></h2>
-    <p class="text-gray-700 mb-4">This is the modal content.</p>
-    <div class="text-right">
-      <button onclick="closeModal()" class="bg-blue-500 text-white px-4 py-2 rounded">
-        Do it
-      </button>
-      <button onclick="closeModal()" class="bg-red-500 text-white px-4 py-2 rounded">
-        Close
-      </button>
     </div>
-  </div>
-</div>
 
-<!-- Background Overlay (Hidden initially) -->
-<div id="randomModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
-  <!-- Modal Container -->
-  <div class="flex items-center justify-center h-full">
-      <!-- Modal Box -->
-      <div class="bg-white rounded-lg shadow-lg w-96 p-6">
-          <h2 class="text-xl font-semibold mb-4"></h2>
-          <p class="text-gray-700 mb-4">This is the modal content.</p>
-          <div class="text-right">
-              <button onclick="closeModalRandomModal()" class="bg-gray-500 text-white px-4 py-2 rounded">
-                  Confirm
-              </button>
-          </div>
-      </div>
-  </div>
-</div>
-  
-          
+    <div id="modalBackdrop" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-slate-800 rounded-lg shadow-xl w-full max-w-md p-5 md:p-6 text-white">
+            <h2 class="text-lg md:text-xl font-semibold mb-4 text-sky-400"></h2>
+            <p class="text-gray-300 mb-5 md:mb-6 text-sm md:text-base">This is the modal content.</p>
+            <div class="flex justify-end space-x-3">
+                <button onclick="closeModal(true)" class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-md text-sm md:text-base transition-colors duration-150">
+                    Do it
+                </button>
+                <button onclick="closeModal(false)" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md ml-2 text-sm md:text-base transition-colors duration-150">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="randomModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden p-4">
+        <div class="flex items-center justify-center h-full">
+            <div class="bg-slate-800 rounded-lg shadow-xl w-full max-w-md p-5 md:p-6 text-white">
+                <h2 class="text-lg md:text-xl font-semibold mb-4 text-amber-400"></h2>
+                <p class="text-gray-300 mb-5 md:mb-6 text-sm md:text-base">This is the modal content.</p>
+                <div class="text-right">
+                    <button onclick="closeRandomModal()" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md text-sm md:text-base transition-colors duration-150">
+                        Confirm
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="quarterEndModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-slate-900 rounded-lg shadow-2xl w-full max-w-lg p-6 md:p-8 text-white finance-modal-text">
+            <h2 id="quarterEndTitle" class="text-xl md:text-2xl font-bold mb-6 text-center text-purple-400">Year 1, Q1 Finances</h2>
+            <div class="space-y-3 mb-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-green-400 mb-1">INCOME</h3>
+                    <div class="flex justify-between border-b border-slate-700 py-1"><span>Sales</span><span id="qEndSales">$0</span></div>
+                    <div class="flex justify-between border-b border-slate-700 py-1"><span>Actions & Events</span><span id="qEndActionIncome">$1,400</span></div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-red-400 mb-1">EXPENSES</h3>
+                    <div class="flex justify-between border-b border-slate-700 py-1"><span>Services</span><span id="qEndServiceCosts">$0</span></div>
+                    <div class="flex justify-between border-b border-slate-700 py-1"><span>Rent</span><span id="qEndRent">-$7,500</span></div>
+                    <div class="flex justify-between border-b border-slate-700 py-1"><span>Employee Wages</span><span id="qEndWages">$0</span></div>
+                    <div class="flex justify-between border-b border-slate-700 py-1"><span>Actions & Events Cost</span><span id="qEndActionExpenses">-$3,100</span></div>
+                    <div class="flex justify-between py-1"><span>Loan Repayment</span><span id="qEndLoanRepayment">-$900</span></div>
+                </div>
+            </div>
+            <div class="border-t-2 border-purple-500 pt-4 space-y-2">
+                <div class="flex justify-between text-lg">
+                    <span class="font-semibold">NET PROFIT</span>
+                    <span id="qEndNetProfit" class="font-bold">-$10,100</span>
+                </div>
+                <div class="flex justify-between text-xl">
+                    <span class="font-semibold text-purple-300">CURRENT BALANCE</span>
+                    <span id="qEndCurrentBalance" class="font-bold text-purple-300">$4,900</span>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <button onclick="proceedToNextQuarter()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-8 py-3 rounded-lg text-lg transition-colors duration-150 shadow-md">
+                    NEXT
+                </button>
+            </div>
+        </div>
+    </div>
+
+
 <script>
-    function openDropDown(n){
-     let el = document.getElementById(`dropdownMenu${n}`)
-     el.classList.toggle('hidden')
-    }
-    function openModal(str) {
-     let modal = document.getElementById('modalBackdrop')
-     modal.querySelector('h2').textContent = str
-     modal.classList.remove('hidden');
-     businessLog(str);
-    }
- 
-    function closeModal() {
-     document.getElementById('modalBackdrop').classList.add('hidden');
-    //random scenario
-    const randomNumber = Math.floor(Math.random() * 100) + 1; // 1–100
-    if (randomNumber <= 50) { // 50% chance
-        openRandomModal();
-    }
-     
-    }
-    function openRandomModal() {
-        setTimeout(() => {
-            let modal = document.getElementById('randomModal');
-            modal.querySelector('h2').textContent = "Random Event";
-            modal.classList.remove('hidden');
-        }, 700); // 2000 milliseconds = 2 seconds delay
+    // --- DOM Elements ---
+    const companyHealthBar = document.getElementById("companyHealthBar");
+    const marketDominationBar = document.getElementById("marketDominationBar");
+    const customerSatisfactionBar = document.getElementById("customerSatisfactionBar");
+    const balancedBooksBar = document.getElementById("balancedBooksBar"); // Legal Papers
+    const employeeCountDisplay = document.getElementById("employeeCount");
+    const accountBalanceDisplay = document.getElementById("accountBalance");
+    const businessIconDisplay = document.getElementById("businessIconDisplay");
+    const businessNameDisplay = document.getElementById("businessNameDisplay");
+    const businessTypeDisplay = document.getElementById("businessTypeDisplay");
+    const yearQuarterDisplay = document.getElementById("yearQuarterDisplay");
+    const actionPointsDisplay = document.getElementById("actionPointsDisplay");
+    const actionsDropdown = document.getElementById("actionsDropdown");
+    const actionsChevron = document.getElementById("actionsChevron");
+
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const modalTitle = modalBackdrop.querySelector('h2');
+    const modalContent = modalBackdrop.querySelector('p');
+
+    const randomModal = document.getElementById('randomModal');
+    const randomModalTitle = randomModal.querySelector('h2');
+    const randomModalContent = randomModal.querySelector('p');
+
+    const quarterEndModal = document.getElementById('quarterEndModal');
+    const qEndTitle = document.getElementById('quarterEndTitle');
+    const qEndSales = document.getElementById('qEndSales');
+    const qEndActionIncome = document.getElementById('qEndActionIncome');
+    const qEndServiceCosts = document.getElementById('qEndServiceCosts');
+    const qEndRent = document.getElementById('qEndRent');
+    const qEndWages = document.getElementById('qEndWages');
+    const qEndActionExpenses = document.getElementById('qEndActionExpenses');
+    const qEndLoanRepayment = document.getElementById('qEndLoanRepayment');
+    const qEndNetProfit = document.getElementById('qEndNetProfit');
+    const qEndCurrentBalance = document.getElementById('qEndCurrentBalance');
+
+    const activityLog = document.getElementById('activity-log');
+    const mainElement = document.querySelector('main');
+
+    // --- State Variables ---
+    let actionsVisible = false;
+    let openDropdownId = null;
+    let latestAction = "";
+    let currentModalType = "";
+
+    // --- Initial Setup ---
+    function initializeUI() {
+        businessIconDisplay.textContent = icon;
+        businessNameDisplay.textContent = businessName;
+        businessTypeDisplay.textContent = businessType;
+        updateAllStatsDisplay();
+        populateDropdown(1);
+        businessLog(`Game Started. Welcome to Year ${currentYear}, Q${currentQuarter}!`, "system");
+        resetQuarterlyFinances(); // Initialize quarterly finance trackers
     }
 
-    function closeModalRandomModal() {
-     document.getElementById('randomModal').classList.add('hidden');
-     businessLog("Event")
+    function resetQuarterlyFinances() {
+        quarterlySales = 0;
+        quarterlyIncomeFromActionsAndEvents = 0;
+        quarterlyExpensesFromActionsAndEvents = 0;
+        quarterlyServiceCosts = 0;
+        // Fixed costs are constants, so no need to reset them here, they are applied when calculating summary.
     }
 
-    function businessLog(action){
-    let log = document.getElementById('activity-log');
 
-    let newEntry = document.createElement("div");
-    newEntry.className = "bg-amber-200 w-full border-t-2 border-b-2 border-black text-2xl mt-0 p-4";
-    newEntry.textContent = action;
+    // --- Update Functions ---
+    function updateActionPoints(cost) {
+        actionPoints = Math.max(0, actionPoints - cost);
+        actionPointsDisplay.textContent = actionPoints;
+        if (actionPoints === 0) {
+            showQuarterEndModal();
+        }
+    }
 
-    log.appendChild(newEntry);
+    function updateCompanyHealth(value) {
+        companyHealthPercentage = Math.max(0, Math.min(100, value));
+        companyHealthBar.style.width = `${companyHealthPercentage}%`;
+    }
+    function updateMarketDomination(value) {
+        marketDominationPercentage = Math.max(0, Math.min(100, value));
+        marketDominationBar.style.width = `${marketDominationPercentage}%`;
+    }
+    function updateCustomerSatisfaction(value) {
+        customerSatisfactionPercentage = Math.max(0, Math.min(100, value));
+        customerSatisfactionBar.style.width = `${customerSatisfactionPercentage}%`;
+    }
+    function updateBalancedBooks(value) { // Legal Papers
+        balancedBooksPercentage = Math.max(0, Math.min(100, value));
+        balancedBooksBar.style.width = `${balancedBooksPercentage}%`;
+    }
+    function updateBalance(changeAmount, type = "other") { // type can be 'actionIncome', 'actionExpense', 'serviceCost'
+        balance += changeAmount;
+        accountBalanceDisplay.textContent = `$${balance.toLocaleString()}`;
 
-    // Auto-scroll to the latest entry
-    log.scrollTop = log.scrollHeight;
-}
- </script>      
+        // Track for quarterly summary
+        if (changeAmount > 0 && (type === "actionIncome" || type === "otherIncome")) {
+            quarterlyIncomeFromActionsAndEvents += changeAmount;
+        } else if (changeAmount < 0) {
+            if (type === "actionExpense" || type === "otherExpense") {
+                 quarterlyExpensesFromActionsAndEvents += Math.abs(changeAmount); // Store as positive for expense sum
+            } else if (type === "serviceCost") {
+                quarterlyServiceCosts += Math.abs(changeAmount);
+            }
+            // Salary, Rent, Loan are handled at quarter end summary, not per transaction here
+        }
+    }
+    function updateEmployeeCount(change) {
+        employees += change;
+        employees = Math.max(0, employees);
+        employeeCountDisplay.textContent = employees;
+    }
+    function updateYearQuarterDisplay() {
+        yearQuarterDisplay.textContent = `Year ${currentYear}, Q${currentQuarter}`;
+    }
+
+    function updateAllStatsDisplay() {
+        updateCompanyHealth(companyHealthPercentage);
+        updateMarketDomination(marketDominationPercentage);
+        updateCustomerSatisfaction(customerSatisfactionPercentage);
+        updateBalancedBooks(balancedBooksPercentage);
+        accountBalanceDisplay.textContent = `$${balance.toLocaleString()}`;
+        employeeCountDisplay.textContent = employees;
+        actionPointsDisplay.textContent = actionPoints;
+        updateYearQuarterDisplay();
+    }
+
+    // --- Dropdown Logic ---
+    function toggleActions() {
+        actionsVisible = !actionsVisible;
+        actionsDropdown.classList.toggle("hidden", !actionsVisible);
+        actionsChevron.classList.toggle("rotate-180", actionsVisible);
+
+        if (!actionsVisible && openDropdownId !== null) {
+            document.getElementById(`dropdownMenu${openDropdownId}`).classList.add('hidden');
+            const chevron = document.querySelector(`button[onclick="openDropDown(${openDropdownId})"] svg[data-chevron-id]`);
+            if (chevron) chevron.classList.remove('rotate-180');
+            openDropdownId = null;
+        }
+    }
+
+    function openDropDown(n) {
+        const currentDropdownMenu = document.getElementById(`dropdownMenu${n}`);
+        const currentChevron = document.querySelector(`button[onclick="openDropDown(${n})"] svg[data-chevron-id]`);
+
+        if (openDropdownId !== null && openDropdownId !== n) {
+            document.getElementById(`dropdownMenu${openDropdownId}`).classList.add('hidden');
+            const prevChevron = document.querySelector(`button[onclick="openDropDown(${openDropdownId})"] svg[data-chevron-id]`);
+            if (prevChevron) prevChevron.classList.remove('rotate-180');
+        }
+
+        currentDropdownMenu.classList.toggle('hidden');
+        if (currentChevron) currentChevron.classList.toggle('rotate-180', !currentDropdownMenu.classList.contains('hidden'));
+        
+        openDropdownId = currentDropdownMenu.classList.contains('hidden') ? null : n;
+    }
+
+    // --- Modal Logic ---
+    function openModal(actionString, type = 'action') {
+        latestAction = actionString;
+        currentModalType = type;
+
+        if (type === 'action') {
+            modalTitle.textContent = actionString;
+            modalContent.textContent = `Are you sure you want to perform the action: "${actionString}"? This may cost action points and resources.`;
+            modalBackdrop.classList.remove('hidden');
+        } else if (type === 'randomEvent') {
+            randomModalTitle.textContent = actionString.title || "Random Event";
+            randomModalContent.textContent = actionString.message || "Something unexpected happened!";
+            randomModal.classList.remove('hidden');
+        }
+        if (actionsVisible) {
+            const mainActionsButton = document.querySelector('button[onclick="toggleActions()"]');
+            const isActionsDropdownVisible = !actionsDropdown.classList.contains('hidden');
+            if (mainActionsButton && isActionsDropdownVisible) {
+                 toggleActions(); 
+            }
+        }
+        businessLog(`Modal opened for: ${typeof actionString === 'string' ? actionString : actionString.title}`, "system");
+    }
+
+    function closeModal(performAction) {
+        modalBackdrop.classList.add('hidden');
+        if (performAction && currentModalType === 'action') {
+            handleAction(latestAction);
+        }
+        latestAction = ""; 
+        currentModalType = "";
+
+        if (actionPoints > 0 && Math.random() < 0.5) { // Trigger random event only if quarter isn't over
+           triggerRandomEvent();
+        }
+    }
+    
+    function closeRandomModal() {
+        randomModal.classList.add('hidden');
+    }
+
+    function showQuarterEndModal() {
+        businessLog(`End of Q${currentQuarter}, Year ${currentYear}. Reviewing finances.`, "system");
+
+        qEndTitle.textContent = `Year ${currentYear}, Q${currentQuarter} Finances`;
+        
+        // Calculate total expenses for the quarter that are not action-related
+        const currentQuarterSalaries = employees * SALARY_PER_EMPLOYEE_PER_QUARTER;
+        // Apply these fixed expenses to the balance *before* showing the modal
+        // This ensures the "Current Balance" on the modal is post-fixed-expenses for the quarter
+        if (!fixedExpensesAppliedForQuarter) { // Add a flag to ensure this runs once per quarter end
+            updateBalance(-currentQuarterSalaries, "salary"); // Deduct salaries
+            updateBalance(-RENT_PER_QUARTER, "rent");         // Deduct rent
+            updateBalance(-LOAN_REPAYMENT_PER_QUARTER, "loan"); // Deduct loan
+            fixedExpensesAppliedForQuarter = true;
+             businessLog(`Applied fixed quarterly expenses: Salaries ($${currentQuarterSalaries.toLocaleString()}), Rent ($${RENT_PER_QUARTER.toLocaleString()}), Loan ($${LOAN_REPAYMENT_PER_QUARTER.toLocaleString()})`, "system");
+        }
+
+
+        qEndSales.textContent = `$${quarterlySales.toLocaleString()}`;
+        qEndActionIncome.textContent = `$${quarterlyIncomeFromActionsAndEvents.toLocaleString()}`;
+        
+        qEndServiceCosts.textContent = `-$${quarterlyServiceCosts.toLocaleString()}`;
+        qEndRent.textContent = `-$${RENT_PER_QUARTER.toLocaleString()}`;
+        qEndWages.textContent = `-$${currentQuarterSalaries.toLocaleString()}`;
+        qEndActionExpenses.textContent = `-$${quarterlyExpensesFromActionsAndEvents.toLocaleString()}`;
+        qEndLoanRepayment.textContent = `-$${LOAN_REPAYMENT_PER_QUARTER.toLocaleString()}`;
+
+        const totalIncome = quarterlySales + quarterlyIncomeFromActionsAndEvents;
+        const totalExpenses = quarterlyServiceCosts + RENT_PER_QUARTER + currentQuarterSalaries + quarterlyExpensesFromActionsAndEvents + LOAN_REPAYMENT_PER_QUARTER;
+        const netProfit = totalIncome - totalExpenses;
+
+        qEndNetProfit.textContent = `$${netProfit.toLocaleString()}`;
+        qEndNetProfit.className = netProfit >= 0 ? 'font-bold text-green-400' : 'font-bold text-red-400';
+        
+        qEndCurrentBalance.textContent = `$${balance.toLocaleString()}`; // Balance after all actions and fixed deductions
+
+        quarterEndModal.classList.remove('hidden');
+    }
+    let fixedExpensesAppliedForQuarter = false; // Flag for fixed expenses
+
+    function proceedToNextQuarter() {
+        quarterEndModal.classList.add('hidden');
+        advanceQuarter();
+    }
+
+    // --- Activity Log ---
+    function businessLog(actionText, type = "action") {
+        const newEntry = document.createElement("div");
+        let bgColor = "bg-amber-400"; let textColor = "text-amber-900";
+        switch(type) {
+            case "event": bgColor = "bg-sky-400"; textColor = "text-sky-900"; break;
+            case "system": bgColor = "bg-gray-400"; textColor = "text-gray-900"; break;
+            case "penalty": bgColor = "bg-red-400"; textColor = "text-red-900"; break;
+            case "bonus": bgColor = "bg-green-400"; textColor = "text-green-900"; break;
+        }
+        newEntry.className = `${bgColor} ${textColor} p-2 md:p-3 rounded-md text-xs md:text-sm shadow`;
+        newEntry.textContent = actionText; // Timestamp removed
+        activityLog.prepend(newEntry);
+        if (activityLog.children.length > 10) activityLog.removeChild(activityLog.lastChild);
+    }
+
+    // --- Action Handling ---
+    function handleAction(action){
+        if (actionPoints <= 0 && action !== "Fire a Person") {
+            businessLog("Not enough action points to perform: " + action, "penalty");
+            openModal({ title: "No Action Points", message: "You don't have enough action points for this. Wait for the next quarter or end the current one if all actions are done." }, 'randomEvent');
+            return;
+        }
+
+        let cost = 0;
+        let logMessage = `Performed: ${action}.`;
+        let balanceChange = 0;
+        let balanceChangeType = "other";
+
+
+        switch(action){
+            // Operations
+            case "Basic Task": cost = 1; balanceChange = 1000; balanceChangeType="actionIncome"; updateBalancedBooks(Math.max(0, balancedBooksPercentage - 10)); break;
+            case "Standard Procedure": cost = 1; balanceChange = 500; balanceChangeType="actionIncome"; updateBalancedBooks(Math.max(0, balancedBooksPercentage - 5)); break;
+            case "Complex Operation": cost = 2; balanceChange = 1500; balanceChangeType="actionIncome"; updateBalancedBooks(Math.max(0, balancedBooksPercentage - 15)); break;
+            case "Engage with Customers": cost = 1; updateCustomerSatisfaction(customerSatisfactionPercentage + 10); break;
+            case "Post on Social Media": cost = 1; updateMarketDomination(marketDominationPercentage + 5); break;
+            
+            // Hiring
+            case "Local Outreach": cost = 2; if(balance >= 2000){ updateEmployeeCount(3); balanceChange = -2000; balanceChangeType="actionExpense";} else { logMessage = "Not enough funds for Local Outreach."; cost = 0; } break;
+            case "Online Websites": cost = 2; if(balance >= 5000){ updateEmployeeCount(5); balanceChange = -5000; balanceChangeType="actionExpense";} else { logMessage = "Not enough funds for Online Websites hiring."; cost = 0; } break;
+            case "Recruiter": cost = 3; if(balance >= 10000){ updateEmployeeCount(8); balanceChange = -10000; balanceChangeType="actionExpense";} else { logMessage = "Not enough funds for Recruiter."; cost = 0; } break;
+            case "Fire a Person":
+                cost = 1;
+                if(employees > 0){
+                    updateEmployeeCount(-1);
+                    balanceChange = -1000; balanceChangeType="actionExpense"; // Severance
+                    updateCustomerSatisfaction(Math.max(0, customerSatisfactionPercentage - 5));
+                    logMessage = "Fired an employee. Morale slightly affected.";
+                } else {
+                    logMessage = "No employees to fire."; cost = 0;
+                }
+                break;
+
+            // Services
+            case "Hire a Lawyer": cost = 2; if(balance >= 3000){ updateBalancedBooks(balancedBooksPercentage + 20); balanceChange = -3000; balanceChangeType="serviceCost";} else { logMessage = "Not enough funds to hire a lawyer."; cost = 0; } break;
+            case "Purchase Business Insurance": cost = 2; if(balance >= 4000){ updateCompanyHealth(companyHealthPercentage + 15); balanceChange = -4000; balanceChangeType="serviceCost";} else { logMessage = "Not enough funds for insurance."; cost = 0; } break;
+            case "Marketing Campaign": cost = 3; if(balance >= 6000){ updateMarketDomination(marketDominationPercentage + 15); updateCustomerSatisfaction(customerSatisfactionPercentage + 5); balanceChange = -6000; balanceChangeType="serviceCost";} else { logMessage = "Not enough funds for marketing campaign."; cost = 0; } break;
+            
+            default: cost = 0; logMessage = `Unknown action: ${action}`; break;
+        }
+        
+        if (balanceChange !== 0) {
+            updateBalance(balanceChange, balanceChangeType);
+        }
+
+        if (cost > 0) {
+             updateActionPoints(cost); // This will trigger quarter end modal if AP hits 0
+        }
+        businessLog(logMessage, (cost > 0 && (logMessage.includes("Not enough funds") || logMessage.includes("No employees to fire"))) ? "penalty" : "action");
+        updateAllStatsDisplay();
+    }
+
+    // --- Background and Dynamic Content ---
+    function changeBackgroundAndContent(number) {
+        const mainContentHeader = document.getElementById('mainContentHeader');
+        const mainContentSubtext = document.getElementById('mainContentSubtext');
+        let bgImage = `url('{% static 'mod4bg.gif' %}')`; // Default
+        let headerText = 'Welcome to the Project Ideation Journey';
+        let subText = 'Select an action to proceed.';
+
+        if (number === 1) {
+            headerText = "Operational Focus"; subText = "Manage day-to-day tasks and keep the business running smoothly.";
+        } else if (number === 2) { // Corresponds to mod4bg1.gif
+            bgImage = `url('{% static 'mod4bg1.gif' %}')`; headerText = "Growth & Expansion"; subText = "Focus on hiring, marketing, and expanding your market presence.";
+        } else { // Fallback
+            mainElement.style.backgroundColor = '#7f1d1d'; headerText = "Critical Decisions Ahead"; subText = "Navigate challenges and make tough choices for your business.";
+        }
+        mainElement.style.backgroundImage = bgImage;
+        mainContentHeader.textContent = headerText;
+        mainContentSubtext.textContent = subText;
+    }
+    
+    // --- Dropdown Content Population ---
+    const operationsActions = [
+      { label: "Basic Task (+$1k, -10LP, 1AP)", action: "Basic Task" },
+      { label: "Std. Procedure (+$0.5k, -5LP, 1AP)", action: "Standard Procedure" },
+      { label: "Complex Op. (+$1.5k, -15LP, 2AP)", action: "Complex Operation" },
+      { label: "Engage Customers (+10CS, 1AP)", action: "Engage with Customers" },
+      { label: "Social Media Post (+5MD, 1AP)", action: "Post on Social Media" },
+    ];
+
+    function populateDropdown(dropdownSetId) {
+        const dropdownMenu = document.getElementById("dropdownMenu1"); 
+        dropdownMenu.innerHTML = ""; 
+        let dataToUse = (dropdownSetId === 1) ? operationsActions : [];
+        if(dropdownSetId === 1) changeBackgroundAndContent(1);
+
+        dataToUse.forEach((item) => {
+            const div = document.createElement("div");
+            div.onclick = () => openModal(item.action);
+            div.className = "block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base";
+            div.textContent = item.label;
+            dropdownMenu.appendChild(div);
+        });
+    }
+
+    // --- Random Events ---
+    const randomEvents = [
+        { title: "Unexpected Bill!", message: "An unforeseen expense of $2000 has arrived.", effect: () => { updateBalance(-2000, "otherExpense"); updateBalancedBooks(balancedBooksPercentage - 5); businessLog("Paid unexpected bill: -$2000.", "penalty");} },
+        { title: "Positive Media Coverage!", message: "Your company got some great PR! Market Domination +10, Customer Satisfaction +5.", effect: () => { updateMarketDomination(marketDominationPercentage + 10); updateCustomerSatisfaction(customerSatisfactionPercentage + 5); businessLog("Positive PR boost!", "bonus");} },
+        { title: "Tax Rebate", message: "Good news from the government! You receive a $1500 tax rebate.", effect: () => { updateBalance(1500, "otherIncome"); businessLog("Received a tax rebate of $1500!", "bonus");} }
+        // Add more events
+    ];
+
+    function triggerRandomEvent() {
+        const event = randomEvents[Math.floor(Math.random() * randomEvents.length)];
+        openModal(event, 'randomEvent'); 
+        event.effect(); 
+        updateAllStatsDisplay(); 
+    }
+
+    // --- Game Loop / Turn Advancement ---
+    function advanceQuarter() {
+        currentQuarter++;
+        if (currentQuarter > 4) {
+            currentQuarter = 1;
+            currentYear++;
+        }
+        actionPoints = 4; // Reset action points
+        fixedExpensesAppliedForQuarter = false; // Reset flag for next quarter's fixed expenses
+        resetQuarterlyFinances(); // Reset trackers for the new quarter
+
+        // Passive changes (example: slight decay if not managed)
+        updateCustomerSatisfaction(customerSatisfactionPercentage - Math.floor(Math.random() * 3 + 1)); // Decay 1-3
+        updateCompanyHealth(companyHealthPercentage - Math.floor(Math.random() * 2 + 1)); // Decay 1-2
+        updateMarketDomination(marketDominationPercentage - Math.floor(Math.random() * 2)); // Decay 0-1
+
+        businessLog(`Advanced to Year ${currentYear}, Q${currentQuarter}. Action points reset.`, "system");
+        updateAllStatsDisplay();
+
+        if (Math.random() < 0.3) { // 30% chance of random event at start of new quarter
+            triggerRandomEvent();
+        }
+    }
+
+    // --- Event Listeners & Initialization ---
+    window.onload = function() {
+      initializeUI();
+      changeBackgroundAndContent(1); 
+    };
+
+    document.addEventListener('click', function(event) {
+        const actionsButton = document.querySelector('button[onclick="toggleActions()"]');
+        const isClickInsideActionsButton = actionsButton ? actionsButton.contains(event.target) : false;
+        const isClickInsideActionsDropdown = actionsDropdown ? actionsDropdown.contains(event.target) : false;
+        
+        if (!isClickInsideActionsButton && !isClickInsideActionsDropdown && actionsVisible) {
+            toggleActions(); 
+        } else if (openDropdownId !== null) {
+            const specificDropdownContainer = document.getElementById(`dropdown-${openDropdownId}`);
+            const specificDropdownMenu = document.getElementById(`dropdownMenu${openDropdownId}`);
+            const isClickInsideSpecificDropdown = (specificDropdownContainer && specificDropdownContainer.contains(event.target)) || 
+                                               (specificDropdownMenu && specificDropdownMenu.contains(event.target)) ||
+                                               (event.target.closest(`button[onclick="openDropDown(${openDropdownId})"]`));
+
+            if (!isClickInsideSpecificDropdown && !isClickInsideActionsButton) {
+                 const dropdownMenuToClose = document.getElementById(`dropdownMenu${openDropdownId}`);
+                 const chevronToReset = document.querySelector(`button[onclick="openDropDown(${openDropdownId})"] svg[data-chevron-id]`);
+                 if (dropdownMenuToClose && !dropdownMenuToClose.classList.contains('hidden')) {
+                     dropdownMenuToClose.classList.add('hidden');
+                     if(chevronToReset) chevronToReset.classList.remove('rotate-180');
+                     openDropdownId = null;
+                 }
+            }
+        }
+    });
+
+</script>
 </body>
 </html>
