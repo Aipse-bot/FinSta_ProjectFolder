@@ -19,20 +19,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const option1 = sessionStorage.getItem('option1'); // Business type index
     const businessGoal = sessionStorage.getItem('option2'); // Business goal
     const businessName = sessionStorage.getItem('option3'); // Business name
-    const location = sessionStorage.getItem('location'); // Location type
+    const businessLocation = sessionStorage.getItem('businessLocation'); // Location type
     const targetMarket = sessionStorage.getItem('targetMarket'); // Target market
+    const maxEmployees = sessionStorage.getItem('maxEmployees'); // Max employees
 
     // Retrieve player data from sessionStorage
     let storedPlayer = JSON.parse(sessionStorage.getItem("playerData"));
     const userName = "User";
-
     const businessType = option1 !== null && businessTypes[parseInt(option1)] ? businessTypes[parseInt(option1)] : "Not Selected";
 
     console.log("Retrieved Values:");
-    console.log("Option1 (Business Type Index):", storedPlayer.businessType);
-    console.log("Business Goal (option2):", storedPlayer.businessGoal);
-    console.log("Business Name (option3):", storedPlayer.businessName);
-    console.log("Location:", storedPlayer.businessLocation);
+    console.log("Session Storage:", sessionStorage);
+    console.log("Stored Player Data:", storedPlayer);
+    // remove comment if player is updated for every page
+    //console.log("Location:", storedPlayer.businessLocation);
+    console.log("Location:", location);
     console.log("Target Market:", targetMarket);
 
     const userNameElements = document.querySelectorAll('h2');
@@ -45,33 +46,38 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     businessNameElements.forEach(p => {
-        if (p.innerText.includes('{business name}')) {
+        if (p.innerText.includes('{businessName}')) {
             console.log("Replacing business name with:", businessName || "Not Selected");
-            p.innerText = p.innerText.replace('{business name}', storedPlayer.businessName || "Not Selected");
+            p.innerText = p.innerText.replace('{businessName}', storedPlayer.businessName || "Not Selected");
             p.classList.add('business-name');
         }
-        if (p.innerText.includes('{home-based/physical store/commercial space}')) {
-            p.innerText = p.innerText.replace('{home-based/physical store/commercial space}', storedPlayer.businessLocation || "Not Selected");
-            p.classList.add('location');
+        if (p.innerText.includes('{businessLocation}')) {
+            p.innerText = p.innerText.replace('{businessLocation}', location || "Not Selected");
+            p.classList.add('business-location');
         }
-        if (p.innerText.includes('{business type}')) {
-            p.innerText = p.innerText.replace('{business type}', storedPlayer.businessType);
+        if (p.innerText.includes('{businessType}')) {
+            p.innerText = p.innerText.replace('{businessType}', storedPlayer.businessType);
             p.classList.add('business-type');
         }
-        if (p.innerText.includes('{target market}')) {
-            p.innerText = p.innerText.replace('{target market}', targetMarket || "Not Selected");
+        if (p.innerText.includes('{targetMarket}')) {
+            p.innerText = p.innerText.replace('{targetMarket}', location || "Not Selected");
             p.classList.add('target-market');
         }
-        if (p.innerText.includes('{business goal}')) {
-            p.innerText = p.innerText.replace('{business goal}', storedPlayer.businessGoal || "Not Selected");
+        if (p.innerText.includes('{businessGoal}')) {
+            p.innerText = p.innerText.replace('{businessGoal}', storedPlayer.businessGoal || "Not Selected");
             p.classList.add('business-goal');
+        }
+        if (p.innerText.includes('{maxEmployee}')) {
+            p.innerText = p.innerText.replace('{maxEmployee}', location || "Not Selected");
+            p.classList.add('max-employee');
         }
     });
 
-    const businessNameElement = document.querySelector('.business-name');
-    if (!businessNameElement) {
-        console.error("Business name element not found in the DOM!");
-    }
+    // Uncomment if using sessionStorage instead
+    // const businessNameElement = document.querySelector('.business-name');
+    // if (!businessNameElement) {
+    //     console.error("Business name element not found in the DOM!");
+    // }
 
     // Add redirect logic for summary cards
     document.querySelectorAll('.summary-card').forEach(function(card) {

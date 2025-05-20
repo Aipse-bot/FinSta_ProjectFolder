@@ -58,23 +58,31 @@ let current_open_modal_id = ""
         const locationData = {
             "home-based-modal": {
                 location: "Home-Based",
-                targetMarket: "Teens and young adults, Small businesses, Event organizers"
+                targetMarket: "Teens and young adults, Small businesses, Event organizers",
+                maxEmployees: 3
             },
             "physical-store-modal": {
                 location: "Physical Store",
-                targetMarket: "Professionals needing bespoke suits, Fashion-forward individuals, High-income earners"
+                targetMarket: "Professionals needing bespoke suits, Fashion-forward individuals, High-income earners",
+                maxEmployees: 10
             },
             "commercial-space-modal": {
                 location: "Commercial Space",
-                targetMarket: "Working professionals, Stress-relief seekers, Health-conscious individuals"
+                targetMarket: "Working professionals, Stress-relief seekers, Health-conscious individuals",
+                maxEmployees: 20
             }
-           };
-        
+        };
         // Store the selected location and target market in sessionStorage
         const selectedLocationData = locationData[current_open_modal_id];
-        sessionStorage.setItem('location', selectedLocationData.location);
+        sessionStorage.setItem('businessLocation', selectedLocationData.location);
         sessionStorage.setItem('targetMarket', selectedLocationData.targetMarket);
-        updatePlayerProperty("businessLocation", selectedLocationData.location)
+        sessionStorage.setItem('maxEmployees', selectedLocationData.maxEmployees);
+        
+        // Store the selected location in player data
+        updatePlayerProperty("businessLocation", selectedLocationData.location);
+
+        // remove comment if player is updated for every page
+        //updatePlayerProperty("businessLocation", selectedLocationData.location);
         console.log("Continue action triggered.");
         closeModal();  // Close the modal after the action
         printPlayerInfo()
