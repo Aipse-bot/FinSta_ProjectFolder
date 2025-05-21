@@ -87,18 +87,32 @@
     <!-- Business Name Selection Modal -->
     <div id="businessNameModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
         <div class="bg-[#E5E7EB] border border-[#62666e] rounded-xl shadow-lg p-8 w-[450px] mx-auto text-center">
-            <h2 class="text-2xl font-semibold text-[#1F2937] mb-6">Business Name Chosen</h2>
+            <h2 class="text-2xl font-semibold text-[#1F2937] mb-6">Chosen Business Name</h2>
             <p id="businessNameText" class="text-[#1F2937] text-xl mb-8"></p>
-            <div class="flex justify-between">
-                <button onclick="closeBusinessNameModal()" class="bg-[#c22525] text-white px-6 py-3 rounded-lg hover:bg-[#bf1717]/80 transition-all duration-300 text-lg">Cancel</button>
-                <button onclick="proceedToNextPhase()" class="bg-[#25c247] text-white px-6 py-3 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300 text-lg">Continue</button>
-            </div>
+            <form method="POST" action="{% url 'save_business_name' %}">
+                {% csrf_token %}
+                {{ form.name }}
+                {{ form.businessName }}
+                <div class="flex justify-between mt-6">
+                    <button type="button" onclick="closeBusinessNameModal()"
+                            class="bg-[#c22525] text-white px-6 py-3 rounded-lg hover:bg-[#bf1717]/80 transition-all duration-300 text-lg">
+                        Cancel
+                    </button>
+                    <button type="submit"
+                            class="bg-[#25c247] text-white px-6 py-3 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300 text-lg">
+                        Continue
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
+
     <script type="text/javascript" src="{% static 'player.js' %}"></script>
 
     <script>
         let name = null;
+            document.getElementById("name").classList.add("hidden")
+    document.getElementById("name").removeAttribute("required");
 // icons
 document.addEventListener('DOMContentLoaded', function() {
     feather.replace();
@@ -121,7 +135,11 @@ function checkInput() {
 
 // handle name option selection
 function selectBusinessName(str) {
-    name = str;
+    console.log(str)
+    document.getElementById("businessName").value = str;
+
+
+
     const modal = document.getElementById("businessNameModal");
     const text = document.getElementById("businessNameText");
     text.innerHTML = `"<strong>${str}</strong>". Proceed?`;
@@ -130,20 +148,20 @@ function selectBusinessName(str) {
 }
 
 function closeBusinessNameModal() {
+    document.getElementById("businessName").value = "";
+    document.getElementById("name").classList.add("hidden")
+    document.getElementById("name").removeAttribute("required");
+    document.getElementById('businessNameInput').value = null
     const modal = document.getElementById("businessNameModal");
     modal.classList.remove("flex");
     modal.classList.add("hidden");
+    
+    const nameOptions = document.querySelectorAll('.name-option');
+    nameOptions.forEach(option => {
+        option.classList.remove('opacity-50', 'pointer-events-none');
+    });
 }
 
-function proceedToNextPhase() {
-    if(name==null){
-        console.log("name: null")
-        return;
-    }
-    updatePlayerProperty("businessName",name)
-    printPlayerInfo()
-    window.location.href = "{% url 'mod3t1t2t3' %}";
-}
 
 // custom name
 function submitCustomName() {
@@ -151,7 +169,7 @@ function submitCustomName() {
     const str = input.value.trim();
     
     if (str !== '') {
-        name = str;
+        document.getElementById("businessName").value = str;
         const modal = document.getElementById("businessNameModal");
         const text = document.getElementById("businessNameText");
         text.innerHTML = `"<strong>${str}</strong>". Proceed?`;

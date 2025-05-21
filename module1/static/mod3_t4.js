@@ -91,8 +91,35 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function reset() {
-    sessionStorage.clear();
-    window.location.href = "intro";
+    fetch("reset", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie("csrftoken") // Ensure CSRF token is included
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.message);
+        sessionStorage.clear();
+        window.location.href = "login";
+    })
+    .catch(error => console.error("Error:", error));
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+        let cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            if (cookie.startsWith(name + "=")) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }
 
 function proceed() {

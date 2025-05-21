@@ -10,4 +10,6 @@ class Player(models.Model):
     businessGoal = models.TextField(null=True)
     businessName = models.CharField(max_length=255, null=True)
     businessLocation = models.CharField(max_length=255, null=True)
+    targetMarket = models.CharField(max_length=255, null=True)
+    maxNumberOfWorkers = models.IntegerField(default=0)
     balance = models.IntegerField(default=50000)  # Initial funds, updated through transactions

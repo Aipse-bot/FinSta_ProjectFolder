@@ -4,4 +4,4 @@ from .models import Player
 
 @admin.register(Player)
 class PlayerAdmin(admin.ModelAdmin):
-    list_display = ("user","name", "capital", "businessCategory", "businessType","businessGoal","businessName","businessLocation","balance")
+    list_display = ("user","name", "capital", "businessCategory", "businessType","businessGoal","businessName","businessLocation","targetMarket","maxNumberOfWorkers","balance")

@@ -14,6 +14,8 @@ from .forms import PlayerForm
 
 from django.contrib.auth.decorators import login_required
 from .models import Player
+from django.http import JsonResponse
+
 
 
 @login_required
@@ -115,10 +117,13 @@ def save_business_location(request):
 
             # ✅ Update business details
             player.businessLocation = form.cleaned_data["businessLocation"]
-
+            player.targetMarket = form.cleaned_data["targetMarket"]
+            player.maxNumberOfWorkers = form.cleaned_data["maxNumberOfWorkers"]
             player.save()
 
             print(player.businessLocation)
+            print(player.targetMarket)
+            print(player.maxNumberOfWorkers)
             print("--------------proceed to t4----------------------")
             return redirect("mod3t4")  # Redirect after saving
         else:
@@ -157,32 +162,15 @@ def mod3t1t2t3_view(request):
 def mod3t4_view(request):
     print("-------------mod3t4_view------------")
     player = Player.objects.get(user=request.user)  # Get existing player data
-    # remove comments if location is saved to the database after mod3_t1t2t3
-    # location_map = {
-    #     "Home-Based": {
-    #         "targetMarket": "Teens and young adults, Small businesses, Event organizers",
-    #         "maxEmployee": 3
-    #     },
-    #     "Physical Store": {
-    #         "targetMarket": "Professionals needing bespoke suits, Fashion-forward individuals, High-income earners",
-    #         "maxEmployee": 10
-    #     },
-    #     "Commercial Space": {
-    #         "targetMarket": "Working professionals, Stress-relief seekers, Health-conscious individuals",
-    #         "maxEmployee": 20
-    #     }
-    # }
-    # loc = player.businessLocation
-    # targetMarket = location_map.get(loc, {}).get("targetMarket", "")
-    # maxEmployee = location_map.get(loc, {}).get("maxEmployee", "")
+
     context = {
         "name": player.name,
         "businessName": player.businessName,
         "businessLocation": player.businessLocation,
         "businessType": player.businessType,
         "businessGoal": player.businessGoal,
-        # "targetMarket": targetMarket,
-        # "maxEmployee": maxEmployee,
+        "targetMarket": player.targetMarket,
+        "maxNumberOfWorkers": player.maxNumberOfWorkers,
     }
     return render(request, "mod3_t4.html", context)  # ✅ Pass data to template
 
@@ -190,6 +178,42 @@ def mod3t4_view(request):
 def intro_view(request):
     form = PlayerForm()
     return render(request, "introScreen.html", {"form": form})
+
+@login_required
+def reset(request):
+    player = Player.objects.get(user=request.user)  # Adjust based on your model
+    player.name = None
+    player.businessCategory = None
+    player.businessType = None
+    player.businessGoal = None
+    player.businessName= None
+    player.businessLocation = None
+    player.targetMarket = None
+    player.maxNumberOfWorkers = 0
+    player.save()
+    form = PlayerForm()
+    return render(request, "introScreen.html", {"form": form})  # Redirect after reset 
+
+@login_required
+def get_business_data(request):
+    field = request.GET.get("field")  # Get the requested field from the URL
+    valid_fields = ["businessCategory", "businessType", "businessGoal", "businessName", "businessLocation", "balance", "targetMarket","maxNumberOfWorkers"]  # Allowed fields
+
+    # Ensure the user is authenticated
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "User not authenticated"}, status=403)
+
+    # Check if the requested field is valid
+    if field in valid_fields:
+        try:
+            # Retrieve the logged-in user's player data
+            player = Player.objects.get(user=request.user)  # Assuming Player model is linked to User
+            data = {field: getattr(player, field)}  # Dynamically fetch the requested field
+            return JsonResponse({"data": data})
+        except Player.DoesNotExist:
+            return JsonResponse({"error": "Player data not found"}, status=404)
+
+    return JsonResponse({"error": "Invalid field requested"}, status=400)
 
 def login_view(request):
     if request.method == "POST":
