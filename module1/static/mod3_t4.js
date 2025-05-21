@@ -15,13 +15,23 @@ document.addEventListener('DOMContentLoaded', function() {
         "Interior Design and Home Staging"
     ];
 
-    // Retrieve stored values from sessionStorage
+    // Retrieve values from sessionStorage
     const option1 = sessionStorage.getItem('option1'); // Business type index
     const businessGoal = sessionStorage.getItem('option2'); // Business goal
     const businessName = sessionStorage.getItem('option3'); // Business name
     const businessLocation = sessionStorage.getItem('businessLocation'); // Location type
     const targetMarket = sessionStorage.getItem('targetMarket'); // Target market
     const maxEmployees = sessionStorage.getItem('maxEmployees'); // Max employees
+
+    // Store values in sessionStorage
+
+    // Retrieve values from player object
+
+    // Store values in player object
+
+    // Store values in django model
+
+    // End
 
     // Retrieve player data from sessionStorage
     let storedPlayer = JSON.parse(sessionStorage.getItem("playerData"));
@@ -33,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("Stored Player Data:", storedPlayer);
     // remove comment if player is updated for every page
     //console.log("Location:", storedPlayer.businessLocation);
-    console.log("Location:", location);
+    console.log("Location:", businessLocation);
     console.log("Target Market:", targetMarket);
 
     const userNameElements = document.querySelectorAll('h2');
@@ -52,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
             p.classList.add('business-name');
         }
         if (p.innerText.includes('{businessLocation}')) {
-            p.innerText = p.innerText.replace('{businessLocation}', location || "Not Selected");
+            p.innerText = p.innerText.replace('{businessLocation}', sessionStorage.businessLocation || "Not Selected");
             p.classList.add('business-location');
         }
         if (p.innerText.includes('{businessType}')) {
