@@ -48,31 +48,117 @@
         .finance-modal-text {
             font-family: 'Courier New', Courier, monospace; /* Monospaced font for finance details */
         }
+        /* Styling for the new action modal */
+        #modalBackdrop .modal-content-area {
+            font-family: 'Arial', sans-serif; /* Example font, adjust as needed */
+        }
+        #modalBackdrop .modal-title {
+            background-color: #4A5568; /* Tailwind gray-700 or similar */
+            color: white;
+            padding: 0.75rem 1.25rem; /* Tailwind p-3 px-5 */
+            border-top-left-radius: 0.5rem; /* Tailwind rounded-t-lg */
+            border-top-right-radius: 0.5rem;
+            font-weight: bold;
+            font-size: 1.125rem; /* Tailwind text-lg */
+            text-align: center;
+        }
+         #modalBackdrop .modal-description {
+            padding: 1.5rem; /* Tailwind p-6 */
+            text-align: center;
+            font-size: 1rem; /* Tailwind text-base */
+            color: #E2E8F0; /* Tailwind gray-200 */
+        }
+        #modalBackdrop .modal-cost {
+            text-align: center;
+            font-size: 1.5rem; /* Tailwind text-2xl */
+            font-weight: bold;
+            color: #EC4899; /* Tailwind pink-500 for cost */
+            margin-bottom: 0.75rem; /* Tailwind mb-3 */
+        }
+        #modalBackdrop .modal-success-chance {
+            text-align: center;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            color: #A0AEC0; /* Tailwind gray-500 */
+            margin-bottom: 1.5rem; /* Tailwind mb-6 */
+        }
+        #modalBackdrop .modal-select-button {
+            background-color: #63B3ED; /* Tailwind blue-400 or a teal/cyan */
+            color: white;
+            font-weight: bold;
+            padding: 0.75rem 2rem; /* Tailwind py-3 px-8 */
+            border-radius: 0.5rem; /* Tailwind rounded-lg */
+            transition: background-color 0.2s;
+            border: 2px solid #90CDF4; /* Tailwind blue-300 */
+        }
+        #modalBackdrop .modal-select-button:hover {
+            background-color: #4299E1; /* Tailwind blue-500 */
+        }
+        #modalBackdrop .modal-close-button {
+            position: absolute;
+            top: 0.75rem; /* Tailwind top-3 */
+            right: 0.75rem; /* Tailwind right-3 */
+            color: #CBD5E0; /* Tailwind gray-400 */
+        }
+         #modalBackdrop .modal-close-button:hover {
+            color: white;
+        }
+        .dropdown-item-disabled {
+            color: #718096; /* Tailwind gray-600 */
+            cursor: not-allowed;
+            background-color: #2D3748 !important; /* Tailwind gray-800 */
+        }
+        .dropdown-item-disabled:hover {
+            background-color: #2D3748 !important; /* Keep same on hover */
+        }
+        .dropdown-item-active {
+            /* Standard hover:bg-purple-400 is fine */
+        }
+         .dropdown-item-completed {
+            color: #a0aec0; /* Tailwind gray-500 */
+            background-color: #4A5568; /* Tailwind gray-700 */
+            cursor: default;
+        }
+        .dropdown-item-completed:hover {
+            background-color: #4A5568 !important;
+        }
+
+
     </style>
     <script>
         // Define variables to hold the percentages and other game state
-        let companyHealthPercentage = 50;    // Default: 50%
-        let marketDominationPercentage = 1;  // Default: 1%
-        let customerSatisfactionPercentage = 1; // Default: 1%
-        let balancedBooksPercentage = 1;      // Default: 1% (Represents Legal Papers status)
+        let companyHealthPercentage = 50;
+        let marketDominationPercentage = 1;
+        let customerSatisfactionPercentage = 1;
+        let balancedBooksPercentage = 1; 
 
-        let employees = 0;                   // Default: 0
+        let employees = 0;
         let balance = 15000;
-        let businessName = "Stellar Tech";
-        let businessType = "Software Development";
-        let icon = "🚀"; // Default icon
+        let businessName = "Stellar Software";
+        let businessType = "Software Development"; 
+        let icon = "💻"; 
 
         let currentYear = 1;
-        let currentQuarter = 1; // Start at Q1 for consistency
+        let currentQuarter = 1;
         let actionPoints = 4;
 
-        // Financial Tracking for the Current Quarter
-        let quarterlySales = 0; // Placeholder, can be developed further
+        // Software Development Progression
+        const softwareDevelopmentStageOrder = [
+            "Research: Interview potential customers",
+            "Design: Design your product",
+            "Sourcing: Source potential manufacturers",
+            "Quality Control: Test prototypes",
+            "Launch: Launch your product"
+        ];
+        let currentSoftwareDevelopmentStageIndex = 0;
+        let productV1Launched = false;
+
+
+        let quarterlySales = 0;
         let quarterlyIncomeFromActionsAndEvents = 0;
         let quarterlyExpensesFromActionsAndEvents = 0;
-        let quarterlyServiceCosts = 0; // Costs from "Services" category actions
+        let quarterlyServiceCosts = 0;
         const RENT_PER_QUARTER = 7500;
-        const SALARY_PER_EMPLOYEE_PER_QUARTER = 1000; // Example salary
+        const SALARY_PER_EMPLOYEE_PER_QUARTER = 1000;
         const LOAN_REPAYMENT_PER_QUARTER = 900;
 
     </script>
@@ -89,7 +175,6 @@
                 </div>
             </div>
         </div>
-
         <div class="bg-slate-800 p-3 md:p-4 rounded-lg shadow">
             <div id="yearQuarterDisplay" class="text-xs md:text-sm text-gray-400 mb-1 md:mb-2">Year 1, Q1</div>
             <div class="flex flex-col sm:flex-row sm:justify-between space-y-1 sm:space-y-0 sm:space-x-2 text-xs md:text-sm">
@@ -97,7 +182,6 @@
                 <div>Balance: <span class="font-semibold text-emerald-400" id="accountBalance"></span></div>
             </div>
         </div>
-        
         <div class="bg-slate-800 p-3 md:p-4 rounded-lg shadow">
             <div class="text-sm md:text-base font-semibold text-white mb-2 md:mb-3">Company Stats</div>
             <div class="space-y-3 md:space-y-4"> 
@@ -134,11 +218,17 @@
         <p id="mainContentSubtext" class="text-gray-300 text-sm md:text-base text-shadow-sm">Start your business simulation by selecting an option from the sidebar. Good luck!</p>
     </main>
 
-    <aside class="bg-amber-600/80 backdrop-blur-sm fixed bottom-4 right-4 p-3 md:p-4 h-auto max-h-[33vh] w-full sm:w-1/3 md:w-1/4 lg:w-1/5 z-10 rounded-lg shadow-xl flex flex-col overflow-hidden" id="activityLogContainer">
+    <aside class="bg-amber-600/80 backdrop-blur-sm fixed bottom-4 right-4 p-3 md:p-4 h-auto max-h-[33vh] w-full sm:w-1/3 md:w-1/4 lg:w-1/5 z-20 rounded-lg shadow-xl flex flex-col overflow-hidden" id="activityLogContainer">
         <div class="text-base md:text-lg font-semibold mb-2 text-white bg-amber-700 p-2 rounded-md">Activity Log</div> 
-        <div id="activity-log" class="space-y-2 flex-grow overflow-y-auto">
-            </div>
+        <div id="activity-log" class="space-y-2 flex-grow overflow-y-auto"></div>
     </aside>
+
+    <button onclick="toggleSettingsModal()" title="Game Settings" class="fixed bottom-4 left-4 bg-slate-700 hover:bg-slate-600 text-white p-3 rounded-full shadow-lg z-30 transition-colors duration-150">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.646.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 1.905c-.007.379.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.333.183-.582.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.759 6.759 0 010-1.905c.007-.379-.137-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+    </button>
 
     <div class="fixed top-6 right-6 z-30">
         <div class="relative">
@@ -169,8 +259,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                         </svg>
                     </button>
-                    <div id="dropdownMenu1" class="hidden bg-purple-500 text-white scrollable-dropdown">
-                        </div>
+                    <div id="dropdownMenu1" class="hidden bg-purple-500 text-white scrollable-dropdown"></div>
                 </div>
                 <div id="dropdown-2" class="relative border-b border-purple-500">
                     <button onclick="openDropDown(2)" class="py-2 md:py-2.5 px-3 md:px-4 w-full flex items-center justify-between hover:bg-purple-500 transition-colors duration-150 text-sm md:text-base">
@@ -213,26 +302,31 @@
         </div>
     </div>
 
-    <div id="modalBackdrop" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden p-4">
-        <div class="bg-slate-800 rounded-lg shadow-xl w-full max-w-md p-5 md:p-6 text-white">
-            <h2 class="text-lg md:text-xl font-semibold mb-4 text-sky-400"></h2>
-            <p class="text-gray-300 mb-5 md:mb-6 text-sm md:text-base">This is the modal content.</p>
-            <div class="flex justify-end space-x-3">
-                <button onclick="closeModal(true)" class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-md text-sm md:text-base transition-colors duration-150">
-                    Do it
-                </button>
-                <button onclick="closeModal(false)" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md ml-2 text-sm md:text-base transition-colors duration-150">
-                    Close
+    <div id="modalBackdrop" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-40 hidden p-4">
+        <div class="bg-slate-900 rounded-lg shadow-xl w-full max-w-md relative overflow-hidden modal-content-area">
+            <div id="modalActionTitle" class="modal-title">Action Title</div>
+            <button onclick="closeModal(false)" class="modal-close-button">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <p id="modalActionDescription" class="modal-description">Action description here.</p>
+            <div id="modalActionCost" class="modal-cost">Cost: $XXX</div>
+            <div id="modalActionSuccessChance" class="modal-success-chance">XX% chance of success</div>
+            <div class="text-center pb-6">
+                <button onclick="closeModal(true)" class="modal-select-button">
+                    SELECT
                 </button>
             </div>
         </div>
     </div>
 
-    <div id="randomModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden p-4">
+
+    <div id="randomModal" class="fixed inset-0 bg-black bg-opacity-75 z-40 hidden p-4">
         <div class="flex items-center justify-center h-full">
             <div class="bg-slate-800 rounded-lg shadow-xl w-full max-w-md p-5 md:p-6 text-white">
                 <h2 class="text-lg md:text-xl font-semibold mb-4 text-amber-400"></h2>
-                <p class="text-gray-300 mb-5 md:mb-6 text-sm md:text-base">This is the modal content.</p>
+                <p class="text-gray-300 mb-5 md:mb-6 text-sm md:text-base"></p>
                 <div class="text-right">
                     <button onclick="closeRandomModal()" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md text-sm md:text-base transition-colors duration-150">
                         Confirm
@@ -278,13 +372,55 @@
         </div>
     </div>
 
+    <div id="settingsModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-slate-800 rounded-lg shadow-xl w-full max-w-sm p-5 md:p-6 text-white">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl md:text-2xl font-semibold text-sky-400">Game Settings</h2>
+                <button onclick="toggleSettingsModal()" class="text-gray-400 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="space-y-3">
+                <button onclick="confirmNewGame()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors duration-150">
+                    Create New Game
+                </button>
+                <button onclick="saveGame()" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors duration-150">
+                    Save Game
+                </button>
+                <button onclick="loadGame()" class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors duration-150">
+                    Load Game
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmNewGameModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-slate-800 rounded-lg shadow-xl w-full max-w-md p-5 md:p-6 text-white">
+            <h2 class="text-lg md:text-xl font-semibold mb-4 text-amber-400">Start New Game?</h2>
+            <p class="text-gray-300 mb-6 text-sm md:text-base">Do you want to save your current game before starting a new one?</p>
+            <div class="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3">
+                <button onclick="handleSaveAndStartNew()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm md:text-base transition-colors duration-150">
+                    Save and Start New
+                </button>
+                <button onclick="handleStartNewWithoutSaving()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm md:text-base transition-colors duration-150">
+                    Start New Without Saving
+                </button>
+                <button onclick="closeConfirmNewGameModal()" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md text-sm md:text-base transition-colors duration-150">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
 
 <script>
     // --- DOM Elements ---
     const companyHealthBar = document.getElementById("companyHealthBar");
     const marketDominationBar = document.getElementById("marketDominationBar");
     const customerSatisfactionBar = document.getElementById("customerSatisfactionBar");
-    const balancedBooksBar = document.getElementById("balancedBooksBar"); // Legal Papers
+    const balancedBooksBar = document.getElementById("balancedBooksBar"); 
     const employeeCountDisplay = document.getElementById("employeeCount");
     const accountBalanceDisplay = document.getElementById("accountBalance");
     const businessIconDisplay = document.getElementById("businessIconDisplay");
@@ -296,8 +432,10 @@
     const actionsChevron = document.getElementById("actionsChevron");
 
     const modalBackdrop = document.getElementById('modalBackdrop');
-    const modalTitle = modalBackdrop.querySelector('h2');
-    const modalContent = modalBackdrop.querySelector('p');
+    const modalActionTitle = document.getElementById('modalActionTitle');
+    const modalActionDescription = document.getElementById('modalActionDescription');
+    const modalActionCost = document.getElementById('modalActionCost');
+    const modalActionSuccessChance = document.getElementById('modalActionSuccessChance');
 
     const randomModal = document.getElementById('randomModal');
     const randomModalTitle = randomModal.querySelector('h2');
@@ -315,32 +453,74 @@
     const qEndNetProfit = document.getElementById('qEndNetProfit');
     const qEndCurrentBalance = document.getElementById('qEndCurrentBalance');
 
+    const settingsModal = document.getElementById('settingsModal'); 
+    const confirmNewGameModal = document.getElementById('confirmNewGameModal'); 
+
     const activityLog = document.getElementById('activity-log');
     const mainElement = document.querySelector('main');
 
     // --- State Variables ---
     let actionsVisible = false;
     let openDropdownId = null;
-    let latestAction = "";
+    let latestActionKey = ""; 
     let currentModalType = "";
+    let isSettingsModalVisible = false; 
+
+    // Action Definitions
+    const allActions = {
+        "Basic Task": { label: "Basic Task", action: "Basic Task", title: "Operation: Basic Task", description: "Perform a basic operational task.", financialCost: 0, apCost: 1, successChance: null, lpChange: -10, balanceGain: 1000 },
+        "Standard Procedure": { label: "Standard Procedure", action: "Standard Procedure", title: "Operation: Standard Procedure", description: "Execute a standard company procedure.", financialCost: 0, apCost: 1, successChance: null, lpChange: -5, balanceGain: 500 },
+        "Complex Operation": { label: "Complex Operation", action: "Complex Operation", title: "Operation: Complex Operation", description: "Undertake a complex operational project.", financialCost: 0, apCost: 2, successChance: null, lpChange: -15, balanceGain: 1500 },
+        "Engage with Customers": { label: "Engage with Customers", action: "Engage with Customers", title: "Operation: Engage Customers", description: "Interact with your customer base to improve satisfaction.", financialCost: 0, apCost: 1, successChance: null, csChange: 10 },
+        "Post on Social Media": { label: "Post on Social Media", action: "Post on Social Media", title: "Operation: Social Media Update", description: "Update your followers on your progress.", financialCost: 0, apCost: 1, successChance: null, mdChange: 5 },
+        "Research: Interview potential customers": { label: "Research Customers", action: "Research: Interview potential customers", title: "Step 1: Research", description: "Interview potential customers to identify desirable product features?", financialCost: 100, apCost: 1, successChance: 70 },
+        "Design: Design your product": { label: "Design Product", action: "Design: Design your product", title: "Step 2: Design", description: "It’s time to use what you learned during the research phase. Are you ready to design your product?", financialCost: 500, apCost: 2, successChance: 70 },
+        "Sourcing: Source potential manufacturers": { label: "Find Manufacturers", action: "Sourcing: Source potential manufacturers", title: "Step 3: Sourcing", description: "Now that you have design it’s time to source potential manufacturers. Are you ready to get that ball rolling?", financialCost: 2000, apCost: 2, successChance: 80 },
+        "Quality Control: Test prototypes": { label: "Test Prototypes", action: "Quality Control: Test prototypes", title: "Step 4: Quality Control", description: "You received the last round of prototypes. You must test them to ensure that it meets your specs and quality standards.", financialCost: 500, apCost: 1, successChance: 70 },
+        "Launch: Launch your product": { label: "Launch Product", action: "Launch: Launch your product", title: "Step 5: Launch", description: "All your hardwork has paid off! Are you ready to launch your product?", financialCost: 2000, apCost: 3, successChance: 80 },
+        "Announce new product": { label: "Announce Product v2", action: "Announce new product", title: "Product Update: Announce v2", description: "People got very excited for your first product, but there is always room for improvement. Would you like to start developing the second version?", financialCost: 10, apCost: 1, successChance: null }, 
+        "Post on social media (Software Dev)": { label: "Post Dev Update", action: "Post on social media (Software Dev)", title: "Dev Update: Social Media", description: "Update your followers on your software development progress?", financialCost: 100, apCost: 1, successChance: 50 },
+        "Local Outreach": { label: "Local Outreach", action: "Local Outreach", title: "Hiring: Local Outreach", description: "Conduct local outreach to find new talent.", financialCost: 2000, apCost: 2, successChance: null, employeeGain: 3 },
+        "Online Websites": { label: "Online Websites", action: "Online Websites", title: "Hiring: Online Websites", description: "Use online platforms to recruit new employees.", financialCost: 5000, apCost: 2, successChance: null, employeeGain: 5 },
+        "Recruiter": { label: "Recruiter", action: "Recruiter", title: "Hiring: Use Recruiter", description: "Hire a professional recruiter to find top candidates.", financialCost: 10000, apCost: 3, successChance: null, employeeGain: 8 },
+        "Fire a Person": { label: "Fire a Person", action: "Fire a Person", title: "HR: Fire Employee", description: "Terminate an employee's contract.", financialCost: 1000, apCost: 1, successChance: null, employeeGain: -1, csChange: -5 }, 
+        "Hire a Lawyer": { label: "Hire a Lawyer", action: "Hire a Lawyer", title: "Services: Hire Lawyer", description: "Engage legal services for your company.", financialCost: 3000, apCost: 2, successChance: null, lpChange: 20 },
+        "Purchase Business Insurance": { label: "Purchase Business Insurance", action: "Purchase Business Insurance", title: "Services: Get Insurance", description: "Secure insurance coverage for your business.", financialCost: 4000, apCost: 2, successChance: null, healthChange: 15 },
+        "Marketing Campaign": { label: "Marketing Campaign", action: "Marketing Campaign", title: "Services: Marketing Campaign", description: "Launch a new marketing campaign to boost visibility.", financialCost: 6000, apCost: 3, successChance: null, mdChange: 15, csChange: 5 },
+    };
+
 
     // --- Initial Setup ---
     function initializeUI() {
+        companyHealthPercentage = 50;
+        marketDominationPercentage = 1;
+        customerSatisfactionPercentage = 1;
+        balancedBooksPercentage = 1;
+        employees = 0;
+        balance = 15000; 
+        currentYear = 1;
+        currentQuarter = 1;
+        actionPoints = 4;
+        currentSoftwareDevelopmentStageIndex = 0; 
+        productV1Launched = false; 
+        fixedExpensesAppliedForQuarter = false;
+
         businessIconDisplay.textContent = icon;
         businessNameDisplay.textContent = businessName;
         businessTypeDisplay.textContent = businessType;
         updateAllStatsDisplay();
-        populateDropdown(1);
-        businessLog(`Game Started. Welcome to Year ${currentYear}, Q${currentQuarter}!`, "system");
-        resetQuarterlyFinances(); // Initialize quarterly finance trackers
+        populateDropdown(); 
+        resetQuarterlyFinances();
+        activityLog.innerHTML = ""; 
+        businessLog(`New Game Started. Welcome to Year ${currentYear}, Q${currentQuarter}!`, "system");
     }
+
 
     function resetQuarterlyFinances() {
         quarterlySales = 0;
         quarterlyIncomeFromActionsAndEvents = 0;
         quarterlyExpensesFromActionsAndEvents = 0;
         quarterlyServiceCosts = 0;
-        // Fixed costs are constants, so no need to reset them here, they are applied when calculating summary.
     }
 
 
@@ -348,7 +528,7 @@
     function updateActionPoints(cost) {
         actionPoints = Math.max(0, actionPoints - cost);
         actionPointsDisplay.textContent = actionPoints;
-        if (actionPoints === 0) {
+        if (actionPoints === 0 && quarterEndModal.classList.contains('hidden') ) { 
             showQuarterEndModal();
         }
     }
@@ -369,20 +549,18 @@
         balancedBooksPercentage = Math.max(0, Math.min(100, value));
         balancedBooksBar.style.width = `${balancedBooksPercentage}%`;
     }
-    function updateBalance(changeAmount, type = "other") { // type can be 'actionIncome', 'actionExpense', 'serviceCost'
+    function updateBalance(changeAmount, type = "other") { 
         balance += changeAmount;
         accountBalanceDisplay.textContent = `$${balance.toLocaleString()}`;
 
-        // Track for quarterly summary
         if (changeAmount > 0 && (type === "actionIncome" || type === "otherIncome")) {
             quarterlyIncomeFromActionsAndEvents += changeAmount;
         } else if (changeAmount < 0) {
             if (type === "actionExpense" || type === "otherExpense") {
-                 quarterlyExpensesFromActionsAndEvents += Math.abs(changeAmount); // Store as positive for expense sum
+                 quarterlyExpensesFromActionsAndEvents += Math.abs(changeAmount); 
             } else if (type === "serviceCost") {
                 quarterlyServiceCosts += Math.abs(changeAmount);
             }
-            // Salary, Rent, Loan are handled at quarter end summary, not per transaction here
         }
     }
     function updateEmployeeCount(change) {
@@ -436,38 +614,45 @@
     }
 
     // --- Modal Logic ---
-    function openModal(actionString, type = 'action') {
-        latestAction = actionString;
+    function openModal(actionKey, type = 'action') { 
+        latestActionKey = actionKey;
         currentModalType = type;
+        const actionDetails = allActions[actionKey];
 
-        if (type === 'action') {
-            modalTitle.textContent = actionString;
-            modalContent.textContent = `Are you sure you want to perform the action: "${actionString}"? This may cost action points and resources.`;
+        if (type === 'action' && actionDetails) {
+            modalActionTitle.textContent = actionDetails.title || actionDetails.label;
+            modalActionDescription.textContent = actionDetails.description || "Are you sure you want to perform this action?";
+            modalActionCost.textContent = `Cost: $${actionDetails.financialCost.toLocaleString()}`;
+            
+            if (actionDetails.successChance !== null && actionDetails.successChance !== undefined) {
+                modalActionSuccessChance.textContent = `${actionDetails.successChance}% chance of success`;
+                modalActionSuccessChance.classList.remove('hidden');
+            } else {
+                modalActionSuccessChance.classList.add('hidden');
+            }
+            
             modalBackdrop.classList.remove('hidden');
-        } else if (type === 'randomEvent') {
-            randomModalTitle.textContent = actionString.title || "Random Event";
-            randomModalContent.textContent = actionString.message || "Something unexpected happened!";
+
+        } else if (type === 'randomEvent') { 
+            randomModalTitle.textContent = actionKey.title || "Random Event";
+            randomModalContent.textContent = actionKey.message || "Something unexpected happened!";
             randomModal.classList.remove('hidden');
         }
+        
         if (actionsVisible) {
-            const mainActionsButton = document.querySelector('button[onclick="toggleActions()"]');
-            const isActionsDropdownVisible = !actionsDropdown.classList.contains('hidden');
-            if (mainActionsButton && isActionsDropdownVisible) {
-                 toggleActions(); 
-            }
+            toggleActions(); 
         }
-        businessLog(`Modal opened for: ${typeof actionString === 'string' ? actionString : actionString.title}`, "system");
     }
 
     function closeModal(performAction) {
         modalBackdrop.classList.add('hidden');
         if (performAction && currentModalType === 'action') {
-            handleAction(latestAction);
+            handleAction(latestActionKey);
         }
-        latestAction = ""; 
+        latestActionKey = ""; 
         currentModalType = "";
 
-        if (actionPoints > 0 && Math.random() < 0.5) { // Trigger random event only if quarter isn't over
+        if (actionPoints > 0 && Math.random() < 0.5) { 
            triggerRandomEvent();
         }
     }
@@ -478,135 +663,340 @@
 
     function showQuarterEndModal() {
         businessLog(`End of Q${currentQuarter}, Year ${currentYear}. Reviewing finances.`, "system");
-
         qEndTitle.textContent = `Year ${currentYear}, Q${currentQuarter} Finances`;
-        
-        // Calculate total expenses for the quarter that are not action-related
         const currentQuarterSalaries = employees * SALARY_PER_EMPLOYEE_PER_QUARTER;
-        // Apply these fixed expenses to the balance *before* showing the modal
-        // This ensures the "Current Balance" on the modal is post-fixed-expenses for the quarter
-        if (!fixedExpensesAppliedForQuarter) { // Add a flag to ensure this runs once per quarter end
-            updateBalance(-currentQuarterSalaries, "salary"); // Deduct salaries
-            updateBalance(-RENT_PER_QUARTER, "rent");         // Deduct rent
-            updateBalance(-LOAN_REPAYMENT_PER_QUARTER, "loan"); // Deduct loan
+        if (!fixedExpensesAppliedForQuarter) { 
+            updateBalance(-currentQuarterSalaries, "salary"); 
+            updateBalance(-RENT_PER_QUARTER, "rent");        
+            updateBalance(-LOAN_REPAYMENT_PER_QUARTER, "loan"); 
             fixedExpensesAppliedForQuarter = true;
-             businessLog(`Applied fixed quarterly expenses: Salaries ($${currentQuarterSalaries.toLocaleString()}), Rent ($${RENT_PER_QUARTER.toLocaleString()}), Loan ($${LOAN_REPAYMENT_PER_QUARTER.toLocaleString()})`, "system");
         }
-
-
         qEndSales.textContent = `$${quarterlySales.toLocaleString()}`;
         qEndActionIncome.textContent = `$${quarterlyIncomeFromActionsAndEvents.toLocaleString()}`;
-        
         qEndServiceCosts.textContent = `-$${quarterlyServiceCosts.toLocaleString()}`;
         qEndRent.textContent = `-$${RENT_PER_QUARTER.toLocaleString()}`;
         qEndWages.textContent = `-$${currentQuarterSalaries.toLocaleString()}`;
         qEndActionExpenses.textContent = `-$${quarterlyExpensesFromActionsAndEvents.toLocaleString()}`;
         qEndLoanRepayment.textContent = `-$${LOAN_REPAYMENT_PER_QUARTER.toLocaleString()}`;
-
         const totalIncome = quarterlySales + quarterlyIncomeFromActionsAndEvents;
         const totalExpenses = quarterlyServiceCosts + RENT_PER_QUARTER + currentQuarterSalaries + quarterlyExpensesFromActionsAndEvents + LOAN_REPAYMENT_PER_QUARTER;
         const netProfit = totalIncome - totalExpenses;
-
         qEndNetProfit.textContent = `$${netProfit.toLocaleString()}`;
         qEndNetProfit.className = netProfit >= 0 ? 'font-bold text-green-400' : 'font-bold text-red-400';
-        
-        qEndCurrentBalance.textContent = `$${balance.toLocaleString()}`; // Balance after all actions and fixed deductions
-
+        qEndCurrentBalance.textContent = `$${balance.toLocaleString()}`;
         quarterEndModal.classList.remove('hidden');
     }
-    let fixedExpensesAppliedForQuarter = false; // Flag for fixed expenses
+    let fixedExpensesAppliedForQuarter = false; 
 
     function proceedToNextQuarter() {
         quarterEndModal.classList.add('hidden');
         advanceQuarter();
     }
 
+    // --- Settings Modal Logic ---
+    function toggleSettingsModal() {
+        isSettingsModalVisible = !isSettingsModalVisible;
+        settingsModal.classList.toggle('hidden', !isSettingsModalVisible);
+        if (isSettingsModalVisible) {
+            businessLog("Opened game settings.", "system");
+        }
+    }
+
+    function confirmNewGame() {
+        toggleSettingsModal(); 
+        confirmNewGameModal.classList.remove('hidden'); 
+    }
+
+    function closeConfirmNewGameModal() {
+        confirmNewGameModal.classList.add('hidden');
+    }
+
+    function handleSaveAndStartNew() {
+        saveGame(); 
+        businessLog("Attempted to save game and starting new game.", "system");
+        closeConfirmNewGameModal();
+        redirectToIntroScreen();
+    }
+
+    function handleStartNewWithoutSaving() {
+        businessLog("Starting new game without saving.", "system");
+        closeConfirmNewGameModal();
+        redirectToIntroScreen();
+    }
+    
+    function redirectToIntroScreen() {
+        businessLog("Redirecting to intro screen...", "system");
+        window.location.href = "introScreen.html"; 
+    }
+
+
+    function saveGame() {
+        businessLog("Save Game: Functionality not yet implemented.", "system");
+    }
+
+    function loadGame() {
+        businessLog("Load Game: Functionality not yet implemented.", "system");
+        toggleSettingsModal(); 
+    }
+
+
     // --- Activity Log ---
     function businessLog(actionText, type = "action") {
         const newEntry = document.createElement("div");
-        let bgColor = "bg-amber-400"; let textColor = "text-amber-900";
-        switch(type) {
-            case "event": bgColor = "bg-sky-400"; textColor = "text-sky-900"; break;
-            case "system": bgColor = "bg-gray-400"; textColor = "text-gray-900"; break;
-            case "penalty": bgColor = "bg-red-400"; textColor = "text-red-900"; break;
-            case "bonus": bgColor = "bg-green-400"; textColor = "text-green-900"; break;
+        let bgColor = "bg-amber-400"; let textColor = "text-amber-900"; 
+        
+        if (type === "bonus") {
+            bgColor = "bg-green-400"; textColor = "text-green-900";
+        } else if (type === "penalty") {
+            bgColor = "bg-red-400"; textColor = "text-red-900";
+        } else if (type === "system") {
+            bgColor = "bg-gray-400"; textColor = "text-gray-900";
+        } else if (type === "event") { 
+            bgColor = "bg-sky-400"; textColor = "text-sky-900";
         }
+
         newEntry.className = `${bgColor} ${textColor} p-2 md:p-3 rounded-md text-xs md:text-sm shadow`;
-        newEntry.textContent = actionText; // Timestamp removed
+        newEntry.textContent = actionText; 
         activityLog.prepend(newEntry);
         if (activityLog.children.length > 10) activityLog.removeChild(activityLog.lastChild);
     }
 
     // --- Action Handling ---
-    function handleAction(action){
-        if (actionPoints <= 0 && action !== "Fire a Person") {
-            businessLog("Not enough action points to perform: " + action, "penalty");
-            openModal({ title: "No Action Points", message: "You don't have enough action points for this. Wait for the next quarter or end the current one if all actions are done." }, 'randomEvent');
+    function handleAction(actionKey){ 
+        const actionDetails = allActions[actionKey];
+        if (!actionDetails) {
+            businessLog(`Error: Action "${actionKey}" not found.`, "penalty");
             return;
         }
 
-        let cost = 0;
-        let logMessage = `Performed: ${action}.`;
-        let balanceChange = 0;
-        let balanceChangeType = "other";
+        if (actionPoints < actionDetails.apCost && !(actionKey === "Fire a Person" && actionDetails.apCost <= actionPoints) ) {
+            businessLog("Not enough action points for: " + actionDetails.label, "penalty");
+            openModal({ title: "No Action Points", message: "You don't have enough action points for this." }, 'randomEvent');
+            return;
+        }
+        if (balance < actionDetails.financialCost) {
+            businessLog("Not enough funds for: " + actionDetails.label, "penalty");
+             openModal({ title: "Insufficient Funds", message: `You need $${actionDetails.financialCost.toLocaleString()} for this action.` }, 'randomEvent');
+            return;
+        }
 
+        let currentApCost = actionDetails.apCost || 0; 
+        let currentFinancialCost = actionDetails.financialCost || 0;
+        let logMessage = ""; 
+        let balanceChange = -currentFinancialCost; 
+        let balanceChangeType = "actionExpense"; 
+        let logType = "action"; 
+        let success = true; 
 
-        switch(action){
-            // Operations
-            case "Basic Task": cost = 1; balanceChange = 1000; balanceChangeType="actionIncome"; updateBalancedBooks(Math.max(0, balancedBooksPercentage - 10)); break;
-            case "Standard Procedure": cost = 1; balanceChange = 500; balanceChangeType="actionIncome"; updateBalancedBooks(Math.max(0, balancedBooksPercentage - 5)); break;
-            case "Complex Operation": cost = 2; balanceChange = 1500; balanceChangeType="actionIncome"; updateBalancedBooks(Math.max(0, balancedBooksPercentage - 15)); break;
-            case "Engage with Customers": cost = 1; updateCustomerSatisfaction(customerSatisfactionPercentage + 10); break;
-            case "Post on Social Media": cost = 1; updateMarketDomination(marketDominationPercentage + 5); break;
-            
-            // Hiring
-            case "Local Outreach": cost = 2; if(balance >= 2000){ updateEmployeeCount(3); balanceChange = -2000; balanceChangeType="actionExpense";} else { logMessage = "Not enough funds for Local Outreach."; cost = 0; } break;
-            case "Online Websites": cost = 2; if(balance >= 5000){ updateEmployeeCount(5); balanceChange = -5000; balanceChangeType="actionExpense";} else { logMessage = "Not enough funds for Online Websites hiring."; cost = 0; } break;
-            case "Recruiter": cost = 3; if(balance >= 10000){ updateEmployeeCount(8); balanceChange = -10000; balanceChangeType="actionExpense";} else { logMessage = "Not enough funds for Recruiter."; cost = 0; } break;
-            case "Fire a Person":
-                cost = 1;
-                if(employees > 0){
-                    updateEmployeeCount(-1);
-                    balanceChange = -1000; balanceChangeType="actionExpense"; // Severance
-                    updateCustomerSatisfaction(Math.max(0, customerSatisfactionPercentage - 5));
-                    logMessage = "Fired an employee. Morale slightly affected.";
+        if (actionDetails.successChance !== null && actionDetails.successChance !== undefined) {
+            success = Math.random() < (actionDetails.successChance / 100);
+        }
+
+        switch(actionKey){
+            case "Basic Task": 
+                updateBalancedBooks(Math.max(0, balancedBooksPercentage + actionDetails.lpChange)); 
+                balanceChange += actionDetails.balanceGain; 
+                balanceChangeType = "actionIncome";
+                logMessage = `Basic Task: +$${actionDetails.balanceGain.toLocaleString()}. Legal Papers ${actionDetails.lpChange}%.`;
+                logType = "bonus";
+                break;
+            case "Standard Procedure": 
+                updateBalancedBooks(Math.max(0, balancedBooksPercentage + actionDetails.lpChange)); 
+                balanceChange += actionDetails.balanceGain;
+                balanceChangeType = "actionIncome";
+                logMessage = `Std. Procedure: +$${actionDetails.balanceGain.toLocaleString()}. Legal Papers ${actionDetails.lpChange}%.`;
+                logType = "bonus";
+                break;
+            case "Complex Operation": 
+                updateBalancedBooks(Math.max(0, balancedBooksPercentage + actionDetails.lpChange)); 
+                balanceChange += actionDetails.balanceGain;
+                balanceChangeType = "actionIncome";
+                logMessage = `Complex Op: +$${actionDetails.balanceGain.toLocaleString()}. Legal Papers ${actionDetails.lpChange}%.`;
+                logType = "bonus";
+                break;
+            case "Engage with Customers": 
+                updateCustomerSatisfaction(customerSatisfactionPercentage + actionDetails.csChange); 
+                logMessage = `Engaged customers. CS +${actionDetails.csChange}.`;
+                logType = "bonus";
+                break;
+            case "Post on Social Media": 
+                updateMarketDomination(marketDominationPercentage + actionDetails.mdChange); 
+                logMessage = `Social media post. MD +${actionDetails.mdChange}.`;
+                logType = "bonus";
+                break;
+            case "Research: Interview potential customers":
+                if (success) { 
+                    logMessage = `Research successful: Gathered valuable customer insights! (-$${currentFinancialCost.toLocaleString()})`;
+                    updateCustomerSatisfaction(customerSatisfactionPercentage + 5); 
+                    logType = "bonus";
+                    if (businessType === "Software Development" && currentSoftwareDevelopmentStageIndex === softwareDevelopmentStageOrder.indexOf(actionKey)) {
+                        currentSoftwareDevelopmentStageIndex++;
+                    }
                 } else {
-                    logMessage = "No employees to fire."; cost = 0;
+                    logMessage = `Research failed: No useful information gathered. (-$${currentFinancialCost.toLocaleString()})`;
+                    logType = "penalty";
                 }
                 break;
-
-            // Services
-            case "Hire a Lawyer": cost = 2; if(balance >= 3000){ updateBalancedBooks(balancedBooksPercentage + 20); balanceChange = -3000; balanceChangeType="serviceCost";} else { logMessage = "Not enough funds to hire a lawyer."; cost = 0; } break;
-            case "Purchase Business Insurance": cost = 2; if(balance >= 4000){ updateCompanyHealth(companyHealthPercentage + 15); balanceChange = -4000; balanceChangeType="serviceCost";} else { logMessage = "Not enough funds for insurance."; cost = 0; } break;
-            case "Marketing Campaign": cost = 3; if(balance >= 6000){ updateMarketDomination(marketDominationPercentage + 15); updateCustomerSatisfaction(customerSatisfactionPercentage + 5); balanceChange = -6000; balanceChangeType="serviceCost";} else { logMessage = "Not enough funds for marketing campaign."; cost = 0; } break;
-            
-            default: cost = 0; logMessage = `Unknown action: ${action}`; break;
+            case "Design: Design your product":
+                if (success) { 
+                    logMessage = `Design successful: Product design looks great! (-$${currentFinancialCost.toLocaleString()})`;
+                    updateMarketDomination(marketDominationPercentage + 5); 
+                    logType = "bonus";
+                     if (businessType === "Software Development" && currentSoftwareDevelopmentStageIndex === softwareDevelopmentStageOrder.indexOf(actionKey)) {
+                        currentSoftwareDevelopmentStageIndex++;
+                    }
+                } else {
+                    logMessage = `Design failed: Design has flaws, back to the drawing board. (-$${currentFinancialCost.toLocaleString()})`;
+                    updateCustomerSatisfaction(customerSatisfactionPercentage - 5);
+                    logType = "penalty";
+                }
+                break;
+            case "Sourcing: Source potential manufacturers":
+                 if (success) { 
+                    logMessage = `Sourcing successful: Contracts signed! (-$${currentFinancialCost.toLocaleString()})`;
+                    updateCompanyHealth(companyHealthPercentage + 5);
+                    logType = "bonus";
+                     if (businessType === "Software Development" && currentSoftwareDevelopmentStageIndex === softwareDevelopmentStageOrder.indexOf(actionKey)) {
+                        currentSoftwareDevelopmentStageIndex++;
+                    }
+                } else {
+                    logMessage = `Sourcing failed: No suitable manufacturers found. (-$${currentFinancialCost.toLocaleString()})`;
+                    logType = "penalty";
+                }
+                break;
+            case "Quality Control: Test prototypes":
+                if (success) { 
+                    logMessage = `Quality Control successful: Prototypes meet specs! (-$${currentFinancialCost.toLocaleString()})`;
+                    updateCompanyHealth(companyHealthPercentage + 10);
+                    updateCustomerSatisfaction(customerSatisfactionPercentage + 5);
+                    logType = "bonus";
+                     if (businessType === "Software Development" && currentSoftwareDevelopmentStageIndex === softwareDevelopmentStageOrder.indexOf(actionKey)) {
+                        currentSoftwareDevelopmentStageIndex++;
+                    }
+                } else {
+                    logMessage = `Quality Control failed: Prototypes are unsafe! (-$${currentFinancialCost.toLocaleString()})`;
+                    updateCompanyHealth(companyHealthPercentage - 10);
+                    updateCustomerSatisfaction(customerSatisfactionPercentage - 10);
+                    logType = "penalty";
+                }
+                break;
+            case "Launch: Launch your product":
+                if (success) { 
+                    logMessage = `Product Launch successful! Customers love it! (-$${currentFinancialCost.toLocaleString()})`;
+                    updateMarketDomination(marketDominationPercentage + 25);
+                    updateCustomerSatisfaction(customerSatisfactionPercentage + 20);
+                    balanceChange += 15000; 
+                    balanceChangeType = "actionIncome";
+                    logMessage += ` +$15,000 initial sales!`;
+                    logType = "bonus";
+                    if (businessType === "Software Development" && currentSoftwareDevelopmentStageIndex === softwareDevelopmentStageOrder.indexOf(actionKey)) {
+                        productV1Launched = true;
+                        // No increment here, as it's the last defined stage in softwareDevelopmentStageOrder
+                        // currentSoftwareDevelopmentStageIndex will be > softwareDevelopmentStageOrder.length -1
+                    }
+                } else {
+                    logMessage = `Product Launch failed! Major issues reported. (-$${currentFinancialCost.toLocaleString()})`;
+                    updateMarketDomination(marketDominationPercentage - 10);
+                    updateCustomerSatisfaction(customerSatisfactionPercentage - 25);
+                    updateCompanyHealth(companyHealthPercentage - 15);
+                    logType = "penalty";
+                }
+                break;
+            case "Announce new product": 
+                if (customerSatisfactionPercentage > 40) { 
+                    logMessage = `New product v2 announced. Public is excited! (-$${currentFinancialCost.toLocaleString()})`;
+                    updateCustomerSatisfaction(customerSatisfactionPercentage + 8);
+                    updateMarketDomination(marketDominationPercentage + 3);
+                    logType = "bonus";
+                } else {
+                    logMessage = `New product v2 announced. Public is skeptical. (-$${currentFinancialCost.toLocaleString()})`;
+                    updateCustomerSatisfaction(customerSatisfactionPercentage - 4);
+                    logType = "penalty";
+                }
+                break;
+            case "Post on social media (Software Dev)":
+                if (success) { 
+                    logMessage = `Dev Update (Social Media): Positive engagement! (-$${currentFinancialCost.toLocaleString()})`;
+                    updateCustomerSatisfaction(customerSatisfactionPercentage + 4);
+                    updateMarketDomination(marketDominationPercentage + 3);
+                    logType = "bonus";
+                } else {
+                    logMessage = `Dev Update (Social Media): Low interest. (-$${currentFinancialCost.toLocaleString()})`;
+                    updateCustomerSatisfaction(customerSatisfactionPercentage - 2);
+                    logType = "penalty";
+                }
+                break;
+            case "Local Outreach": 
+            case "Online Websites": 
+            case "Recruiter": 
+                updateEmployeeCount(actionDetails.employeeGain);
+                logMessage = `Hired ${actionDetails.employeeGain} employees via ${actionDetails.label}. (-$${currentFinancialCost.toLocaleString()})`;
+                logType = "action"; 
+                break;
+            case "Fire a Person":
+                if(employees > 0){
+                    updateEmployeeCount(actionDetails.employeeGain);
+                    updateCustomerSatisfaction(Math.max(0, customerSatisfactionPercentage + actionDetails.csChange));
+                    logMessage = `Fired an employee. (-$${currentFinancialCost.toLocaleString()} severance). CS ${actionDetails.csChange}.`;
+                    logType = "penalty";
+                } else {
+                    logMessage = "No employees to fire."; currentApCost = 0; balanceChange = 0; logType = "system"; 
+                }
+                break;
+            case "Hire a Lawyer": 
+                updateBalancedBooks(balancedBooksPercentage + actionDetails.lpChange); 
+                logMessage = `Hired a Lawyer. (-$${currentFinancialCost.toLocaleString()}). Legal Papers +${actionDetails.lpChange}.`;
+                logType = "bonus"; 
+                break;
+            case "Purchase Business Insurance": 
+                updateCompanyHealth(companyHealthPercentage + actionDetails.healthChange); 
+                logMessage = `Purchased Insurance. (-$${currentFinancialCost.toLocaleString()}). Company Health +${actionDetails.healthChange}.`;
+                logType = "bonus"; 
+                break;
+            case "Marketing Campaign": 
+                updateMarketDomination(marketDominationPercentage + actionDetails.mdChange); 
+                updateCustomerSatisfaction(customerSatisfactionPercentage + actionDetails.csChange); 
+                logMessage = `Marketing Campaign. (-$${currentFinancialCost.toLocaleString()}). MD +${actionDetails.mdChange}, CS +${actionDetails.csChange}.`;
+                logType = "bonus"; 
+                break;
+            default: 
+                logMessage = `Unknown action: ${actionKey}`; 
+                logType = "system"; currentApCost = 0; balanceChange = 0;
+                break;
         }
         
-        if (balanceChange !== 0) {
+        if (balanceChange !== 0) { 
             updateBalance(balanceChange, balanceChangeType);
         }
 
-        if (cost > 0) {
-             updateActionPoints(cost); // This will trigger quarter end modal if AP hits 0
+        if (logMessage) { 
+             businessLog(logMessage, logType);
         }
-        businessLog(logMessage, (cost > 0 && (logMessage.includes("Not enough funds") || logMessage.includes("No employees to fire"))) ? "penalty" : "action");
+        
+        if (currentApCost > 0) { 
+            updateActionPoints(currentApCost); 
+        }
         updateAllStatsDisplay();
+        populateDropdown(); 
     }
 
     // --- Background and Dynamic Content ---
     function changeBackgroundAndContent(number) {
         const mainContentHeader = document.getElementById('mainContentHeader');
         const mainContentSubtext = document.getElementById('mainContentSubtext');
-        let bgImage = `url('{% static 'mod4bg.gif' %}')`; // Default
+        let bgImage = `url('{% static 'mod4bg.gif' %}')`; 
         let headerText = 'Welcome to the Project Ideation Journey';
         let subText = 'Select an action to proceed.';
 
-        if (number === 1) {
-            headerText = "Operational Focus"; subText = "Manage day-to-day tasks and keep the business running smoothly.";
-        } else if (number === 2) { // Corresponds to mod4bg1.gif
-            bgImage = `url('{% static 'mod4bg1.gif' %}')`; headerText = "Growth & Expansion"; subText = "Focus on hiring, marketing, and expanding your market presence.";
-        } else { // Fallback
+        if (number === 1) { // Theme for Software Development
+            bgImage = `url('{% static 'mod4bg.gif' %}')`; 
+            headerText = "Software Development Lifecycle"; 
+            subText = "Navigate the stages of software creation, from research to launch.";
+        } else if (number === 2) { // Theme for Generic
+            bgImage = `url('{% static 'mod4bg1.gif' %}')`; 
+            headerText = "Operational Focus"; 
+            subText = "Manage day-to-day tasks and keep the business running smoothly.";
+        } else { 
             mainElement.style.backgroundColor = '#7f1d1d'; headerText = "Critical Decisions Ahead"; subText = "Navigate challenges and make tough choices for your business.";
         }
         mainElement.style.backgroundImage = bgImage;
@@ -615,35 +1005,88 @@
     }
     
     // --- Dropdown Content Population ---
-    const operationsActions = [
-      { label: "Basic Task (+$1k, -10LP, 1AP)", action: "Basic Task" },
-      { label: "Std. Procedure (+$0.5k, -5LP, 1AP)", action: "Standard Procedure" },
-      { label: "Complex Op. (+$1.5k, -15LP, 2AP)", action: "Complex Operation" },
-      { label: "Engage Customers (+10CS, 1AP)", action: "Engage with Customers" },
-      { label: "Social Media Post (+5MD, 1AP)", action: "Post on Social Media" },
-    ];
-
-    function populateDropdown(dropdownSetId) {
+    function populateDropdown() { 
         const dropdownMenu = document.getElementById("dropdownMenu1"); 
         dropdownMenu.innerHTML = ""; 
-        let dataToUse = (dropdownSetId === 1) ? operationsActions : [];
-        if(dropdownSetId === 1) changeBackgroundAndContent(1);
+        
+        if (businessType === "Software Development") {
+            changeBackgroundAndContent(1); // Theme 1 for Software Dev
 
-        dataToUse.forEach((item) => {
-            const div = document.createElement("div");
-            div.onclick = () => openModal(item.action);
-            div.className = "block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base";
-            div.textContent = item.label;
-            dropdownMenu.appendChild(div);
-        });
+            // Display all sequential stages
+            softwareDevelopmentStageOrder.forEach((actionKey, index) => {
+                const item = allActions[actionKey];
+                if (item) {
+                    const div = document.createElement("div");
+                    div.className = "block px-4 py-2 transition-colors duration-150 text-sm md:text-base";
+                    div.textContent = item.label;
+
+                    if (!productV1Launched) {
+                        if (index === currentSoftwareDevelopmentStageIndex) {
+                            div.classList.add("dropdown-item-active", "hover:bg-purple-400", "cursor-pointer");
+                            div.onclick = () => openModal(item.action);
+                        } else if (index < currentSoftwareDevelopmentStageIndex) {
+                            div.classList.add("dropdown-item-completed");
+                            // Optionally, make completed items viewable but not actionable
+                            // div.onclick = () => openModal(item.action, 'view'); 
+                        } else { // Future steps
+                            div.classList.add("dropdown-item-disabled");
+                        }
+                    } else { // Product V1 launched, all sequential steps are considered completed
+                         div.classList.add("dropdown-item-completed");
+                    }
+                    dropdownMenu.appendChild(div);
+                }
+            });
+
+            // Always add "Post on social media (Software Dev)"
+            const socialMediaAction = allActions["Post on social media (Software Dev)"];
+            if (socialMediaAction) {
+                const div = document.createElement("div");
+                div.className = "block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base dropdown-item-active";
+                div.textContent = socialMediaAction.label;
+                div.onclick = () => openModal(socialMediaAction.action);
+                dropdownMenu.appendChild(div);
+            }
+
+            // Add "Announce new product" if V1 is launched
+            if (productV1Launched) {
+                const announceV2Action = allActions["Announce new product"];
+                if (announceV2Action) {
+                    const div = document.createElement("div");
+                    div.className = "block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base dropdown-item-active";
+                    div.textContent = announceV2Action.label;
+                    div.onclick = () => openModal(announceV2Action.action);
+                    dropdownMenu.appendChild(div);
+                }
+            }
+
+        } else { // Generic business type
+            const genericActionKeys = [
+                 "Basic Task", 
+                 "Standard Procedure", 
+                 "Complex Operation", 
+                 "Engage with Customers", 
+                 "Post on Social Media"
+            ];
+            genericActionKeys.forEach(key => {
+                const item = allActions[key];
+                if(item) {
+                    const div = document.createElement("div");
+                    div.onclick = () => openModal(item.action); 
+                    div.className = "block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base dropdown-item-active";
+                    div.textContent = item.label;
+                    dropdownMenu.appendChild(div);
+                }
+            });
+            changeBackgroundAndContent(2); // Theme 2 for Generic
+        }
     }
 
     // --- Random Events ---
     const randomEvents = [
-        { title: "Unexpected Bill!", message: "An unforeseen expense of $2000 has arrived.", effect: () => { updateBalance(-2000, "otherExpense"); updateBalancedBooks(balancedBooksPercentage - 5); businessLog("Paid unexpected bill: -$2000.", "penalty");} },
-        { title: "Positive Media Coverage!", message: "Your company got some great PR! Market Domination +10, Customer Satisfaction +5.", effect: () => { updateMarketDomination(marketDominationPercentage + 10); updateCustomerSatisfaction(customerSatisfactionPercentage + 5); businessLog("Positive PR boost!", "bonus");} },
+        { title: "Unexpected Bill!", message: "An unforeseen expense of $2000 has arrived.", effect: () => { updateBalance(-2000, "otherExpense"); updateBalancedBooks(balancedBooksPercentage - 5); businessLog("Paid unexpected bill: -$2000. Legal Papers -5%.", "penalty");} },
+        { title: "Positive Media Coverage!", message: "Your company got some great PR! Market Domination +10, Customer Satisfaction +5.", effect: () => { updateMarketDomination(marketDominationPercentage + 10); updateCustomerSatisfaction(customerSatisfactionPercentage + 5); businessLog("Positive PR boost! MD +10, CS +5.", "bonus");} },
         { title: "Tax Rebate", message: "Good news from the government! You receive a $1500 tax rebate.", effect: () => { updateBalance(1500, "otherIncome"); businessLog("Received a tax rebate of $1500!", "bonus");} }
-        // Add more events
     ];
 
     function triggerRandomEvent() {
@@ -660,19 +1103,19 @@
             currentQuarter = 1;
             currentYear++;
         }
-        actionPoints = 4; // Reset action points
-        fixedExpensesAppliedForQuarter = false; // Reset flag for next quarter's fixed expenses
-        resetQuarterlyFinances(); // Reset trackers for the new quarter
+        actionPoints = 4; 
+        fixedExpensesAppliedForQuarter = false; 
+        resetQuarterlyFinances(); 
 
-        // Passive changes (example: slight decay if not managed)
-        updateCustomerSatisfaction(customerSatisfactionPercentage - Math.floor(Math.random() * 3 + 1)); // Decay 1-3
-        updateCompanyHealth(companyHealthPercentage - Math.floor(Math.random() * 2 + 1)); // Decay 1-2
-        updateMarketDomination(marketDominationPercentage - Math.floor(Math.random() * 2)); // Decay 0-1
+        updateCustomerSatisfaction(customerSatisfactionPercentage - Math.floor(Math.random() * 3 + 1)); 
+        updateCompanyHealth(companyHealthPercentage - Math.floor(Math.random() * 2 + 1)); 
+        updateMarketDomination(marketDominationPercentage - Math.floor(Math.random() * 2)); 
 
         businessLog(`Advanced to Year ${currentYear}, Q${currentQuarter}. Action points reset.`, "system");
         updateAllStatsDisplay();
+        populateDropdown(); // Refresh dropdown for new quarter
 
-        if (Math.random() < 0.3) { // 30% chance of random event at start of new quarter
+        if (Math.random() < 0.3) { 
             triggerRandomEvent();
         }
     }
@@ -680,13 +1123,16 @@
     // --- Event Listeners & Initialization ---
     window.onload = function() {
       initializeUI();
-      changeBackgroundAndContent(1); 
     };
 
     document.addEventListener('click', function(event) {
         const actionsButton = document.querySelector('button[onclick="toggleActions()"]');
         const isClickInsideActionsButton = actionsButton ? actionsButton.contains(event.target) : false;
         const isClickInsideActionsDropdown = actionsDropdown ? actionsDropdown.contains(event.target) : false;
+        const settingsButton = document.querySelector('button[onclick="toggleSettingsModal()"]');
+        const isClickInsideSettingsButton = settingsButton ? settingsButton.contains(event.target) : false;
+        const isClickInsideSettingsModal = settingsModal ? settingsModal.contains(event.target) : false;
+        const isClickInsideConfirmNewGameModal = confirmNewGameModal ? confirmNewGameModal.contains(event.target) : false;
         
         if (!isClickInsideActionsButton && !isClickInsideActionsDropdown && actionsVisible) {
             toggleActions(); 
@@ -706,6 +1152,12 @@
                      openDropdownId = null;
                  }
             }
+        }
+
+        if (!isClickInsideSettingsButton && !isClickInsideSettingsModal && isSettingsModalVisible) {
+            toggleSettingsModal();
+        }
+        if (!isClickInsideConfirmNewGameModal && !confirmNewGameModal.classList.contains('hidden') && !event.target.closest('button[onclick="confirmNewGame()"]')) {
         }
     });
 
