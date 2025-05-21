@@ -26,45 +26,51 @@
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center">
                         <!-- Company Name -->
-                        <div class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm cursor-pointer summary-card"
+                        <div id="company-name" class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm cursor-pointer summary-card"
                              data-redirect="{% url 'mod2t4' %}">
                             <p class="text-base text-[#3B82F6] font-semibold">COMPANY NAME</p>
-                            <p class="text-lg font-bold text-[#1F2937] mt-2">{{businessName}}</p>
+                            <p class="using-django text-lg font-bold text-[#1F2937] mt-2">{{businessName}}</p>
+                            <p class="using-session hidden text-lg font-bold text-[#1F2937] mt-2">{businessName}</p>
                         </div>
 
                         <!-- Location -->
-                        <div class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm cursor-pointer summary-card"
+                        <div id="business-location" class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm cursor-pointer summary-card"
                              data-redirect="{% url 'mod3t1t2t3' %}">
                             <p class="text-base text-[#3B82F6] font-semibold">LOCATION</p>
-                            <p class="text-lg font-bold text-[#1F2937] mt-2">{{businessLocation}}</p>
+                            <p class="using-django text-lg font-bold text-[#1F2937] mt-2">{{businessLocation}}</p>
+                            <p class="using-session hidden text-lg font-bold text-[#1F2937] mt-2">{businessLocation}</p>
                         </div>
 
                         <!-- Business Type -->
-                        <div class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm cursor-pointer summary-card"
+                        <div id="business-type" class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm cursor-pointer summary-card"
                              data-redirect="{% url 'mod2t1t2' %}">
                             <p class="text-base text-[#3B82F6] font-semibold">BUSINESS</p>
-                            <p class="text-lg font-bold text-[#1F2937] mt-2">{{businessType}}</p>
+                            <p class="using-django text-lg font-bold text-[#1F2937] mt-2">{{businessType}}</p>
+                            <p class="using-session hidden text-lg font-bold text-[#1F2937] mt-2">{businessType}</p>
                         </div>
 
-                        <!-- Market (Target Market) -->
-                        <div class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm cursor-pointer summary-card"
+                        <!-- Target Market -->
+                        <div id="target-market" class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm cursor-pointer summary-card"
                              data-redirect="{% url 'mod3t1t2t3' %}">
                             <p class="text-base text-[#3B82F6] font-semibold">MARKET</p>
-                            <p class="text-lg font-bold text-[#1F2937] mt-2">{{targetMarket}}</p>
+                            <p class="using-django text-lg font-bold text-[#1F2937] mt-2">{{targetMarket}}</p>
+                            <p class="using-session hidden text-lg font-bold text-[#1F2937] mt-2">{targetMarket}</p>
                         </div>
 
                         <!-- Business Goal -->
-                        <div class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm cursor-pointer summary-card"
+                        <div id="business-goal" class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm cursor-pointer summary-card"
                              data-redirect="{% url 'mod2t3' %}">
                             <p class="text-base text-[#3B82F6] font-semibold">BUSINESS GOAL</p>
-                            <p class="text-lg font-bold text-[#1F2937] mt-2">{{businessGoal}}</p>
+                            <p class="using-django text-lg font-bold text-[#1F2937] mt-2">{{businessGoal}}</p>
+                            <p class="using-session hidden text-lg font-bold text-[#1F2937] mt-2">{businessGoal}</p>
                         </div>
 
                         <!-- Max Employee -->
-                        <div class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm cursor-pointer summary-card"
+                        <div id="max-employee" class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm cursor-pointer summary-card"
                              data-redirect="{% url 'mod3t1t2t3' %}">
                             <p class="text-base text-[#3B82F6] font-semibold">MAX NO. OF EMPLOYEE</p>
-                            <p class="text-lg font-bold text-[#1F2937] mt-2">{{maxEmployee}}</p>
+                            <p class="using-django text-lg font-bold text-[#1F2937] mt-2">{{maxEmployee}}</p>
+                            <p class="using-session hidden text-lg font-bold text-[#1F2937] mt-2">{maxEmployee}</p>
                         </div>
                     </div>
           

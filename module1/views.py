@@ -156,35 +156,34 @@ def mod3t1t2t3_view(request):
 @login_required
 def mod3t4_view(request):
     print("-------------mod3t4_view------------")
-    player = Player.objects.get(user=request.user)  # Get existing player data
-    # remove comments if location is saved to the database after mod3_t1t2t3
-    # location_map = {
-    #     "Home-Based": {
-    #         "targetMarket": "Teens and young adults, Small businesses, Event organizers",
-    #         "maxEmployee": 3
-    #     },
-    #     "Physical Store": {
-    #         "targetMarket": "Professionals needing bespoke suits, Fashion-forward individuals, High-income earners",
-    #         "maxEmployee": 10
-    #     },
-    #     "Commercial Space": {
-    #         "targetMarket": "Working professionals, Stress-relief seekers, Health-conscious individuals",
-    #         "maxEmployee": 20
-    #     }
-    # }
-    # loc = player.businessLocation
-    # targetMarket = location_map.get(loc, {}).get("targetMarket", "")
-    # maxEmployee = location_map.get(loc, {}).get("maxEmployee", "")
+    # Get player data from the database
+    player = Player.objects.get(user=request.user)
+    locationData = {
+        "Home-Based": {
+            "targetMarket": "Teens and young adults, Small businesses, Event organizers",
+            "maxEmployee": 3
+        },
+        "Physical Store": {
+            "targetMarket": "Professionals needing bespoke suits, Fashion-forward individuals, High-income earners",
+            "maxEmployee": 10
+        },
+        "Commercial Space": {
+            "targetMarket": "Working professionals, Stress-relief seekers, Health-conscious individuals",
+            "maxEmployee": 20
+        }
+    }
+    targetMarket = locationData[player.businessLocation]["targetMarket"]
+    maxEmployee = locationData[player.businessLocation]["maxEmployee"]
     context = {
         "name": player.name,
         "businessName": player.businessName,
         "businessLocation": player.businessLocation,
         "businessType": player.businessType,
+        "targetMarket": targetMarket,
         "businessGoal": player.businessGoal,
-        # "targetMarket": targetMarket,
-        # "maxEmployee": maxEmployee,
+        "maxEmployee": maxEmployee
     }
-    return render(request, "mod3_t4.html", context)  # ✅ Pass data to template
+    return render(request, "mod3_t4.html", context)
 
 @login_required
 def intro_view(request):

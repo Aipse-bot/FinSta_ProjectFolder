@@ -1,23 +1,23 @@
 let current_open_modal_id = "";
 let locationData = {
-        "home-based": {
-            location: "Home-Based",
-            targetMarket: "Teens and young adults, Small businesses, Event organizers",
-            research_adv: "✅ Over 69% of home-based businesses earn at least $50,000 annually, showing strong potential for growth and profitability.",
-            research_disadv: "⚠️ Over 50% of home-based businesses fail due to factors like cash flow issues and ineffective marketing strategies."
-        },
-        "physical-store": {
-            location: "Physical Store",
-            targetMarket: "Professionals needing bespoke suits, Fashion-forward individuals, High-income earners",
-            research_adv: "✅ Over 55% of consumers still prefer to shop in physical stores engage products before purchasing.",
-            research_disadv: "⚠️ Over 20% of physical stores businesses fail because of high overhead costs, poor location choices, and shifting consumer behavior toward online shopping"
-        },
-        "commercial-space": {
-            location: "Commercial Space",
-            targetMarket: "Working professionals, Stress-relief seekers, Health-conscious individuals",
-            research_adv: "✅ Over 20-35% increase in customer acquisition compared to home-based operations, primarily due to increased visibility, foot traffic, and client trust.",
-            research_disadv: "⚠️ Over 40% of businesses in commercial spaces fail because of high rent costs, bad location selection, and low demand factors."
-        }
+    "home-based": {
+        location: "Home-Based",
+        targetMarket: "Teens and young adults, Small businesses, Event organizers",
+        research_adv: "✅ Over 69% of home-based businesses earn at least $50,000 annually, showing strong potential for growth and profitability.",
+        research_disadv: "⚠️ Over 50% of home-based businesses fail due to factors like cash flow issues and ineffective marketing strategies."
+    },
+    "physical-store": {
+        location: "Physical Store",
+        targetMarket: "Professionals needing bespoke suits, Fashion-forward individuals, High-income earners",
+        research_adv: "✅ Over 55% of consumers still prefer to shop in physical stores engage products before purchasing.",
+        research_disadv: "⚠️ Over 20% of physical stores businesses fail because of high overhead costs, poor location choices, and shifting consumer behavior toward online shopping"
+    },
+    "commercial-space": {
+        location: "Commercial Space",
+        targetMarket: "Working professionals, Stress-relief seekers, Health-conscious individuals",
+        research_adv: "✅ Over 20-35% increase in customer acquisition compared to home-based operations, primarily due to increased visibility, foot traffic, and client trust.",
+        research_disadv: "⚠️ Over 40% of businesses in commercial spaces fail because of high rent costs, bad location selection, and low demand factors."
+    }
 };
 
 function openModal(id) {
@@ -75,38 +75,53 @@ function closeModal() {
     proceedButton.classList.add("opacity-50", "cursor-not-allowed");
 }
 
-function continueAction() {
-    const locationData = {
-        "home-based-modal": {
+// JS handler before form submission
+document.getElementById('marketResearchForm').addEventListener('submit', function(event) {
+    let savedLocationData = {
+        "home-based": {
             location: "Home-Based",
-            targetMarket: "Teens and young adults, Small businesses, Event organizers"
+            targetMarket: "Teens and young adults, Small businesses, Event organizers",
+            maxEmployee: 3
         },
-        "physical-store-modal": {
+        "physical-store": {
             location: "Physical Store",
-            targetMarket: "Professionals needing bespoke suits, Fashion-forward individuals, High-income earners"
+            targetMarket: "Professionals needing bespoke suits, Fashion-forward individuals, High-income earners",
+            maxEmployee: 10
         },
-        "commercial-space-modal": {
+        "commercial-space": {
             location: "Commercial Space",
-            targetMarket: "Working professionals, Stress-relief seekers, Health-conscious individuals"
+            targetMarket: "Working professionals, Stress-relief seekers, Health-conscious individuals",
+            maxEmployee: 20
         }
     };
-
-    // Store value sessionStorage
-    const selectedLocationData = locationData[current_open_modal_id];
-    sessionStorage.setItem('location', selectedLocationData.location);
-    sessionStorage.setItem('targetMarket', selectedLocationData.targetMarket);
-
-    // Store value player object
-    updatePlayerProperty("businessLocation", selectedLocationData.location);
-
+    // Store selected location data in player object
+    const selectedLocationData = savedLocationData[current_open_modal_id];
+    updatePlayerProperty("businessLocation", selectedLocationData);
+    addOption1ToPlayerObject();
     printPlayerInfo();
+    // event.preventDefault();
+});
 
-    // Store value in django model
-
-    // End
-    console.log("Continue action triggered.");
-    closeModal();  // Close the modal after the action
-    // window.location.href = "mod2t4";
+// Moves information from sessionStorage to player object
+function addOption1ToPlayerObject() {
+    // Define business types (same as in mod1_t1_t2.js)
+    const businessTypes = [
+        "Tech Repair and Support Service",
+        "IoT Device Development",
+        "Web Development Services",
+        "Specialty Coffee Shop",
+        "Artisan Bakery",
+        "Food Truck Business",
+        "Custom Tailored Clothing Service",
+        "Activewear Line",
+        "Online T-Shirt Printing",
+        "Spa and Massage Center",
+        "Home Cleaning Service",
+        "Interior Design and Home Staging"
+    ];
+    const option1 = sessionStorage.getItem('option1'); // Business type index
+    const businessType = option1 !== null && businessTypes[parseInt(option1)] ? businessTypes[parseInt(option1)] : "Not Selected";
+    updatePlayerProperty("businessType", businessType);
 }
 
 // Card Element height adjustment
@@ -139,7 +154,8 @@ function adjustCardHeights() {
 document.addEventListener('DOMContentLoaded', adjustCardHeights);
 window.addEventListener('resize', adjustCardHeights);
 
-// Modal for full description
+
+// (Unused) Modal for full description
 // document.querySelectorAll('.desc-preview').forEach(function(p) {
 //     p.addEventListener('click', function() {
 //         const card = p.closest('.location-card');

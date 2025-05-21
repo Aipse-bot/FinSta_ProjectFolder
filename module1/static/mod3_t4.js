@@ -1,94 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Define business types (same as in mod1_t1_t2.js)
-    const businessTypes = [
-        "Tech Repair and Support Service",
-        "IoT Device Development",
-        "Web Development Services",
-        "Specialty Coffee Shop",
-        "Artisan Bakery",
-        "Food Truck Business",
-        "Custom Tailored Clothing Service",
-        "Activewear Line",
-        "Online T-Shirt Printing",
-        "Spa and Massage Center",
-        "Home Cleaning Service",
-        "Interior Design and Home Staging"
-    ];
-
-    // Retrieve values from sessionStorage
-    const option1 = sessionStorage.getItem('option1'); // Business type index
-    const businessGoal = sessionStorage.getItem('option2'); // Business goal
-    const businessName = sessionStorage.getItem('option3'); // Business name
-    const businessLocation = sessionStorage.getItem('businessLocation'); // Location type
-    const targetMarket = sessionStorage.getItem('targetMarket'); // Target market
-    const maxEmployees = sessionStorage.getItem('maxEmployees'); // Max employees
-
-    // Store values in sessionStorage
-
-    // Retrieve values from player object
-
-    // Store values in player object
-
-    // Store values in django model
-
-    // End
-
-    // Retrieve player data from sessionStorage
-    let storedPlayer = JSON.parse(sessionStorage.getItem("playerData"));
-    const userName = "User";
-    const businessType = option1 !== null && businessTypes[parseInt(option1)] ? businessTypes[parseInt(option1)] : "Not Selected";
-
-    console.log("Retrieved Values:");
-    console.log("Session Storage:", sessionStorage);
-    console.log("Stored Player Data:", storedPlayer);
-    // remove comment if player is updated for every page
-    //console.log("Location:", storedPlayer.businessLocation);
-    console.log("Location:", businessLocation);
-    console.log("Target Market:", targetMarket);
-
-    const userNameElements = document.querySelectorAll('h2');
-    const businessNameElements = document.querySelectorAll('p');
-
-    userNameElements.forEach(el => {
-        if (el.innerText.includes('{user name}')) {
-            el.innerText = el.innerText.replace('{user name}', userName);
-        }
-    });
-
-    businessNameElements.forEach(p => {
-        if (p.innerText.includes('{businessName}')) {
-            console.log("Replacing business name with:", businessName || "Not Selected");
-            p.innerText = p.innerText.replace('{businessName}', storedPlayer.businessName || "Not Selected");
-            p.classList.add('business-name');
-        }
-        if (p.innerText.includes('{businessLocation}')) {
-            p.innerText = p.innerText.replace('{businessLocation}', sessionStorage.businessLocation || "Not Selected");
-            p.classList.add('business-location');
-        }
-        if (p.innerText.includes('{businessType}')) {
-            p.innerText = p.innerText.replace('{businessType}', storedPlayer.businessType);
-            p.classList.add('business-type');
-        }
-        if (p.innerText.includes('{targetMarket}')) {
-            p.innerText = p.innerText.replace('{targetMarket}', location || "Not Selected");
-            p.classList.add('target-market');
-        }
-        if (p.innerText.includes('{businessGoal}')) {
-            p.innerText = p.innerText.replace('{businessGoal}', storedPlayer.businessGoal || "Not Selected");
-            p.classList.add('business-goal');
-        }
-        if (p.innerText.includes('{maxEmployee}')) {
-            p.innerText = p.innerText.replace('{maxEmployee}', location || "Not Selected");
-            p.classList.add('max-employee');
-        }
-    });
-
-    // Uncomment if using sessionStorage instead
-    // const businessNameElement = document.querySelector('.business-name');
-    // if (!businessNameElement) {
-    //     console.error("Business name element not found in the DOM!");
-    // }
-
+    togglePlanOrigin(1); // 0: sessionStorage, 1: Django, 2: both
+    loadSessionData(); // takes data from player object, unused if only django is used
+    printPlayerInfo();
     // Add redirect logic for summary cards
     document.querySelectorAll('.summary-card').forEach(function(card) {
         card.addEventListener('click', function() {
@@ -99,6 +12,84 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+// from view
+// remove comments if location is saved to the database after mod3_t1t2t3
+// loc = player.businessLocation
+// targetMarket = location_map.get(loc, {}).get("targetMarket", "")
+// maxEmployee = location_map.get(loc, {}).get("maxEmployee", "")
+
+// Uncomment if using sessionStorage instead
+// const businessNameElement = document.querySelector('.business-name');
+// if (!businessNameElement) {
+//     console.error("Business name element not found in the DOM!");
+// }
+
+function loadSessionData() {
+    location_map = {
+        "home-based": {
+            "targetMarket": "Teens and young adults, Small businesses, Event organizers",
+            "maxEmployee": 3
+        },
+        "physical-store": {
+            "targetMarket": "Professionals needing bespoke suits, Fashion-forward individuals, High-income earners",
+            "maxEmployee": 10
+        },
+        "commercial-space": {
+            "targetMarket": "Working professionals, Stress-relief seekers, Health-conscious individuals",
+            "maxEmployee": 20
+        }
+    }
+    const player = sessionStorage.getItem("playerData");
+    const businessName = player ? JSON.parse(player).businessName : null; 
+    const businessLocation = player ? JSON.parse(player).businessLocation.location : null;
+    const businessType = player ? JSON.parse(player).businessType : null;
+    const targetMarket = player ? JSON.parse(player).businessLocation.targetMarket : null;
+    const businessGoal = player ? JSON.parse(player).businessGoal : null; // empty
+    const maxEmployee = player ? JSON.parse(player).businessLocation.maxEmployee : null;
+    
+    replaceText(businessName, "company-name");
+    replaceText(businessLocation, "business-location");
+    replaceText(businessType, "business-type");
+    replaceText(targetMarket, "target-market");
+    replaceText(businessGoal, "business-goal");
+    replaceText(maxEmployee, "max-employee");
+}
+
+function replaceText(value, parentId) {
+    const parent = document.getElementById(parentId);
+    if (!parent) return;
+    // Get all <p> children inside the parent
+    const pElements = parent.querySelectorAll('p');
+    // Only update the last two <p> elements
+    pElements.forEach((el, idx) => {
+        // if (idx === pElements.length - 2 || idx === pElements.length - 1) {
+        if (idx === pElements.length - 1) {
+            if (value) {
+                el.textContent = value;
+            } else {
+                el.textContent = "N/A";
+            }
+        }
+    });
+}
+
+function togglePlanOrigin(showWithDjango) {
+    // checks showWithDjango value and toggles the visibility of elements accordingly
+    document.querySelectorAll('.using-django').forEach(el => {
+        if (showWithDjango === 1 || showWithDjango === 2) {
+            el.classList.remove('hidden');
+        } else {
+            el.classList.add('hidden');
+        }
+    });
+    document.querySelectorAll('.using-session').forEach(el => {
+        if (showWithDjango === 0 || showWithDjango === 2) {
+            el.classList.remove('hidden');
+        } else {
+            el.classList.add('hidden');
+        }
+    });
+}
 
 function reset() {
     sessionStorage.clear();
