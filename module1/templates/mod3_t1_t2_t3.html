@@ -7,37 +7,40 @@
     <title>Project Ideation - Business Type</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#1F2937] min-h-screen flex items-center justify-center font-sans">
-    <div class="container mx-auto px-4 py-12">
-        <div class="max-w-5xl mx-auto relative pt-14 md:pt-0">
-            <!-- Absolutely positioned back button -->
+<body class="bg-[#1F2937] min-h-screen font-sans">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-7xl mx-auto relative pt-14 md:pt-0">
+            <!-- butotn -->
             <a href="javascript:history.back()" 
                class="inline-flex items-center text-[#E5E7EB] hover:text-[#22C55E] transition-colors absolute top-4 left-4 md:top-0 md:left-0 z-10">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                 </svg>
                 Back
             </a>
-            <h3 class="text-3xl font-bold text-center text-[#E5E7EB] mb-10 md:mx-16">Where would you like to start your journey?</h3>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center items-center">
+            <h3 class="text-4xl font-bold text-center text-[#E5E7EB] mb-10">Where would you like to start your journey?</h3>
+            
+            <!-- increase spacing of cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                 <!-- Home-Based Business -->
-                <div class="max-w-sm bg-[#E5E7EB] rounded-xl shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 p-6 relative location-card flex flex-col" id="home-based-card">
-                    <img src="{% static 'module1/images/laptop.png' %}" alt="Laptop icon" class="absolute w-16 h-16 bg-white rounded-lg shadow top-[104px] right-9 z-10">
-                    <div class="w-full h-32 rounded-lg mb-4 overflow-hidden">
+                <div class="bg-[#E5E7EB] rounded-xl shadow-lg hover:shadow-xl hover:border-[#22C55E] transition-all duration-300 p-6 relative location-card" id="home-based-card">
+                    <img src="{% static 'module1/images/laptop.png' %}" alt="Laptop icon" class="absolute w-16 h-16 bg-white rounded-lg shadow top-[120px] right-8 z-10">
+                    <div class="w-full h-36 rounded-lg mb-4 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Home office" class="w-full h-full object-cover">
                     </div>
-                    <div class="text-xl font-bold text-[#1F2937] location-title flex items-center lg:h-auto md:h-12">HOME-BASED</div>
-                    <div class="text-sm text-[#3B82F6] font-semibold">$2000 - $10000 / MONTH</div>
-                    <p class="desc-preview text-sm text-[#1F2937] mt-2 mb-2 h-40 line-clamp-6 text-ellipsis ">
+                    <div class="text-xl font-bold text-[#1F2937] mb-1 location-title">HOME-BASED</div>
+                    <div class="text-sm text-[#3B82F6] font-semibold mb-3">$2000 - $10000 / MONTH</div>
+                    <p class="text-sm text-[#1F2937] mt-2 mb-4 desc-preview">
                         A home-based business is a company run from the owner's home, offering flexibility and low startup costs. 
                         It often includes freelancing, e-commerce, or consulting, allowing entrepreneurs to manage their schedules and reduce overhead expenses. 
                         However, challenges like limited growth potential and distractions may arise.
                     </p>
                     <span class="text-sm font-semibold text-[#1F2937]">Target Market</span>
-                    <ul class="list-disc pl-5 space-y-1 text-[#1F2937] text-sm lg:h-16 md:h-28">
-                        <li id="l1"></li>
-
+                    <ul class="list-disc pl-5 space-y-1 text-[#1F2937] text-sm my-2">
+                        <li>Teens and young adults</li>
+                        <li>Small businesses</li>
+                        <li>Event organizers</li>
                     </ul>
                     <div class="mt-4 space-y-2 text-sm text-[#1F2937]">
                         <div class="flex items-center justify-between">
@@ -71,26 +74,28 @@
                     <div class="mt-4 text-[#3B82F6] font-semibold text-sm">
                         3 Employees max
                     </div>
-                    <button class="mt-4 bg-[#25c247] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300" onclick="openModal('home-based')">
+                    <button class="mt-4 w-full bg-[#25c247] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300" onclick="openModal('home-based')">
                         Do Market Research
                     </button>
                 </div>
 
                 <!-- Physical Store -->
-                <div class="max-w-sm bg-[#E5E7EB] rounded-xl shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 p-6 relative location-card flex flex-col" id="physical-store-card">
-                    <img src="{% static 'module1/images/shoppingbag.png' %}" alt="Shopping bag icon" class="absolute w-16 h-16 bg-white rounded-lg shadow top-[104px] right-9 z-10">
-                    <div class="w-full h-32 rounded-lg mb-4 overflow-hidden">
+                <div class="bg-[#E5E7EB] rounded-xl shadow-lg hover:shadow-xl hover:border-[#22C55E] transition-all duration-300 p-6 relative location-card" id="physical-store-card">
+                    <img src="{% static 'module1/images/shoppingbag.png' %}" alt="Shopping bag icon" class="absolute w-16 h-16 bg-white rounded-lg shadow top-[120px] right-8 z-10">
+                    <div class="w-full h-36 rounded-lg mb-4 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8" alt="Retail store" class="w-full h-full object-cover">
                     </div>
-                    <div class="text-xl font-bold text-[#1F2937] location-title flex items-center lg:h-auto md:h-12">PHYSICAL STORE</div>
-                    <div class="text-sm text-[#3B82F6] font-semibold">$5000 - $20,000 / MONTH</div>
-                    <p class="desc-preview text-sm text-[#1F2937] mt-2 mb-2 h-40 line-clamp-6 text-ellipsis">
+                    <div class="text-xl font-bold text-[#1F2937] mb-1 location-title">PHYSICAL STORE</div>
+                    <div class="text-sm text-[#3B82F6] font-semibold mb-3">$5000 - $20,000 / MONTH</div>
+                    <p class="text-sm text-[#1F2937] mt-2 mb-4 desc-preview">
                         Physical store businesses are brick-and-mortar establishments where products or services are sold directly to customers. 
-                        These businesses operate from a fixed location, such as a retail shop, restaurant, or boutique, and rely on in-person transactions and customer interaction.
+                        These businesses operate from a fixed location, such as a retail shop, department store, grocery store, restaurant, or boutique, and rely on in-person transactions and customer interaction.
                     </p>
                     <span class="text-sm font-semibold text-[#1F2937]">Target Market</span>
-                    <ul class="list-disc pl-5 space-y-1 text-[#1F2937] text-sm lg:h-16 md:h-28">
-                        <li></li>
+                    <ul class="list-disc pl-5 space-y-1 text-[#1F2937] text-sm my-2">
+                        <li>Professionals needing bespoke suits</li>
+                        <li>Fashion-forward individuals</li>
+                        <li>High-income earners</li>
                     </ul>
                     <div class="mt-4 space-y-2 text-sm text-[#1F2937]">
                         <div class="flex items-center justify-between">
@@ -124,26 +129,28 @@
                     <div class="mt-4 text-[#3B82F6] font-semibold text-sm">
                         10 Employees max
                     </div>
-                    <button class="mt-4 bg-[#25c247] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300" onclick="openModal('physical-store')">
+                    <button class="mt-4 w-full bg-[#25c247] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300" onclick="openModal('physical-store')">
                         Do Market Research
                     </button>
                 </div>
 
                 <!-- Commercial Space -->
-                <div class="max-w-sm bg-[#E5E7EB] rounded-xl shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 p-6 relative location-card flex flex-col" id="commercial-space-card">
-                    <img src="{% static 'module1/images/building.png' %}" alt="Building icon" class="absolute w-16 h-16 bg-white rounded-lg shadow top-[104px] right-9 z-10">
-                    <div class="w-full h-32 rounded-lg mb-4 overflow-hidden">
+                <div class="bg-[#E5E7EB] rounded-xl shadow-lg hover:shadow-xl hover:border-[#22C55E] transition-all duration-300 p-6 relative location-card" id="commercial-space-card">
+                    <img src="{% static 'module1/images/building.png' %}" alt="Building icon" class="absolute w-16 h-16 bg-white rounded-lg shadow top-[120px] right-8 z-10">
+                    <div class="w-full h-36 rounded-lg mb-4 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab" alt="Office building" class="w-full h-full object-cover">
                     </div>
-                    <div class="text-xl font-bold text-[#1F2937] location-title flex items-center lg:h-auto md:h-12">COMMERCIAL SPACE</div>
-                    <div class="text-sm text-[#3B82F6] font-semibold">$7000 - $25,000 / MONTH</div>
-                    <p class="desc-preview text-sm text-[#1F2937] mt-2 mb-2 h-40 line-clamp-6 text-ellipsis">
+                    <div class="text-xl font-bold text-[#1F2937] mb-1 location-title">COMMERCIAL SPACE</div>
+                    <div class="text-sm text-[#3B82F6] font-semibold mb-3">$7000 - $25,000 / MONTH</div>
+                    <p class="text-sm text-[#1F2937] mt-2 mb-4 desc-preview">
                         Commercial space businesses involve renting or leasing properties that are used for business purposes, such as office buildings, retail spaces, or industrial facilities. 
                         These businesses cater to organizations or individuals who need a physical location for operations, offering a range of services from leasing to property management.
                     </p>
                     <span class="text-sm font-semibold text-[#1F2937]">Target Market</span>
-                    <ul class="list-disc pl-5 space-y-1 text-[#1F2937] text-sm lg:h-16 md:h-28">
-                        <li> </li>
+                    <ul class="list-disc pl-5 space-y-1 text-[#1F2937] text-sm my-2">
+                        <li>Working professionals</li>
+                        <li>Stress-relief seekers</li>
+                        <li>Health-conscious individuals</li>
                     </ul>
                     <div class="mt-4 space-y-2 text-sm text-[#1F2937]">
                         <div class="flex items-center justify-between">
@@ -177,7 +184,7 @@
                     <div class="mt-4 text-[#3B82F6] font-semibold text-sm">
                         20 Employees max
                     </div>
-                    <button class="mt-4 bg-[#25c247] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300" onclick="openModal('commercial-space')">
+                    <button class="mt-4 w-full bg-[#25c247] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300" onclick="openModal('commercial-space')">
                         Do Market Research
                     </button>
                 </div>
@@ -212,14 +219,13 @@
                         {% csrf_token %}
                         <div class="hidden">
                             {{form.name}}
-                            
                         </div>
                         {{form.targetMarket}}
                         {{form.maxNumberOfWorkers}}
                         {{form.businessLocation}}
 
                         <div class="flex justify-between p-4 border-t border-[#62666e]">
-                            <button id="closebtn"  type="button" onclick="closeModal()" 
+                            <button id="closebtn" type="button" onclick="closeModal()" 
                                 class="bg-[#c22525] text-white px-4 py-2 rounded-lg hover:bg-[#bf1717]/80 transition-all duration-300">
                                 Cancel
                             </button>
@@ -236,36 +242,35 @@
     </div>
 
     <script type="text/javascript" src="{% static 'player.js' %}" ></script>
-     <script>// Function to show the modal
-
-        let current_open_modal_id = ""
+    <script>
         let locationData = {
-                "home-based": {
-                    location: "Home-Based",
-                    maxNumberOfWorkers: 3,
-                    research_adv: "✅ Over 69% of home-based businesses earn at least $50,000 annually, showing strong potential for growth and profitability.",
-                    research_disadv: "⚠️ Over 50% of home-based businesses fail due to factors like cash flow issues and ineffective marketing strategies."
-                },
-                "physical-store": {
-                    location: "Physical Store",
-                    maxNumberOfWorkers: 10,
-                    research_adv: "✅ Over 55% of consumers still prefer to shop in physical stores engage products before purchasing.",
-                    research_disadv: "⚠️ Over 20% of physical stores businesses fail because of high overhead costs, poor location choices, and shifting consumer behavior toward online shopping"
-                },
-                "commercial-space": {
-                    location: "Commercial Space",
-                    maxNumberOfWorkers: 20,
-                    research_adv: "✅ Over 20-35% increase in customer acquisition compared to home-based operations, primarily due to increased visibility, foot traffic, and client trust.",
-                    research_disadv: "⚠️ Over 40% of businesses in commercial spaces fail because of high rent costs, bad location selection, and low demand factors."
-                }
+            "home-based": {
+                location: "Home-Based",
+                maxNumberOfWorkers: 3,
+                research_adv: "✅ Over 69% of home-based businesses earn at least $50,000 annually, showing strong potential for growth and profitability.",
+                research_disadv: "⚠️ Over 50% of home-based businesses fail due to factors like cash flow issues and ineffective marketing strategies."
+            },
+            "physical-store": {
+                location: "Physical Store",
+                maxNumberOfWorkers: 10,
+                research_adv: "✅ Over 55% of consumers still prefer to shop in physical stores engage products before purchasing.",
+                research_disadv: "⚠️ Over 20% of physical stores businesses fail because of high overhead costs, poor location choices, and shifting consumer behavior toward online shopping"
+            },
+            "commercial-space": {
+                location: "Commercial Space",
+                maxNumberOfWorkers: 20,
+                research_adv: "✅ Over 20-35% increase in customer acquisition compared to home-based operations, primarily due to increased visibility, foot traffic, and client trust.",
+                research_disadv: "⚠️ Over 40% of businesses in commercial spaces fail because of high rent costs, bad location selection, and low demand factors."
+            }
         };
+        
         function openModal(id) {
             const selectedLocationData = locationData[id];
 
             console.log(locationData[id])
 
             let modal = document.getElementById("modal");
-            let  adv = modal.querySelector("#adv").textContent = selectedLocationData.research_adv;
+            let adv = modal.querySelector("#adv").textContent = selectedLocationData.research_adv;
             let disadv = modal.querySelector("#disadv").textContent = selectedLocationData.research_disadv;
 
             let resultDiv = modal.querySelector("#result-div");
@@ -273,9 +278,8 @@
             let cancelButton = modal.querySelector("#closebtn");
             let proceedButton = modal.querySelector("#submitbtn");
     
-            document.getElementById("businessLocation").value = selectedLocationData.location
-
-            document.getElementById("maxNumberOfWorkers").value = selectedLocationData.maxNumberOfWorkers
+            document.getElementById("businessLocation").value = selectedLocationData.location;
+            document.getElementById("maxNumberOfWorkers").value = selectedLocationData.maxNumberOfWorkers;
 
             document.getElementById("name").removeAttribute("required");
             cancelButton.disabled = true;
@@ -318,56 +322,52 @@
         }
         
         async function fetchBusinessData(field) {
-        let str = "";
+            let str = "";
 
-        try {
-            const response = await fetch(`get_business_data/?field=${field}`);
-            const data = await response.json();
-            
-            console.log(`Requested ${field}:`, data);
+            try {
+                const response = await fetch(`get_business_data/?field=${field}`);
+                const data = await response.json();
+                
+                console.log(`Requested ${field}:`, data);
 
-            let category = data.data.businessCategory;
+                let category = data.data.businessCategory;
 
-            switch (category) {
-                case "Tech":
-                    document.querySelectorAll("ul li").forEach(item => {
-                        item.innerText = "Businesses and professionals looking for tech services.";
-                    });
-                    str = "Businesses and professionals looking for tech services.";
-                    break;
-                case "Food":
-                    document.querySelectorAll("ul li").forEach(item => {
-                        item.innerText = "People seeking convenient and affordable meal options.";
-                    });
-                    str = "People seeking convenient and affordable meal options.";
-                    break;
-                case "Clothing":
-                    document.querySelectorAll("ul li").forEach(item => {
-                        item.innerText = "Young adults and fashion-conscious consumers.";
-                    });
-                    str = "Young adults and fashion-conscious consumers.";
-                    break;
-                case "Expert":
-                    document.querySelectorAll("ul li").forEach(item => {
-                        item.innerText = "People seeking professional services.";
-                    });
-                    str = "People seeking professional services.";
-                    break;
+                switch (category) {
+                    case "Tech":
+                        document.querySelectorAll("ul li").forEach(item => {
+                            item.innerText = "Businesses and professionals looking for tech services.";
+                        });
+                        str = "Businesses and professionals looking for tech services.";
+                        break;
+                    case "Food":
+                        document.querySelectorAll("ul li").forEach(item => {
+                            item.innerText = "People seeking convenient and affordable meal options.";
+                        });
+                        str = "People seeking convenient and affordable meal options.";
+                        break;
+                    case "Clothing":
+                        document.querySelectorAll("ul li").forEach(item => {
+                            item.innerText = "Young adults and fashion-conscious consumers.";
+                        });
+                        str = "Young adults and fashion-conscious consumers.";
+                        break;
+                    case "Expert":
+                        document.querySelectorAll("ul li").forEach(item => {
+                            item.innerText = "People seeking professional services.";
+                        });
+                        str = "People seeking professional services.";
+                        break;
+                }
+                document.getElementById("targetMarket").value = str;
+                return str;
+
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                return "Error fetching data";
             }
-            document.getElementById("targetMarket").value = str
-            return str; // Now returns after fetch completes
-
-        } catch (error) {
-            console.error("Error fetching data:", error);
-            return "Error fetching data";
         }
-    }
 
-    fetchBusinessData("businessCategory");  // Fetch business category
-
-
-
-
-        </script>
+        fetchBusinessData("businessCategory");  // Fetch business category
+    </script>
 </body>
 </html>
