@@ -80,5 +80,5 @@ function reset() {
 }
 
 function proceed() {
-    window.location.href = "mod3t1t2t3";
+    window.location.href = "mod4t1";
 }
