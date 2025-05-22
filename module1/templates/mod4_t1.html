@@ -182,23 +182,22 @@
     </style>
     <script>
         // --- Game State Variables ---
-        let companyHealthPercentage = 50; // Initial health
+        let companyHealthPercentage = 50; 
         let marketDominationPercentage = 50; 
         let customerSatisfactionPercentage = 50; 
         let balancedBooksPercentage = 50;  
         let employees = 0;          
-        let balance = 15000; // MODIFIED: Starting balance
-        let businessName = "Stellar Innovations"; // Default name
-        let businessType = "Web Development Services";  // Default business type
-        let businessLocation = "Home-Based"; // NEW: Default business location
-        let icon = "💻"; // Default icon, will be updated in initializeUI
+        let balance = 15000; 
+        let businessName = "Stellar Innovations"; 
+        let businessType = "Web Development Services";  
+        let businessLocation = "Home-Based"; 
+        let icon = "💻"; 
 
         let currentYear = 1;
         let currentQuarter = 1;
         let actionPoints = 4;
         let insuranceBonus = 0; 
 
-        // Define which business types fall into which category
         const businessTypeToCategoryMapping = {
             "IoT Device Development": "1",
             "Web Development Services": "1",
@@ -214,7 +213,6 @@
             "Interior Design and Home Staging": "2"
         };
 
-        // Define icons for each business type
         const businessTypeIcons = {
             "IoT Device Development": "🤖",
             "Web Development Services": "💻",
@@ -224,11 +222,11 @@
             "Artisan Bakery": "🥐",
             "Food Truck Business": "🚚",
             "Custom Tailored Clothing": "🧵",
-            "Online T-Shirt Printing": "�", 
+            "Online T-Shirt Printing": "👕", 
             "Spa and Massage Center": "💆",
             "Home Cleaning Service": "🧹",
             "Interior Design and Home Staging": "🛋️",
-            "Generic": "🏢" // Default icon if type not found
+            "Generic": "🏢" 
         };
 
         const category1StageOrder = [ 
@@ -238,8 +236,8 @@
             "Quality Control: Test prototypes/samples",
             "Launch: Launch your product"
         ];
-        let currentSoftwareDevelopmentStageIndex = 0; // Index for category1StageOrder
-        let productV1Launched = false; // Relevant for Category 1 businesses
+        let currentSoftwareDevelopmentStageIndex = 0; 
+        let productV1Launched = false; 
 
         const category2StageOrder = [
             "Order Products",
@@ -247,7 +245,7 @@
             "Make a Sale",
             "Offer Discount"
         ];
-        let currentCategory2StageIndex = 0; // Index for category2StageOrder
+        let currentCategory2StageIndex = 0; 
 
 
         let quarterlySales = 0;
@@ -255,7 +253,6 @@
         let quarterlyExpensesFromActionsAndEvents = 0;
         let quarterlyServiceCosts = 0;
         
-        // Rent Constants based on location
         const RENT_HOME_BASED = 0;
         const RENT_PHYSICAL_STORE = 1000;
         const RENT_COMMERCIAL_SPACE = 2500;
@@ -263,11 +260,16 @@
         const SALARY_PER_EMPLOYEE_PER_QUARTER = 5000; 
         const SALES_PER_EMPLOYEE_PER_QUARTER = 7000; 
         const LOAN_REPAYMENT_PER_QUARTER = 900;
+
+        // NEW: Max employee constants
+        const MAX_EMPLOYEES_HOME_BASED = 3;
+        const MAX_EMPLOYEES_PHYSICAL_STORE = 7;
+        const MAX_EMPLOYEES_COMMERCIAL_SPACE = 15;
         
         // --- Action Definitions ---
         if (typeof window.businessTypeActions === 'undefined') {
             window.businessTypeActions = {
-                "1": { // Category 1 Businesses: Product Development (IoT, Web Dev, Activewear)
+                "1": { 
                     "Research: Interview potential customers": { 
                         label: "Research Customers", 
                         actionKey: "Research: Interview potential customers", 
@@ -353,7 +355,7 @@
                         }
                     }
                 },
-                "2": { // Category 2 Businesses: Product Services
+                "2": { 
                     "Order Products": {
                         label: "Order Products",
                         actionKey: "Order Products",
@@ -636,10 +638,10 @@
                             </svg>
                         </button>
                         <div id="dropdownMenu2" class="hidden bg-purple-500 text-white scrollable-dropdown">
-                            <div onclick="window.openModal('Local Outreach')" class="block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base">Local Outreach</div>
-                            <div onclick="window.openModal('Online Websites')" class="block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base">Online Websites</div>
-                            <div onclick="window.openModal('Recruiter')" class="block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base">Recruiter</div>
-                            <div id="firePersonAction" onclick="window.openModal('Fire a Person')" class="block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base">Fire a Person</div>
+                            <div data-action-key="Local Outreach" onclick="window.openModal('Local Outreach')" class="block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base">Local Outreach</div>
+                            <div data-action-key="Online Websites" onclick="window.openModal('Online Websites')" class="block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base">Online Websites</div>
+                            <div data-action-key="Recruiter" onclick="window.openModal('Recruiter')" class="block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base">Recruiter</div>
+                            <div id="firePersonAction" data-action-key="Fire a Person" onclick="window.openModal('Fire a Person')" class="block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base">Fire a Person</div>
                         </div>
                     </div>
                     <div id="dropdown-3" class="relative">
@@ -869,6 +871,7 @@
         window.populateDropdown(); 
         window.resetQuarterlyFinances(); 
         window.updateActionCategoriesVisibility(); 
+        window.updateHiringActionsState(); // Ensure hiring actions are correctly set on init
     }
 
 
@@ -940,8 +943,6 @@
             } else if (type === "serviceCost") { 
                 quarterlyServiceCosts += Math.abs(changeAmount);
             }
-            // Rent, Salary, Loan are handled directly in showQuarterEndModal for P&L display,
-            // but their impact on 'balance' is already accounted for when this function is called with those types.
         }
     }
     window.updateEmployeeCount = function(change) {
@@ -949,6 +950,7 @@
         employees = Math.max(0, employees);
         if(employeeCountDisplay) employeeCountDisplay.textContent = employees;
         window.updateFireButtonState(); 
+        window.updateHiringActionsState(); // Update hiring button states when employee count changes
     }
     window.updateYearQuarterDisplay = function() {
         if(yearQuarterDisplay) yearQuarterDisplay.textContent = `Year ${currentYear}, Q${currentQuarter}`;
@@ -964,6 +966,7 @@
         window.updateCompanyHealth(); 
         window.updateYearQuarterDisplay();
         window.updateFireButtonState(); 
+        window.updateHiringActionsState();
     }
 
      window.updateFireButtonState = function() {
@@ -979,6 +982,36 @@
                 fireButton.onclick = () => window.openModal('Fire a Person');
             }
         }
+    }
+
+    window.updateHiringActionsState = function() {
+        const hiringActionKeys = ["Local Outreach", "Online Websites", "Recruiter"];
+        let maxEmployeesForLocation = 0;
+        switch(businessLocation) {
+            case "Home-Based": maxEmployeesForLocation = MAX_EMPLOYEES_HOME_BASED; break;
+            case "Physical Store": maxEmployeesForLocation = MAX_EMPLOYEES_PHYSICAL_STORE; break;
+            case "Commercial Space": maxEmployeesForLocation = MAX_EMPLOYEES_COMMERCIAL_SPACE; break;
+            default: maxEmployeesForLocation = MAX_EMPLOYEES_HOME_BASED;
+        }
+
+        const hiringDropdownMenu = document.getElementById('dropdownMenu2');
+        if (!hiringDropdownMenu) return;
+
+        hiringActionKeys.forEach(actionKey => {
+            const actionDiv = hiringDropdownMenu.querySelector(`div[data-action-key="${actionKey}"]`);
+            if (actionDiv) {
+                const actionDetails = window.commonActions[actionKey]; // Hiring actions are common
+                if (employees >= maxEmployeesForLocation) {
+                    actionDiv.classList.add('dropdown-item-disabled');
+                    actionDiv.classList.remove('hover:bg-purple-400', 'cursor-pointer', 'dropdown-item-active');
+                    actionDiv.onclick = null; 
+                } else {
+                    actionDiv.classList.remove('dropdown-item-disabled');
+                    actionDiv.classList.add('hover:bg-purple-400', 'cursor-pointer', 'dropdown-item-active');
+                    actionDiv.onclick = () => window.openModal(actionKey);
+                }
+            }
+        });
     }
 
 
@@ -1010,8 +1043,9 @@
         if (currentChevron) currentChevron.classList.toggle('rotate-180', !currentDropdownMenu.classList.contains('hidden'));
         
         openDropdownId = currentDropdownMenu.classList.contains('hidden') ? null : n;
-         if (n === 2) { 
+         if (n === 2) { // Hiring dropdown
             window.updateFireButtonState();
+            window.updateHiringActionsState(); 
         }
     }
 
@@ -1251,6 +1285,24 @@
             return;
         }
 
+        // Check for employee capacity before processing hiring actions
+        if (actionDetails.effects && actionDetails.effects.success && actionDetails.effects.success.employeeGain && actionDetails.effects.success.employeeGain > 0) {
+            let maxEmployeesForLocation = 0;
+            switch(businessLocation) {
+                case "Home-Based": maxEmployeesForLocation = MAX_EMPLOYEES_HOME_BASED; break;
+                case "Physical Store": maxEmployeesForLocation = MAX_EMPLOYEES_PHYSICAL_STORE; break;
+                case "Commercial Space": maxEmployeesForLocation = MAX_EMPLOYEES_COMMERCIAL_SPACE; break;
+                default: maxEmployeesForLocation = MAX_EMPLOYEES_HOME_BASED; 
+            }
+
+            if (employees >= maxEmployeesForLocation) {
+                window.businessLog(`Cannot hire: Location capacity (${maxEmployeesForLocation}) reached for ${businessLocation}.`, "system");
+                window.showActionOutcome("Hiring Blocked", `Your ${businessLocation} location can only support ${maxEmployeesForLocation} employees. You cannot hire more at this time. Consider upgrading your location.`, "system");
+                return; // Exit handleAction early, no AP/cost deduction
+            }
+        }
+
+
         if (actionKey === "Fire a Person" && employees === 0) {
             window.businessLog("Cannot fire: No employees.", "system");
              window.showActionOutcome("Operation Update", "No employees to fire.", "system");
@@ -1338,10 +1390,6 @@
                 if (success) {
                     if (actionKey === "Launch: Launch your product") {
                         productV1Launched = true;
-                         // No automatic reset here, "Announce new product/version" is separate
-                         // currentSoftwareDevelopmentStageIndex would naturally be past the last index of category1StageOrder
-                         // or we can explicitly set it to a state indicating V1 completion if needed for other logic.
-                         // For now, just advancing past it is enough.
                         currentSoftwareDevelopmentStageIndex++; 
                     } else if (currentSoftwareDevelopmentStageIndex === category1StageOrder.indexOf(actionKey)) {
                         currentSoftwareDevelopmentStageIndex++;
@@ -1349,26 +1397,24 @@
                 }
             } else if (currentCategoryKey === "2") { 
                 if (success && currentCategory2StageIndex === category2StageOrder.indexOf(actionKey)) {
-                    if (actionKey === "Offer Discount") { // If last action in Cat 2 sequence is successful
-                        currentCategory2StageIndex = 0; // Reset to the beginning of Cat 2 sequence
+                    if (actionKey === "Offer Discount") { 
+                        currentCategory2StageIndex = 0; 
                     } else {
-                        currentCategory2StageIndex++; // Advance to the next stage in Cat 2 sequence
+                        currentCategory2StageIndex++; 
                     }
                 }
             }
         } else if (actionKey === "Announce new product/version" && currentCategoryKey === "1") { 
-            if (customerSatisfactionPercentage > 60) { // Success condition for this action
+            if (customerSatisfactionPercentage > 60) { 
                 outcomeMessage = actionDetails.effects.success.message + (currentFinancialCost > 0 ? ` (-$${currentFinancialCost.toLocaleString()})` : "");
                 if(actionDetails.effects.success.csChange) window.updateCustomerSatisfaction(customerSatisfactionPercentage + actionDetails.effects.success.csChange);
                 if(actionDetails.effects.success.mdChange) window.updateMarketDomination(marketDominationPercentage + actionDetails.effects.success.mdChange);
                 outcomeType = "bonus";
-                currentSoftwareDevelopmentStageIndex = 0; // Reset Cat 1 sequence to "Research Customers"
-                productV1Launched = false; // Reset V1 launch status
-            } else { // Failure condition for this action
+                currentSoftwareDevelopmentStageIndex = 0; 
+            } else { 
                 outcomeMessage = actionDetails.effects.failure.message + (currentFinancialCost > 0 ? ` (-$${currentFinancialCost.toLocaleString()})` : "");
                 if(actionDetails.effects.failure.csChange) window.updateCustomerSatisfaction(customerSatisfactionPercentage + actionDetails.effects.failure.csChange);
                 outcomeType = "penalty";
-                productV1Launched = false; // Reset V1 launch status
             }
         }
         
@@ -1440,7 +1486,6 @@
         }
 
         if (currentCategoryKey === "1") {
-            // Handle the sequential product development stages (applies to V1 or V-Next)
             category1StageOrder.forEach((actionKey, index) => {
                 const item = currentActionsForCategory[actionKey];
                 if (item) {
@@ -1448,31 +1493,33 @@
                     div.className = "block px-4 py-2 transition-colors duration-150 text-sm md:text-base";
                     div.textContent = item.label;
 
-                    // If V1 is launched and we are starting a new cycle (index 0 is active)
-                    // then "Launch Product" (index 4) should be disabled until we reach it again.
-                    if (productV1Launched && currentSoftwareDevelopmentStageIndex < category1StageOrder.length && actionKey === "Launch: Launch your product" && currentSoftwareDevelopmentStageIndex !== index) {
-                         // If V1 launched, and we are in a new cycle before launch stage, disable "Launch Product"
-                        div.classList.add("dropdown-item-disabled");
-                    } else if (index === currentSoftwareDevelopmentStageIndex) {
-                        // This is the active stage for the current cycle (V1 or V-Next)
-                        // Or, if V1 launched and all V1 stages are done (currentSoftwareDevelopmentStageIndex >= category1StageOrder.length),
-                        // and "Announce" reset it to 0, then "Research" is active.
+                    if (index === currentSoftwareDevelopmentStageIndex && currentSoftwareDevelopmentStageIndex < category1StageOrder.length) {
+                        // Current active step in the cycle (either V1 or V-Next)
                         div.classList.add("dropdown-item-active", "hover:bg-purple-400", "cursor-pointer");
                         div.onclick = () => window.openModal(item.actionKey);
-                    } else if (index < currentSoftwareDevelopmentStageIndex) {
+                    } else if (index < currentSoftwareDevelopmentStageIndex || (productV1Launched && actionKey === "Launch: Launch your product" && currentSoftwareDevelopmentStageIndex === 0) ) {
                         // Stages before the current active stage are completed for *this* cycle
-                        div.classList.add("dropdown-item-completed");
-                    } else { // index > currentSoftwareDevelopmentStageIndex
+                        // OR if V1 is launched and we've reset to research (index 0), "Launch Product" from V1 cycle is considered completed.
+                        // This second condition for "Launch Product" ensures it shows as completed if we are in a V-Next cycle.
+                         if (productV1Launched && actionKey === "Launch: Launch your product" && currentSoftwareDevelopmentStageIndex === 0) {
+                             div.classList.add("dropdown-item-completed");
+                         } else if (index < currentSoftwareDevelopmentStageIndex) {
+                            div.classList.add("dropdown-item-completed");
+                         } else { // Should not happen with this logic, but as a fallback
+                            div.classList.add("dropdown-item-disabled");
+                         }
+                    }
+                     else { // index > currentSoftwareDevelopmentStageIndex OR cycle is complete (currentSoftwareDevelopmentStageIndex >= category1StageOrder.length)
                         div.classList.add("dropdown-item-disabled");
                     }
                     dropdownMenu.appendChild(div);
                 }
             });
 
-            // Add "Announce new product/version" if V1 is launched
             const announceActionKey = "Announce new product/version";
             const announceItemDetails = currentActionsForCategory[announceActionKey];
-            if (announceItemDetails && productV1Launched) { 
+            if (announceItemDetails && productV1Launched && currentSoftwareDevelopmentStageIndex >= category1StageOrder.length) { 
+                // Only show "Announce" if V1 is launched AND all V1 stages are done.
                 const div = document.createElement("div");
                 div.className = "block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base dropdown-item-active";
                 div.textContent = announceItemDetails.label;
@@ -1480,7 +1527,6 @@
                 dropdownMenu.appendChild(div);
             }
 
-            // Add other "isAlwaysAvailable" actions for Category 1
             Object.values(currentActionsForCategory).forEach(item => {
                 if (item.isAlwaysAvailable && 
                     !category1StageOrder.includes(item.actionKey) && 
