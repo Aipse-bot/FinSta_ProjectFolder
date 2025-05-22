@@ -190,6 +190,7 @@
         let balance = 15000; // MODIFIED: Starting balance
         let businessName = "Stellar Innovations"; // Default name
         let businessType = "Web Development Services";  // Default business type
+        let businessLocation = "Home-Based"; // NEW: Default business location
         let icon = "💻"; // Default icon, will be updated in initializeUI
 
         let currentYear = 1;
@@ -223,7 +224,7 @@
             "Artisan Bakery": "🥐",
             "Food Truck Business": "🚚",
             "Custom Tailored Clothing": "🧵",
-            "Online T-Shirt Printing": "👕", // Corrected Emoji
+            "Online T-Shirt Printing": "�", 
             "Spa and Massage Center": "💆",
             "Home Cleaning Service": "🧹",
             "Interior Design and Home Staging": "🛋️",
@@ -240,7 +241,6 @@
         let currentSoftwareDevelopmentStageIndex = 0; // Index for category1StageOrder
         let productV1Launched = false; // Relevant for Category 1 businesses
 
-        // NEW: Sequential actions for Category 2
         const category2StageOrder = [
             "Order Products",
             "Perform Maintenance",
@@ -254,9 +254,14 @@
         let quarterlyIncomeFromActionsAndEvents = 0;
         let quarterlyExpensesFromActionsAndEvents = 0;
         let quarterlyServiceCosts = 0;
-        const RENT_PER_QUARTER = 7500;
+        
+        // Rent Constants based on location
+        const RENT_HOME_BASED = 0;
+        const RENT_PHYSICAL_STORE = 1000;
+        const RENT_COMMERCIAL_SPACE = 2500;
+
         const SALARY_PER_EMPLOYEE_PER_QUARTER = 5000; 
-        const SALES_PER_EMPLOYEE_PER_QUARTER = 7000; // NEW: Sales per employee
+        const SALES_PER_EMPLOYEE_PER_QUARTER = 7000; 
         const LOAN_REPAYMENT_PER_QUARTER = 900;
         
         // --- Action Definitions ---
@@ -329,7 +334,7 @@
                         title: "Product Update: Announce Next Version", 
                         description: "Generate buzz for the next iteration or a new product line based on your initial success.", 
                         financialCost: 100, apCost: 1, successChance: null, 
-                        requiresV1Launch: true, // This means it's available after V1 launch, not part of the initial sequence.
+                        requiresV1Launch: true, 
                         effects: { 
                             success: { message: "New product/version announced. Public is excited!", csChange: 8, mdChange: 3 },
                             failure: { message: "New product/version announcement met with skepticism.", csChange: -4 }
@@ -352,12 +357,12 @@
                     "Order Products": {
                         label: "Order Products",
                         actionKey: "Order Products",
-                        title: "Step 1: Order Products", // MODIFIED
+                        title: "Step 1: Order Products", 
                         description: "Restock? Supplies are looking a little low… This will boost sales long into next quarter!",
                         financialCost: 800,
                         apCost: 1, 
                         successChance: null, 
-                        isSequential: true, // MODIFIED
+                        isSequential: true, 
                         effects: {
                             success: { message: "Success! New supplies are added. This should help future sales. MD +2.", mdChange: 2 }
                         }
@@ -365,12 +370,12 @@
                     "Perform Maintenance": {
                         label: "Perform Maintenance",
                         actionKey: "Perform Maintenance",
-                        title: "Step 2: Maintenance", // MODIFIED
+                        title: "Step 2: Maintenance", 
                         description: "Hire a cleaning service and spruce things up a bit?",
                         financialCost: 100,
                         apCost: 1,
                         successChance: null, 
-                        isSequential: true, // MODIFIED
+                        isSequential: true, 
                         effects: {
                             success: { message: "Maintenance complete. Yeah, good idea, the floors were getting a bit sticky! Place looks fresh. CS +2.", csChange: 2 }
                         }
@@ -378,12 +383,12 @@
                     "Make a Sale": {
                         label: "Make a Sale",
                         actionKey: "Make a Sale",
-                        title: "Step 3: Make a Sale", // MODIFIED
+                        title: "Step 3: Make a Sale", 
                         description: "Gather point-of-sale revenue.",
                         financialCost: 0,
                         apCost: 1,
                         successChance: 80,
-                        isSequential: true, // MODIFIED
+                        isSequential: true, 
                         effects: {
                             success: { message: "Congrats on the new revenue! +$500", balanceGain: 500 },
                             failure: { message: "The sale attempt was unsuccessful this time." }
@@ -392,12 +397,12 @@
                     "Offer Discount": {
                         label: "Offer Discount",
                         actionKey: "Offer Discount",
-                        title: "Step 4: Offer Discount", // MODIFIED
+                        title: "Step 4: Offer Discount", 
                         description: "Put a coupon in the local paper to drive traffic.",
                         financialCost: 500,
                         apCost: 1,
                         successChance: 50,
-                        isSequential: true, // MODIFIED
+                        isSequential: true, 
                         effects: {
                             success: { message: "The line is out the door! People love a good discount. Who knew! MD +5, CS +3.", mdChange: 5, csChange: 3 },
                             failure: { message: "Your coupon had the wrong address. You should be more careful next time. CS -2.", csChange: -2 }
@@ -411,7 +416,7 @@
                         financialCost: 2000,
                         apCost: 2, 
                         successChance: null, 
-                        isAlwaysAvailable: true, // This remains available outside the sequence
+                        isAlwaysAvailable: true, 
                         effects: {
                             success: { message: "Redesign complete! Your friends told you this paint color was too much. They were so wrong! The place looks great. MD +7, CS +4.", mdChange: 7, csChange: 4 }
                         }
@@ -424,7 +429,7 @@
                         financialCost: 50,
                         apCost: 1,
                         successChance: 60,
-                        isAlwaysAvailable: true, // This remains available outside the sequence
+                        isAlwaysAvailable: true, 
                         effects: {
                             success: { message: "You don’t exist without your customers. Smart going to reach out to them and find out what else they need. CS +5.", csChange: 5 },
                             failure: { message: "Couldn't reach many clients, or the feedback was neutral. No significant change." }
@@ -438,7 +443,7 @@
                         financialCost: 100,
                         apCost: 1,
                         successChance: 50,
-                        isAlwaysAvailable: true, // This remains available outside the sequence
+                        isAlwaysAvailable: true, 
                         effects: {
                             success: { message: "You took a few pictures and posted them. People seem to be very engaged! MD +3, CS +2.", mdChange: 3, csChange: 2 },
                             failure: { message: "Your social media post didn't get much engagement this time." }
@@ -503,11 +508,11 @@
         
         // Merge common actions into each CATEGORY's actions
         if (window.businessTypeActions && window.commonActions) {
-            for (const categoryKey in window.businessTypeActions) { // categoryKey will be "1", "2"
+            for (const categoryKey in window.businessTypeActions) { 
                 if (Object.hasOwnProperty.call(window.businessTypeActions, categoryKey)) {
                     window.businessTypeActions[categoryKey] = {
                         ...window.businessTypeActions[categoryKey],
-                        ...window.commonActions // Common actions are available to both categories
+                        ...window.commonActions 
                     };
                 }
             }
@@ -529,7 +534,7 @@
                     <div class="ml-3 md:ml-4">
                         <div id="businessNameDisplay" class="text-lg md:text-xl font-semibold"></div>
                         <div id="businessTypeDisplay" class="text-xs md:text-sm text-gray-400"></div>
-                    </div>
+                        </div>
                 </div>
             </div>
             <div class="bg-slate-800 p-3 md:p-4 rounded-lg shadow">
@@ -707,7 +712,7 @@
                     <div>
                         <h3 class="text-lg font-semibold text-red-400 mb-1">EXPENSES</h3>
                         <div class="flex justify-between border-b border-slate-700 py-1"><span>Services</span><span id="qEndServiceCosts">$0</span></div>
-                        <div class="flex justify-between border-b border-slate-700 py-1"><span>Rent</span><span id="qEndRent">-$7,500</span></div>
+                        <div class="flex justify-between border-b border-slate-700 py-1"><span>Rent</span><span id="qEndRent">-$0</span></div>
                         <div class="flex justify-between border-b border-slate-700 py-1"><span>Employee Wages</span><span id="qEndWages">$0</span></div>
                         <div class="flex justify-between border-b border-slate-700 py-1"><span>Actions & Events Cost</span><span id="qEndActionExpenses">-$3,100</span></div>
                         <div class="flex justify-between py-1"><span>Loan Repayment</span><span id="qEndLoanRepayment">-$900</span></div>
@@ -790,7 +795,7 @@
         qEndServiceCosts, qEndRent, qEndWages, qEndActionExpenses, qEndLoanRepayment, 
         qEndNetProfit, qEndCurrentBalance, settingsModal, confirmNewGameModal, 
         actionOutcomeModal, actionOutcomeTitle, actionOutcomeMessage, 
-        activityLog, mainElement, loadingScreen, contentWrapper; // Added loadingScreen and contentWrapper
+        activityLog, mainElement, loadingScreen, contentWrapper, businessLocationDisplayElement; 
 
     function initializeDOMElements() {
         companyHealthBar = document.getElementById("companyHealthBar");
@@ -802,6 +807,7 @@
         businessIconDisplay = document.getElementById("businessIconDisplay");
         businessNameDisplay = document.getElementById("businessNameDisplay");
         businessTypeDisplay = document.getElementById("businessTypeDisplay");
+        // businessLocationDisplayElement = document.getElementById("businessLocationDisplay"); // If you add this element to HTML
         yearQuarterDisplay = document.getElementById("yearQuarterDisplay");
         actionPointsDisplay = document.getElementById("actionPointsDisplay");
         actionsDropdown = document.getElementById("actionsDropdown");
@@ -853,17 +859,15 @@
     window.initializeUI = function() { 
         if (!businessIconDisplay) initializeDOMElements(); 
 
-        // Determine business category and icon based on the global businessType
         icon = businessTypeIcons[businessType] || businessTypeIcons["Generic"];
-
         businessIconDisplay.textContent = icon;
         businessNameDisplay.textContent = businessName;
         businessTypeDisplay.textContent = businessType;
+        // if (businessLocationDisplayElement) businessLocationDisplayElement.textContent = `Location: ${businessLocation}`;
         
         window.updateAllStatsDisplay(); 
         window.populateDropdown(); 
         window.resetQuarterlyFinances(); 
-        
         window.updateActionCategoriesVisibility(); 
     }
 
@@ -931,14 +935,13 @@
                  quarterlyIncomeFromActionsAndEvents += changeAmount;
             }
         } else if (changeAmount < 0) { // Expense
-            // For expenses, we add the absolute value to the quarterly expense trackers
-            // "salary", "rent", "loan" types reduce balance but are NOT added to these specific trackers here
-            // because they are itemized separately in the P&L modal.
             if (type === "actionExpense" || type === "otherExpense" || type === "cost") { 
                 quarterlyExpensesFromActionsAndEvents += Math.abs(changeAmount); 
-            } else if (type === "serviceCost") { // Specific for services like lawyer, insurance, marketing campaign
+            } else if (type === "serviceCost") { 
                 quarterlyServiceCosts += Math.abs(changeAmount);
             }
+            // Rent, Salary, Loan are handled directly in showQuarterEndModal for P&L display,
+            // but their impact on 'balance' is already accounted for when this function is called with those types.
         }
     }
     window.updateEmployeeCount = function(change) {
@@ -1017,8 +1020,7 @@
         latestActionKey = actionKey;
         currentModalType = type;
 
-        // Determine business category to fetch correct action details
-        const currentCategoryKey = businessTypeToCategoryMapping[businessType] || "2"; // Default to 2 if mapping not found
+        const currentCategoryKey = businessTypeToCategoryMapping[businessType] || "2"; 
         const actionDetails = window.businessTypeActions[currentCategoryKey]?.[actionKey] || window.commonActions[actionKey];
 
 
@@ -1037,7 +1039,7 @@
             modalBackdrop.classList.remove('hidden');
 
         } else if (type === 'randomEvent') { 
-            // This part is now handled by triggerRandomEvent
+            // Handled by triggerRandomEvent
         }
         
         if (actionsVisible) {
@@ -1083,12 +1085,9 @@
     window.closeActionOutcomeModal = function() {
         actionOutcomeModal.classList.add('hidden');
 
-        // Check if quarter should end
         if (actionPoints === 0 && quarterEndModal.classList.contains('hidden')) {
             window.showQuarterEndModal();
         } 
-        // Else, if quarter is not ending and new conditions met, try to trigger a random event
-        // Random event triggers if actionPoints is 3, current time is after Y1Q2, and random chance met.
         else if (actionPoints === 3 && ((currentYear > 1) || (currentYear === 1 && currentQuarter > 2)) && Math.random() < 0.25) { 
             window.triggerRandomEvent();
         }
@@ -1099,15 +1098,29 @@
         window.businessLog(`End of Q${currentQuarter}, Year ${currentYear}. Reviewing finances.`, "system");
         qEndTitle.textContent = `Year ${currentYear}, Q${currentQuarter} Finances`;
         
-        // Calculate sales from employees and add to balance and quarterlySales tracker
         const employeeGeneratedSales = employees * SALES_PER_EMPLOYEE_PER_QUARTER;
         window.updateBalance(employeeGeneratedSales, "sales"); 
 
         const currentQuarterSalaries = employees * SALARY_PER_EMPLOYEE_PER_QUARTER;
+        
+        let currentRentForQuarter = 0;
+        switch(businessLocation) {
+            case "Home-Based":
+                currentRentForQuarter = RENT_HOME_BASED;
+                break;
+            case "Physical Store":
+                currentRentForQuarter = RENT_PHYSICAL_STORE;
+                break;
+            case "Commercial Space":
+                currentRentForQuarter = RENT_COMMERCIAL_SPACE;
+                break;
+            default:
+                currentRentForQuarter = RENT_HOME_BASED; // Default to home-based if undefined
+        }
 
         if (!fixedExpensesAppliedForQuarter) { 
             window.updateBalance(-currentQuarterSalaries, "salary"); 
-            window.updateBalance(-RENT_PER_QUARTER, "rent");  
+            window.updateBalance(-currentRentForQuarter, "rent");  
             window.updateBalance(-LOAN_REPAYMENT_PER_QUARTER, "loan"); 
             fixedExpensesAppliedForQuarter = true;
         }
@@ -1115,13 +1128,13 @@
         qEndSales.textContent = `$${quarterlySales.toLocaleString()}`;
         qEndActionIncome.textContent = `$${quarterlyIncomeFromActionsAndEvents.toLocaleString()}`;
         qEndServiceCosts.textContent = `-$${quarterlyServiceCosts.toLocaleString()}`;
-        qEndRent.textContent = `-$${RENT_PER_QUARTER.toLocaleString()}`;
-        qEndWages.textContent = `-$${currentQuarterSalaries.toLocaleString()}`; // Display calculated wages
+        qEndRent.textContent = `-$${currentRentForQuarter.toLocaleString()}`;
+        qEndWages.textContent = `-$${currentQuarterSalaries.toLocaleString()}`;
         qEndActionExpenses.textContent = `-$${quarterlyExpensesFromActionsAndEvents.toLocaleString()}`; 
         qEndLoanRepayment.textContent = `-$${LOAN_REPAYMENT_PER_QUARTER.toLocaleString()}`;
 
         const totalIncome = quarterlySales + quarterlyIncomeFromActionsAndEvents;
-        const totalExplicitExpenses = quarterlyServiceCosts + RENT_PER_QUARTER + currentQuarterSalaries + quarterlyExpensesFromActionsAndEvents + LOAN_REPAYMENT_PER_QUARTER;
+        const totalExplicitExpenses = quarterlyServiceCosts + currentRentForQuarter + currentQuarterSalaries + quarterlyExpensesFromActionsAndEvents + LOAN_REPAYMENT_PER_QUARTER;
         const totalNetProfitThisQuarter = totalIncome - totalExplicitExpenses;
 
         qEndNetProfit.textContent = `$${totalNetProfitThisQuarter.toLocaleString()}`; 
@@ -1158,23 +1171,23 @@
         window.businessLog("Starting new game. Current progress will be lost.", "system");
         window.closeConfirmNewGameModal();
         
-        // Reset to default values
         businessName = "Stellar Innovations"; 
-        businessType = "Web Development Services"; // Default to a Category 1 type
+        businessType = "Web Development Services"; 
+        businessLocation = "Home-Based"; // Reset to default location
         
-        companyHealthPercentage = 50; // MODIFIED: Initial health
+        companyHealthPercentage = 50; 
         marketDominationPercentage = 50;
         customerSatisfactionPercentage = 50;
         balancedBooksPercentage = 50;
         employees = 0;
-        balance = 15000; // MODIFIED: Starting balance
+        balance = 15000; 
         currentYear = 1;
         currentQuarter = 1;
         actionPoints = 4;
         insuranceBonus = 0;
         currentSoftwareDevelopmentStageIndex = 0; 
         productV1Launched = false; 
-        currentCategory2StageIndex = 0; // NEW: Reset Category 2 stage index
+        currentCategory2StageIndex = 0; 
         fixedExpensesAppliedForQuarter = false;
         if(activityLog) activityLog.innerHTML = ""; 
 
@@ -1188,7 +1201,7 @@
 
     window.loadGame = async function() { 
         window.businessLog("Attempting to load game data...", "system");
-        if(settingsModal && !settingsModal.classList.contains('hidden')) { // Close settings if open
+        if(settingsModal && !settingsModal.classList.contains('hidden')) { 
             window.toggleSettingsModal(); 
         }
         
@@ -1198,12 +1211,11 @@
             window.businessLog("Game data loaded successfully.", "system");
         } else {
             window.businessLog("Failed to load existing game data or no data found. Using default values.", "system");
-             // If load fails, ensure new game defaults are set (especially the 15k balance)
             balance = 15000;
             companyHealthPercentage = 50;
-            // other defaults are mostly fine as globally declared or handled by initializeUI
+            businessLocation = "Home-Based"; // Ensure default if not loaded
         }
-        window.initializeUI(); // This will set up the UI with loaded or default data
+        window.initializeUI(); 
     };
 
 
@@ -1272,10 +1284,10 @@
         let outcomeTitle = "";
         let outcomeMessage = ""; 
         let balanceChange = -currentFinancialCost; 
-        let balanceChangeType = "actionExpense"; // Default for actions with cost
+        let balanceChangeType = "actionExpense"; 
 
         if (currentFinancialCost === 0 && actionDetails.effects?.success?.balanceGain > 0) {
-             balanceChangeType = "actionIncome"; // If no cost but there's a gain
+             balanceChangeType = "actionIncome"; 
         } else if (currentFinancialCost > 0) {
             if (actionKey === "Purchase Business Insurance" || actionKey === "Hire a Lawyer" || actionKey === "Marketing Campaign") {
                 balanceChangeType = "serviceCost";
@@ -1308,12 +1320,11 @@
         if (effects.mdChange) window.updateMarketDomination(marketDominationPercentage + effects.mdChange);
         if (effects.healthChange) { 
             companyHealthPercentage = Math.max(0, Math.min(100, companyHealthPercentage + effects.healthChange));
-            // updateCompanyHealth will be called by updateAllStatsDisplay or updateBalance
         }
         if (effects.lpChange) window.updateBalancedBooks(balancedBooksPercentage + effects.lpChange);
         if (effects.balanceGain) {
-            balanceChange += effects.balanceGain; // Add to the initial negative cost or to zero
-            if(effects.balanceGain > 0) balanceChangeType = "actionIncome"; // Ensure type is income if there's a net gain
+            balanceChange += effects.balanceGain; 
+            if(effects.balanceGain > 0) balanceChangeType = "actionIncome"; 
         }
         if (effects.employeeGain) window.updateEmployeeCount(effects.employeeGain);
         if (actionKey === "Purchase Business Insurance" && success && effects.applyInsuranceBonus) {
@@ -1321,32 +1332,43 @@
         }
 
 
-        // Sequential logic
+        // Sequential logic & Cycle Reset
         if (actionDetails.isSequential) {
             if (currentCategoryKey === "1") {
                 if (success) {
                     if (actionKey === "Launch: Launch your product") {
                         productV1Launched = true;
+                         // No automatic reset here, "Announce new product/version" is separate
+                         // currentSoftwareDevelopmentStageIndex would naturally be past the last index of category1StageOrder
+                         // or we can explicitly set it to a state indicating V1 completion if needed for other logic.
+                         // For now, just advancing past it is enough.
+                        currentSoftwareDevelopmentStageIndex++; 
                     } else if (currentSoftwareDevelopmentStageIndex === category1StageOrder.indexOf(actionKey)) {
                         currentSoftwareDevelopmentStageIndex++;
                     }
                 }
-            } else if (currentCategoryKey === "2") { // NEW: Sequential logic for Category 2
+            } else if (currentCategoryKey === "2") { 
                 if (success && currentCategory2StageIndex === category2StageOrder.indexOf(actionKey)) {
-                    currentCategory2StageIndex++;
+                    if (actionKey === "Offer Discount") { // If last action in Cat 2 sequence is successful
+                        currentCategory2StageIndex = 0; // Reset to the beginning of Cat 2 sequence
+                    } else {
+                        currentCategory2StageIndex++; // Advance to the next stage in Cat 2 sequence
+                    }
                 }
             }
         } else if (actionKey === "Announce new product/version" && currentCategoryKey === "1") { 
-            // Dynamic success for V2 announcement based on CS
-            if (customerSatisfactionPercentage > 60) { // Adjusted threshold
+            if (customerSatisfactionPercentage > 60) { // Success condition for this action
                 outcomeMessage = actionDetails.effects.success.message + (currentFinancialCost > 0 ? ` (-$${currentFinancialCost.toLocaleString()})` : "");
                 if(actionDetails.effects.success.csChange) window.updateCustomerSatisfaction(customerSatisfactionPercentage + actionDetails.effects.success.csChange);
                 if(actionDetails.effects.success.mdChange) window.updateMarketDomination(marketDominationPercentage + actionDetails.effects.success.mdChange);
                 outcomeType = "bonus";
-            } else { 
+                currentSoftwareDevelopmentStageIndex = 0; // Reset Cat 1 sequence to "Research Customers"
+                productV1Launched = false; // Reset V1 launch status
+            } else { // Failure condition for this action
                 outcomeMessage = actionDetails.effects.failure.message + (currentFinancialCost > 0 ? ` (-$${currentFinancialCost.toLocaleString()})` : "");
                 if(actionDetails.effects.failure.csChange) window.updateCustomerSatisfaction(customerSatisfactionPercentage + actionDetails.effects.failure.csChange);
                 outcomeType = "penalty";
+                productV1Launched = false; // Reset V1 launch status
             }
         }
         
@@ -1405,7 +1427,7 @@
     
     // --- Dropdown Content Population ---
     window.populateDropdown = function() { 
-        const dropdownMenu = document.getElementById("dropdownMenu1"); // Operations dropdown
+        const dropdownMenu = document.getElementById("dropdownMenu1"); 
         if (!dropdownMenu) return; 
         dropdownMenu.innerHTML = ""; 
 
@@ -1417,7 +1439,8 @@
             window.changeBackgroundAndContent(currentThemeForPopulation);
         }
 
-        if (currentCategoryKey === "1") { 
+        if (currentCategoryKey === "1") {
+            // Handle the sequential product development stages (applies to V1 or V-Next)
             category1StageOrder.forEach((actionKey, index) => {
                 const item = currentActionsForCategory[actionKey];
                 if (item) {
@@ -1425,39 +1448,51 @@
                     div.className = "block px-4 py-2 transition-colors duration-150 text-sm md:text-base";
                     div.textContent = item.label;
 
-                    if (!productV1Launched) {
-                        if (index === currentSoftwareDevelopmentStageIndex) {
-                            div.classList.add("dropdown-item-active", "hover:bg-purple-400", "cursor-pointer");
-                            div.onclick = () => window.openModal(item.actionKey);
-                        } else if (index < currentSoftwareDevelopmentStageIndex) {
-                            div.classList.add("dropdown-item-completed");
-                        } else { 
-                            div.classList.add("dropdown-item-disabled");
-                        }
-                    } else { 
-                         div.classList.add("dropdown-item-completed"); 
+                    // If V1 is launched and we are starting a new cycle (index 0 is active)
+                    // then "Launch Product" (index 4) should be disabled until we reach it again.
+                    if (productV1Launched && currentSoftwareDevelopmentStageIndex < category1StageOrder.length && actionKey === "Launch: Launch your product" && currentSoftwareDevelopmentStageIndex !== index) {
+                         // If V1 launched, and we are in a new cycle before launch stage, disable "Launch Product"
+                        div.classList.add("dropdown-item-disabled");
+                    } else if (index === currentSoftwareDevelopmentStageIndex) {
+                        // This is the active stage for the current cycle (V1 or V-Next)
+                        // Or, if V1 launched and all V1 stages are done (currentSoftwareDevelopmentStageIndex >= category1StageOrder.length),
+                        // and "Announce" reset it to 0, then "Research" is active.
+                        div.classList.add("dropdown-item-active", "hover:bg-purple-400", "cursor-pointer");
+                        div.onclick = () => window.openModal(item.actionKey);
+                    } else if (index < currentSoftwareDevelopmentStageIndex) {
+                        // Stages before the current active stage are completed for *this* cycle
+                        div.classList.add("dropdown-item-completed");
+                    } else { // index > currentSoftwareDevelopmentStageIndex
+                        div.classList.add("dropdown-item-disabled");
                     }
                     dropdownMenu.appendChild(div);
                 }
             });
 
+            // Add "Announce new product/version" if V1 is launched
+            const announceActionKey = "Announce new product/version";
+            const announceItemDetails = currentActionsForCategory[announceActionKey];
+            if (announceItemDetails && productV1Launched) { 
+                const div = document.createElement("div");
+                div.className = "block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base dropdown-item-active";
+                div.textContent = announceItemDetails.label;
+                div.onclick = () => window.openModal(announceItemDetails.actionKey);
+                dropdownMenu.appendChild(div);
+            }
+
+            // Add other "isAlwaysAvailable" actions for Category 1
             Object.values(currentActionsForCategory).forEach(item => {
-                if (!category1StageOrder.includes(item.actionKey) && 
-                    (item.actionKey.includes("(Product Dev Focus)") || 
-                     (!window.commonActions[item.actionKey] && (item.isAlwaysAvailable || (item.requiresV1Launch && productV1Launched)))
-                    )
-                   ) {
-                    if (item.isAlwaysAvailable || (item.requiresV1Launch && productV1Launched)) {
-                        const div = document.createElement("div");
-                        div.className = "block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base dropdown-item-active";
-                        div.textContent = item.label;
-                        div.onclick = () => window.openModal(item.actionKey);
-                        dropdownMenu.appendChild(div);
-                    }
+                if (item.isAlwaysAvailable && 
+                    !category1StageOrder.includes(item.actionKey) && 
+                    item.actionKey !== announceActionKey) {
+                    const div = document.createElement("div");
+                    div.className = "block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base dropdown-item-active";
+                    div.textContent = item.label;
+                    div.onclick = () => window.openModal(item.actionKey);
+                    dropdownMenu.appendChild(div);
                 }
             });
-
-        } else if (currentCategoryKey === "2") { // MODIFIED: Logic for Category 2 sequential and other actions
+        } else if (currentCategoryKey === "2") { 
             category2StageOrder.forEach((actionKey, index) => {
                 const item = currentActionsForCategory[actionKey];
                 if (item) {
@@ -1476,11 +1511,10 @@
                     dropdownMenu.appendChild(div);
                 }
             });
-            // Add other non-sequential operational actions for Category 2
              Object.values(currentActionsForCategory).forEach(item => {
-                if (!category2StageOrder.includes(item.actionKey) && // Not a sequential one already listed
-                    !window.commonActions[item.actionKey] && // Not a common action (handled in other dropdowns)
-                     item.isAlwaysAvailable // Check if it's marked as always available
+                if (!category2StageOrder.includes(item.actionKey) && 
+                    !window.commonActions[item.actionKey] && 
+                     item.isAlwaysAvailable 
                    ) {
                         const div = document.createElement("div");
                         div.className = "block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base dropdown-item-active";
@@ -1594,8 +1628,6 @@
         if (event.type === 'simple') {
             randomEventConfirmButton.classList.remove('hidden');
             currentRandomEventEffect = () => { 
-                // Note: 'cost' in event definition is the balance change.
-                // updateBalance handles if it's income or expense.
                 if (event.cost && typeof event.cost === 'number') { 
                      window.updateBalance(event.cost, event.cost > 0 ? "otherIncome" : "cost");
                 }
@@ -1619,7 +1651,6 @@
         const event = randomEvents[eventIdx];
         const choice = event.choices[choiceIdx];
 
-        // Note: 'cost' in choice definition is the balance change.
         if (choice.cost && typeof choice.cost === 'number') { 
             window.updateBalance(choice.cost, choice.cost > 0 ? "otherIncome" : "cost");
         }
@@ -1663,9 +1694,6 @@
         window.populateDropdown(); 
         window.updateActionCategoriesVisibility(); 
 
-        // Random event triggers if actionPoints is 3, current time is after Y1Q2, and random chance met.
-        // Since actionPoints is 4 here, this specific trigger point for random events will likely not activate
-        // based on the new conditions. Random events are now more tied to outcomes of player actions.
         if (actionPoints === 3 && ((currentYear > 1) || (currentYear === 1 && currentQuarter > 2)) && Math.random() < 0.3) { 
             window.triggerRandomEvent();
         }
@@ -1699,15 +1727,13 @@
         if(contentWrapper) contentWrapper.style.display = 'flex'; 
         document.body.style.overflow = 'auto'; 
         
-        // Heuristic check for a new game (e.g. if default values are still present after attempting load)
-        // This check is performed *after* loadGame has attempted to update global variables.
         if (businessName === "Stellar Innovations" && 
             businessType === "Web Development Services" &&
-            balance === 15000 && // MODIFIED: Check against new starting balance
+            balance === 15000 && 
             currentYear === 1 && 
             currentQuarter === 1 &&
-            companyHealthPercentage === 50 && // Check initial health
-            (!activityLog || activityLog.innerHTML.trim() === "")) { // Also check if activity log is empty
+            companyHealthPercentage === 50 && 
+            (!activityLog || activityLog.innerHTML.trim() === "")) { 
             window.intro();
         }
     };
@@ -1756,7 +1782,6 @@
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    // 'X-CSRFToken': csrftoken, // If you're using Django's CSRF protection and not just for session auth
                 },
             });
 
@@ -1765,7 +1790,6 @@
                 try {
                     errorData = await response.json(); 
                 } catch (e) {
-                    // If response is not JSON, use statusText
                     errorData.error = response.statusText;
                 }
                 console.error('Network response was not ok:', response.status, errorData);
@@ -1781,12 +1805,9 @@
 
                 businessName = fetchedBusiness.business_name !== undefined ? fetchedBusiness.business_name : businessName;
                 businessType = fetchedBusiness.business_type !== undefined ? fetchedBusiness.business_type : businessType;
+                businessLocation = fetchedBusiness.business_location !== undefined ? fetchedBusiness.business_location : "Home-Based"; // Load location
                 
-                // Always set balance to 15000 on load as per previous logic, or fetched if available and desired
-                // For now, sticking to the "always 15000 on load" if that's the intent from previous snippet.
-                // If you want to load balance from backend, use:
-                // balance = fetchedBusiness.balance !== undefined ? fetchedBusiness.balance : 15000;
-                balance = 15000; // This was in your original snippet, might be intentional for game start/load
+                balance = 15000; 
                 
                 if (fetchedBusiness.market_domination !== undefined) marketDominationPercentage = fetchedBusiness.market_domination;
                 if (fetchedBusiness.customer_satisfaction !== undefined) customerSatisfactionPercentage = fetchedBusiness.customer_satisfaction;
@@ -1798,29 +1819,26 @@
                 if (fetchedBusiness.insurance_bonus !== undefined) insuranceBonus = fetchedBusiness.insurance_bonus;
                 if (fetchedBusiness.product_v1_launched !== undefined) productV1Launched = fetchedBusiness.product_v1_launched;
                 if (fetchedBusiness.current_dev_stage_index !== undefined) currentSoftwareDevelopmentStageIndex = fetchedBusiness.current_dev_stage_index;
-                if (fetchedBusiness.current_cat2_stage_index !== undefined) currentCategory2StageIndex = fetchedBusiness.current_cat2_stage_index; // NEW: Load Cat 2 stage
+                if (fetchedBusiness.current_cat2_stage_index !== undefined) currentCategory2StageIndex = fetchedBusiness.current_cat2_stage_index; 
                 
-                // Explicitly set companyHealthPercentage if provided, otherwise it will be calculated
                 if (fetchedBusiness.company_health !== undefined) {
                      companyHealthPercentage = fetchedBusiness.company_health;
                 }
-
-
-                console.log("Global game variables updated from fetched data.");
+                console.log("Global game variables updated from fetched data. Business Location:", businessLocation);
                 return true; 
             } else {
                 console.log('No businesses found in the response or data format is incorrect. Using defaults.');
-                // Ensure starting defaults are applied if no data
                 balance = 15000;
                 companyHealthPercentage = 50;
+                businessLocation = "Home-Based"; // Default location if no data
                 return false; 
             }
         } catch (error) {
             console.error('Error fetching or processing user data:', error);
             businessLog(`Critical error fetching data: ${error.message}`, "penalty");
-            // Ensure starting defaults are applied on critical error
             balance = 15000;
             companyHealthPercentage = 50;
+            businessLocation = "Home-Based"; // Default location on error
             return false; 
         }
     }
