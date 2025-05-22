@@ -366,7 +366,11 @@
             }
         }
         fetchBusinessData("businessCategory");  // Fetch business category
-
+        // Force reflow on the <ul> container for md sized screens
+        const ul = document.querySelectorAll(".list-disc");
+        ul.style.display = "none";
+        ul.offsetHeight;
+        ul.style.display = "block";
         
         // JS handler before form submission
         document.getElementById('marketResearchForm').addEventListener('submit', function(event) {
