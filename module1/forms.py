@@ -38,10 +38,20 @@ class PlayerForm(forms.ModelForm):
         required= False,
         widget=forms.TextInput(attrs={"id":"businessLocation","class": "w-full p-3 rounded bg-gray-700 text-white hidden", "placeholder": "Business Location"})
     )
+    targetMarket = forms.CharField(
+        label= '',
+        required= False,
+        widget=forms.TextInput(attrs={"id":"targetMarket","class": "w-full p-3 rounded bg-gray-700 text-white hidden",})
+    )
+    maxNumberOfWorkers = forms.IntegerField(
+        label= '',
+        required= False,
+        widget=forms.TextInput(attrs={"id":"maxNumberOfWorkers","class": "w-full p-3 rounded bg-gray-700 text-white hidden",})
+    )
 
     class Meta:
         model = Player
-        fields = ["name", "businessCategory", "businessType", "businessGoal", "businessName", "businessLocation"]
+        fields = ["name", "businessCategory", "businessType", "businessGoal", "businessName", "businessLocation","maxNumberOfWorkers"]
 class RegisterForm(forms.ModelForm):
     username = forms.CharField(
         widget=forms.TextInput(attrs={"class": "w-full px-4 py-2 border rounded-lg", "placeholder": "Enter Username"})

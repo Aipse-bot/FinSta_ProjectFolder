@@ -7,68 +7,75 @@
     <title>Project Ideation - Business Plan</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#1F2937] min-h-screen flex items-center justify-center font-sans">
-    <div class="container mx-auto px-4 py-12">
-        <div class="max-w-5xl mx-auto">
-            <div class="bg-[#3B82F6]/10 rounded-xl shadow-lg p-8 border border-gray-200">
-                <a href="javascript:history.back()" class="inline-flex items-center text-[#E5E7EB] hover:text-[#22C55E] mb-6 transition-colors">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                    Back
-                </a>
-                <h2 class="text-3xl font-bold text-center text-[#E5E7EB] mb-10">{{name}}'s Business Plan</h2>
-                <p class="text-base text-[#E5E7EB] text-center mb-6">
-                    Thoroughly evaluate your business plan, as it will play a crucial role in securing specific types of financing and determining the overall success or failure of your journey.
-                </p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center">
-                    <!-- Company Name -->
-                    <div class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm">
-                        <p class="text-base text-[#3B82F6] font-semibold">COMPANY NAME</p>
-                        <p class="text-lg font-bold text-[#1F2937] mt-2">{{businessName}}</p>
-                    </div>
-      
-                    <!-- Location -->
-                    <div class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm">
-                        <p class="text-base text-[#3B82F6] font-semibold">LOCATION</p>
-                        <p class="text-lg font-bold text-[#1F2937] mt-2">{{businessLocation}}</p>
-                    </div>
-      
-                    <!-- Business Type -->
-                    <div class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm">
-                        <p class="text-base text-[#3B82F6] font-semibold">BUSINESS</p>
-                        <p class="text-lg font-bold text-[#1F2937] mt-2">{{businessType}}</p>
-                    </div>
-      
-                    <!-- Market -->
-                    <div class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm">
-                        <p class="text-base text-[#3B82F6] font-semibold">MARKET</p>
-                        <p class="text-lg font-bold text-[#1F2937] mt-2">{}</p>
-                    </div>
-                    
-      
-                    <!-- Business Goal -->
-                    <div class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm">
-                        <p class="text-base text-[#3B82F6] font-semibold">BUSINESS GOAL</p>
-                        <p class="text-lg font-bold text-[#1F2937] mt-2">{{businessGoal}}</p>
-                    </div>
+<body class="bg-[#1F2937] min-h-screen font-sans">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-7xl mx-auto relative pt-14 md:pt-0">
+            <!-- Back button positioned at top left -->
+            <a href="javascript:history.back()" 
+               class="inline-flex items-center text-[#E5E7EB] hover:text-[#22C55E] transition-colors absolute top-4 left-4 md:top-0 md:left-0 z-10">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                <span class="text-lg">Back</span>
+            </a>
+            
+            <h2 class="text-4xl font-bold text-center text-[#E5E7EB] mb-8">{{name}}'s Business Plan</h2>
+            <p class="text-xl text-[#E5E7EB] text-center mb-8 max-w-3xl mx-auto">
+                Thoroughly evaluate your business plan, as it will play a crucial role in securing specific types of financing and determining the overall success or failure of your journey.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 justify-items-center mb-12">
+                <!-- Company Name -->
+                <div class="bg-[#E5E7EB] rounded-xl p-8 shadow-lg hover:shadow-xl hover:border-[#22C55E] transition-all duration-300 min-h-[160px] w-full max-w-md cursor-pointer summary-card transform hover:-translate-y-1"
+                     data-redirect="{% url 'mod2t4' %}">
+                    <p class="text-lg text-[#3B82F6] font-semibold mb-3">COMPANY NAME</p>
+                    <p class="text-2xl font-bold text-[#1F2937]">{{businessName}}</p>
+                </div>
 
-                    <!-- Market -->
-                    <div class="bg-[#E5E7EB] rounded-lg p-6 shadow-md hover:shadow-lg hover:border-[#22C55E] transition-all duration-300 min-h-[120px] w-full max-w-sm">
-                        <p class="text-base text-[#3B82F6] font-semibold">MAX NO. OF EMPLOYEE</p>
-                        <p class="text-lg font-bold text-[#1F2937] mt-2">{}</p>
-                    </div>
+                <!-- Location -->
+                <div class="bg-[#E5E7EB] rounded-xl p-8 shadow-lg hover:shadow-xl hover:border-[#22C55E] transition-all duration-300 min-h-[160px] w-full max-w-md cursor-pointer summary-card transform hover:-translate-y-1"
+                     data-redirect="{% url 'mod3t1t2t3' %}">
+                    <p class="text-lg text-[#3B82F6] font-semibold mb-3">LOCATION</p>
+                    <p class="text-2xl font-bold text-[#1F2937]">{{businessLocation}}</p>
                 </div>
+
+                <!-- Business Type -->
+                <div class="bg-[#E5E7EB] rounded-xl p-8 shadow-lg hover:shadow-xl hover:border-[#22C55E] transition-all duration-300 min-h-[160px] w-full max-w-md cursor-pointer summary-card transform hover:-translate-y-1"
+                     data-redirect="{% url 'mod2t1t2' %}">
+                    <p class="text-lg text-[#3B82F6] font-semibold mb-3">BUSINESS</p>
+                    <p class="text-2xl font-bold text-[#1F2937]">{{businessType}}</p>
+                </div>
+
+                <!-- Market (Target Market) -->
+                <div class="bg-[#E5E7EB] rounded-xl p-8 shadow-lg hover:shadow-xl hover:border-[#22C55E] transition-all duration-300 min-h-[160px] w-full max-w-md cursor-pointer summary-card transform hover:-translate-y-1"
+                     data-redirect="{% url 'mod3t1t2t3' %}">
+                    <p class="text-lg text-[#3B82F6] font-semibold mb-3">MARKET</p>
+                    <p class="text-2xl font-bold text-[#1F2937]">{{targetMarket}}</p>
+                </div>
+
+                <!-- Business Goal -->
+                <div class="bg-[#E5E7EB] rounded-xl p-8 shadow-lg hover:shadow-xl hover:border-[#22C55E] transition-all duration-300 min-h-[160px] w-full max-w-md cursor-pointer summary-card transform hover:-translate-y-1"
+                     data-redirect="{% url 'mod2t3' %}">
+                    <p class="text-lg text-[#3B82F6] font-semibold mb-3">BUSINESS GOAL</p>
+                    <p class="text-2xl font-bold text-[#1F2937]">{{businessGoal}}</p>
+                </div>
+
+                <!-- Max Employee -->
+                <div class="bg-[#E5E7EB] rounded-xl p-8 shadow-lg hover:shadow-xl hover:border-[#22C55E] transition-all duration-300 min-h-[160px] w-full max-w-md cursor-pointer summary-card transform hover:-translate-y-1"
+                     data-redirect="{% url 'mod3t1t2t3' %}">
+                    <p class="text-lg text-[#3B82F6] font-semibold mb-3">MAX NO. OF EMPLOYEE</p>
+                    <p class="text-2xl font-bold text-[#1F2937]">{{maxNumberOfWorkers}}</p>
+                </div>
+            </div>
       
-                <div class="mt-8 flex justify-center space-x-4">
-                    <button class="bg-[#25c247] text-white font-semibold py-2 px-6 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300" onclick="proceed()">
-                        CONTINUE
-                    </button>
-                    <button class="bg-[#c22525] text-white font-semibold py-2 px-6 rounded-lg hover:bg-[#bf1717]/80 transition-all duration-300" onclick="reset()">
-                        RESET
-                    </button>
-                </div>
+            <div class="flex justify-center space-x-8">
+                <!--a href="{% url 'mod4t1'}"  wa pa diay mod4 ahaha -->
+                <button class="bg-[#25c247] text-white font-semibold py-3 px-8 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300 text-xl">
+                    CONTINUE
+                </button>
+                <a href="{% url 'reset' %}" class="bg-[#c22525] text-white font-semibold py-3 px-8 rounded-lg hover:bg-[#bf1717]/80 transition-all duration-300 text-xl">
+                    RESET
+                </a>
             </div>
         </div>
     </div>
