@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // oldLoadSessionData();
-    loadSessionData();
+    // loadSessionData();
     printPlayerInfo();
     // Add redirect logic for summary cards
     document.querySelectorAll('.summary-card').forEach(function(card) {
@@ -91,7 +91,7 @@ function oldLoadSessionData() {
 }
 
 function loadSessionData() {
-location_map = {
+    location_map = {
         "home-based": {
             "targetMarket": "Teens and young adults, Small businesses, Event organizers",
             "maxEmployee": 3
@@ -105,20 +105,20 @@ location_map = {
             "maxEmployee": 20
         }
     }
-    const player = sessionStorage.getItem("playerData");
+    // const player = sessionStorage.getItem("playerData");
     const businessName = player ? JSON.parse(player).businessName : null; 
-    const businessLocation = player ? JSON.parse(player).businessLocation.location : null;
-    const businessType = player ? JSON.parse(player).businessType : null;
-    const targetMarket = player ? JSON.parse(player).businessLocation.targetMarket : null;
-    const businessGoal = player ? JSON.parse(player).businessGoal : null; // empty
-    const maxEmployee = player ? JSON.parse(player).businessLocation.maxEmployee : null;
+    // const businessLocation = player ? JSON.parse(player).businessLocation.location : null;
+    // const businessType = player ? JSON.parse(player).businessType : null;
+    // const targetMarket = player ? JSON.parse(player).businessLocation.targetMarket : null;
+    // const businessGoal = player ? JSON.parse(player).businessGoal : null; // empty
+    // const maxEmployee = player ? JSON.parse(player).businessLocation.maxEmployee : null;
     
     replaceText(businessName, "company-name");
-    replaceText(businessLocation, "business-location");
-    replaceText(businessType, "business-type");
-    replaceText(targetMarket, "target-market");
-    replaceText(businessGoal, "business-goal");
-    replaceText(maxEmployee, "max-employee");
+    // replaceText(businessLocation, "business-location");
+    // replaceText(businessType, "business-type");
+    // replaceText(targetMarket, "target-market");
+    // replaceText(businessGoal, "business-goal");
+    // replaceText(maxEmployee, "max-employee");
 }
 
 function replaceText(value, parentId) {
