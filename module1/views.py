@@ -199,24 +199,28 @@ def reset(request):
 
 @login_required
 def get_business_data(request):
-    field = request.GET.get("field")  # Get the requested field from the URL
-    valid_fields = ["businessCategory", "businessType", "businessGoal", "businessName", "businessLocation", "balance", "targetMarket","maxNumberOfWorkers"]  # Allowed fields
+    try:
+        player = Player.objects.get(user=request.user)
+        business_data = {
 
-    # Ensure the user is authenticated
-    if not request.user.is_authenticated:
-        return JsonResponse({"error": "User not authenticated"}, status=403)
-
-    # Check if the requested field is valid
-    if field in valid_fields:
-        try:
-            # Retrieve the logged-in user's player data
-            player = Player.objects.get(user=request.user)  # Assuming Player model is linked to User
-            data = {field: getattr(player, field)}  # Dynamically fetch the requested field
-            return JsonResponse({"data": data})
-        except Player.DoesNotExist:
-            return JsonResponse({"error": "Player data not found"}, status=404)
-
-    return JsonResponse({"error": "Invalid field requested"}, status=400)
+            "business_name": player.businessName,
+            "business_location": player.businessLocation, # If you use this in JS
+            "business_type": player.businessType,
+            "target_market": player.targetMarket, # If you use this in JS
+            "business_goal": player.businessGoal, # If you use this in JS
+            "max_number_of_workers": player.maxNumberOfWorkers, # If you use this in JS
+            "balance": player.balance,
+            "capital": player.capital, # If needed
+            "businessCategory": player.businessCategory # If needed
+            # Add any other fields from the Player model that your game logic/JS needs.
+        }
+        return JsonResponse({"businesses": [business_data]})
+    except Player.DoesNotExist:
+        return JsonResponse({"error": "Player data not found for the logged-in user."}, status=404)
+    except Exception as e:
+        # Log the exception e for server-side debugging
+        print(f"Error in get_business_data: {e}")
+        return JsonResponse({"error": "An unexpected error occurred on the server."}, status=500)
 
 def login_view(request):
     if request.method == "POST":

@@ -174,7 +174,7 @@
         }
         /* Hide main content initially */
         .content-wrapper {
-            display: none;
+            display: none; /* Initially hidden, JS will show it */
             width: 100%; /* Ensure it takes full width after loading */
             flex-grow: 1; /* Allow it to grow and fill space */
         }
@@ -182,30 +182,73 @@
     </style>
     <script>
         // --- Game State Variables ---
-        let companyHealthPercentage; 
-        let marketDominationPercentage = 50;  
+        let companyHealthPercentage = 50; // Initial health
+        let marketDominationPercentage = 50; 
         let customerSatisfactionPercentage = 50; 
-        let balancedBooksPercentage = 50;     
-        let employees = 0;            
-        let balance = 25000; 
-        let businessName = "Stellar Software"; 
-        let businessType = "Software Development"; 
-        let icon = "💻"; 
+        let balancedBooksPercentage = 50;  
+        let employees = 0;          
+        let balance = 15000; // MODIFIED: Starting balance
+        let businessName = "Stellar Innovations"; // Default name
+        let businessType = "Web Development Services";  // Default business type
+        let icon = "💻"; // Default icon, will be updated in initializeUI
 
         let currentYear = 1;
         let currentQuarter = 1;
         let actionPoints = 4;
         let insuranceBonus = 0; 
 
-        const softwareDevelopmentStageOrder = [
+        // Define which business types fall into which category
+        const businessTypeToCategoryMapping = {
+            "IoT Device Development": "1",
+            "Web Development Services": "1",
+            "Activewear Line": "1",
+            "Tech Repair and Support": "2",
+            "Specialty Coffee Shop": "2",
+            "Artisan Bakery": "2",
+            "Food Truck Business": "2",
+            "Custom Tailored Clothing": "2",
+            "Online T-Shirt Printing": "2",
+            "Spa and Massage Center": "2",
+            "Home Cleaning Service": "2",
+            "Interior Design and Home Staging": "2"
+        };
+
+        // Define icons for each business type
+        const businessTypeIcons = {
+            "IoT Device Development": "🤖",
+            "Web Development Services": "💻",
+            "Activewear Line": "🏃‍♀️",
+            "Tech Repair and Support": "🛠️",
+            "Specialty Coffee Shop": "☕",
+            "Artisan Bakery": "🥐",
+            "Food Truck Business": "🚚",
+            "Custom Tailored Clothing": "🧵",
+            "Online T-Shirt Printing": "👕", // Corrected Emoji
+            "Spa and Massage Center": "💆",
+            "Home Cleaning Service": "🧹",
+            "Interior Design and Home Staging": "🛋️",
+            "Generic": "🏢" // Default icon if type not found
+        };
+
+        const category1StageOrder = [ 
             "Research: Interview potential customers",
             "Design: Design your product",
-            "Sourcing: Source potential manufacturers",
-            "Quality Control: Test prototypes",
+            "Sourcing: Source potential manufacturers/suppliers",
+            "Quality Control: Test prototypes/samples",
             "Launch: Launch your product"
         ];
-        let currentSoftwareDevelopmentStageIndex = 0;
-        let productV1Launched = false;
+        let currentSoftwareDevelopmentStageIndex = 0; // Index for category1StageOrder
+        let productV1Launched = false; // Relevant for Category 1 businesses
+
+        // NEW: Sequential actions for Category 2
+        const category2StageOrder = [
+            "Order Products",
+            "Perform Maintenance",
+            "Make a Sale",
+            "Offer Discount"
+        ];
+        let currentCategory2StageIndex = 0; // Index for category2StageOrder
+
 
         let quarterlySales = 0;
         let quarterlyIncomeFromActionsAndEvents = 0;
@@ -213,16 +256,18 @@
         let quarterlyServiceCosts = 0;
         const RENT_PER_QUARTER = 7500;
         const SALARY_PER_EMPLOYEE_PER_QUARTER = 5000; 
+        const SALES_PER_EMPLOYEE_PER_QUARTER = 7000; // NEW: Sales per employee
         const LOAN_REPAYMENT_PER_QUARTER = 900;
         
+        // --- Action Definitions ---
         if (typeof window.businessTypeActions === 'undefined') {
             window.businessTypeActions = {
-                "Software Development": {
+                "1": { // Category 1 Businesses: Product Development (IoT, Web Dev, Activewear)
                     "Research: Interview potential customers": { 
                         label: "Research Customers", 
                         actionKey: "Research: Interview potential customers", 
                         title: "Step 1: Research", 
-                        description: "Interview potential customers to identify desirable product features?", 
+                        description: "Interview potential customers to identify desirable product features.", 
                         financialCost: 100, apCost: 1, successChance: 70, 
                         isSequential: true,
                         effects: {
@@ -234,7 +279,7 @@
                         label: "Design Product", 
                         actionKey: "Design: Design your product", 
                         title: "Step 2: Design", 
-                        description: "It’s time to use what you learned during the research phase. Are you ready to design your product?", 
+                        description: "It’s time to use what you learned during the research phase. Design your product.", 
                         financialCost: 500, apCost: 1, successChance: 70, 
                         isSequential: true,
                         effects: {
@@ -242,35 +287,35 @@
                             failure: { message: "Design failed: Design has flaws, back to the drawing board.", csChange: -5 }
                         }
                     },
-                    "Sourcing: Source potential manufacturers": { 
-                        label: "Find Manufacturers", 
-                        actionKey: "Sourcing: Source potential manufacturers", 
+                    "Sourcing: Source potential manufacturers/suppliers": { 
+                        label: "Source Suppliers/Mfg.", 
+                        actionKey: "Sourcing: Source potential manufacturers/suppliers", 
                         title: "Step 3: Sourcing", 
-                        description: "Now that you have design it’s time to source potential manufacturers. Are you ready to get that ball rolling?", 
+                        description: "Find and vet potential manufacturers or suppliers for your product components or materials.", 
                         financialCost: 2000, apCost: 1, successChance: 80, 
                         isSequential: true,
                         effects: {
                             success: { message: "Sourcing successful: Contracts signed!", healthChange: 5 }, 
-                            failure: { message: "Sourcing failed: No suitable manufacturers found."}
+                            failure: { message: "Sourcing failed: No suitable suppliers/manufacturers found."}
                         } 
                     },
-                    "Quality Control: Test prototypes": { 
-                        label: "Test Prototypes", 
-                        actionKey: "Quality Control: Test prototypes", 
+                    "Quality Control: Test prototypes/samples": { 
+                        label: "Test Prototypes/Samples", 
+                        actionKey: "Quality Control: Test prototypes/samples", 
                         title: "Step 4: Quality Control", 
-                        description: "You received the last round of prototypes. You must test them to ensure that it meets your specs and quality standards.", 
+                        description: "Test prototypes or initial production samples to ensure they meet your quality standards and specifications.", 
                         financialCost: 500, apCost: 1, successChance: 70,
                         isSequential: true,
                         effects: {
-                            success: { message: "Quality Control successful: Prototypes meet specs!", healthChange: 10, csChange: 5 },
-                            failure: { message: "Quality Control failed: Prototypes are unsafe!", healthChange: -10, csChange: -10 }
+                            success: { message: "Quality Control successful: Samples meet specs!", healthChange: 10, csChange: 5 },
+                            failure: { message: "Quality Control failed: Samples have issues!", healthChange: -10, csChange: -10 }
                         }
                     },
                     "Launch: Launch your product": { 
                         label: "Launch Product", 
                         actionKey: "Launch: Launch your product", 
                         title: "Step 5: Launch", 
-                        description: "All your hardwork has paid off! Are you ready to launch your product?", 
+                        description: "All your hard work has paid off! Launch your product.", 
                         financialCost: 2000, apCost: 1, successChance: 80, 
                         isSequential: true,
                         effects: {
@@ -278,37 +323,127 @@
                             failure: { message: "Product Launch failed! Major issues reported.", mdChange: -10, csChange: -25, healthChange: -15 }
                         }
                     },
-                    "Announce new product": { 
-                        label: "Announce Product v2", 
-                        actionKey: "Announce new product", 
-                        title: "Product Update: Announce v2", 
-                        description: "People got very excited for your first product, but there is always room for improvement. Would you like to start developing the second version?", 
-                        financialCost: 10, apCost: 1, successChance: null, 
-                        requiresV1Launch: true,
+                    "Announce new product/version": { 
+                        label: "Announce Product vNext", 
+                        actionKey: "Announce new product/version", 
+                        title: "Product Update: Announce Next Version", 
+                        description: "Generate buzz for the next iteration or a new product line based on your initial success.", 
+                        financialCost: 100, apCost: 1, successChance: null, 
+                        requiresV1Launch: true, // This means it's available after V1 launch, not part of the initial sequence.
                         effects: { 
-                            success: { message: "New product v2 announced. Public is excited!", csChange: 8, mdChange: 3 },
-                            failure: { message: "New product v2 announced. Public is skeptical.", csChange: -4 }
+                            success: { message: "New product/version announced. Public is excited!", csChange: 8, mdChange: 3 },
+                            failure: { message: "New product/version announcement met with skepticism.", csChange: -4 }
                         }
                     },
-                    "Post on social media (Software Dev)": { 
-                        label: "Post Dev Update", 
-                        actionKey: "Post on social media (Software Dev)", 
-                        title: "Dev Update: Social Media", 
-                        description: "Update your followers on your software development progress?", 
-                        financialCost: 100, apCost: 1, successChance: 50,
-                        isAlwaysAvailable: true,
+                    "Post on social media (Product Dev Focus)": { 
+                        label: "Post Dev/Design Update", 
+                        actionKey: "Post on social media (Product Dev Focus)", 
+                        title: "Dev/Design Update: Social Media", 
+                        description: "Update your followers on your product development or design progress.", 
+                        financialCost: 100, apCost: 1, successChance: 60,
+                        isAlwaysAvailable: true, 
                         effects: {
-                            success: { message: "Dev Update (Social Media): Positive engagement!", csChange: 4, mdChange: 3 },
-                            failure: { message: "Dev Update (Social Media): Low interest.", csChange: -2 }
+                            success: { message: "Dev/Design Update (Social Media): Positive engagement!", csChange: 4, mdChange: 3 },
+                            failure: { message: "Dev/Design Update (Social Media): Low interest.", csChange: -2 }
                         }
                     }
                 },
-                "Generic": { 
-                    "Basic Task": { label: "Basic Task", actionKey: "Basic Task", title: "Operation: Basic Task", description: "Perform a basic operational task.", financialCost: 0, apCost: 1, successChance: null, effects: { success: { message: "Basic Task: +$1,000. Legal Papers -10%.", lpChange: -10, balanceGain: 1000 }}},
-                    "Standard Procedure": { label: "Standard Procedure", actionKey: "Standard Procedure", title: "Operation: Standard Procedure", description: "Execute a standard company procedure.", financialCost: 0, apCost: 1, successChance: null, effects: { success: { message: "Std. Procedure: +$500. Legal Papers -5%.", lpChange: -5, balanceGain: 500 }}},
-                    "Complex Operation": { label: "Complex Operation", actionKey: "Complex Operation", title: "Operation: Complex Operation", description: "Undertake a complex operational project.", financialCost: 0, apCost: 1, successChance: null, effects: { success: { message: "Complex Op: +$1,500. Legal Papers -15%.", lpChange: -15, balanceGain: 1500 }}}, 
-                    "Engage with Customers": { label: "Engage with Customers", actionKey: "Engage with Customers", title: "Operation: Engage Customers", description: "Interact with your customer base to improve satisfaction.", financialCost: 0, apCost: 1, successChance: null, effects: { success: { message: "Engaged customers. CS +10.", csChange: 10 }}},
-                    "Post on Social Media": { label: "Post on Social Media", actionKey: "Post on Social Media", title: "Operation: Social Media Update", description: "Update your followers on your progress.", financialCost: 0, apCost: 1, successChance: null, effects: { success: { message: "Social media post. MD +5.", mdChange: 5 }}}
+                "2": { // Category 2 Businesses: Product Services
+                    "Order Products": {
+                        label: "Order Products",
+                        actionKey: "Order Products",
+                        title: "Step 1: Order Products", // MODIFIED
+                        description: "Restock? Supplies are looking a little low… This will boost sales long into next quarter!",
+                        financialCost: 800,
+                        apCost: 1, 
+                        successChance: null, 
+                        isSequential: true, // MODIFIED
+                        effects: {
+                            success: { message: "Success! New supplies are added. This should help future sales. MD +2.", mdChange: 2 }
+                        }
+                    },
+                    "Perform Maintenance": {
+                        label: "Perform Maintenance",
+                        actionKey: "Perform Maintenance",
+                        title: "Step 2: Maintenance", // MODIFIED
+                        description: "Hire a cleaning service and spruce things up a bit?",
+                        financialCost: 100,
+                        apCost: 1,
+                        successChance: null, 
+                        isSequential: true, // MODIFIED
+                        effects: {
+                            success: { message: "Maintenance complete. Yeah, good idea, the floors were getting a bit sticky! Place looks fresh. CS +2.", csChange: 2 }
+                        }
+                    },
+                    "Make a Sale": {
+                        label: "Make a Sale",
+                        actionKey: "Make a Sale",
+                        title: "Step 3: Make a Sale", // MODIFIED
+                        description: "Gather point-of-sale revenue.",
+                        financialCost: 0,
+                        apCost: 1,
+                        successChance: 80,
+                        isSequential: true, // MODIFIED
+                        effects: {
+                            success: { message: "Congrats on the new revenue! +$500", balanceGain: 500 },
+                            failure: { message: "The sale attempt was unsuccessful this time." }
+                        }
+                    },
+                    "Offer Discount": {
+                        label: "Offer Discount",
+                        actionKey: "Offer Discount",
+                        title: "Step 4: Offer Discount", // MODIFIED
+                        description: "Put a coupon in the local paper to drive traffic.",
+                        financialCost: 500,
+                        apCost: 1,
+                        successChance: 50,
+                        isSequential: true, // MODIFIED
+                        effects: {
+                            success: { message: "The line is out the door! People love a good discount. Who knew! MD +5, CS +3.", mdChange: 5, csChange: 3 },
+                            failure: { message: "Your coupon had the wrong address. You should be more careful next time. CS -2.", csChange: -2 }
+                        }
+                    },
+                    "Redesign Store": { 
+                        label: "Redesign Store",
+                        actionKey: "Redesign Store",
+                        title: "Operations: Redesign Store",
+                        description: "Update the store’s vibe. This will attract more customers.",
+                        financialCost: 2000,
+                        apCost: 2, 
+                        successChance: null, 
+                        isAlwaysAvailable: true, // This remains available outside the sequence
+                        effects: {
+                            success: { message: "Redesign complete! Your friends told you this paint color was too much. They were so wrong! The place looks great. MD +7, CS +4.", mdChange: 7, csChange: 4 }
+                        }
+                    },
+                    "Customer Follow-up": { 
+                        label: "Customer Follow-up",
+                        actionKey: "Customer Follow-up",
+                        title: "Customer Service: Follow-up",
+                        description: "Call past clients to check to ensure satisfaction with your work. It’s always nice to go the extra mile.",
+                        financialCost: 50,
+                        apCost: 1,
+                        successChance: 60,
+                        isAlwaysAvailable: true, // This remains available outside the sequence
+                        effects: {
+                            success: { message: "You don’t exist without your customers. Smart going to reach out to them and find out what else they need. CS +5.", csChange: 5 },
+                            failure: { message: "Couldn't reach many clients, or the feedback was neutral. No significant change." }
+                        }
+                    },
+                    "Post Design/Service Update (Cat2)": { 
+                        label: "Post Design/Service Update",
+                        actionKey: "Post Design/Service Update (Cat2)",
+                        title: "Social Media: Design/Service Update",
+                        description: "Share the current status of your store design, product displays, or service offerings.",
+                        financialCost: 100,
+                        apCost: 1,
+                        successChance: 50,
+                        isAlwaysAvailable: true, // This remains available outside the sequence
+                        effects: {
+                            success: { message: "You took a few pictures and posted them. People seem to be very engaged! MD +3, CS +2.", mdChange: 3, csChange: 2 },
+                            failure: { message: "Your social media post didn't get much engagement this time." }
+                        }
+                    }
                 }
             };
         }
@@ -365,22 +500,29 @@
                 "Marketing Campaign": { label: "Marketing Campaign", actionKey: "Marketing Campaign", title: "Services: Marketing Campaign", description: "Launch a new marketing campaign to boost visibility.", financialCost: 6000, apCost: 1, successChance: null, effects: { success: { message: "Launched Marketing Campaign. MD +15, CS +5.", mdChange: 15, csChange: 5 }}} 
             };
         }
+        
+        // Merge common actions into each CATEGORY's actions
         if (window.businessTypeActions && window.commonActions) {
-            for (const type in window.businessTypeActions) {
-                if (Object.hasOwnProperty.call(window.businessTypeActions, type)) {
-                     window.businessTypeActions[type] = { ...window.businessTypeActions[type], ...window.commonActions };
+            for (const categoryKey in window.businessTypeActions) { // categoryKey will be "1", "2"
+                if (Object.hasOwnProperty.call(window.businessTypeActions, categoryKey)) {
+                    window.businessTypeActions[categoryKey] = {
+                        ...window.businessTypeActions[categoryKey],
+                        ...window.commonActions // Common actions are available to both categories
+                    };
                 }
             }
         }
     </script>
 </head>
-<body class="bg-gray-800 text-white"> <div id="loading-screen">
+<body class="bg-gray-800 text-white">
+    <div id="loading-screen">
         <div class="loading-title">FinSta</div>
         <div class="loading-subtitle">Financial Startup Simulator</div>
         <div class="loader"></div>
     </div>
 
-    <div class="content-wrapper flex"> <aside id="leftSidebar" class="bg-slate-900 w-full md:w-1/4 flex flex-col p-4 md:p-6 space-y-4 md:space-y-6 h-screen overflow-y-auto">
+    <div class="content-wrapper flex">
+        <aside id="leftSidebar" class="bg-slate-900 w-full md:w-1/4 flex flex-col p-4 md:p-6 space-y-4 md:space-y-6 h-screen overflow-y-auto">
             <div id="businessInfoSection">
                 <div class="flex items-center mb-4">
                     <div id="businessIconDisplay" class="w-12 h-12 md:w-16 md:h-16 bg-amber-400 text-amber-900 flex items-center justify-center rounded-lg text-2xl md:text-3xl font-bold shadow-md"></div>
@@ -603,6 +745,9 @@
                     <button onclick="window.confirmNewGame()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors duration-150">
                         Create New Game
                     </button>
+                    <button onclick="window.loadGame()" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors duration-150">
+                        Load Game
+                    </button>
                     </div>
             </div>
         </div>
@@ -633,7 +778,8 @@
                 </div>
             </div>
         </div>
-    </div> <script>
+    </div>
+<script>
     // --- DOM Elements (constants, defined once DOM is ready) ---
     let companyHealthBar, marketDominationBar, customerSatisfactionBar, balancedBooksBar, 
         employeeCountDisplay, accountBalanceDisplay, businessIconDisplay, businessNameDisplay, 
@@ -688,8 +834,8 @@
         actionOutcomeMessage = document.getElementById('actionOutcomeMessage');
         activityLog = document.getElementById('activity-log');
         mainElement = document.querySelector('main');
-        loadingScreen = document.getElementById('loading-screen'); // Initialize loading screen
-        contentWrapper = document.querySelector('.content-wrapper'); // Initialize content wrapper
+        loadingScreen = document.getElementById('loading-screen'); 
+        contentWrapper = document.querySelector('.content-wrapper'); 
     }
 
 
@@ -705,30 +851,19 @@
 
     // --- Initial Setup ---
     window.initializeUI = function() { 
-        companyHealthPercentage = 50; 
-        marketDominationPercentage = 50;
-        customerSatisfactionPercentage = 50;
-        balancedBooksPercentage = 50;
-        employees = 0;
-        balance = 25000; 
-        currentYear = 1;
-        currentQuarter = 1;
-        actionPoints = 4;
-        currentSoftwareDevelopmentStageIndex = 0; 
-        productV1Launched = false; 
-        fixedExpensesAppliedForQuarter = false;
-        insuranceBonus = 0; 
-
         if (!businessIconDisplay) initializeDOMElements(); 
+
+        // Determine business category and icon based on the global businessType
+        icon = businessTypeIcons[businessType] || businessTypeIcons["Generic"];
 
         businessIconDisplay.textContent = icon;
         businessNameDisplay.textContent = businessName;
         businessTypeDisplay.textContent = businessType;
+        
         window.updateAllStatsDisplay(); 
         window.populateDropdown(); 
-        window.resetQuarterlyFinances();
-        activityLog.innerHTML = ""; 
-        window.businessLog(`New Game Started. Welcome to Year ${currentYear}, Q${currentQuarter}!`, "system");
+        window.resetQuarterlyFinances(); 
+        
         window.updateActionCategoriesVisibility(); 
     }
 
@@ -745,8 +880,6 @@
     window.updateActionPoints = function(cost) {
         actionPoints = Math.max(0, actionPoints - cost);
         actionPointsDisplay.textContent = actionPoints;
-        // Removed direct call to showQuarterEndModal from here. 
-        // It will be handled in closeActionOutcomeModal.
     }
     
     window.calculateCompanyHealth = function() {
@@ -755,7 +888,7 @@
         const customerSatisfactionWeight = 0.25;
 
         const minHealthyBalance = 0; 
-        const targetHealthyBalance = 50000; 
+        const targetHealthyBalance = 30000; 
         let balanceScore = ((balance - minHealthyBalance) / (targetHealthyBalance - minHealthyBalance)) * 100;
         balanceScore = Math.max(0, Math.min(100, balanceScore)); 
 
@@ -791,12 +924,19 @@
         if(accountBalanceDisplay) accountBalanceDisplay.textContent = `$${balance.toLocaleString()}`;
         window.updateCompanyHealth(); 
 
-        if (changeAmount > 0 && (type === "actionIncome" || type === "otherIncome")) {
-            quarterlyIncomeFromActionsAndEvents += changeAmount;
-        } else if (changeAmount < 0) {
+        if (changeAmount > 0) { // Income
+            if (type === "sales") {
+                quarterlySales += changeAmount;
+            } else if (type === "actionIncome" || type === "otherIncome") {
+                 quarterlyIncomeFromActionsAndEvents += changeAmount;
+            }
+        } else if (changeAmount < 0) { // Expense
+            // For expenses, we add the absolute value to the quarterly expense trackers
+            // "salary", "rent", "loan" types reduce balance but are NOT added to these specific trackers here
+            // because they are itemized separately in the P&L modal.
             if (type === "actionExpense" || type === "otherExpense" || type === "cost") { 
-                 quarterlyExpensesFromActionsAndEvents += Math.abs(changeAmount); 
-            } else if (type === "serviceCost") {
+                quarterlyExpensesFromActionsAndEvents += Math.abs(changeAmount); 
+            } else if (type === "serviceCost") { // Specific for services like lawyer, insurance, marketing campaign
                 quarterlyServiceCosts += Math.abs(changeAmount);
             }
         }
@@ -859,7 +999,7 @@
 
         if (openDropdownId !== null && openDropdownId !== n) {
             document.getElementById(`dropdownMenu${openDropdownId}`).classList.add('hidden');
-            const prevChevron = document.querySelector(`button[onclick="window.openDropDown(${openDropdownId})\"] svg[data-chevron-id]`);
+            const prevChevron = document.querySelector(`button[onclick="window.openDropDown(${openDropdownId})"] svg[data-chevron-id]`);
             if (prevChevron) prevChevron.classList.remove('rotate-180');
         }
 
@@ -876,7 +1016,10 @@
     window.openModal = function(actionKey, type = 'action') { 
         latestActionKey = actionKey;
         currentModalType = type;
-        const actionDetails = window.businessTypeActions[businessType]?.[actionKey] || window.commonActions[actionKey];
+
+        // Determine business category to fetch correct action details
+        const currentCategoryKey = businessTypeToCategoryMapping[businessType] || "2"; // Default to 2 if mapping not found
+        const actionDetails = window.businessTypeActions[currentCategoryKey]?.[actionKey] || window.commonActions[actionKey];
 
 
         if (type === 'action' && actionDetails) {
@@ -944,8 +1087,9 @@
         if (actionPoints === 0 && quarterEndModal.classList.contains('hidden')) {
             window.showQuarterEndModal();
         } 
-        // Else, if quarter is not ending and conditions met, try to trigger a random event
-        else if (actionPoints > 0 && (currentYear > 1 || currentQuarter > 1) && Math.random() < 0.25) { 
+        // Else, if quarter is not ending and new conditions met, try to trigger a random event
+        // Random event triggers if actionPoints is 3, current time is after Y1Q2, and random chance met.
+        else if (actionPoints === 3 && ((currentYear > 1) || (currentYear === 1 && currentQuarter > 2)) && Math.random() < 0.25) { 
             window.triggerRandomEvent();
         }
     }
@@ -954,26 +1098,35 @@
     window.showQuarterEndModal = function() {
         window.businessLog(`End of Q${currentQuarter}, Year ${currentYear}. Reviewing finances.`, "system");
         qEndTitle.textContent = `Year ${currentYear}, Q${currentQuarter} Finances`;
+        
+        // Calculate sales from employees and add to balance and quarterlySales tracker
+        const employeeGeneratedSales = employees * SALES_PER_EMPLOYEE_PER_QUARTER;
+        window.updateBalance(employeeGeneratedSales, "sales"); 
+
         const currentQuarterSalaries = employees * SALARY_PER_EMPLOYEE_PER_QUARTER;
+
         if (!fixedExpensesAppliedForQuarter) { 
             window.updateBalance(-currentQuarterSalaries, "salary"); 
-            window.updateBalance(-RENT_PER_QUARTER, "rent");       
+            window.updateBalance(-RENT_PER_QUARTER, "rent");  
             window.updateBalance(-LOAN_REPAYMENT_PER_QUARTER, "loan"); 
             fixedExpensesAppliedForQuarter = true;
         }
+
         qEndSales.textContent = `$${quarterlySales.toLocaleString()}`;
         qEndActionIncome.textContent = `$${quarterlyIncomeFromActionsAndEvents.toLocaleString()}`;
         qEndServiceCosts.textContent = `-$${quarterlyServiceCosts.toLocaleString()}`;
         qEndRent.textContent = `-$${RENT_PER_QUARTER.toLocaleString()}`;
-        qEndWages.textContent = `-$${currentQuarterSalaries.toLocaleString()}`;
-        qEndActionExpenses.textContent = `-$${quarterlyExpensesFromActionsAndEvents.toLocaleString()}`;
+        qEndWages.textContent = `-$${currentQuarterSalaries.toLocaleString()}`; // Display calculated wages
+        qEndActionExpenses.textContent = `-$${quarterlyExpensesFromActionsAndEvents.toLocaleString()}`; 
         qEndLoanRepayment.textContent = `-$${LOAN_REPAYMENT_PER_QUARTER.toLocaleString()}`;
+
         const totalIncome = quarterlySales + quarterlyIncomeFromActionsAndEvents;
-        const totalExpenses = quarterlyServiceCosts + RENT_PER_QUARTER + currentQuarterSalaries + quarterlyExpensesFromActionsAndEvents + LOAN_REPAYMENT_PER_QUARTER;
-        const netProfit = totalIncome - totalExpenses;
-        qEndNetProfit.textContent = `$${netProfit.toLocaleString()}`;
-        qEndNetProfit.className = netProfit >= 0 ? 'font-bold text-green-400' : 'font-bold text-red-400';
-        qEndCurrentBalance.textContent = `$${balance.toLocaleString()}`;
+        const totalExplicitExpenses = quarterlyServiceCosts + RENT_PER_QUARTER + currentQuarterSalaries + quarterlyExpensesFromActionsAndEvents + LOAN_REPAYMENT_PER_QUARTER;
+        const totalNetProfitThisQuarter = totalIncome - totalExplicitExpenses;
+
+        qEndNetProfit.textContent = `$${totalNetProfitThisQuarter.toLocaleString()}`; 
+        qEndNetProfit.className = totalNetProfitThisQuarter >= 0 ? 'font-bold text-green-400' : 'font-bold text-red-400';
+        qEndCurrentBalance.textContent = `$${balance.toLocaleString()}`; 
         quarterEndModal.classList.remove('hidden');
     }
     let fixedExpensesAppliedForQuarter = false; 
@@ -1001,24 +1154,62 @@
         confirmNewGameModal.classList.add('hidden');
     }
     
-    window.handleStartNewWithoutSaving = function() { // Only option now for new game
+    window.handleStartNewWithoutSaving = function() { 
         window.businessLog("Starting new game. Current progress will be lost.", "system");
         window.closeConfirmNewGameModal();
-        window.location.href = 'intro';
+        
+        // Reset to default values
+        businessName = "Stellar Innovations"; 
+        businessType = "Web Development Services"; // Default to a Category 1 type
+        
+        companyHealthPercentage = 50; // MODIFIED: Initial health
+        marketDominationPercentage = 50;
+        customerSatisfactionPercentage = 50;
+        balancedBooksPercentage = 50;
+        employees = 0;
+        balance = 15000; // MODIFIED: Starting balance
+        currentYear = 1;
+        currentQuarter = 1;
+        actionPoints = 4;
+        insuranceBonus = 0;
+        currentSoftwareDevelopmentStageIndex = 0; 
+        productV1Launched = false; 
+        currentCategory2StageIndex = 0; // NEW: Reset Category 2 stage index
+        fixedExpensesAppliedForQuarter = false;
+        if(activityLog) activityLog.innerHTML = ""; 
+
+        window.initializeUI(); 
+        window.intro(); 
     }
     
     window.saveGame = function() { 
         window.businessLog("Save Game: Functionality not yet implemented.", "system");
     }
 
-    window.loadGame = function() { 
-        window.businessLog("Load Game: Functionality not yet implemented.", "system");
-        window.toggleSettingsModal(); 
-    }
+    window.loadGame = async function() { 
+        window.businessLog("Attempting to load game data...", "system");
+        if(settingsModal && !settingsModal.classList.contains('hidden')) { // Close settings if open
+            window.toggleSettingsModal(); 
+        }
+        
+        const loadSuccessful = await fetchUserData(); 
+
+        if (loadSuccessful) {
+            window.businessLog("Game data loaded successfully.", "system");
+        } else {
+            window.businessLog("Failed to load existing game data or no data found. Using default values.", "system");
+             // If load fails, ensure new game defaults are set (especially the 15k balance)
+            balance = 15000;
+            companyHealthPercentage = 50;
+            // other defaults are mostly fine as globally declared or handled by initializeUI
+        }
+        window.initializeUI(); // This will set up the UI with loaded or default data
+    };
 
 
     // --- Activity Log ---
     window.businessLog = function(actionText, type = "action") {
+        if (!activityLog) return; 
         const newEntry = document.createElement("div");
         let bgColor = "bg-amber-400"; let textColor = "text-amber-900"; 
         
@@ -1040,9 +1231,11 @@
 
     // --- Action Handling ---
     window.handleAction = function(actionKey){ 
-        const actionDetails = window.businessTypeActions[businessType]?.[actionKey] || window.commonActions[actionKey];
+        const currentCategoryKey = businessTypeToCategoryMapping[businessType] || "2";
+        const actionDetails = window.businessTypeActions[currentCategoryKey]?.[actionKey] || window.commonActions[actionKey];
+
         if (!actionDetails) {
-            window.businessLog(`Error: Action "${actionKey}" not found.`, "penalty");
+            window.businessLog(`Error: Action "${actionKey}" not found for category ${currentCategoryKey} or common.`, "penalty");
             return;
         }
 
@@ -1055,12 +1248,22 @@
 
         if (actionPoints < actionDetails.apCost && !(actionKey === "Fire a Person" && actionDetails.apCost <= actionPoints) ) {
             window.businessLog("Not enough action points for: " + actionDetails.label, "penalty");
-            window.openModal({ title: "No Action Points", message: "You don't have enough action points for this." }, 'randomEvent'); 
+            randomModalTitle.textContent = "No Action Points";
+            randomEventMessage.textContent = "You don't have enough action points for this.";
+            randomEventChoices.innerHTML = ''; 
+            randomEventConfirmButton.classList.remove('hidden');
+            currentRandomEventEffect = null; 
+            randomModal.classList.remove('hidden');
             return;
         }
         if (balance < actionDetails.financialCost) {
             window.businessLog("Not enough funds for: " + actionDetails.label, "penalty");
-             window.openModal({ title: "Insufficient Funds", message: `You need $${actionDetails.financialCost.toLocaleString()} for this action.` }, 'randomEvent'); 
+            randomModalTitle.textContent = "Insufficient Funds";
+            randomEventMessage.textContent = `You need $${actionDetails.financialCost.toLocaleString()} for this action.`;
+            randomEventChoices.innerHTML = '';
+            randomEventConfirmButton.classList.remove('hidden');
+            currentRandomEventEffect = null;
+            randomModal.classList.remove('hidden');
             return;
         }
 
@@ -1069,7 +1272,19 @@
         let outcomeTitle = "";
         let outcomeMessage = ""; 
         let balanceChange = -currentFinancialCost; 
-        let balanceChangeType = "actionExpense"; 
+        let balanceChangeType = "actionExpense"; // Default for actions with cost
+
+        if (currentFinancialCost === 0 && actionDetails.effects?.success?.balanceGain > 0) {
+             balanceChangeType = "actionIncome"; // If no cost but there's a gain
+        } else if (currentFinancialCost > 0) {
+            if (actionKey === "Purchase Business Insurance" || actionKey === "Hire a Lawyer" || actionKey === "Marketing Campaign") {
+                balanceChangeType = "serviceCost";
+            } else {
+                balanceChangeType = "actionExpense";
+            }
+        }
+
+
         let outcomeType = "action"; 
         let success = true; 
 
@@ -1093,11 +1308,12 @@
         if (effects.mdChange) window.updateMarketDomination(marketDominationPercentage + effects.mdChange);
         if (effects.healthChange) { 
             companyHealthPercentage = Math.max(0, Math.min(100, companyHealthPercentage + effects.healthChange));
+            // updateCompanyHealth will be called by updateAllStatsDisplay or updateBalance
         }
         if (effects.lpChange) window.updateBalancedBooks(balancedBooksPercentage + effects.lpChange);
         if (effects.balanceGain) {
-            balanceChange += effects.balanceGain;
-            if(effects.balanceGain > 0) balanceChangeType = "actionIncome";
+            balanceChange += effects.balanceGain; // Add to the initial negative cost or to zero
+            if(effects.balanceGain > 0) balanceChangeType = "actionIncome"; // Ensure type is income if there's a net gain
         }
         if (effects.employeeGain) window.updateEmployeeCount(effects.employeeGain);
         if (actionKey === "Purchase Business Insurance" && success && effects.applyInsuranceBonus) {
@@ -1105,27 +1321,33 @@
         }
 
 
-        if (actionDetails.isSequential && businessType === "Software Development") {
-            if (success) {
-                if (actionKey === "Launch: Launch your product") {
-                    productV1Launched = true;
-                } else if (currentSoftwareDevelopmentStageIndex === softwareDevelopmentStageOrder.indexOf(actionKey)) {
-                    currentSoftwareDevelopmentStageIndex++;
+        // Sequential logic
+        if (actionDetails.isSequential) {
+            if (currentCategoryKey === "1") {
+                if (success) {
+                    if (actionKey === "Launch: Launch your product") {
+                        productV1Launched = true;
+                    } else if (currentSoftwareDevelopmentStageIndex === category1StageOrder.indexOf(actionKey)) {
+                        currentSoftwareDevelopmentStageIndex++;
+                    }
+                }
+            } else if (currentCategoryKey === "2") { // NEW: Sequential logic for Category 2
+                if (success && currentCategory2StageIndex === category2StageOrder.indexOf(actionKey)) {
+                    currentCategory2StageIndex++;
                 }
             }
-        } else if (actionKey === "Announce new product") { 
-            if (customerSatisfactionPercentage > 40) { 
-                outcomeMessage = actionDetails.effects.success.message + ` (-$${currentFinancialCost.toLocaleString()})`;
+        } else if (actionKey === "Announce new product/version" && currentCategoryKey === "1") { 
+            // Dynamic success for V2 announcement based on CS
+            if (customerSatisfactionPercentage > 60) { // Adjusted threshold
+                outcomeMessage = actionDetails.effects.success.message + (currentFinancialCost > 0 ? ` (-$${currentFinancialCost.toLocaleString()})` : "");
                 if(actionDetails.effects.success.csChange) window.updateCustomerSatisfaction(customerSatisfactionPercentage + actionDetails.effects.success.csChange);
                 if(actionDetails.effects.success.mdChange) window.updateMarketDomination(marketDominationPercentage + actionDetails.effects.success.mdChange);
                 outcomeType = "bonus";
             } else { 
-                outcomeMessage = actionDetails.effects.failure.message + ` (-$${currentFinancialCost.toLocaleString()})`;
+                outcomeMessage = actionDetails.effects.failure.message + (currentFinancialCost > 0 ? ` (-$${currentFinancialCost.toLocaleString()})` : "");
                 if(actionDetails.effects.failure.csChange) window.updateCustomerSatisfaction(customerSatisfactionPercentage + actionDetails.effects.failure.csChange);
                 outcomeType = "penalty";
             }
-        } else if (actionKey === "Fire a Person") {
-            // This case is now handled by the initial check in this function
         }
         
         if (balanceChange !== 0) { 
@@ -1146,32 +1368,30 @@
     window.changeBackgroundAndContent = function(themeNumber) {
         const mainContentHeader = document.getElementById('mainContentHeader');
         const mainContentSubtext = document.getElementById('mainContentSubtext');
-        let bgImage = `url('{% static 'mod4bg.gif' %}')`; // Default
+        let bgImage = `url('{% static 'mod4bg.gif' %}')`; 
         let headerText = 'Welcome to the Project Ideation Journey';
-        // Keep the original default subtext or adjust as needed
         let subText = 'Start your business simulation by selecting an option from the sidebar. Good luck!'; 
 
-        mainElement.style.backgroundColor = ''; // Clear specific background color first
+        mainElement.style.backgroundColor = ''; 
 
-        if (themeNumber === 0) { // Intro theme
-            bgImage = `url('{% static 'mod4bg.gif' %}')`; // Or a dedicated intro image
+        if (themeNumber === 0) { // Intro
+            bgImage = `url('{% static 'mod4bg.gif' %}')`; 
             headerText = 'Welcome to Your New Business Adventure!';
             subText = 'The journey begins now. Your first task is to research potential customers. Good luck!';
-        } else if (themeNumber === 1) { // Software Dev
+        } else if (themeNumber === 1) { // Category 1 - Product Dev
             bgImage = `url('{% static 'mod4bg.gif' %}')`; 
-            headerText = "Software Development Lifecycle"; 
-            subText = "Navigate the stages of software creation, from research to launch.";
-        } else if (themeNumber === 2) { // Operational Focus
+            headerText = "Product Development Lifecycle"; 
+            subText = "Navigate the stages of product creation, from research to launch.";
+        } else if (themeNumber === 2) { // Category 2 - Service/Retail
             bgImage = `url('{% static 'mod4bg1.gif' %}')`; 
-            headerText = "Operational Focus"; 
-            subText = "Manage day-to-day tasks and keep the business running smoothly.";
-        } else { // Critical decisions or other states
-            mainElement.style.backgroundImage = ''; // Remove background image for solid color
-            mainElement.style.backgroundColor = '#7f1d1d'; // Dark red for critical
+            headerText = "Service & Operations Focus"; 
+            subText = "Manage day-to-day tasks and grow your customer base.";
+        } else { // Default/Error theme
+            mainElement.style.backgroundImage = ''; 
+            mainElement.style.backgroundColor = '#7f1d1d'; 
             headerText = "Critical Decisions Ahead";
             subText = "Navigate challenges and make tough choices for your business.";
-            // If bgImage should be none for this case, ensure it's handled:
-            bgImage = 'none'; // Explicitly set to none if no image for this theme
+            bgImage = 'none'; 
         }
         
         if (bgImage === 'none') {
@@ -1185,24 +1405,21 @@
     
     // --- Dropdown Content Population ---
     window.populateDropdown = function() { 
-        const dropdownMenu = document.getElementById("dropdownMenu1"); 
+        const dropdownMenu = document.getElementById("dropdownMenu1"); // Operations dropdown
+        if (!dropdownMenu) return; 
         dropdownMenu.innerHTML = ""; 
-        const currentActionsForBusinessType = window.businessTypeActions[businessType] || {};
 
-        // Determine current theme based on business type for populateDropdown context
-        // This call should ideally happen after the intro() call if it's a new game,
-        // or be part of the regular flow.
-        // If intro() is called, it will set theme 0.
-        // If not intro (e.g. advancing quarter), this will set the appropriate theme.
-        if (window.location.hash !== "#introActive") { // Simple flag to avoid overriding intro theme immediately
-            let currentThemeForPopulation = (businessType === "Software Development") ? 1 : 2;
+        const currentCategoryKey = businessTypeToCategoryMapping[businessType] || "2";
+        const currentActionsForCategory = window.businessTypeActions[currentCategoryKey] || {};
+
+        if (window.location.hash !== "#introActive") { 
+            let currentThemeForPopulation = (currentCategoryKey === "1") ? 1 : 2;
             window.changeBackgroundAndContent(currentThemeForPopulation);
         }
 
-
-        if (businessType === "Software Development") {
-            softwareDevelopmentStageOrder.forEach((actionKey, index) => {
-                const item = currentActionsForBusinessType[actionKey];
+        if (currentCategoryKey === "1") { 
+            category1StageOrder.forEach((actionKey, index) => {
+                const item = currentActionsForCategory[actionKey];
                 if (item) {
                     const div = document.createElement("div");
                     div.className = "block px-4 py-2 transition-colors duration-150 text-sm md:text-base";
@@ -1218,37 +1435,58 @@
                             div.classList.add("dropdown-item-disabled");
                         }
                     } else { 
-                         div.classList.add("dropdown-item-completed");
+                         div.classList.add("dropdown-item-completed"); 
                     }
                     dropdownMenu.appendChild(div);
                 }
             });
 
-            Object.values(currentActionsForBusinessType).forEach(item => {
-                if (item.isAlwaysAvailable) {
-                    const div = document.createElement("div");
-                    div.className = "block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base dropdown-item-active";
-                    div.textContent = item.label;
-                    div.onclick = () => window.openModal(item.actionKey);
-                    dropdownMenu.appendChild(div);
-                }
-                if (item.requiresV1Launch && productV1Launched) {
-                     const div = document.createElement("div");
-                    div.className = "block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base dropdown-item-active";
-                    div.textContent = item.label;
-                    div.onclick = () => window.openModal(item.actionKey);
-                    dropdownMenu.appendChild(div);
+            Object.values(currentActionsForCategory).forEach(item => {
+                if (!category1StageOrder.includes(item.actionKey) && 
+                    (item.actionKey.includes("(Product Dev Focus)") || 
+                     (!window.commonActions[item.actionKey] && (item.isAlwaysAvailable || (item.requiresV1Launch && productV1Launched)))
+                    )
+                   ) {
+                    if (item.isAlwaysAvailable || (item.requiresV1Launch && productV1Launched)) {
+                        const div = document.createElement("div");
+                        div.className = "block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base dropdown-item-active";
+                        div.textContent = item.label;
+                        div.onclick = () => window.openModal(item.actionKey);
+                        dropdownMenu.appendChild(div);
+                    }
                 }
             });
 
-        } else { 
-            Object.values(currentActionsForBusinessType).forEach(item => {
-                if (!item.isSequential && !item.requiresV1Launch && !item.actionKey.includes("(Software Dev)")) { 
+        } else if (currentCategoryKey === "2") { // MODIFIED: Logic for Category 2 sequential and other actions
+            category2StageOrder.forEach((actionKey, index) => {
+                const item = currentActionsForCategory[actionKey];
+                if (item) {
                     const div = document.createElement("div");
-                    div.onclick = () => window.openModal(item.actionKey); 
-                    div.className = "block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base dropdown-item-active";
+                    div.className = "block px-4 py-2 transition-colors duration-150 text-sm md:text-base";
                     div.textContent = item.label;
+
+                    if (index === currentCategory2StageIndex) {
+                        div.classList.add("dropdown-item-active", "hover:bg-purple-400", "cursor-pointer");
+                        div.onclick = () => window.openModal(item.actionKey);
+                    } else if (index < currentCategory2StageIndex) {
+                        div.classList.add("dropdown-item-completed");
+                    } else { 
+                        div.classList.add("dropdown-item-disabled");
+                    }
                     dropdownMenu.appendChild(div);
+                }
+            });
+            // Add other non-sequential operational actions for Category 2
+             Object.values(currentActionsForCategory).forEach(item => {
+                if (!category2StageOrder.includes(item.actionKey) && // Not a sequential one already listed
+                    !window.commonActions[item.actionKey] && // Not a common action (handled in other dropdowns)
+                     item.isAlwaysAvailable // Check if it's marked as always available
+                   ) {
+                        const div = document.createElement("div");
+                        div.className = "block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base dropdown-item-active";
+                        div.textContent = item.label;
+                        div.onclick = () => window.openModal(item.actionKey);
+                        dropdownMenu.appendChild(div);
                 }
             });
         }
@@ -1312,7 +1550,7 @@
                 {
                     buttonText: "Wear Top Hat (+$2,000)",
                     cost: 2000, 
-                    effectText: "Congrats! You got $2,000 in the bank AND look very fancy.",
+                    effectText: "Congrats! You got $2,000 in the bank AND look very fancy. CS +1.",
                     effect: () => { window.updateBalance(2000, "otherIncome"); window.updateCustomerSatisfaction(customerSatisfactionPercentage + 1); }
                 },
                 {
@@ -1329,7 +1567,7 @@
             type: 'choice',
             choices: [
                 {
-                    buttonText: "Play Loud Acid Jazz",
+                    buttonText: "Play Loud Acid Jazz (-$1,500)",
                     cost: -1500,
                     effectText: "Played Acid Jazz. Now there are more birds. Should have known birds love acid jazz. Cost $1,500. CS -3.",
                     effect: () => { window.updateBalance(-1500, "cost"); window.updateCustomerSatisfaction(customerSatisfactionPercentage -3); }
@@ -1356,9 +1594,13 @@
         if (event.type === 'simple') {
             randomEventConfirmButton.classList.remove('hidden');
             currentRandomEventEffect = () => { 
-                if (event.cost) window.updateBalance(event.cost, "cost"); 
+                // Note: 'cost' in event definition is the balance change.
+                // updateBalance handles if it's income or expense.
+                if (event.cost && typeof event.cost === 'number') { 
+                     window.updateBalance(event.cost, event.cost > 0 ? "otherIncome" : "cost");
+                }
                 event.effect(); 
-                window.businessLog(event.effectText, event.cost >= 0 ? "bonus" : "penalty");
+                window.businessLog(event.effectText, (event.cost && event.cost >= 0) ? "bonus" : "penalty");
             };
         } else if (event.type === 'choice') {
             randomEventConfirmButton.classList.add('hidden'); 
@@ -1377,9 +1619,12 @@
         const event = randomEvents[eventIdx];
         const choice = event.choices[choiceIdx];
 
-        if (choice.cost) window.updateBalance(choice.cost, choice.cost > 0 ? "otherIncome" : "cost");
+        // Note: 'cost' in choice definition is the balance change.
+        if (choice.cost && typeof choice.cost === 'number') { 
+            window.updateBalance(choice.cost, choice.cost > 0 ? "otherIncome" : "cost");
+        }
         choice.effect();
-        window.businessLog(choice.effectText, choice.cost >= 0 && choice.cost !== 0 ? "bonus" : (choice.cost < 0 ? "penalty" : "event"));
+        window.businessLog(choice.effectText, (choice.cost && choice.cost > 0) ? "bonus" : (choice.cost < 0 ? "penalty" : "event"));
         
         randomModal.classList.add('hidden');
         randomEventChoices.innerHTML = ''; 
@@ -1391,9 +1636,9 @@
     // --- Intro Function ---
     window.intro = function() {
         console.log("Executing intro function...");
-        window.location.hash = "introActive"; // Set a flag for populateDropdown
+        window.location.hash = "introActive"; 
         window.changeBackgroundAndContent(0); 
-        window.location.hash = ""; // Clear the flag
+        window.location.hash = ""; 
 
         window.businessLog("Welcome! Your new business journey starts now. Your first step is Research.", "system");
     }
@@ -1418,7 +1663,10 @@
         window.populateDropdown(); 
         window.updateActionCategoriesVisibility(); 
 
-        if ( (currentYear > 1 || currentQuarter > 1) && Math.random() < 0.3) { 
+        // Random event triggers if actionPoints is 3, current time is after Y1Q2, and random chance met.
+        // Since actionPoints is 4 here, this specific trigger point for random events will likely not activate
+        // based on the new conditions. Random events are now more tied to outcomes of player actions.
+        if (actionPoints === 3 && ((currentYear > 1) || (currentYear === 1 && currentQuarter > 2)) && Math.random() < 0.3) { 
             window.triggerRandomEvent();
         }
     }
@@ -1436,20 +1684,34 @@
         }
     }
 
-
     // --- Event Listeners & Initialization ---
-    window.onload = function() {
-      initializeDOMElements(); 
-      // Delay initialization of UI until after loading screen is handled
-      // This ensures all elements are available when initializeUI runs.
-      setTimeout(() => {
+    
+    window.onload = async function() {
+        initializeDOMElements(); 
+
+        if(loadingScreen) loadingScreen.classList.remove('hidden');
+        if(contentWrapper) contentWrapper.style.display = 'none';
+        document.body.style.overflow = 'hidden';
+
+        await window.loadGame(); 
+
         if(loadingScreen) loadingScreen.classList.add('hidden');
-        if(contentWrapper) contentWrapper.style.display = 'flex'; // Show main content
-        document.body.style.overflow = 'auto'; // Restore scrollability
-        window.initializeUI(); 
-        // window.intro(); // Now called via "Start New Game" or if you want it on first load
-      }, 500); // Adjust delay as needed, or use a more robust method if images are heavy
+        if(contentWrapper) contentWrapper.style.display = 'flex'; 
+        document.body.style.overflow = 'auto'; 
+        
+        // Heuristic check for a new game (e.g. if default values are still present after attempting load)
+        // This check is performed *after* loadGame has attempted to update global variables.
+        if (businessName === "Stellar Innovations" && 
+            businessType === "Web Development Services" &&
+            balance === 15000 && // MODIFIED: Check against new starting balance
+            currentYear === 1 && 
+            currentQuarter === 1 &&
+            companyHealthPercentage === 50 && // Check initial health
+            (!activityLog || activityLog.innerHTML.trim() === "")) { // Also check if activity log is empty
+            window.intro();
+        }
     };
+
 
     document.addEventListener('click', function(event) {
         const actionsButton = document.querySelector('button[onclick="window.toggleActions()"]');
@@ -1473,9 +1735,9 @@
                  const dropdownMenuToClose = document.getElementById(`dropdownMenu${openDropdownId}`);
                  const chevronToReset = document.querySelector(`button[onclick="window.openDropDown(${openDropdownId})"] svg[data-chevron-id]`);
                  if (dropdownMenuToClose && !dropdownMenuToClose.classList.contains('hidden')) {
-                       dropdownMenuToClose.classList.add('hidden');
-                       if(chevronToReset) chevronToReset.classList.remove('rotate-180');
-                       openDropdownId = null;
+                                         dropdownMenuToClose.classList.add('hidden');
+                                         if(chevronToReset) chevronToReset.classList.remove('rotate-180');
+                                         openDropdownId = null;
                  }
             }
         }
@@ -1483,9 +1745,85 @@
         if (!isClickInsideSettingsButton && !isClickInsideSettingsModal && isSettingsModalVisible) {
             window.toggleSettingsModal();
         }
-        // Simplified the condition for confirmNewGameModal closure, relying on its own buttons primarily.
-        // Clicking outside modals is a general UX pattern but not explicitly implemented here for all modals via backdrop clicks.
     });
+
+    async function fetchUserData() {
+        const apiUrl = 'get_business_data/'; 
+        console.log("Fetching user data from:", apiUrl);
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'X-CSRFToken': csrftoken, // If you're using Django's CSRF protection and not just for session auth
+                },
+            });
+
+            if (!response.ok) {
+                let errorData = { error: `HTTP error! Status: ${response.status}`};
+                try {
+                    errorData = await response.json(); 
+                } catch (e) {
+                    // If response is not JSON, use statusText
+                    errorData.error = response.statusText;
+                }
+                console.error('Network response was not ok:', response.status, errorData);
+                businessLog(`Error fetching data: ${errorData.error || response.statusText}`, "penalty");
+                return false; 
+            }
+
+            const data = await response.json();
+            console.log("Fetched data from backend:", data); 
+
+            if (data.businesses && data.businesses.length > 0) {
+                const fetchedBusiness = data.businesses[0];
+
+                businessName = fetchedBusiness.business_name !== undefined ? fetchedBusiness.business_name : businessName;
+                businessType = fetchedBusiness.business_type !== undefined ? fetchedBusiness.business_type : businessType;
+                
+                // Always set balance to 15000 on load as per previous logic, or fetched if available and desired
+                // For now, sticking to the "always 15000 on load" if that's the intent from previous snippet.
+                // If you want to load balance from backend, use:
+                // balance = fetchedBusiness.balance !== undefined ? fetchedBusiness.balance : 15000;
+                balance = 15000; // This was in your original snippet, might be intentional for game start/load
+                
+                if (fetchedBusiness.market_domination !== undefined) marketDominationPercentage = fetchedBusiness.market_domination;
+                if (fetchedBusiness.customer_satisfaction !== undefined) customerSatisfactionPercentage = fetchedBusiness.customer_satisfaction;
+                if (fetchedBusiness.balanced_books !== undefined) balancedBooksPercentage = fetchedBusiness.balanced_books;
+                if (fetchedBusiness.employees_count !== undefined) employees = fetchedBusiness.employees_count;
+                if (fetchedBusiness.current_year !== undefined) currentYear = fetchedBusiness.current_year;
+                if (fetchedBusiness.current_quarter !== undefined) currentQuarter = fetchedBusiness.current_quarter;
+                if (fetchedBusiness.action_points !== undefined) actionPoints = fetchedBusiness.action_points;
+                if (fetchedBusiness.insurance_bonus !== undefined) insuranceBonus = fetchedBusiness.insurance_bonus;
+                if (fetchedBusiness.product_v1_launched !== undefined) productV1Launched = fetchedBusiness.product_v1_launched;
+                if (fetchedBusiness.current_dev_stage_index !== undefined) currentSoftwareDevelopmentStageIndex = fetchedBusiness.current_dev_stage_index;
+                if (fetchedBusiness.current_cat2_stage_index !== undefined) currentCategory2StageIndex = fetchedBusiness.current_cat2_stage_index; // NEW: Load Cat 2 stage
+                
+                // Explicitly set companyHealthPercentage if provided, otherwise it will be calculated
+                if (fetchedBusiness.company_health !== undefined) {
+                     companyHealthPercentage = fetchedBusiness.company_health;
+                }
+
+
+                console.log("Global game variables updated from fetched data.");
+                return true; 
+            } else {
+                console.log('No businesses found in the response or data format is incorrect. Using defaults.');
+                // Ensure starting defaults are applied if no data
+                balance = 15000;
+                companyHealthPercentage = 50;
+                return false; 
+            }
+        } catch (error) {
+            console.error('Error fetching or processing user data:', error);
+            businessLog(`Critical error fetching data: ${error.message}`, "penalty");
+            // Ensure starting defaults are applied on critical error
+            balance = 15000;
+            companyHealthPercentage = 50;
+            return false; 
+        }
+    }
 
 </script>
 </body>

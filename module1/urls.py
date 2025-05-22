@@ -27,6 +27,6 @@ urlpatterns = [
     path('reset',views.reset,name='reset'),
 
     path('get_business_data/',views.get_business_data,name='get_business_data/')
-
+    
 
 ]

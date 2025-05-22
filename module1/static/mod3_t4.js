@@ -18,11 +18,11 @@ function oldLoadSessionData() {
     const businessTypes = [
         "Tech Repair and Support Service",
         "IoT Device Development",
-        "Web Development Services",
+        "Web Development",
         "Specialty Coffee Shop",
         "Artisan Bakery",
         "Food Truck Business",
-        "Custom Tailored Clothing Service",
+        "Custom Tailored Clothing",
         "Activewear Line",
         "Online T-Shirt Printing",
         "Spa and Massage Center",

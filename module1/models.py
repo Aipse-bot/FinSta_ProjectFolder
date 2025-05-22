@@ -13,3 +13,7 @@ class Player(models.Model):
     targetMarket = models.CharField(max_length=255, null=True)
     maxNumberOfWorkers = models.IntegerField(default=0)
     balance = models.IntegerField(default=50000)  # Initial funds, updated through transactions
+
+
+    def __str__(self):
+        return f"{self.businessName} ({self.user.username})"
