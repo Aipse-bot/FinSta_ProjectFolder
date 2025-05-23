@@ -5,77 +5,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Ideation - Business Goals</title>
-    
+
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body class="bg-[#1F2937] min-h-screen font-sans">
     <div class="container mx-auto px-4 py-8">
-        <!-- Header section with back button on left and title centered -->
+
+        <!-- Header: Back button + Title -->
         <div class="relative flex items-center justify-center mb-16">
-            <!-- Back button positioned at top left -->
-            <a href="javascript:history.back()" class="absolute left-0 inline-flex items-center text-[#E5E7EB] hover:text-[#22C55E] transition-colors">
+            <!-- Back Button -->
+            <a href="javascript:history.back()" 
+               class="absolute left-0 inline-flex items-center text-[#E5E7EB] hover:text-[#22C55E] transition-colors"
+               aria-label="Go back">
                 <i data-feather="arrow-left" class="w-6 h-6 mr-2"></i>
                 <span class="text-lg">Back</span>
             </a>
-            
-            <!-- Title centered at the top -->
+
+            <!-- Page Title -->
             <h1 class="text-5xl font-bold text-center text-[#E5E7EB]">Select your Business Goals</h1>
         </div>
-        
-        <div class="max-w-7xl mx-auto">
-            <!-- Made cards even bigger and longer with more extended text -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div id="goal-opt1"
-                     data-url="{% url 'mod2t4' %}" 
-                     onclick="showConfirmationModal()"
-                     class="bg-[#E5E7EB] rounded-xl p-10 shadow-xl hover:shadow-2xl hover:border-[#22C55E] transition-all duration-300 cursor-pointer min-h-[450px] flex flex-col">
-                    <div class="flex items-center mb-8">
-                        <div class="w-20 h-20 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
-                            <i data-feather="trending-up" class="w-10 h-10 text-[#1F2937]"></i>
-                        </div>
-                        <h3 class="ml-5 text-3xl font-semibold text-[#1F2937]">Increase Market Reach</h3>
-                    </div>
-                    <p class="text-[#1F2937] text-lg flex-grow leading-relaxed">
-                        Expand your brand's presence by targeting new customer segments and enhancing online visibility through digital marketing and outreach campaigns. According to Investopedia, digital marketing significantly boosts online visibility, with 45% of consumers likely to visit a physical location after an online search (Investopedia). Strategies include building a robust social media presence, implementing search engine optimization (SEO) to improve website rankings, and forming partnerships with complementary businesses to access their customer bases.
-                        By broadening your market reach, you create more growth opportunities and position your business as an industry leader.
-                    </p>
-                </div>
 
-                <div id="goal-opt2" 
-                     data-url="{% url 'mod2t4' %}" 
-                     onclick="showConfirmationModal()"
-                     class="bg-[#E5E7EB] rounded-xl p-10 shadow-xl hover:shadow-2xl hover:border-[#22C55E] transition-all duration-300 cursor-pointer min-h-[450px] flex flex-col">
-                    <div class="flex items-center mb-8">
-                        <div class="w-20 h-20 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
-                            <i data-feather="settings" class="w-10 h-10 text-[#1F2937]"></i>
-                        </div>
-                        <h3 class="ml-5 text-3xl font-semibold text-[#1F2937]">Optimize Operations</h3>
-                    </div>
-                    <p class="text-[#1F2937] text-lg flex-grow leading-relaxed">
-                        Enhance internal processes by automating workflows, reducing overhead costs, and boosting employee efficiency with advanced tools and training. PNC Insights suggests that optimizing operations involves assessing cost structures to eliminate unnecessary expenses and automating repetitive tasks to improve efficiency (PNC Insights). This strategy streamlines operations, minimizing waste and errors while maximizing productivity.
-                        Implementing these improvements fosters an agile business capable of adapting swiftly to market shifts while maintaining high quality and service standards. Operational excellence enables efficient delivery of products and services, enhancing customer satisfaction and loyalty.
-                    </p>
-                </div>
+        <!-- Business Goal Cards Grid -->
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
 
-                <div id="goal-opt3" 
-                     data-url="{% url 'mod2t4' %}" 
-                     onclick="showConfirmationModal()"
-                     class="bg-[#E5E7EB] rounded-xl p-10 shadow-xl hover:shadow-2xl hover:border-[#22C55E] transition-all duration-300 cursor-pointer min-h-[450px] flex flex-col">
-                    <div class="flex items-center mb-8">
-                        <div class="w-20 h-20 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
-                            <i data-feather="dollar-sign" class="w-10 h-10 text-[#1F2937]"></i>
-                        </div>
-                        <h3 class="ml-5 text-3xl font-semibold text-[#1F2937]">Boost Profitability</h3>
+            <!-- Goal Option 1 -->
+            <div id="goal-opt1"
+                 data-url="{% url 'mod2t4' %}" 
+                 onclick="showConfirmationModal()"
+                 class="bg-[#E5E7EB] rounded-xl p-10 shadow-xl hover:shadow-2xl hover:border-[#22C55E] transition-all duration-300 cursor-pointer min-h-[450px] flex flex-col">
+                <div class="flex items-center mb-8">
+                    <div class="w-20 h-20 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
+                        <i data-feather="trending-up" class="w-10 h-10 text-[#1F2937]"></i>
                     </div>
-                    <p class="text-[#1F2937] text-lg flex-grow leading-relaxed">
-                        Boost revenue and net profits by refining pricing strategies, diversifying product offerings, and enhancing customer retention rates. HubSpot reports that a 5% increase in customer retention can increase company revenue by 25-95% (HubSpot). Optimizing pricing and expanding product lines are also key tactics to improve financial performance.
-                        Focusing on profitability ensures your business remains financially sustainable, equipped to invest in future growth and resilient against economic fluctuations. This involves analyzing cost structures to identify expense reduction opportunities without compromising quality or customer satisfaction.
-                    </p>
+                    <h3 class="ml-5 text-3xl font-semibold text-[#1F2937]">Increase Market Reach</h3>
                 </div>
+                <p class="text-[#1F2937] text-lg flex-grow leading-relaxed">
+                    Expand your brand's presence by targeting new customer segments and enhancing online visibility through digital marketing and outreach campaigns. According to Investopedia, digital marketing significantly boosts online visibility, with 45% of consumers likely to visit a physical location after an online search (Investopedia). Strategies include building a robust social media presence, implementing search engine optimization (SEO) to improve website rankings, and forming partnerships with complementary businesses to access their customer bases.
+                    By broadening your market reach, you create more growth opportunities and position your business as an industry leader.
+                </p>
             </div>
-            
-            {% csrf_token %}
+
+            <!-- Goal Option 2 -->
+            <div id="goal-opt2" 
+                 data-url="{% url 'mod2t4' %}" 
+                 onclick="showConfirmationModal()"
+                 class="bg-[#E5E7EB] rounded-xl p-10 shadow-xl hover:shadow-2xl hover:border-[#22C55E] transition-all duration-300 cursor-pointer min-h-[450px] flex flex-col">
+                <div class="flex items-center mb-8">
+                    <div class="w-20 h-20 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
+                        <i data-feather="settings" class="w-10 h-10 text-[#1F2937]"></i>
+                    </div>
+                    <h3 class="ml-5 text-3xl font-semibold text-[#1F2937]">Optimize Operations</h3>
+                </div>
+                <p class="text-[#1F2937] text-lg flex-grow leading-relaxed">
+                    Enhance internal processes by automating workflows, reducing overhead costs, and boosting employee efficiency with advanced tools and training. PNC Insights suggests that optimizing operations involves assessing cost structures to eliminate unnecessary expenses and automating repetitive tasks to improve efficiency (PNC Insights). This strategy streamlines operations, minimizing waste and errors while maximizing productivity.
+                    Implementing these improvements fosters an agile business capable of adapting swiftly to market shifts while maintaining high quality and service standards.
+                </p>
+            </div>
+
+            <!-- Goal Option 3 -->
+            <div id="goal-opt3" 
+                 data-url="{% url 'mod2t4' %}" 
+                 onclick="showConfirmationModal()"
+                 class="bg-[#E5E7EB] rounded-xl p-10 shadow-xl hover:shadow-2xl hover:border-[#22C55E] transition-all duration-300 cursor-pointer min-h-[450px] flex flex-col">
+                <div class="flex items-center mb-8">
+                    <div class="w-20 h-20 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
+                        <i data-feather="dollar-sign" class="w-10 h-10 text-[#1F2937]"></i>
+                    </div>
+                    <h3 class="ml-5 text-3xl font-semibold text-[#1F2937]">Boost Profitability</h3>
+                </div>
+                <p class="text-[#1F2937] text-lg flex-grow leading-relaxed">
+                    Boost revenue and net profits by refining pricing strategies, diversifying product offerings, and enhancing customer retention rates. HubSpot reports that a 5% increase in customer retention can increase company revenue by 25-95% (HubSpot). Optimizing pricing and expanding product lines are also key tactics to improve financial performance.
+                    Focusing on profitability ensures your business remains financially sustainable, equipped to invest in future growth and resilient against economic fluctuations.
+                </p>
+            </div>
         </div>
     </div>
 
@@ -86,19 +92,21 @@
                 <h2 class="text-xl font-semibold text-[#1F2937] mb-4">Confirm Selection</h2>
                 <p id="confirmMessage" class="text-[#1F2937] text-base mb-6"></p>
 
-                <!-- Form inside the modal -->
+                <!-- Submission Form -->
                 <form id="confirmForm" method="POST" action="{% url 'save_business_goals' %}">
                     {% csrf_token %}
                     {{ form.name }}
                     {{ form.businessGoal }}
 
+                    <!-- Modal Action Buttons -->
                     <div class="flex justify-between mt-4">
                         <button type="button" onclick="closeModal()" 
-                            class="bg-[#c22525] text-white px-4 py-2 rounded-lg hover:bg-[#bf1717]/80 transition-all duration-300">
+                                class="bg-[#c22525] text-white px-4 py-2 rounded-lg hover:bg-[#bf1717]/80 transition-all duration-300">
                             Cancel
                         </button>
 
-                        <button type="submit" class="bg-[#25c247] text-white px-4 py-2 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300">
+                        <button type="submit" 
+                                class="bg-[#25c247] text-white px-4 py-2 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300">
                             Yes, Proceed
                         </button>
                     </div>
@@ -106,40 +114,58 @@
             </div>
         </div>
     </div>
-      
-    <!-- <script type="text/javascript" src="{% static 'mod1_t3.js' %}?v={{now}}"></script>  -->
+
+    <!-- External JS Files -->
     <script type="text/javascript" src="{% static 'player.js' %}?v={{now}}"></script> 
-    <!-- icons -->
+
+    <!-- Inline Scripts -->
     <script>
         let redirectUrl = "";
         let selectedGoal = "";
 
+        /**
+         * Show the confirmation modal with the selected business goal.
+         */
         function showConfirmationModal() {
             const goals = {
                 "goal-opt1": "Increase Market Reach",
                 "goal-opt2": "Optimize Operations",
                 "goal-opt3": "Boost Profitability"
             };
-            document.getElementById("name").classList.add("hidden")
-            document.getElementById("name").removeAttribute("required");
-            const elem = event.currentTarget; // Get the clicked element
+
+            // Hide name field if present
+            document.getElementById("name")?.classList.add("hidden");
+            document.getElementById("name")?.removeAttribute("required");
+
+            const elem = event.currentTarget;
             const goalId = elem.id;
             selectedGoal = goals[goalId];
 
-            // Update modal text with the selected goal
-            const modalText = document.querySelector("#confirmationModal p");
-            modalText.innerHTML = `Are you sure you want to choose <strong>"${selectedGoal}"</strong>?`;
+            // Update confirmation message
+            document.getElementById("confirmMessage").innerHTML = `Are you sure you want to choose <strong>"${selectedGoal}"</strong>?`;
+
+            // Update hidden input
             document.getElementById("businessGoal").value = selectedGoal;
 
+            // Store redirect URL (if needed for later use)
             redirectUrl = elem.getAttribute("data-url");
+
+            // Show modal
             document.getElementById("confirmationModal").classList.remove("hidden");
         }
 
+        /**
+         * Closes the confirmation modal.
+         */
         function closeModal() {
-                console.log("asda")
+            console.log("Modal closed.");
             document.getElementById("confirmationModal").classList.add("hidden");
         }
-        document.addEventListener('DOMContentLoaded', function() {
+
+        /**
+         * Replace Feather icons on DOM load.
+         */
+        document.addEventListener('DOMContentLoaded', function () {
             feather.replace();
         });
     </script>
