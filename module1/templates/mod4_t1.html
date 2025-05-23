@@ -917,7 +917,6 @@
         businessNameDisplay.textContent = businessName;
         businessTypeDisplay.textContent = businessType;
         businessGoalDisplay.textContent = businessGoal;
-        
         window.updateAllStatsDisplay();  
         window.populateDropdown();  
         window.resetQuarterlyFinances();  
@@ -1647,13 +1646,12 @@
                     div.className = "block px-4 py-2 transition-colors duration-150 text-sm md:text-base";
                     div.textContent = item.label;
 
-                    // New condition for "Make a Sale"
-                    const isMakeASaleAndNotLaunched = (actionKey === "Make a Sale" && !productV1Launched);
+                   
 
-                    if (index === currentCategory2StageIndex && !isMakeASaleAndNotLaunched) {
+                    if (index === currentCategory2StageIndex) {
                         div.classList.add("dropdown-item-active", "hover:bg-purple-400", "cursor-pointer");
                         div.onclick = () => window.openModal(item.actionKey);
-                    } else if (index < currentCategory2StageIndex || isMakeASaleAndNotLaunched) { // Also disable if not launched
+                    } else if (index < currentCategory2StageIndex) { // Also disable if not launched
                         div.classList.add("dropdown-item-disabled");
                     } else {  
                         div.classList.add("dropdown-item-disabled");
