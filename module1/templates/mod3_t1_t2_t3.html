@@ -31,7 +31,7 @@
                     </div>
                     <div class="text-xl font-bold text-[#1F2937] location-title flex items-center lg:h-auto md:h-12">HOME-BASED</div>
                     <div class="text-sm text-[#3B82F6] font-semibold mb-3">$2000 - $10000 / MONTH</div>
-                    <p class="text-sm text-[#1F2937] mt-2 mb-4 desc-preview">
+                    <p class="desc-view text-sm text-[#1F2937] mt-2 mb-4">
                         A home-based business is a company run from the owner's home, offering flexibility and low startup costs. 
                         It often includes freelancing, e-commerce, or consulting, allowing entrepreneurs to manage their schedules and reduce overhead expenses. 
                         However, challenges like limited growth potential and distractions may arise.
@@ -87,7 +87,7 @@
                     </div>
                     <div class="text-xl font-bold text-[#1F2937] location-title flex items-center lg:h-auto md:h-12">PHYSICAL STORE</div>
                     <div class="text-sm text-[#3B82F6] font-semibold mb-3">$5000 - $20,000 / MONTH</div>
-                    <p class="text-sm text-[#1F2937] mt-2 mb-4 desc-preview">
+                    <p class="desc-view text-sm text-[#1F2937] mt-2 mb-4">
                         Physical store businesses are brick-and-mortar establishments where products or services are sold directly to customers. 
                         These businesses operate from a fixed location, such as a retail shop, department store, grocery store, restaurant, or boutique, and rely on in-person transactions and customer interaction.
                     </p>
@@ -142,7 +142,7 @@
                     </div>
                     <div class="text-xl font-bold text-[#1F2937] location-title flex items-center lg:h-auto md:h-12">COMMERCIAL SPACE</div>
                     <div class="text-sm text-[#3B82F6] font-semibold mb-3">$7000 - $25,000 / MONTH</div>
-                    <p class="text-sm text-[#1F2937] mt-2 mb-4 desc-preview">
+                    <p class="desc-view text-sm text-[#1F2937] mt-2 mb-4">
                         Commercial space businesses involve renting or leasing properties that are used for business purposes, such as office buildings, retail spaces, or industrial facilities. 
                         These businesses cater to organizations or individuals who need a physical location for operations, offering a range of services from leasing to property management.
                     </p>
@@ -368,9 +368,11 @@
         fetchBusinessData("businessCategory");  // Fetch business category
         // Force reflow on the <ul> container for md sized screens
         const ul = document.querySelectorAll(".list-disc");
-        ul.style.display = "none";
-        ul.offsetHeight;
-        ul.style.display = "block";
+        ul.forEach(ul => {
+            ul.style.display = "none";
+            ul.offsetHeight;
+            ul.style.display = "block";
+        });
         
         // JS handler before form submission
         document.getElementById('marketResearchForm').addEventListener('submit', function(event) {
@@ -423,12 +425,14 @@
 
         // Card Element height adjustment
         function adjustCardHeights() {
-            const titles = document.querySelectorAll('.location-title')
-            const descs = document.querySelectorAll('.desc-preview');
+            const titles = document.querySelectorAll('.location-title');
+            const descs = document.querySelectorAll('.desc-view');
             const lists = document.querySelectorAll('.list-disc');
             let pMaxHeight = 0;
             let lMaxHeight = 0;
-
+            // console.log(descs);
+            // console.log(lists);
+            
             // Reset heights to auto and find the tallest for <p>
             descs.forEach(p => {
                 p.style.height = 'auto';
@@ -438,7 +442,6 @@
             descs.forEach(p => {
                 p.style.height = pMaxHeight + 'px';
             });
-
             // Reset heights to auto and find the tallest for <ul>
             lists.forEach(ul => {
                 ul.style.height = 'auto';
@@ -449,7 +452,7 @@
                 ul.style.height = lMaxHeight + 'px';
             });
         }
-        document.addEventListener('DOMContentLoaded', adjustCardHeights);
+        document.addEventListener('load', adjustCardHeights);
         window.addEventListener('resize', adjustCardHeights);
     </script>
 </body>
