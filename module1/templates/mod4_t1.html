@@ -11,108 +11,108 @@
             font-family: 'Inter', sans-serif; 
             margin: 0;
             /* overflow: hidden;  Initially hide overflow for loading, JS will manage it */
-            display: flex; 
-            min-height: 100vh; 
+            display: flex;  
+            min-height: 100vh;  
         }
         .scrollable-dropdown::-webkit-scrollbar,
-        #activity-log::-webkit-scrollbar { 
+        #activity-log::-webkit-scrollbar {  
             width: 8px;
         }
         .scrollable-dropdown::-webkit-scrollbar-track,
         #activity-log::-webkit-scrollbar-track {
-            background: #4a5568; 
+            background: #4a5568;  
             border-radius: 10px;
         }
         .scrollable-dropdown::-webkit-scrollbar-thumb,
         #activity-log::-webkit-scrollbar-thumb {
-            background: #718096; 
+            background: #718096;  
             border-radius: 10px;
         }
         .scrollable-dropdown::-webkit-scrollbar-thumb:hover,
         #activity-log::-webkit-scrollbar-thumb:hover {
-            background: #a0aec0; 
+            background: #a0aec0;  
         }
         .scrollable-dropdown {
-            max-height: 200px; 
+            max-height: 200px;  
             overflow-y: auto;
         }
         main {
             overflow-y: auto;
         }
-        aside#leftSidebar { 
+        aside#leftSidebar {  
             display: flex;
             flex-direction: column;
         }
         .finance-modal-text {
-            font-family: 'Courier New', Courier, monospace; 
+            font-family: 'Courier New', Courier, monospace;  
         }
         #modalBackdrop .modal-content-area {
-            font-family: 'Arial', sans-serif; 
+            font-family: 'Arial', sans-serif;  
         }
         #modalBackdrop .modal-title {
-            background-color: #4A5568; 
+            background-color: #4A5568;  
             color: white;
-            padding: 0.75rem 1.25rem; 
-            border-top-left-radius: 0.5rem; 
+            padding: 0.75rem 1.25rem;  
+            border-top-left-radius: 0.5rem;  
             border-top-right-radius: 0.5rem;
             font-weight: bold;
-            font-size: 1.125rem; 
+            font-size: 1.125rem;  
             text-align: center;
         }
          #modalBackdrop .modal-description {
-            padding: 1.5rem; 
+            padding: 1.5rem;  
             text-align: center;
-            font-size: 1rem; 
-            color: #E2E8F0; 
+            font-size: 1rem;  
+            color: #E2E8F0;  
         }
         #modalBackdrop .modal-cost {
             text-align: center;
-            font-size: 1.5rem; 
+            font-size: 1.5rem;  
             font-weight: bold;
-            color: #EC4899; 
-            margin-bottom: 0.75rem; 
+            color: #EC4899;  
+            margin-bottom: 0.75rem;  
         }
         #modalBackdrop .modal-success-chance {
             text-align: center;
-            font-size: 0.875rem; 
-            color: #A0AEC0; 
-            margin-bottom: 1.5rem; 
+            font-size: 0.875rem;  
+            color: #A0AEC0;  
+            margin-bottom: 1.5rem;  
         }
         #modalBackdrop .modal-select-button {
-            background-color: #63B3ED; 
+            background-color: #63B3ED;  
             color: white;
             font-weight: bold;
-            padding: 0.75rem 2rem; 
-            border-radius: 0.5rem; 
+            padding: 0.75rem 2rem;  
+            border-radius: 0.5rem;  
             transition: background-color 0.2s;
-            border: 2px solid #90CDF4; 
+            border: 2px solid #90CDF4;  
         }
         #modalBackdrop .modal-select-button:hover {
-            background-color: #4299E1; 
+            background-color: #4299E1;  
         }
         #modalBackdrop .modal-close-button {
             position: absolute;
-            top: 0.75rem; 
-            right: 0.75rem; 
-            color: #CBD5E0; 
+            top: 0.75rem;  
+            right: 0.75rem;  
+            color: #CBD5E0;  
         }
          #modalBackdrop .modal-close-button:hover {
             color: white;
         }
         .dropdown-item-disabled {
-            color: #718096 !important; 
+            color: #718096 !important;  
             cursor: not-allowed !important;
-            background-color: #2D3748 !important; 
+            background-color: #2D3748 !important;  
         }
         .dropdown-item-disabled:hover {
-            background-color: #2D3748 !important; 
+            background-color: #2D3748 !important;  
         }
         .dropdown-item-active {
             /* Standard hover:bg-purple-400 is fine */
         }
          .dropdown-item-completed {
-            color: #a0aec0; 
-            background-color: #4A5568; 
+            color: #a0aec0;  
+            background-color: #4A5568;  
             cursor: default;
         }
         .dropdown-item-completed:hover {
@@ -182,21 +182,24 @@
     </style>
     <script>
         // --- Game State Variables ---
-        let companyHealthPercentage = 50; 
-        let marketDominationPercentage = 50; 
-        let customerSatisfactionPercentage = 50; 
+        let companyHealthPercentage = 50;  
+        let marketDominationPercentage = 50;  
+        let customerSatisfactionPercentage = 50;  
         let balancedBooksPercentage = 50;  
-        let employees = 0;          
-        let balance = 15000; 
-        let businessName = "Stellar Innovations"; 
+        let employees = 0;           
+        let balance = 15000;  
+        let businessName = "Stellar Innovations";  
         let businessType = "Web Development Services";  
-        let businessLocation = "Home-Based"; 
-        let icon = "💻"; 
+        let businessLocation = "Home-Based";  
+        let icon = "💻";  
 
         let currentYear = 1;
         let currentQuarter = 1;
         let actionPoints = 4;
-        let insuranceBonus = 0; 
+        let insuranceBonus = 0;  
+        let hasActiveInsurance = false;  
+        let hasActiveLawyer = false;  
+        let marketingCampaignSalesModifier = 0; // New: 0 for no effect, positive for bonus, negative for penalty
 
         const businessTypeToCategoryMapping = {
             "IoT Device Development": "1",
@@ -222,22 +225,22 @@
             "Artisan Bakery": "🥐",
             "Food Truck Business": "🚚",
             "Custom Tailored Clothing": "🧵",
-            "Online T-Shirt Printing": "👕", 
+            "Online T-Shirt Printing": "🖨️", // Corrected emoji
             "Spa and Massage Center": "💆",
             "Home Cleaning Service": "🧹",
             "Interior Design and Home Staging": "🛋️",
-            "Generic": "🏢" 
+            "Generic": "🏢"  
         };
 
-        const category1StageOrder = [ 
+        const category1StageOrder = [  
             "Research: Interview potential customers",
             "Design: Design your product",
             "Sourcing: Source potential manufacturers/suppliers",
             "Quality Control: Test prototypes/samples",
             "Launch: Launch your product"
         ];
-        let currentSoftwareDevelopmentStageIndex = 0; 
-        let productV1Launched = false; 
+        let currentSoftwareDevelopmentStageIndex = 0;  
+        let productV1Launched = false;  
 
         const category2StageOrder = [
             "Order Products",
@@ -245,23 +248,26 @@
             "Make a Sale",
             "Offer Discount"
         ];
-        let currentCategory2StageIndex = 0; 
+        let currentCategory2StageIndex = 0;  
 
 
         let quarterlySales = 0;
         let quarterlyIncomeFromActionsAndEvents = 0;
         let quarterlyExpensesFromActionsAndEvents = 0;
         let quarterlyServiceCosts = 0;
+        let quarterlyInsuranceMaintenance = 0;  
+        let quarterlyLawyerMaintenance = 0;  
         
         const RENT_HOME_BASED = 0;
         const RENT_PHYSICAL_STORE = 1000;
         const RENT_COMMERCIAL_SPACE = 2500;
 
-        const SALARY_PER_EMPLOYEE_PER_QUARTER = 5000; 
-        const SALES_PER_EMPLOYEE_PER_QUARTER = 7000; 
+        const SALARY_PER_EMPLOYEE_PER_QUARTER = 5000;  
+        const SALES_PER_EMPLOYEE_PER_QUARTER = 7000;  
         const LOAN_REPAYMENT_PER_QUARTER = 900;
+        const INSURANCE_MAINTENANCE_PER_QUARTER = 200;  
+        const LAWYER_MAINTENANCE_PER_QUARTER = 2000;  
 
-        // NEW: Max employee constants
         const MAX_EMPLOYEES_HOME_BASED = 3;
         const MAX_EMPLOYEES_PHYSICAL_STORE = 7;
         const MAX_EMPLOYEES_COMMERCIAL_SPACE = 15;
@@ -269,48 +275,48 @@
         // --- Action Definitions ---
         if (typeof window.businessTypeActions === 'undefined') {
             window.businessTypeActions = {
-                "1": { 
-                    "Research: Interview potential customers": { 
-                        label: "Research Customers", 
-                        actionKey: "Research: Interview potential customers", 
-                        title: "Step 1: Research", 
-                        description: "Interview potential customers to identify desirable product features.", 
-                        financialCost: 100, apCost: 1, successChance: 70, 
+                "1": {  
+                    "Research: Interview potential customers": {  
+                        label: "Research Customers",  
+                        actionKey: "Research: Interview potential customers",  
+                        title: "Step 1: Research",  
+                        description: "Interview potential customers to identify desirable product features.",  
+                        financialCost: 100, apCost: 1, successChance: 70,  
                         isSequential: true,
                         effects: {
                             success: { message: "Research successful: Gathered valuable customer insights!", csChange: 5 },
                             failure: { message: "Research failed: No useful information gathered." }
                         }
                     },
-                    "Design: Design your product": { 
-                        label: "Design Product", 
-                        actionKey: "Design: Design your product", 
-                        title: "Step 2: Design", 
-                        description: "It’s time to use what you learned during the research phase. Design your product.", 
-                        financialCost: 500, apCost: 1, successChance: 70, 
+                    "Design: Design your product": {  
+                        label: "Design Product",  
+                        actionKey: "Design: Design your product",  
+                        title: "Step 2: Design",  
+                        description: "It’s time to use what you learned during the research phase. Design your product.",  
+                        financialCost: 500, apCost: 1, successChance: 70,  
                         isSequential: true,
                         effects: {
                             success: { message: "Design successful: Product design looks great!", mdChange: 5 },
                             failure: { message: "Design failed: Design has flaws, back to the drawing board.", csChange: -5 }
                         }
                     },
-                    "Sourcing: Source potential manufacturers/suppliers": { 
-                        label: "Source Suppliers/Mfg.", 
-                        actionKey: "Sourcing: Source potential manufacturers/suppliers", 
-                        title: "Step 3: Sourcing", 
-                        description: "Find and vet potential manufacturers or suppliers for your product components or materials.", 
-                        financialCost: 2000, apCost: 1, successChance: 80, 
+                    "Sourcing: Source potential manufacturers/suppliers": {  
+                        label: "Source Suppliers/Mfg.",  
+                        actionKey: "Sourcing: Source potential manufacturers/suppliers",  
+                        title: "Step 3: Sourcing",  
+                        description: "Find and vet potential manufacturers or suppliers for your product components or materials.",  
+                        financialCost: 2000, apCost: 1, successChance: 80,  
                         isSequential: true,
                         effects: {
-                            success: { message: "Sourcing successful: Contracts signed!", healthChange: 5 }, 
+                            success: { message: "Sourcing successful: Contracts signed!", healthChange: 5 },  
                             failure: { message: "Sourcing failed: No suitable suppliers/manufacturers found."}
-                        } 
+                        }  
                     },
-                    "Quality Control: Test prototypes/samples": { 
-                        label: "Test Prototypes/Samples", 
-                        actionKey: "Quality Control: Test prototypes/samples", 
-                        title: "Step 4: Quality Control", 
-                        description: "Test prototypes or initial production samples to ensure they meet your quality standards and specifications.", 
+                    "Quality Control: Test prototypes/samples": {  
+                        label: "Test Prototypes/Samples",  
+                        actionKey: "Quality Control: Test prototypes/samples",  
+                        title: "Step 4: Quality Control",  
+                        description: "Test prototypes or initial production samples to ensure they meet your quality standards and specifications.",  
                         financialCost: 500, apCost: 1, successChance: 70,
                         isSequential: true,
                         effects: {
@@ -318,53 +324,53 @@
                             failure: { message: "Quality Control failed: Samples have issues!", healthChange: -10, csChange: -10 }
                         }
                     },
-                    "Launch: Launch your product": { 
-                        label: "Launch Product", 
-                        actionKey: "Launch: Launch your product", 
-                        title: "Step 5: Launch", 
-                        description: "All your hard work has paid off! Launch your product.", 
-                        financialCost: 2000, apCost: 1, successChance: 80, 
+                    "Launch: Launch your product": {  
+                        label: "Launch Product",  
+                        actionKey: "Launch: Launch your product",  
+                        title: "Step 5: Launch",  
+                        description: "All your hard work has paid off! Launch your product.",  
+                        financialCost: 2000, apCost: 1, successChance: 80,  
                         isSequential: true,
                         effects: {
                             success: { message: "Product Launch successful! Customers love it! +$15,000 initial sales!", mdChange: 25, csChange: 20, balanceGain: 15000 },
                             failure: { message: "Product Launch failed! Major issues reported.", mdChange: -10, csChange: -25, healthChange: -15 }
                         }
                     },
-                    "Announce new product/version": { 
-                        label: "Announce Product vNext", 
-                        actionKey: "Announce new product/version", 
-                        title: "Product Update: Announce Next Version", 
-                        description: "Generate buzz for the next iteration or a new product line based on your initial success.", 
-                        financialCost: 100, apCost: 1, successChance: null, 
-                        requiresV1Launch: true, 
-                        effects: { 
+                    "Announce new product/version": {  
+                        label: "Announce Product vNext",  
+                        actionKey: "Announce new product/version",  
+                        title: "Product Update: Announce Next Version",  
+                        description: "Generate buzz for the next iteration or a new product line based on your initial success.",  
+                        financialCost: 100, apCost: 1, successChance: null,  
+                        requiresV1Launch: true,  
+                        effects: {  
                             success: { message: "New product/version announced. Public is excited!", csChange: 8, mdChange: 3 },
                             failure: { message: "New product/version announcement met with skepticism.", csChange: -4 }
                         }
                     },
-                    "Post on social media (Product Dev Focus)": { 
-                        label: "Post Dev/Design Update", 
-                        actionKey: "Post on social media (Product Dev Focus)", 
-                        title: "Dev/Design Update: Social Media", 
-                        description: "Update your followers on your product development or design progress.", 
+                    "Post on social media (Product Dev Focus)": {  
+                        label: "Post Dev/Design Update",  
+                        actionKey: "Post on social media (Product Dev Focus)",  
+                        title: "Dev/Design Update: Social Media",  
+                        description: "Update your followers on your product development or design progress.",  
                         financialCost: 100, apCost: 1, successChance: 60,
-                        isAlwaysAvailable: true, 
+                        isAlwaysAvailable: true,  
                         effects: {
                             success: { message: "Dev/Design Update (Social Media): Positive engagement!", csChange: 4, mdChange: 3 },
                             failure: { message: "Dev/Design Update (Social Media): Low interest.", csChange: -2 }
                         }
                     }
                 },
-                "2": { 
+                "2": {  
                     "Order Products": {
                         label: "Order Products",
                         actionKey: "Order Products",
-                        title: "Step 1: Order Products", 
+                        title: "Step 1: Order Products",  
                         description: "Restock? Supplies are looking a little low… This will boost sales long into next quarter!",
                         financialCost: 800,
-                        apCost: 1, 
-                        successChance: null, 
-                        isSequential: true, 
+                        apCost: 1,  
+                        successChance: null,  
+                        isSequential: true,  
                         effects: {
                             success: { message: "Success! New supplies are added. This should help future sales. MD +2.", mdChange: 2 }
                         }
@@ -372,12 +378,12 @@
                     "Perform Maintenance": {
                         label: "Perform Maintenance",
                         actionKey: "Perform Maintenance",
-                        title: "Step 2: Maintenance", 
+                        title: "Step 2: Maintenance",  
                         description: "Hire a cleaning service and spruce things up a bit?",
                         financialCost: 100,
                         apCost: 1,
-                        successChance: null, 
-                        isSequential: true, 
+                        successChance: null,  
+                        isSequential: true,  
                         effects: {
                             success: { message: "Maintenance complete. Yeah, good idea, the floors were getting a bit sticky! Place looks fresh. CS +2.", csChange: 2 }
                         }
@@ -385,12 +391,13 @@
                     "Make a Sale": {
                         label: "Make a Sale",
                         actionKey: "Make a Sale",
-                        title: "Step 3: Make a Sale", 
+                        title: "Step 3: Make a Sale",  
                         description: "Gather point-of-sale revenue.",
                         financialCost: 0,
                         apCost: 1,
                         successChance: 80,
-                        isSequential: true, 
+                        isSequential: true,  
+                        requiresV1Launch: true, // New property for this action
                         effects: {
                             success: { message: "Congrats on the new revenue! +$500", balanceGain: 500 },
                             failure: { message: "The sale attempt was unsuccessful this time." }
@@ -399,31 +406,31 @@
                     "Offer Discount": {
                         label: "Offer Discount",
                         actionKey: "Offer Discount",
-                        title: "Step 4: Offer Discount", 
+                        title: "Step 4: Offer Discount",  
                         description: "Put a coupon in the local paper to drive traffic.",
                         financialCost: 500,
                         apCost: 1,
                         successChance: 50,
-                        isSequential: true, 
+                        isSequential: true,  
                         effects: {
                             success: { message: "The line is out the door! People love a good discount. Who knew! MD +5, CS +3.", mdChange: 5, csChange: 3 },
                             failure: { message: "Your coupon had the wrong address. You should be more careful next time. CS -2.", csChange: -2 }
                         }
                     },
-                    "Redesign Store": { 
+                    "Redesign Store": {  
                         label: "Redesign Store",
                         actionKey: "Redesign Store",
                         title: "Operations: Redesign Store",
                         description: "Update the store’s vibe. This will attract more customers.",
                         financialCost: 2000,
-                        apCost: 2, 
-                        successChance: null, 
-                        isAlwaysAvailable: true, 
+                        apCost: 2,  
+                        successChance: null,  
+                        isAlwaysAvailable: true,  
                         effects: {
                             success: { message: "Redesign complete! Your friends told you this paint color was too much. They were so wrong! The place looks great. MD +7, CS +4.", mdChange: 7, csChange: 4 }
                         }
                     },
-                    "Customer Follow-up": { 
+                    "Customer Follow-up": {  
                         label: "Customer Follow-up",
                         actionKey: "Customer Follow-up",
                         title: "Customer Service: Follow-up",
@@ -431,13 +438,13 @@
                         financialCost: 50,
                         apCost: 1,
                         successChance: 60,
-                        isAlwaysAvailable: true, 
+                        isAlwaysAvailable: true,  
                         effects: {
                             success: { message: "You don’t exist without your customers. Smart going to reach out to them and find out what else they need. CS +5.", csChange: 5 },
                             failure: { message: "Couldn't reach many clients, or the feedback was neutral. No significant change." }
                         }
                     },
-                    "Post Design/Service Update (Cat2)": { 
+                    "Post Design/Service Update (Cat2)": {  
                         label: "Post Design/Service Update",
                         actionKey: "Post Design/Service Update (Cat2)",
                         title: "Social Media: Design/Service Update",
@@ -445,7 +452,7 @@
                         financialCost: 100,
                         apCost: 1,
                         successChance: 50,
-                        isAlwaysAvailable: true, 
+                        isAlwaysAvailable: true,  
                         effects: {
                             success: { message: "You took a few pictures and posted them. People seem to be very engaged! MD +3, CS +2.", mdChange: 3, csChange: 2 },
                             failure: { message: "Your social media post didn't get much engagement this time." }
@@ -456,65 +463,105 @@
         }
         if (typeof window.commonActions === 'undefined') {
             window.commonActions = {
-                "Local Outreach": { 
-                    label: "Local Outreach", 
-                    actionKey: "Local Outreach", 
-                    title: "Local Outreach", 
-                    description: "Print out 200 \"Now Hiring\" posters and hang them around town. Hopefully someone will see them!", 
-                    financialCost: 50, apCost: 1, successChance: 35, 
-                    effects: { 
+                "Local Outreach": {  
+                    label: "Local Outreach",  
+                    actionKey: "Local Outreach",  
+                    title: "Local Outreach",  
+                    description: "Print out 200 \"Now Hiring\" posters and hang them around town. Hopefully someone will see them!",  
+                    financialCost: 50, apCost: 1, successChance: 35,  
+                    effects: {  
                         success: { message: "Posters attracted some attention! Hired 1 new employee.", employeeGain: 1 },
                         failure: { message: "The posters didn't attract any suitable candidates." }
                     }
-                }, 
-                "Online Websites": { 
-                    label: "Online Websites", 
-                    actionKey: "Online Websites", 
-                    title: "Hiring Website", 
-                    description: "Post a job description on the popular website JobSloth.net.", 
-                    financialCost: 200, apCost: 1, successChance: 50, 
-                    effects: { 
+                },  
+                "Online Websites": {  
+                    label: "Online Websites",  
+                    actionKey: "Online Websites",  
+                    title: "Hiring Website",  
+                    description: "Post a job description on the popular website JobSloth.net.",  
+                    financialCost: 200, apCost: 1, successChance: 50,  
+                    effects: {  
                         success: { message: "JobSloth.net ad was a success! Hired 1 new employee.", employeeGain: 1 },
                         failure: { message: "The JobSloth.net ad yielded no suitable candidates."}
                     }
-                }, 
-                "Recruiter": { 
-                    label: "Recruiter", 
-                    actionKey: "Recruiter", 
-                    title: "Hire a Recruiter", 
-                    description: "Hire a recruiter. They have a good feeling about finding the right person.", 
-                    financialCost: 500, apCost: 1, successChance: 90, 
-                    effects: { 
+                },  
+                "Recruiter": {  
+                    label: "Recruiter",  
+                    actionKey: "Recruiter",  
+                    title: "Hire a Recruiter",  
+                    description: "Hire a recruiter. They have a good feeling about finding the right person.",  
+                    financialCost: 500, apCost: 1, successChance: 90,  
+                    effects: {  
                         success: { message: "The recruiter found great talent! Hired 1 new employee.", employeeGain: 1 },
                         failure: { message: "The recruiter couldn't find anyone suitable this time."}
                     }
-                }, 
+                },  
                 "Fire a Person": { label: "Fire a Person", actionKey: "Fire a Person", title: "HR: Fire Employee", description: "Terminate an employee's contract.", financialCost: 1000, apCost: 1, successChance: null, effects: { success: { message: "Fired an employee. Severance: -$1000. CS -5.", employeeGain: -1, csChange: -5 }}},
-                "Hire a Lawyer": { label: "Hire a Lawyer", actionKey: "Hire a Lawyer", title: "Services: Hire Lawyer", description: "Engage legal services for your company.", financialCost: 3000, apCost: 1, successChance: null, effects: { success: { message: "Hired a Lawyer. Legal Papers +20.", lpChange: 20 }}}, 
-                "Purchase Business Insurance": { 
-                    label: "Purchase Business Insurance", 
-                    actionKey: "Purchase Business Insurance", 
-                    title: "Services: Get Insurance", 
-                    description: "Secure insurance coverage for your business. This provides a permanent boost to your company's resilience.", 
-                    financialCost: 4000, apCost: 1, successChance: null, 
-                    effects: { 
-                        success: { 
-                            message: "Purchased Business Insurance! Company resilience permanently improved.", 
-                            applyInsuranceBonus: true 
+                "Hire a Lawyer": {  
+                    label: "Hire a Lawyer",  
+                    actionKey: "Hire a Lawyer",  
+                    title: "Services: Hire Lawyer",  
+                    description: "Engage legal services for your company. This involves an upfront cost and a recurring quarterly retainer.",  
+                    financialCost: 2000,  
+                    apCost: 1,  
+                    successChance: null,  
+                    effects: {  
+                        success: {  
+                            message: "Hired a Lawyer for $2000. Legal retainer is $2000/quarter. Legal Papers +20.",  
+                            lpChange: 20,
+                            activateRecurringLawyer: true  
                         }
                     }
-                }, 
-                "Marketing Campaign": { label: "Marketing Campaign", actionKey: "Marketing Campaign", title: "Services: Marketing Campaign", description: "Launch a new marketing campaign to boost visibility.", financialCost: 6000, apCost: 1, successChance: null, effects: { success: { message: "Launched Marketing Campaign. MD +15, CS +5.", mdChange: 15, csChange: 5 }}} 
+                },  
+                "Purchase Business Insurance": {  
+                    label: "Purchase Business Insurance",  
+                    actionKey: "Purchase Business Insurance",  
+                    title: "Services: Get Insurance",  
+                    description: "Secure insurance coverage for your business. This provides a permanent boost to your company's resilience and involves a recurring quarterly fee.",  
+                    financialCost: 1000,  
+                    apCost: 1,  
+                    successChance: null,  
+                    effects: {  
+                        success: {  
+                            message: "Business Insurance purchased for $1000! You now have an active policy. A quarterly maintenance fee of $200 will now apply. Company resilience improved.",  
+                            applyInsuranceBonus: true,
+                            activateRecurringInsurance: true  
+                        }
+                    }
+                },  
+                "Marketing Campaign": {  
+                    label: "Marketing Campaign",  
+                    actionKey: "Marketing Campaign",  
+                    title: "Services: Marketing Campaign",  
+                    description: "Launch a new marketing campaign to boost visibility.",  
+                    financialCost: 500,  
+                    apCost: 1,  
+                    successChance: 80,  
+                    effects: {  
+                        success: { 
+                            message: "The marketers really know what they are doing… which makes it look like you know what you’re doing! You should see a boost in sales! (Market Domination +15, Customer Satisfaction +5)", 
+                            mdChange: 15, 
+                            csChange: 5,
+                            saleBonusPercentage: 0.10 // New: 10% bonus on employee sales
+                        },  
+                        failure: { 
+                            message: "Marketing campaign failed to generate significant buzz. (Market Domination -2, Customer Satisfaction -2)", 
+                            mdChange: -2, 
+                            csChange: -2,
+                            salePenaltyPercentage: 0.05 // New: 5% penalty on employee sales
+                        }  
+                    }
+                }  
             };
         }
         
         // Merge common actions into each CATEGORY's actions
         if (window.businessTypeActions && window.commonActions) {
-            for (const categoryKey in window.businessTypeActions) { 
+            for (const categoryKey in window.businessTypeActions) {  
                 if (Object.hasOwnProperty.call(window.businessTypeActions, categoryKey)) {
                     window.businessTypeActions[categoryKey] = {
                         ...window.businessTypeActions[categoryKey],
-                        ...window.commonActions 
+                        ...window.commonActions  
                     };
                 }
             }
@@ -548,7 +595,7 @@
             </div>
             <div class="bg-slate-800 p-3 md:p-4 rounded-lg shadow">
                 <div class="text-sm md:text-base font-semibold text-white mb-2 md:mb-3">Company Stats</div>
-                <div class="space-y-3 md:space-y-4"> 
+                <div class="space-y-3 md:space-y-4">  
                     <div class="text-xs md:text-sm">
                         <span class="text-gray-300 block mb-1">Company Health</span>
                         <div class="bg-gray-700 rounded-full h-2.5 md:h-3 w-full overflow-hidden">
@@ -556,7 +603,7 @@
                         </div>
                     </div>
                     <div class="text-xs md:text-sm">
-                        <span class="text-gray-300 block mb-1">Market Domination</span>
+                        <span class="text-gray-300 block mb-1" id="businessGoalDisplay"></span>
                         <div class="bg-gray-700 rounded-full h-2.5 md:h-3 w-full overflow-hidden">
                             <div id="marketDominationBar" class="bg-indigo-500 h-full rounded-full transition-all duration-500 ease-out" style="width: 50%"></div>
                         </div>
@@ -583,12 +630,12 @@
         </main>
 
         <aside class="bg-amber-600/80 backdrop-blur-sm fixed bottom-4 right-4 p-3 md:p-4 h-auto max-h-[33vh] w-full sm:w-1/3 md:w-1/4 lg:w-1/5 z-20 rounded-lg shadow-xl flex flex-col overflow-hidden" id="activityLogContainer">
-            <div class="text-base md:text-lg font-semibold mb-2 text-white bg-amber-700 p-2 rounded-md">Activity Log</div> 
+            <div class="text-base md:text-lg font-semibold mb-2 text-white bg-amber-700 p-2 rounded-md">Activity Log</div>  
             <div id="activity-log" class="space-y-2 flex-grow overflow-y-auto"></div>
         </aside>
 
         <button onclick="window.toggleSettingsModal()" title="Game Settings" class="fixed bottom-4 left-4 bg-slate-700 hover:bg-slate-600 text-white p-3 rounded-full shadow-lg z-30 transition-colors duration-150">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.646.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 1.905c-.007.379.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.333.183-.582.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.759 6.759 0 010-1.905c.007-.379-.137-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
@@ -598,13 +645,13 @@
             <div class="relative">
                 <button onclick="window.toggleActions()" class="bg-purple-700 hover:bg-purple-600 text-white py-2.5 md:py-3 px-3 md:px-4 rounded-lg w-auto flex items-center justify-between shadow-lg transition-colors duration-150">
                     <div class="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 md:w-6 md:h-6 mr-2">
+                        <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 md:w-6 md:h-6 mr-2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                         </svg>
                         <span class="text-sm md:text-base">Actions</span>
                     </div>
                     <div class="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2 transform transition-transform duration-300" id="actionsChevron">
+                        <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2 transform transition-transform duration-300" id="actionsChevron">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                         </svg>
                         <span id="actionPointsDisplay" class="font-semibold bg-purple-900 px-2 py-0.5 rounded-md text-xs md:text-sm"></span>
@@ -614,12 +661,12 @@
                     <div id="dropdown-1" class="relative border-b border-purple-500">
                         <button onclick="window.openDropDown(1)" class="py-2 md:py-2.5 px-3 md:px-4 w-full flex items-center justify-between hover:bg-purple-500 transition-colors duration-150 text-sm md:text-base">
                             <div class="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5 mr-2">
+                                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5 mr-2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0l2-2m-2 2l-2-2" />
                                 </svg>
                                 Operations
                             </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-2 transform transition-transform duration-300" data-chevron-id="1">
+                            <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-2 transform transition-transform duration-300" data-chevron-id="1">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                             </svg>
                         </button>
@@ -628,12 +675,12 @@
                     <div id="dropdown-2" class="relative border-b border-purple-500">
                         <button onclick="window.openDropDown(2)" class="py-2 md:py-2.5 px-3 md:px-4 w-full flex items-center justify-between hover:bg-purple-500 transition-colors duration-150 text-sm md:text-base">
                             <div class="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5 mr-2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-3h-.75a2.25 2.25 0 00-2.25 2.25v1.5m0 0v1.5a2.25 2.25 0 002.25 2.25h.75m-2.25-3h-.75a2.25 2.25 0 00-2.25 2.25v1.5m0 0v1.5a2.25 2.25 0 002.25 2.25h.75m-6 3.75a2.25 2.25 0 012.25-2.25h1.5a2.25 0 012.25 2.25v1.5a2.25 0 01-2.25 2.25h-1.5a2.25 0 01-2.25-2.25v-1.5z" />
+                                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5 mr-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-3h-.75a2.25 2.25 0 00-2.25 2.25v1.5m0 0v1.5a2.25 0 002.25 2.25h.75m-2.25-3h-.75a2.25 2.25 0 00-2.25 2.25v1.5m0 0v1.5a2.25 0 002.25 2.25h.75m-6 3.75a2.25 2.25 0 012.25-2.25h1.5a2.25 0 012.25 2.25v1.5a2.25 0 01-2.25 2.25h-1.5a2.25 0 01-2.25-2.25v-1.5z" />
                                 </svg>
                                 Hiring
                             </div>
-                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-2 transform transition-transform duration-300" data-chevron-id="2">
+                           <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-2 transform transition-transform duration-300" data-chevron-id="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                             </svg>
                         </button>
@@ -647,19 +694,19 @@
                     <div id="dropdown-3" class="relative">
                         <button onclick="window.openDropDown(3)" class="py-2 md:py-2.5 px-3 md:px-4 w-full flex items-center justify-between hover:bg-purple-500 transition-colors duration-150 text-sm md:text-base">
                             <div class="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5 mr-2">
+                                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5 mr-2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a3 3 0 00-3-3H7.5a3 3 0 00-3 3v10.5a3 3 0 003 3h9a3 3 0 003-3V10.5M9 11.25h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v-.75a.75.75 0 01.75-.75zM13.5 11.25h.75a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75H13.5a.75.75 0 01-.75-.75v-.75a.75.75 0 01.75-.75z" />
                                 </svg>
                                 Services
                             </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-2 transform transition-transform duration-300" data-chevron-id="3">
+                            <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-2 transform transition-transform duration-300" data-chevron-id="3">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                             </svg>
                         </button>
                         <div id="dropdownMenu3" class="hidden bg-purple-500 text-white scrollable-dropdown">
-                            <div onclick="window.openModal('Hire a Lawyer')" class="block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base">Hire a Lawyer</div>
-                            <div onclick="window.openModal('Purchase Business Insurance')" class="block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base">Purchase Business Insurance</div>
-                            <div onclick="window.openModal('Marketing Campaign')" class="block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base">Marketing Campaign</div>
+                            <div data-action-key="Hire a Lawyer" onclick="window.openModal('Hire a Lawyer')" class="block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base">Hire a Lawyer</div>
+                            <div data-action-key="Purchase Business Insurance" onclick="window.openModal('Purchase Business Insurance')" class="block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base">Purchase Business Insurance</div>
+                            <div data-action-key="Marketing Campaign" onclick="window.openModal('Marketing Campaign')" class="block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base">Marketing Campaign</div>
                         </div>
                     </div>
                 </div>
@@ -670,7 +717,7 @@
             <div class="bg-slate-900 rounded-lg shadow-xl w-full max-w-md relative overflow-hidden modal-content-area">
                 <div id="modalActionTitle" class="modal-title">Action Title</div>
                 <button onclick="window.closeModal(false)" class="modal-close-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                    <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
@@ -716,6 +763,8 @@
                         <div class="flex justify-between border-b border-slate-700 py-1"><span>Services</span><span id="qEndServiceCosts">$0</span></div>
                         <div class="flex justify-between border-b border-slate-700 py-1"><span>Rent</span><span id="qEndRent">-$0</span></div>
                         <div class="flex justify-between border-b border-slate-700 py-1"><span>Employee Wages</span><span id="qEndWages">$0</span></div>
+                        <div class="flex justify-between border-b border-slate-700 py-1"><span>Legal Retainer Fee</span><span id="qEndLawyerFees">-$0</span></div>
+                        <div class="flex justify-between border-b border-slate-700 py-1"><span>Insurance Maintenance</span><span id="qEndInsurance">-$0</span></div>  
                         <div class="flex justify-between border-b border-slate-700 py-1"><span>Actions & Events Cost</span><span id="qEndActionExpenses">-$3,100</span></div>
                         <div class="flex justify-between py-1"><span>Loan Repayment</span><span id="qEndLoanRepayment">-$900</span></div>
                     </div>
@@ -743,7 +792,7 @@
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-xl md:text-2xl font-semibold text-sky-400">Game Settings</h2>
                     <button onclick="window.toggleSettingsModal()" class="text-gray-400 hover:text-white transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                        <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
@@ -788,28 +837,28 @@
     </div>
 <script>
     // --- DOM Elements (constants, defined once DOM is ready) ---
-    let companyHealthBar, marketDominationBar, customerSatisfactionBar, balancedBooksBar, 
-        employeeCountDisplay, accountBalanceDisplay, businessIconDisplay, businessNameDisplay, 
-        businessTypeDisplay, yearQuarterDisplay, actionPointsDisplay, actionsDropdown, 
-        actionsChevron, modalBackdrop, modalActionTitle, modalActionDescription, 
+    let companyHealthBar, marketDominationBar, customerSatisfactionBar, balancedBooksBar,  
+        employeeCountDisplay, accountBalanceDisplay, businessIconDisplay, businessNameDisplay,  
+        businessTypeDisplay,businessGoalDisplay, yearQuarterDisplay, actionPointsDisplay, actionsDropdown,  
+        actionsChevron, modalBackdrop, modalActionTitle, modalActionDescription,  
         modalActionCost, modalActionSuccessChance, randomModal, randomModalTitle, randomEventMessage, randomEventChoices, randomEventConfirmButton,
-        randomModalContent, quarterEndModal, qEndTitle, qEndSales, qEndActionIncome, 
-        qEndServiceCosts, qEndRent, qEndWages, qEndActionExpenses, qEndLoanRepayment, 
-        qEndNetProfit, qEndCurrentBalance, settingsModal, confirmNewGameModal, 
-        actionOutcomeModal, actionOutcomeTitle, actionOutcomeMessage, 
-        activityLog, mainElement, loadingScreen, contentWrapper, businessLocationDisplayElement; 
+        randomModalContent, quarterEndModal, qEndTitle, qEndSales, qEndActionIncome,  
+        qEndServiceCosts, qEndRent, qEndWages, qEndInsurance, qEndLawyerFees, qEndActionExpenses, qEndLoanRepayment,  
+        qEndNetProfit, qEndCurrentBalance, settingsModal, confirmNewGameModal,  
+        actionOutcomeModal, actionOutcomeTitle, actionOutcomeMessage,  
+        activityLog, mainElement, loadingScreen, contentWrapper, businessLocationDisplayElement;  
 
     function initializeDOMElements() {
         companyHealthBar = document.getElementById("companyHealthBar");
         marketDominationBar = document.getElementById("marketDominationBar");
         customerSatisfactionBar = document.getElementById("customerSatisfactionBar");
-        balancedBooksBar = document.getElementById("balancedBooksBar"); 
+        balancedBooksBar = document.getElementById("balancedBooksBar");  
         employeeCountDisplay = document.getElementById("employeeCount");
         accountBalanceDisplay = document.getElementById("accountBalance");
         businessIconDisplay = document.getElementById("businessIconDisplay");
         businessNameDisplay = document.getElementById("businessNameDisplay");
+        businessGoalDisplay = document.getElementById("businessGoalDisplay");
         businessTypeDisplay = document.getElementById("businessTypeDisplay");
-        // businessLocationDisplayElement = document.getElementById("businessLocationDisplay"); // If you add this element to HTML
         yearQuarterDisplay = document.getElementById("yearQuarterDisplay");
         actionPointsDisplay = document.getElementById("actionPointsDisplay");
         actionsDropdown = document.getElementById("actionsDropdown");
@@ -820,10 +869,10 @@
         modalActionCost = document.getElementById('modalActionCost');
         modalActionSuccessChance = document.getElementById('modalActionSuccessChance');
         randomModal = document.getElementById('randomModal');
-        randomModalTitle = document.getElementById('randomEventTitle'); 
-        randomEventMessage = document.getElementById('randomEventMessage'); 
-        randomEventChoices = document.getElementById('randomEventChoices'); 
-        randomEventConfirmButton = document.getElementById('randomEventConfirmButton'); 
+        randomModalTitle = document.getElementById('randomEventTitle');  
+        randomEventMessage = document.getElementById('randomEventMessage');  
+        randomEventChoices = document.getElementById('randomEventChoices');  
+        randomEventConfirmButton = document.getElementById('randomEventConfirmButton');  
         quarterEndModal = document.getElementById('quarterEndModal');
         qEndTitle = document.getElementById('quarterEndTitle');
         qEndSales = document.getElementById('qEndSales');
@@ -831,47 +880,51 @@
         qEndServiceCosts = document.getElementById('qEndServiceCosts');
         qEndRent = document.getElementById('qEndRent');
         qEndWages = document.getElementById('qEndWages');
+        qEndInsurance = document.getElementById('qEndInsurance');
+        qEndLawyerFees = document.getElementById('qEndLawyerFees'); // NEW
         qEndActionExpenses = document.getElementById('qEndActionExpenses');
         qEndLoanRepayment = document.getElementById('qEndLoanRepayment');
         qEndNetProfit = document.getElementById('qEndNetProfit');
         qEndCurrentBalance = document.getElementById('qEndCurrentBalance');
-        settingsModal = document.getElementById('settingsModal'); 
-        confirmNewGameModal = document.getElementById('confirmNewGameModal'); 
+        settingsModal = document.getElementById('settingsModal');  
+        confirmNewGameModal = document.getElementById('confirmNewGameModal');  
         actionOutcomeModal = document.getElementById('actionOutcomeModal');
         actionOutcomeTitle = document.getElementById('actionOutcomeTitle');
         actionOutcomeMessage = document.getElementById('actionOutcomeMessage');
         activityLog = document.getElementById('activity-log');
         mainElement = document.querySelector('main');
-        loadingScreen = document.getElementById('loading-screen'); 
-        contentWrapper = document.querySelector('.content-wrapper'); 
+        loadingScreen = document.getElementById('loading-screen');  
+        contentWrapper = document.querySelector('.content-wrapper');  
     }
 
 
     // --- State Variables ---
     let actionsVisible = false;
     let openDropdownId = null;
-    let latestActionKey = ""; 
+    let latestActionKey = "";  
     let currentModalType = "";
-    let isSettingsModalVisible = false; 
-    let currentRandomEventEffect = null; 
-    let currentRandomEventIndex = -1; 
+    let isSettingsModalVisible = false;  
+    let currentRandomEventEffect = null;  
+    let currentRandomEventIndex = -1;  
 
 
     // --- Initial Setup ---
-    window.initializeUI = function() { 
-        if (!businessIconDisplay) initializeDOMElements(); 
+    window.initializeUI = function() {  
+        if (!businessIconDisplay) initializeDOMElements();  
 
         icon = businessTypeIcons[businessType] || businessTypeIcons["Generic"];
         businessIconDisplay.textContent = icon;
         businessNameDisplay.textContent = businessName;
         businessTypeDisplay.textContent = businessType;
-        // if (businessLocationDisplayElement) businessLocationDisplayElement.textContent = `Location: ${businessLocation}`;
+        businessGoalDisplay.textContent = businessGoal;
         
-        window.updateAllStatsDisplay(); 
-        window.populateDropdown(); 
-        window.resetQuarterlyFinances(); 
-        window.updateActionCategoriesVisibility(); 
-        window.updateHiringActionsState(); // Ensure hiring actions are correctly set on init
+        window.updateAllStatsDisplay();  
+        window.populateDropdown();  
+        window.resetQuarterlyFinances();  
+        window.updateActionCategoriesVisibility();  
+        window.updateHiringActionsState();  
+        window.updateInsuranceActionState();  
+        window.updateLawyerActionState();  
     }
 
 
@@ -880,6 +933,8 @@
         quarterlyIncomeFromActionsAndEvents = 0;
         quarterlyExpensesFromActionsAndEvents = 0;
         quarterlyServiceCosts = 0;
+        quarterlyInsuranceMaintenance = 0;  
+        quarterlyLawyerMaintenance = 0;  
     }
 
 
@@ -894,20 +949,20 @@
         const marketDominationWeight = 0.25;
         const customerSatisfactionWeight = 0.25;
 
-        const minHealthyBalance = 0; 
-        const targetHealthyBalance = 30000; 
+        const minHealthyBalance = 0;  
+        const targetHealthyBalance = 30000;  
         let balanceScore = ((balance - minHealthyBalance) / (targetHealthyBalance - minHealthyBalance)) * 100;
-        balanceScore = Math.max(0, Math.min(100, balanceScore)); 
+        balanceScore = Math.max(0, Math.min(100, balanceScore));  
 
         const healthFromBalance = balanceScore * balanceWeight;
         const healthFromMarket = marketDominationPercentage * marketDominationWeight;
         const healthFromCustomer = customerSatisfactionPercentage * customerSatisfactionWeight;
 
         let calculatedBaseHealth = healthFromBalance + healthFromMarket + healthFromCustomer;
-        return Math.max(0, Math.min(100, calculatedBaseHealth)); 
+        return Math.max(0, Math.min(100, calculatedBaseHealth));  
     }
 
-    window.updateCompanyHealth = function() { 
+    window.updateCompanyHealth = function() {  
         let baseHealth = window.calculateCompanyHealth();
         companyHealthPercentage = Math.max(0, Math.min(100, baseHealth + insuranceBonus));
         if(companyHealthBar) companyHealthBar.style.width = `${companyHealthPercentage}%`;
@@ -915,33 +970,37 @@
     window.updateMarketDomination = function(value) {
         marketDominationPercentage = Math.max(0, Math.min(100, value));
         if(marketDominationBar) marketDominationBar.style.width = `${marketDominationPercentage}%`;
-        window.updateCompanyHealth(); 
+        window.updateCompanyHealth();  
     }
     window.updateCustomerSatisfaction = function(value) {
         customerSatisfactionPercentage = Math.max(0, Math.min(100, value));
         if(customerSatisfactionBar) customerSatisfactionBar.style.width = `${customerSatisfactionPercentage}%`;
-        window.updateCompanyHealth(); 
+        window.updateCompanyHealth();  
     }
-    window.updateBalancedBooks = function(value) { 
+    window.updateBalancedBooks = function(value) {  
         balancedBooksPercentage = Math.max(0, Math.min(100, value));
         if(balancedBooksBar) balancedBooksBar.style.width = `${balancedBooksPercentage}%`;
     }
-    window.updateBalance = function(changeAmount, type = "other") { 
+    window.updateBalance = function(changeAmount, type = "other") {  
         balance += changeAmount;
         if(accountBalanceDisplay) accountBalanceDisplay.textContent = `$${balance.toLocaleString()}`;
-        window.updateCompanyHealth(); 
+        window.updateCompanyHealth();  
 
         if (changeAmount > 0) { // Income
             if (type === "sales") {
                 quarterlySales += changeAmount;
             } else if (type === "actionIncome" || type === "otherIncome") {
-                 quarterlyIncomeFromActionsAndEvents += changeAmount;
+                   quarterlyIncomeFromActionsAndEvents += changeAmount;
             }
         } else if (changeAmount < 0) { // Expense
-            if (type === "actionExpense" || type === "otherExpense" || type === "cost") { 
-                quarterlyExpensesFromActionsAndEvents += Math.abs(changeAmount); 
-            } else if (type === "serviceCost") { 
+            if (type === "actionExpense" || type === "otherExpense" || type === "cost") {  
+                quarterlyExpensesFromActionsAndEvents += Math.abs(changeAmount);  
+            } else if (type === "serviceCost") {  
                 quarterlyServiceCosts += Math.abs(changeAmount);
+            } else if (type === "insuranceMaintenance") {  
+                quarterlyInsuranceMaintenance += Math.abs(changeAmount);
+            } else if (type === "lawyerMaintenance") { // NEW
+                quarterlyLawyerMaintenance += Math.abs(changeAmount);
             }
         }
     }
@@ -949,8 +1008,8 @@
         employees += change;
         employees = Math.max(0, employees);
         if(employeeCountDisplay) employeeCountDisplay.textContent = employees;
-        window.updateFireButtonState(); 
-        window.updateHiringActionsState(); // Update hiring button states when employee count changes
+        window.updateFireButtonState();  
+        window.updateHiringActionsState();  
     }
     window.updateYearQuarterDisplay = function() {
         if(yearQuarterDisplay) yearQuarterDisplay.textContent = `Year ${currentYear}, Q${currentQuarter}`;
@@ -963,10 +1022,12 @@
         if(marketDominationBar) marketDominationBar.style.width = `${marketDominationPercentage}%`;
         if(customerSatisfactionBar) customerSatisfactionBar.style.width = `${customerSatisfactionPercentage}%`;
         if(balancedBooksBar) balancedBooksBar.style.width = `${balancedBooksPercentage}%`;
-        window.updateCompanyHealth(); 
+        window.updateCompanyHealth();  
         window.updateYearQuarterDisplay();
-        window.updateFireButtonState(); 
+        window.updateFireButtonState();  
         window.updateHiringActionsState();
+        window.updateInsuranceActionState();
+        window.updateLawyerActionState();
     }
 
      window.updateFireButtonState = function() {
@@ -975,7 +1036,7 @@
             if (employees === 0) {
                 fireButton.classList.add('dropdown-item-disabled');
                 fireButton.classList.remove('hover:bg-purple-400', 'cursor-pointer', 'dropdown-item-active');
-                fireButton.onclick = null; 
+                fireButton.onclick = null;  
             } else {
                 fireButton.classList.remove('dropdown-item-disabled');
                 fireButton.classList.add('hover:bg-purple-400', 'cursor-pointer', 'dropdown-item-active');
@@ -1000,11 +1061,10 @@
         hiringActionKeys.forEach(actionKey => {
             const actionDiv = hiringDropdownMenu.querySelector(`div[data-action-key="${actionKey}"]`);
             if (actionDiv) {
-                const actionDetails = window.commonActions[actionKey]; // Hiring actions are common
                 if (employees >= maxEmployeesForLocation) {
                     actionDiv.classList.add('dropdown-item-disabled');
                     actionDiv.classList.remove('hover:bg-purple-400', 'cursor-pointer', 'dropdown-item-active');
-                    actionDiv.onclick = null; 
+                    actionDiv.onclick = null;  
                 } else {
                     actionDiv.classList.remove('dropdown-item-disabled');
                     actionDiv.classList.add('hover:bg-purple-400', 'cursor-pointer', 'dropdown-item-active');
@@ -1045,16 +1105,20 @@
         openDropdownId = currentDropdownMenu.classList.contains('hidden') ? null : n;
          if (n === 2) { // Hiring dropdown
             window.updateFireButtonState();
-            window.updateHiringActionsState(); 
+            window.updateHiringActionsState();  
+        }
+        if (n === 3) { // Services dropdown
+            window.updateInsuranceActionState();
+            window.updateLawyerActionState();
         }
     }
 
     // --- Modal Logic ---
-    window.openModal = function(actionKey, type = 'action') { 
+    window.openModal = function(actionKey, type = 'action') {  
         latestActionKey = actionKey;
         currentModalType = type;
 
-        const currentCategoryKey = businessTypeToCategoryMapping[businessType] || "2"; 
+        const currentCategoryKey = businessTypeToCategoryMapping[businessType] || "2";  
         const actionDetails = window.businessTypeActions[currentCategoryKey]?.[actionKey] || window.commonActions[actionKey];
 
 
@@ -1072,32 +1136,32 @@
             
             modalBackdrop.classList.remove('hidden');
 
-        } else if (type === 'randomEvent') { 
+        } else if (type === 'randomEvent') {  
             // Handled by triggerRandomEvent
         }
         
         if (actionsVisible) {
-            window.toggleActions(); 
+            window.toggleActions();  
         }
     }
 
     window.closeModal = function(performAction) {
         modalBackdrop.classList.add('hidden');
         if (performAction && currentModalType === 'action') {
-            window.handleAction(latestActionKey); 
+            window.handleAction(latestActionKey);  
         }
-        latestActionKey = ""; 
+        latestActionKey = "";  
         currentModalType = "";
     }
     
     window.closeRandomModal = function() {
         if (currentRandomEventEffect) {
-            currentRandomEventEffect(); 
-            currentRandomEventEffect = null; 
+            currentRandomEventEffect();  
+            currentRandomEventEffect = null;  
         }
         randomModal.classList.add('hidden');
-        randomEventChoices.innerHTML = ''; 
-        randomEventConfirmButton.classList.remove('hidden'); 
+        randomEventChoices.innerHTML = '';  
+        randomEventConfirmButton.classList.remove('hidden');  
         window.updateAllStatsDisplay();
     }
 
@@ -1121,8 +1185,8 @@
 
         if (actionPoints === 0 && quarterEndModal.classList.contains('hidden')) {
             window.showQuarterEndModal();
-        } 
-        else if (actionPoints === 3 && ((currentYear > 1) || (currentYear === 1 && currentQuarter > 2)) && Math.random() < 0.25) { 
+        }  
+        else if (actionPoints === 3 && ((currentYear > 1) || (currentYear === 1 && currentQuarter > 2)) && Math.random() < 0.25) {  
             window.triggerRandomEvent();
         }
     }
@@ -1132,8 +1196,13 @@
         window.businessLog(`End of Q${currentQuarter}, Year ${currentYear}. Reviewing finances.`, "system");
         qEndTitle.textContent = `Year ${currentYear}, Q${currentQuarter} Finances`;
         
-        const employeeGeneratedSales = employees * SALES_PER_EMPLOYEE_PER_QUARTER;
-        window.updateBalance(employeeGeneratedSales, "sales"); 
+        // Apply marketing campaign sales modifier
+        let effectiveSalesPerEmployee = SALES_PER_EMPLOYEE_PER_QUARTER;
+        if (marketingCampaignSalesModifier !== 0) {
+            effectiveSalesPerEmployee = SALES_PER_EMPLOYEE_PER_QUARTER * (1 + marketingCampaignSalesModifier);
+        }
+        const employeeGeneratedSales = employees * effectiveSalesPerEmployee;
+        window.updateBalance(employeeGeneratedSales, "sales");  
 
         const currentQuarterSalaries = employees * SALARY_PER_EMPLOYEE_PER_QUARTER;
         
@@ -1149,13 +1218,29 @@
                 currentRentForQuarter = RENT_COMMERCIAL_SPACE;
                 break;
             default:
-                currentRentForQuarter = RENT_HOME_BASED; // Default to home-based if undefined
+                currentRentForQuarter = RENT_HOME_BASED;  
         }
 
-        if (!fixedExpensesAppliedForQuarter) { 
-            window.updateBalance(-currentQuarterSalaries, "salary"); 
+        let currentInsuranceMaintenanceCost = 0;
+        if (hasActiveInsurance) {
+            currentInsuranceMaintenanceCost = INSURANCE_MAINTENANCE_PER_QUARTER;
+        }
+        let currentLawyerRetainerCost = 0;
+        if (hasActiveLawyer) {
+            currentLawyerRetainerCost = LAWYER_MAINTENANCE_PER_QUARTER;
+        }
+
+
+        if (!fixedExpensesAppliedForQuarter) {  
+            window.updateBalance(-currentQuarterSalaries, "salary");  
             window.updateBalance(-currentRentForQuarter, "rent");  
-            window.updateBalance(-LOAN_REPAYMENT_PER_QUARTER, "loan"); 
+            window.updateBalance(-LOAN_REPAYMENT_PER_QUARTER, "loan");  
+            if (hasActiveInsurance) {
+                window.updateBalance(-INSURANCE_MAINTENANCE_PER_QUARTER, "insuranceMaintenance");
+            }
+            if (hasActiveLawyer) { // NEW
+                window.updateBalance(-LAWYER_MAINTENANCE_PER_QUARTER, "lawyerMaintenance");
+            }
             fixedExpensesAppliedForQuarter = true;
         }
 
@@ -1164,19 +1249,21 @@
         qEndServiceCosts.textContent = `-$${quarterlyServiceCosts.toLocaleString()}`;
         qEndRent.textContent = `-$${currentRentForQuarter.toLocaleString()}`;
         qEndWages.textContent = `-$${currentQuarterSalaries.toLocaleString()}`;
-        qEndActionExpenses.textContent = `-$${quarterlyExpensesFromActionsAndEvents.toLocaleString()}`; 
+        qEndInsurance.textContent = `-$${currentInsuranceMaintenanceCost.toLocaleString()}`;  
+        qEndLawyerFees.textContent = `-$${currentLawyerRetainerCost.toLocaleString()}`; // NEW
+        qEndActionExpenses.textContent = `-$${quarterlyExpensesFromActionsAndEvents.toLocaleString()}`;  
         qEndLoanRepayment.textContent = `-$${LOAN_REPAYMENT_PER_QUARTER.toLocaleString()}`;
 
         const totalIncome = quarterlySales + quarterlyIncomeFromActionsAndEvents;
-        const totalExplicitExpenses = quarterlyServiceCosts + currentRentForQuarter + currentQuarterSalaries + quarterlyExpensesFromActionsAndEvents + LOAN_REPAYMENT_PER_QUARTER;
+        const totalExplicitExpenses = quarterlyServiceCosts + currentRentForQuarter + currentQuarterSalaries + currentInsuranceMaintenanceCost + currentLawyerRetainerCost + quarterlyExpensesFromActionsAndEvents + LOAN_REPAYMENT_PER_QUARTER;
         const totalNetProfitThisQuarter = totalIncome - totalExplicitExpenses;
 
-        qEndNetProfit.textContent = `$${totalNetProfitThisQuarter.toLocaleString()}`; 
+        qEndNetProfit.textContent = `$${totalNetProfitThisQuarter.toLocaleString()}`;  
         qEndNetProfit.className = totalNetProfitThisQuarter >= 0 ? 'font-bold text-green-400' : 'font-bold text-red-400';
-        qEndCurrentBalance.textContent = `$${balance.toLocaleString()}`; 
+        qEndCurrentBalance.textContent = `$${balance.toLocaleString()}`;  
         quarterEndModal.classList.remove('hidden');
     }
-    let fixedExpensesAppliedForQuarter = false; 
+    let fixedExpensesAppliedForQuarter = false;  
 
     window.proceedToNextQuarter = function() {
         quarterEndModal.classList.add('hidden');
@@ -1193,53 +1280,56 @@
     }
 
     window.confirmNewGame = function() {
-        window.toggleSettingsModal(); 
-        confirmNewGameModal.classList.remove('hidden'); 
+        window.toggleSettingsModal();  
+        confirmNewGameModal.classList.remove('hidden');  
     }
 
     window.closeConfirmNewGameModal = function() {
         confirmNewGameModal.classList.add('hidden');
     }
     
-    window.handleStartNewWithoutSaving = function() { 
+    window.handleStartNewWithoutSaving = function() {  
         window.businessLog("Starting new game. Current progress will be lost.", "system");
         window.closeConfirmNewGameModal();
         
-        businessName = "Stellar Innovations"; 
-        businessType = "Web Development Services"; 
-        businessLocation = "Home-Based"; // Reset to default location
+        businessName = "Stellar Innovations";  
+        businessType = "Web Development Services";  
+        businessLocation = "Home-Based";  
         
-        companyHealthPercentage = 50; 
+        companyHealthPercentage = 50;  
         marketDominationPercentage = 50;
         customerSatisfactionPercentage = 50;
         balancedBooksPercentage = 50;
         employees = 0;
-        balance = 15000; 
+        balance = 15000;  
         currentYear = 1;
         currentQuarter = 1;
         actionPoints = 4;
         insuranceBonus = 0;
-        currentSoftwareDevelopmentStageIndex = 0; 
-        productV1Launched = false; 
-        currentCategory2StageIndex = 0; 
+        hasActiveInsurance = false;  
+        hasActiveLawyer = false;  
+        currentSoftwareDevelopmentStageIndex = 0;  
+        productV1Launched = false;  
+        currentCategory2StageIndex = 0;  
         fixedExpensesAppliedForQuarter = false;
-        if(activityLog) activityLog.innerHTML = ""; 
+        marketingCampaignSalesModifier = 0; // Reset on new game
+        if(activityLog) activityLog.innerHTML = "";  
 
-        window.initializeUI(); 
-        window.intro(); 
+        window.initializeUI();  
+        window.intro();  
     }
     
-    window.saveGame = function() { 
+    window.saveGame = function() {  
         window.businessLog("Save Game: Functionality not yet implemented.", "system");
     }
 
-    window.loadGame = async function() { 
+    window.loadGame = async function() {  
         window.businessLog("Attempting to load game data...", "system");
-        if(settingsModal && !settingsModal.classList.contains('hidden')) { 
-            window.toggleSettingsModal(); 
+        if(settingsModal && !settingsModal.classList.contains('hidden')) {  
+            window.toggleSettingsModal();  
         }
         
-        const loadSuccessful = await fetchUserData(); 
+        const loadSuccessful = await fetchUserData();  
 
         if (loadSuccessful) {
             window.businessLog("Game data loaded successfully.", "system");
@@ -1247,17 +1337,19 @@
             window.businessLog("Failed to load existing game data or no data found. Using default values.", "system");
             balance = 15000;
             companyHealthPercentage = 50;
-            businessLocation = "Home-Based"; // Ensure default if not loaded
+            businessLocation = "Home-Based";  
+            hasActiveInsurance = false;
+            hasActiveLawyer = false;
         }
-        window.initializeUI(); 
+        window.initializeUI();  
     };
 
 
     // --- Activity Log ---
     window.businessLog = function(actionText, type = "action") {
-        if (!activityLog) return; 
+        if (!activityLog) return;  
         const newEntry = document.createElement("div");
-        let bgColor = "bg-amber-400"; let textColor = "text-amber-900"; 
+        let bgColor = "bg-amber-400"; let textColor = "text-amber-900";  
         
         if (type === "bonus") {
             bgColor = "bg-green-400"; textColor = "text-green-900";
@@ -1265,18 +1357,18 @@
             bgColor = "bg-red-400"; textColor = "text-red-900";
         } else if (type === "system") {
             bgColor = "bg-gray-400"; textColor = "text-gray-900";
-        } else if (type === "event") { 
+        } else if (type === "event") {  
             bgColor = "bg-sky-400"; textColor = "text-sky-900";
         }
 
         newEntry.className = `${bgColor} ${textColor} p-2 md:p-3 rounded-md text-xs md:text-sm shadow`;
-        newEntry.textContent = actionText; 
+        newEntry.textContent = actionText;  
         activityLog.prepend(newEntry);
         if (activityLog.children.length > 10) activityLog.removeChild(activityLog.lastChild);
     }
 
     // --- Action Handling ---
-    window.handleAction = function(actionKey){ 
+    window.handleAction = function(actionKey){  
         const currentCategoryKey = businessTypeToCategoryMapping[businessType] || "2";
         const actionDetails = window.businessTypeActions[currentCategoryKey]?.[actionKey] || window.commonActions[actionKey];
 
@@ -1285,20 +1377,19 @@
             return;
         }
 
-        // Check for employee capacity before processing hiring actions
         if (actionDetails.effects && actionDetails.effects.success && actionDetails.effects.success.employeeGain && actionDetails.effects.success.employeeGain > 0) {
             let maxEmployeesForLocation = 0;
             switch(businessLocation) {
                 case "Home-Based": maxEmployeesForLocation = MAX_EMPLOYEES_HOME_BASED; break;
                 case "Physical Store": maxEmployeesForLocation = MAX_EMPLOYEES_PHYSICAL_STORE; break;
                 case "Commercial Space": maxEmployeesForLocation = MAX_EMPLOYEES_COMMERCIAL_SPACE; break;
-                default: maxEmployeesForLocation = MAX_EMPLOYEES_HOME_BASED; 
+                default: maxEmployeesForLocation = MAX_EMPLOYEES_HOME_BASED;  
             }
 
             if (employees >= maxEmployeesForLocation) {
                 window.businessLog(`Cannot hire: Location capacity (${maxEmployeesForLocation}) reached for ${businessLocation}.`, "system");
                 window.showActionOutcome("Hiring Blocked", `Your ${businessLocation} location can only support ${maxEmployeesForLocation} employees. You cannot hire more at this time. Consider upgrading your location.`, "system");
-                return; // Exit handleAction early, no AP/cost deduction
+                return;  
             }
         }
 
@@ -1306,7 +1397,7 @@
         if (actionKey === "Fire a Person" && employees === 0) {
             window.businessLog("Cannot fire: No employees.", "system");
              window.showActionOutcome("Operation Update", "No employees to fire.", "system");
-            return; 
+            return;  
         }
 
 
@@ -1314,9 +1405,9 @@
             window.businessLog("Not enough action points for: " + actionDetails.label, "penalty");
             randomModalTitle.textContent = "No Action Points";
             randomEventMessage.textContent = "You don't have enough action points for this.";
-            randomEventChoices.innerHTML = ''; 
+            randomEventChoices.innerHTML = '';  
             randomEventConfirmButton.classList.remove('hidden');
-            currentRandomEventEffect = null; 
+            currentRandomEventEffect = null;  
             randomModal.classList.remove('hidden');
             return;
         }
@@ -1331,15 +1422,15 @@
             return;
         }
 
-        let currentApCost = actionDetails.apCost || 0; 
+        let currentApCost = actionDetails.apCost || 0;  
         let currentFinancialCost = actionDetails.financialCost || 0;
         let outcomeTitle = "";
-        let outcomeMessage = ""; 
-        let balanceChange = -currentFinancialCost; 
-        let balanceChangeType = "actionExpense"; 
+        let outcomeMessage = "";  
+        let balanceChange = -currentFinancialCost;  
+        let balanceChangeType = "actionExpense";  
 
         if (currentFinancialCost === 0 && actionDetails.effects?.success?.balanceGain > 0) {
-             balanceChangeType = "actionIncome"; 
+             balanceChangeType = "actionIncome";  
         } else if (currentFinancialCost > 0) {
             if (actionKey === "Purchase Business Insurance" || actionKey === "Hire a Lawyer" || actionKey === "Marketing Campaign") {
                 balanceChangeType = "serviceCost";
@@ -1349,8 +1440,8 @@
         }
 
 
-        let outcomeType = "action"; 
-        let success = true; 
+        let outcomeType = "action";  
+        let success = true;  
 
         if (actionDetails.successChance !== null && actionDetails.successChance !== undefined) {
             success = Math.random() < (actionDetails.successChance / 100);
@@ -1359,7 +1450,7 @@
         const effects = success ? actionDetails.effects.success : actionDetails.effects.failure;
         
         outcomeMessage = effects.message;
-        if (currentFinancialCost > 0 && !(effects.balanceGain && effects.balanceGain > 0 && success)) { 
+        if (currentFinancialCost > 0 && !(effects.balanceGain && effects.balanceGain > 0 && success)) {  
             outcomeMessage += ` (-$${currentFinancialCost.toLocaleString()})`;
         }
 
@@ -1370,17 +1461,32 @@
 
         if (effects.csChange) window.updateCustomerSatisfaction(customerSatisfactionPercentage + effects.csChange);
         if (effects.mdChange) window.updateMarketDomination(marketDominationPercentage + effects.mdChange);
-        if (effects.healthChange) { 
-            companyHealthPercentage = Math.max(0, Math.min(100, companyHealthPercentage + effects.healthChange));
+        if (effects.healthChange) {  
+            companyHealthPercentage = Math.max(0, companyHealthPercentage + effects.healthChange);
         }
         if (effects.lpChange) window.updateBalancedBooks(balancedBooksPercentage + effects.lpChange);
         if (effects.balanceGain) {
-            balanceChange += effects.balanceGain; 
-            if(effects.balanceGain > 0) balanceChangeType = "actionIncome"; 
+            balanceChange += effects.balanceGain;  
+            if(effects.balanceGain > 0) balanceChangeType = "actionIncome";  
         }
         if (effects.employeeGain) window.updateEmployeeCount(effects.employeeGain);
-        if (actionKey === "Purchase Business Insurance" && success && effects.applyInsuranceBonus) {
-            insuranceBonus = 15; 
+        
+        if (actionKey === "Purchase Business Insurance" && success && effects.activateRecurringInsurance) {
+            insuranceBonus = 15;  
+            hasActiveInsurance = true;  
+        }
+        if (actionKey === "Hire a Lawyer" && success && effects.activateRecurringLawyer) { // NEW
+            hasActiveLawyer = true;
+        }
+
+        // Handle Marketing Campaign specific effects
+        if (actionKey === "Marketing Campaign") {
+            if (success && effects.saleBonusPercentage !== undefined) {
+                marketingCampaignSalesModifier += effects.saleBonusPercentage; // Changed from = to +=
+            } else if (!success && effects.salePenaltyPercentage !== undefined) {
+                marketingCampaignSalesModifier -= effects.salePenaltyPercentage; // Changed from = to -=
+            }
+            // The quarterly reset in advanceQuarter will still handle resetting it for the next quarter.
         }
 
 
@@ -1390,76 +1496,76 @@
                 if (success) {
                     if (actionKey === "Launch: Launch your product") {
                         productV1Launched = true;
-                        currentSoftwareDevelopmentStageIndex++; 
+                        currentSoftwareDevelopmentStageIndex++;  
                     } else if (currentSoftwareDevelopmentStageIndex === category1StageOrder.indexOf(actionKey)) {
                         currentSoftwareDevelopmentStageIndex++;
                     }
                 }
-            } else if (currentCategoryKey === "2") { 
+            } else if (currentCategoryKey === "2") {  
                 if (success && currentCategory2StageIndex === category2StageOrder.indexOf(actionKey)) {
-                    if (actionKey === "Offer Discount") { 
-                        currentCategory2StageIndex = 0; 
+                    if (actionKey === "Offer Discount") {  
+                        currentCategory2StageIndex = 0;  
                     } else {
-                        currentCategory2StageIndex++; 
+                        currentCategory2StageIndex++;  
                     }
                 }
             }
-        } else if (actionKey === "Announce new product/version" && currentCategoryKey === "1") { 
-            if (customerSatisfactionPercentage > 60) { 
+        } else if (actionKey === "Announce new product/version" && currentCategoryKey === "1") {  
+            if (customerSatisfactionPercentage > 60) {  
                 outcomeMessage = actionDetails.effects.success.message + (currentFinancialCost > 0 ? ` (-$${currentFinancialCost.toLocaleString()})` : "");
                 if(actionDetails.effects.success.csChange) window.updateCustomerSatisfaction(customerSatisfactionPercentage + actionDetails.effects.success.csChange);
                 if(actionDetails.effects.success.mdChange) window.updateMarketDomination(marketDominationPercentage + actionDetails.effects.success.mdChange);
                 outcomeType = "bonus";
-                currentSoftwareDevelopmentStageIndex = 0; 
-            } else { 
+                currentSoftwareDevelopmentStageIndex = 0;  
+            } else {  
                 outcomeMessage = actionDetails.effects.failure.message + (currentFinancialCost > 0 ? ` (-$${currentFinancialCost.toLocaleString()})` : "");
                 if(actionDetails.effects.failure.csChange) window.updateCustomerSatisfaction(customerSatisfactionPercentage + actionDetails.effects.failure.csChange);
                 outcomeType = "penalty";
             }
         }
         
-        if (balanceChange !== 0) { 
+        if (balanceChange !== 0) {  
             window.updateBalance(balanceChange, balanceChangeType);
         }
 
-        window.businessLog(outcomeMessage, outcomeType); 
-        window.showActionOutcome(outcomeTitle, outcomeMessage, outcomeType); 
+        window.businessLog(outcomeMessage, outcomeType);  
+        window.showActionOutcome(outcomeTitle, outcomeMessage, outcomeType);  
         
-        if (currentApCost > 0) { 
-            window.updateActionPoints(currentApCost); 
+        if (currentApCost > 0) {  
+            window.updateActionPoints(currentApCost);  
         }
-        window.updateAllStatsDisplay(); 
-        window.populateDropdown(); 
+        window.updateAllStatsDisplay();  
+        window.populateDropdown();  
     }
 
     // --- Background and Dynamic Content ---
     window.changeBackgroundAndContent = function(themeNumber) {
         const mainContentHeader = document.getElementById('mainContentHeader');
         const mainContentSubtext = document.getElementById('mainContentSubtext');
-        let bgImage = `url('{% static 'mod4bg.gif' %}')`; 
+        let bgImage = `url('{% static 'mod4bg.gif' %}')`;  
         let headerText = 'Welcome to the Project Ideation Journey';
-        let subText = 'Start your business simulation by selecting an option from the sidebar. Good luck!'; 
+        let subText = 'Start your business simulation by selecting an option from the sidebar. Good luck!';  
 
-        mainElement.style.backgroundColor = ''; 
+        mainElement.style.backgroundColor = '';  
 
         if (themeNumber === 0) { // Intro
-            bgImage = `url('{% static 'mod4bg.gif' %}')`; 
+            bgImage = `url('{% static 'mod4bg.gif' %}')`;  
             headerText = 'Welcome to Your New Business Adventure!';
             subText = 'The journey begins now. Your first task is to research potential customers. Good luck!';
         } else if (themeNumber === 1) { // Category 1 - Product Dev
-            bgImage = `url('{% static 'mod4bg.gif' %}')`; 
-            headerText = "Product Development Lifecycle"; 
+            bgImage = `url('{% static 'mod4bg.gif' %}')`;  
+            headerText = "Product Development Lifecycle";  
             subText = "Navigate the stages of product creation, from research to launch.";
         } else if (themeNumber === 2) { // Category 2 - Service/Retail
-            bgImage = `url('{% static 'mod4bg1.gif' %}')`; 
-            headerText = "Service & Operations Focus"; 
+            bgImage = `url('{% static 'mod4bg1.gif' %}')`;  
+            headerText = "Service & Operations Focus";  
             subText = "Manage day-to-day tasks and grow your customer base.";
         } else { // Default/Error theme
-            mainElement.style.backgroundImage = ''; 
-            mainElement.style.backgroundColor = '#7f1d1d'; 
+            mainElement.style.backgroundImage = '';  
+            mainElement.style.backgroundColor = '#7f1d1d';  
             headerText = "Critical Decisions Ahead";
             subText = "Navigate challenges and make tough choices for your business.";
-            bgImage = 'none'; 
+            bgImage = 'none';  
         }
         
         if (bgImage === 'none') {
@@ -1472,15 +1578,15 @@
     }
     
     // --- Dropdown Content Population ---
-    window.populateDropdown = function() { 
-        const dropdownMenu = document.getElementById("dropdownMenu1"); 
-        if (!dropdownMenu) return; 
-        dropdownMenu.innerHTML = ""; 
+    window.populateDropdown = function() {  
+        const dropdownMenu = document.getElementById("dropdownMenu1");  
+        if (!dropdownMenu) return;  
+        dropdownMenu.innerHTML = "";  
 
         const currentCategoryKey = businessTypeToCategoryMapping[businessType] || "2";
         const currentActionsForCategory = window.businessTypeActions[currentCategoryKey] || {};
 
-        if (window.location.hash !== "#introActive") { 
+        if (window.location.hash !== "#introActive") {  
             let currentThemeForPopulation = (currentCategoryKey === "1") ? 1 : 2;
             window.changeBackgroundAndContent(currentThemeForPopulation);
         }
@@ -1494,22 +1600,18 @@
                     div.textContent = item.label;
 
                     if (index === currentSoftwareDevelopmentStageIndex && currentSoftwareDevelopmentStageIndex < category1StageOrder.length) {
-                        // Current active step in the cycle (either V1 or V-Next)
                         div.classList.add("dropdown-item-active", "hover:bg-purple-400", "cursor-pointer");
                         div.onclick = () => window.openModal(item.actionKey);
                     } else if (index < currentSoftwareDevelopmentStageIndex || (productV1Launched && actionKey === "Launch: Launch your product" && currentSoftwareDevelopmentStageIndex === 0) ) {
-                        // Stages before the current active stage are completed for *this* cycle
-                        // OR if V1 is launched and we've reset to research (index 0), "Launch Product" from V1 cycle is considered completed.
-                        // This second condition for "Launch Product" ensures it shows as completed if we are in a V-Next cycle.
                          if (productV1Launched && actionKey === "Launch: Launch your product" && currentSoftwareDevelopmentStageIndex === 0) {
                              div.classList.add("dropdown-item-completed");
                          } else if (index < currentSoftwareDevelopmentStageIndex) {
                             div.classList.add("dropdown-item-completed");
-                         } else { // Should not happen with this logic, but as a fallback
+                         } else {  
                             div.classList.add("dropdown-item-disabled");
                          }
                     }
-                     else { // index > currentSoftwareDevelopmentStageIndex OR cycle is complete (currentSoftwareDevelopmentStageIndex >= category1StageOrder.length)
+                     else {  
                         div.classList.add("dropdown-item-disabled");
                     }
                     dropdownMenu.appendChild(div);
@@ -1518,8 +1620,7 @@
 
             const announceActionKey = "Announce new product/version";
             const announceItemDetails = currentActionsForCategory[announceActionKey];
-            if (announceItemDetails && productV1Launched && currentSoftwareDevelopmentStageIndex >= category1StageOrder.length) { 
-                // Only show "Announce" if V1 is launched AND all V1 stages are done.
+            if (announceItemDetails && productV1Launched && currentSoftwareDevelopmentStageIndex >= category1StageOrder.length) {  
                 const div = document.createElement("div");
                 div.className = "block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base dropdown-item-active";
                 div.textContent = announceItemDetails.label;
@@ -1528,8 +1629,8 @@
             }
 
             Object.values(currentActionsForCategory).forEach(item => {
-                if (item.isAlwaysAvailable && 
-                    !category1StageOrder.includes(item.actionKey) && 
+                if (item.isAlwaysAvailable &&  
+                    !category1StageOrder.includes(item.actionKey) &&  
                     item.actionKey !== announceActionKey) {
                     const div = document.createElement("div");
                     div.className = "block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base dropdown-item-active";
@@ -1538,7 +1639,7 @@
                     dropdownMenu.appendChild(div);
                 }
             });
-        } else if (currentCategoryKey === "2") { 
+        } else if (currentCategoryKey === "2") {  
             category2StageOrder.forEach((actionKey, index) => {
                 const item = currentActionsForCategory[actionKey];
                 if (item) {
@@ -1546,22 +1647,25 @@
                     div.className = "block px-4 py-2 transition-colors duration-150 text-sm md:text-base";
                     div.textContent = item.label;
 
-                    if (index === currentCategory2StageIndex) {
+                    // New condition for "Make a Sale"
+                    const isMakeASaleAndNotLaunched = (actionKey === "Make a Sale" && !productV1Launched);
+
+                    if (index === currentCategory2StageIndex && !isMakeASaleAndNotLaunched) {
                         div.classList.add("dropdown-item-active", "hover:bg-purple-400", "cursor-pointer");
                         div.onclick = () => window.openModal(item.actionKey);
-                    } else if (index < currentCategory2StageIndex) {
-                        div.classList.add("dropdown-item-completed");
-                    } else { 
+                    } else if (index < currentCategory2StageIndex || isMakeASaleAndNotLaunched) { // Also disable if not launched
+                        div.classList.add("dropdown-item-disabled");
+                    } else {  
                         div.classList.add("dropdown-item-disabled");
                     }
                     dropdownMenu.appendChild(div);
                 }
             });
              Object.values(currentActionsForCategory).forEach(item => {
-                if (!category2StageOrder.includes(item.actionKey) && 
-                    !window.commonActions[item.actionKey] && 
-                     item.isAlwaysAvailable 
-                   ) {
+                if (!category2StageOrder.includes(item.actionKey) &&  
+                    !window.commonActions[item.actionKey] &&  
+                     item.isAlwaysAvailable  
+                    ) {
                         const div = document.createElement("div");
                         div.className = "block px-4 py-2 hover:bg-purple-400 transition-colors duration-150 cursor-pointer text-sm md:text-base dropdown-item-active";
                         div.textContent = item.label;
@@ -1574,53 +1678,53 @@
 
     // --- Random Events ---
     const randomEvents = [
-        { 
-            title: "Local Bowling Team Sponsorship", 
+        {  
+            title: "Local Bowling Team Sponsorship",  
             message: "The VERY popular local bowling team asks you to sponsor their uniforms. It’s costly, but it’s great publicity and positive association with a beloved team.",
-            type: 'choice', 
+            type: 'choice',  
             choices: [
-                { 
-                    buttonText: "Sponsor Team (-$3,000)", 
-                    cost: -3000, 
+                {  
+                    buttonText: "Sponsor Team (-$3,000)",  
+                    cost: -3000,  
                     effectText: "Sponsored the bowling team! Great publicity. MD +5, CS +3.",
-                    effect: () => { 
-                        window.updateBalance(-3000, "cost"); 
+                    effect: () => {  
+                        window.updateBalance(-3000, "cost");  
                         window.updateMarketDomination(marketDominationPercentage + 5);
                         window.updateCustomerSatisfaction(customerSatisfactionPercentage + 3);
-                    } 
+                    }  
                 },
-                { 
-                    buttonText: "Decline Sponsorship", 
-                    cost: 0, 
+                {  
+                    buttonText: "Decline Sponsorship",  
+                    cost: 0,  
                     effectText: "Declined sponsorship. You didn't support the community. CS -2.",
-                    effect: () => { 
+                    effect: () => {  
                         window.updateCustomerSatisfaction(customerSatisfactionPercentage - 2);
-                    } 
+                    }  
                 }
             ]
         },
-        { 
-            title: "Paperwork Error!", 
+        {  
+            title: "Paperwork Error!",  
             message: "You should pay more attention when filing important paperwork! Wow, that was unexpected… Your mistake led to an unexpected refund.",
             type: 'simple',
-            cost: 1000, 
+            cost: 1000,  
             effectText: "Unexpected refund of $1,000 due to a paperwork error! LP +5.",
-            effect: () => { 
-                window.updateBalance(1000, "otherIncome"); 
+            effect: () => {  
+                window.updateBalance(1000, "otherIncome");  
                 window.updateBalancedBooks(balancedBooksPercentage + 5);
-            } 
+            }  
         },
-        { 
-            title: "Busted Pipe!", 
+        {  
+            title: "Busted Pipe!",  
             message: "A busted pipe leaked overnight, and the entire place is flooded. It doesn’t look like you have insurance… This is going to cost you big time.",
             type: 'simple',
-            cost: -7500, 
+            cost: -7500,  
             effectText: "Busted pipe cost $7,500 to repair. Company Health -10.",
-            effect: () => { 
-                window.updateBalance(-7500, "cost"); 
+            effect: () => {  
+                window.updateBalance(-7500, "cost");  
                 companyHealthPercentage = Math.max(0, companyHealthPercentage -10);
-                window.updateCompanyHealth(); 
-            } 
+                window.updateCompanyHealth();  
+            }  
         },
         {
             title: "Top Hat Investment",
@@ -1629,7 +1733,7 @@
             choices: [
                 {
                     buttonText: "Wear Top Hat (+$2,000)",
-                    cost: 2000, 
+                    cost: 2000,  
                     effectText: "Congrats! You got $2,000 in the bank AND look very fancy. CS +1.",
                     effect: () => { window.updateBalance(2000, "otherIncome"); window.updateCustomerSatisfaction(customerSatisfactionPercentage + 1); }
                 },
@@ -1669,19 +1773,19 @@
 
         randomModalTitle.textContent = event.title;
         randomEventMessage.textContent = event.message;
-        randomEventChoices.innerHTML = ''; 
+        randomEventChoices.innerHTML = '';  
 
         if (event.type === 'simple') {
             randomEventConfirmButton.classList.remove('hidden');
-            currentRandomEventEffect = () => { 
-                if (event.cost && typeof event.cost === 'number') { 
+            currentRandomEventEffect = () => {  
+                if (event.cost && typeof event.cost === 'number') {  
                      window.updateBalance(event.cost, event.cost > 0 ? "otherIncome" : "cost");
                 }
-                event.effect(); 
+                event.effect();  
                 window.businessLog(event.effectText, (event.cost && event.cost >= 0) ? "bonus" : "penalty");
             };
         } else if (event.type === 'choice') {
-            randomEventConfirmButton.classList.add('hidden'); 
+            randomEventConfirmButton.classList.add('hidden');  
             event.choices.forEach((choice, index) => {
                 const button = document.createElement('button');
                 button.className = 'w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-150 mb-2';
@@ -1697,25 +1801,25 @@
         const event = randomEvents[eventIdx];
         const choice = event.choices[choiceIdx];
 
-        if (choice.cost && typeof choice.cost === 'number') { 
+        if (choice.cost && typeof choice.cost === 'number') {  
             window.updateBalance(choice.cost, choice.cost > 0 ? "otherIncome" : "cost");
         }
         choice.effect();
         window.businessLog(choice.effectText, (choice.cost && choice.cost > 0) ? "bonus" : (choice.cost < 0 ? "penalty" : "event"));
         
         randomModal.classList.add('hidden');
-        randomEventChoices.innerHTML = ''; 
-        randomEventConfirmButton.classList.remove('hidden'); 
+        randomEventChoices.innerHTML = '';  
+        randomEventConfirmButton.classList.remove('hidden');  
         window.updateAllStatsDisplay();
-        currentRandomEventEffect = null; 
+        currentRandomEventEffect = null;  
     }
 
     // --- Intro Function ---
     window.intro = function() {
         console.log("Executing intro function...");
-        window.location.hash = "introActive"; 
-        window.changeBackgroundAndContent(0); 
-        window.location.hash = ""; 
+        window.location.hash = "introActive";  
+        window.changeBackgroundAndContent(0);  
+        window.location.hash = "";  
 
         window.businessLog("Welcome! Your new business journey starts now. Your first step is Research.", "system");
     }
@@ -1728,19 +1832,20 @@
             currentQuarter = 1;
             currentYear++;
         }
-        actionPoints = 4; 
-        fixedExpensesAppliedForQuarter = false; 
-        window.resetQuarterlyFinances(); 
+        actionPoints = 4;  
+        fixedExpensesAppliedForQuarter = false;  
+        marketingCampaignSalesModifier = 0; // Reset marketing campaign bonus/penalty each quarter
+        window.resetQuarterlyFinances();  
 
-        window.updateCustomerSatisfaction(customerSatisfactionPercentage - Math.floor(Math.random() * 3 + 1)); 
-        window.updateMarketDomination(marketDominationPercentage - Math.floor(Math.random() * 2)); 
+        window.updateCustomerSatisfaction(customerSatisfactionPercentage - Math.floor(Math.random() * 3 + 1));  
+        window.updateMarketDomination(marketDominationPercentage - Math.floor(Math.random() * 2));  
 
         window.businessLog(`Advanced to Year ${currentYear}, Q${currentQuarter}. Action points reset.`, "system");
-        window.updateAllStatsDisplay(); 
-        window.populateDropdown(); 
-        window.updateActionCategoriesVisibility(); 
+        window.updateAllStatsDisplay();  
+        window.populateDropdown();  
+        window.updateActionCategoriesVisibility();  
 
-        if (actionPoints === 3 && ((currentYear > 1) || (currentYear === 1 && currentQuarter > 2)) && Math.random() < 0.3) { 
+        if (actionPoints === 3 && ((currentYear > 1) || (currentYear === 1 && currentQuarter > 2)) && Math.random() < 0.3) {  
             window.triggerRandomEvent();
         }
     }
@@ -1758,28 +1863,58 @@
         }
     }
 
+     window.updateInsuranceActionState = function() {
+        const insuranceActionDiv = document.querySelector('#dropdownMenu3 div[data-action-key="Purchase Business Insurance"]');
+        if (insuranceActionDiv) {
+            if (hasActiveInsurance) {
+                insuranceActionDiv.classList.add('dropdown-item-disabled');
+                insuranceActionDiv.classList.remove('hover:bg-purple-400', 'cursor-pointer', 'dropdown-item-active');
+                insuranceActionDiv.onclick = null;
+            } else {
+                insuranceActionDiv.classList.remove('dropdown-item-disabled');
+                insuranceActionDiv.classList.add('hover:bg-purple-400', 'cursor-pointer', 'dropdown-item-active');
+                insuranceActionDiv.onclick = () => window.openModal('Purchase Business Insurance');
+            }
+        }
+    }
+    window.updateLawyerActionState = function() { // NEW
+        const lawyerActionDiv = document.querySelector('#dropdownMenu3 div[data-action-key="Hire a Lawyer"]');
+        if (lawyerActionDiv) {
+            if (hasActiveLawyer) {
+                lawyerActionDiv.classList.add('dropdown-item-disabled');
+                lawyerActionDiv.classList.remove('hover:bg-purple-400', 'cursor-pointer', 'dropdown-item-active');
+                lawyerActionDiv.onclick = null;
+            } else {
+                lawyerActionDiv.classList.remove('dropdown-item-disabled');
+                lawyerActionDiv.classList.add('hover:bg-purple-400', 'cursor-pointer', 'dropdown-item-active');
+                lawyerActionDiv.onclick = () => window.openModal('Hire a Lawyer');
+            }
+        }
+    }
+
+
     // --- Event Listeners & Initialization ---
     
     window.onload = async function() {
-        initializeDOMElements(); 
+        initializeDOMElements();  
 
         if(loadingScreen) loadingScreen.classList.remove('hidden');
         if(contentWrapper) contentWrapper.style.display = 'none';
         document.body.style.overflow = 'hidden';
 
-        await window.loadGame(); 
+        await window.loadGame();  
 
         if(loadingScreen) loadingScreen.classList.add('hidden');
-        if(contentWrapper) contentWrapper.style.display = 'flex'; 
-        document.body.style.overflow = 'auto'; 
+        if(contentWrapper) contentWrapper.style.display = 'flex';  
+        document.body.style.overflow = 'auto';  
         
-        if (businessName === "Stellar Innovations" && 
+        if (businessName === "Stellar Innovations" &&  
             businessType === "Web Development Services" &&
-            balance === 15000 && 
-            currentYear === 1 && 
+            balance === 15000 &&  
+            currentYear === 1 &&  
             currentQuarter === 1 &&
-            companyHealthPercentage === 50 && 
-            (!activityLog || activityLog.innerHTML.trim() === "")) { 
+            companyHealthPercentage === 50 &&  
+            (!activityLog || activityLog.innerHTML.trim() === "")) {  
             window.intro();
         }
     };
@@ -1795,22 +1930,22 @@
         const isClickInsideConfirmNewGameModal = confirmNewGameModal ? confirmNewGameModal.contains(event.target) : false;
         
         if (!isClickInsideActionsButton && !isClickInsideActionsDropdown && actionsVisible) {
-            window.toggleActions(); 
+            window.toggleActions();  
         } else if (openDropdownId !== null) {
             const specificDropdownContainer = document.getElementById(`dropdown-${openDropdownId}`);
             const specificDropdownMenu = document.getElementById(`dropdownMenu${openDropdownId}`);
-            const isClickInsideSpecificDropdown = (specificDropdownContainer && specificDropdownContainer.contains(event.target)) || 
+            const isClickInsideSpecificDropdown = (specificDropdownContainer && specificDropdownContainer.contains(event.target)) ||  
                                                  (specificDropdownMenu && specificDropdownMenu.contains(event.target)) ||
                                                  (event.target.closest(`button[onclick="window.openDropDown(${openDropdownId})"]`));
 
             if (!isClickInsideSpecificDropdown && !isClickInsideActionsButton) {
-                 const dropdownMenuToClose = document.getElementById(`dropdownMenu${openDropdownId}`);
-                 const chevronToReset = document.querySelector(`button[onclick="window.openDropDown(${openDropdownId})"] svg[data-chevron-id]`);
-                 if (dropdownMenuToClose && !dropdownMenuToClose.classList.contains('hidden')) {
-                                         dropdownMenuToClose.classList.add('hidden');
-                                         if(chevronToReset) chevronToReset.classList.remove('rotate-180');
-                                         openDropdownId = null;
-                 }
+                   const dropdownMenuToClose = document.getElementById(`dropdownMenu${openDropdownId}`);
+                   const chevronToReset = document.querySelector(`button[onclick="window.openDropDown(${openDropdownId})"] svg[data-chevron-id]`);
+                   if (dropdownMenuToClose && !dropdownMenuToClose.classList.contains('hidden')) {
+                                               dropdownMenuToClose.classList.add('hidden');
+                                               if(chevronToReset) chevronToReset.classList.remove('rotate-180');
+                                               openDropdownId = null;
+                   }
             }
         }
 
@@ -1820,7 +1955,7 @@
     });
 
     async function fetchUserData() {
-        const apiUrl = 'get_business_data/'; 
+        const apiUrl = 'get_business_data/';  
         console.log("Fetching user data from:", apiUrl);
 
         try {
@@ -1834,28 +1969,28 @@
             if (!response.ok) {
                 let errorData = { error: `HTTP error! Status: ${response.status}`};
                 try {
-                    errorData = await response.json(); 
+                    errorData = await response.json();  
                 } catch (e) {
                     errorData.error = response.statusText;
                 }
                 console.error('Network response was not ok:', response.status, errorData);
                 businessLog(`Error fetching data: ${errorData.error || response.statusText}`, "penalty");
-                return false; 
+                return false;  
             }
 
             const data = await response.json();
-            console.log("Fetched data from backend:", data); 
+            console.log("Fetched data from backend:", data);  
 
             if (data.businesses && data.businesses.length > 0) {
                 const fetchedBusiness = data.businesses[0];
 
                 businessName = fetchedBusiness.business_name !== undefined ? fetchedBusiness.business_name : businessName;
                 businessType = fetchedBusiness.business_type !== undefined ? fetchedBusiness.business_type : businessType;
-                businessLocation = fetchedBusiness.business_location !== undefined ? fetchedBusiness.business_location : "Home-Based"; // Load location
+                businessLocation = fetchedBusiness.business_location !== undefined ? fetchedBusiness.business_location : "Home-Based";  
                 
-                balance = 15000; 
-                
-                if (fetchedBusiness.market_domination !== undefined) marketDominationPercentage = fetchedBusiness.market_domination;
+                balance = 15000;  
+                businessGoal = fetchedBusiness.business_goal !== undefined ? fetchedBusiness.business_goal : businessGoal;
+
                 if (fetchedBusiness.customer_satisfaction !== undefined) customerSatisfactionPercentage = fetchedBusiness.customer_satisfaction;
                 if (fetchedBusiness.balanced_books !== undefined) balancedBooksPercentage = fetchedBusiness.balanced_books;
                 if (fetchedBusiness.employees_count !== undefined) employees = fetchedBusiness.employees_count;
@@ -1863,29 +1998,37 @@
                 if (fetchedBusiness.current_quarter !== undefined) currentQuarter = fetchedBusiness.current_quarter;
                 if (fetchedBusiness.action_points !== undefined) actionPoints = fetchedBusiness.action_points;
                 if (fetchedBusiness.insurance_bonus !== undefined) insuranceBonus = fetchedBusiness.insurance_bonus;
+                if (fetchedBusiness.has_active_insurance !== undefined) hasActiveInsurance = fetchedBusiness.has_active_insurance;  
+                if (fetchedBusiness.has_active_lawyer !== undefined) hasActiveLawyer = fetchedBusiness.has_active_lawyer;  
                 if (fetchedBusiness.product_v1_launched !== undefined) productV1Launched = fetchedBusiness.product_v1_launched;
                 if (fetchedBusiness.current_dev_stage_index !== undefined) currentSoftwareDevelopmentStageIndex = fetchedBusiness.current_dev_stage_index;
-                if (fetchedBusiness.current_cat2_stage_index !== undefined) currentCategory2StageIndex = fetchedBusiness.current_cat2_stage_index; 
+                if (fetchedBusiness.current_cat2_stage_index !== undefined) currentCategory2StageIndex = fetchedBusiness.current_cat2_stage_index;  
                 
                 if (fetchedBusiness.company_health !== undefined) {
                      companyHealthPercentage = fetchedBusiness.company_health;
                 }
                 console.log("Global game variables updated from fetched data. Business Location:", businessLocation);
-                return true; 
+                return true;  
             } else {
                 console.log('No businesses found in the response or data format is incorrect. Using defaults.');
                 balance = 15000;
                 companyHealthPercentage = 50;
-                businessLocation = "Home-Based"; // Default location if no data
-                return false; 
+                marketDominationPercentage = 50; // Ensure default if no data
+                businessLocation = "Home-Based";  
+                hasActiveInsurance = false;
+                hasActiveLawyer = false;
+                return false;  
             }
         } catch (error) {
             console.error('Error fetching or processing user data:', error);
             businessLog(`Critical error fetching data: ${error.message}`, "penalty");
             balance = 15000;
             companyHealthPercentage = 50;
-            businessLocation = "Home-Based"; // Default location on error
-            return false; 
+            marketDominationPercentage = 50; // Ensure default on error
+            businessLocation = "Home-Based";  
+            hasActiveInsurance = false;
+            hasActiveLawyer = false;
+            return false;  
         }
     }
 
