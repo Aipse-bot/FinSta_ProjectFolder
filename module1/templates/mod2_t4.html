@@ -2,75 +2,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Project Ideation - Business Name</title>
-    
+
+    <!-- TailwindCSS and Feather Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body class="bg-[#1F2937] min-h-screen font-sans">
     <div class="container mx-auto px-4 py-12">
         <div class="max-w-6xl mx-auto">
-            <!-- Removed the blue background container div -->
-            <!-- Header section with back button and title -->
+
+            <!-- Header Section -->
             <div class="relative flex items-center justify-center mb-12">
-                <!-- Back button positioned at left -->
+                <!-- Back Button -->
                 <a href="javascript:history.back()" class="absolute left-0 inline-flex items-center text-[#E5E7EB] hover:text-[#22C55E] transition-colors">
-                    <i data-feather="arrow-left" class="w-5 h-5 mr-2"></i>
+                    <i data-feather="arrow-left" class="w-5 h-5 mr-2" aria-hidden="true"></i>
                     <span class="text-lg">Back</span>
                 </a>
-                
-                <!-- Title centered -->
+
+                <!-- Page Title -->
                 <h1 class="text-4xl font-bold text-center text-[#E5E7EB]">Select your Business Name</h1>
             </div>
-            
+
+            <!-- Main Selection Container -->
             <div class="bg-[#E5E7EB] rounded-xl p-8 shadow-lg">
                 <div class="name-options rounded-xl p-6">
-                    <!-- Made cards bigger -->
+                    
+                    <!-- Suggested Business Names -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                        <!-- Card: MarketSoar -->
                         <div class="name-option bg-white rounded-lg p-8 shadow-md hover:shadow-lg hover:bg-[#22C55E]/20 transition-all duration-300 cursor-pointer border border-gray-200 hover:border-[#22C55E] text-center transform hover:-translate-y-1" onclick="selectBusinessName('MarketSoar')">
                             <div class="flex items-center justify-center mb-4">
                                 <div class="w-16 h-16 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
-                                    <i data-feather="zap" class="w-8 h-8 text-[#1F2937]"></i>
+                                    <i data-feather="zap" class="w-8 h-8 text-[#1F2937]" aria-hidden="true"></i>
                                 </div>
                             </div>
                             <h3 class="font-semibold text-[#1F2937] text-xl">MarketSoar</h3>
                             <p class="text-gray-600 mt-2">Perfect for businesses focused on market expansion</p>
                         </div>
-                        
+
+                        <!-- Card: OptimizePro -->
                         <div class="name-option bg-white rounded-lg p-8 shadow-md hover:shadow-lg hover:bg-[#22C55E]/20 transition-all duration-300 cursor-pointer border border-gray-200 hover:border-[#22C55E] text-center transform hover:-translate-y-1" onclick="selectBusinessName('OptimizePro')">
                             <div class="flex items-center justify-center mb-4">
                                 <div class="w-16 h-16 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
-                                    <i data-feather="trending-up" class="w-8 h-8 text-[#1F2937]"></i>
+                                    <i data-feather="trending-up" class="w-8 h-8 text-[#1F2937]" aria-hidden="true"></i>
                                 </div>
                             </div>
                             <h3 class="font-semibold text-[#1F2937] text-xl">OptimizePro</h3>
                             <p class="text-gray-600 mt-2">Ideal for efficiency-focused operations</p>
                         </div>
-                        
+
+                        <!-- Card: ProfitReach -->
                         <div class="name-option bg-white rounded-lg p-8 shadow-md hover:shadow-lg hover:bg-[#22C55E]/20 transition-all duration-300 cursor-pointer border border-gray-200 hover:border-[#22C55E] text-center transform hover:-translate-y-1" onclick="selectBusinessName('ProfitReach')">
                             <div class="flex items-center justify-center mb-4">
                                 <div class="w-16 h-16 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
-                                    <i data-feather="settings" class="w-8 h-8 text-[#1F2937]"></i>
+                                    <i data-feather="settings" class="w-8 h-8 text-[#1F2937]" aria-hidden="true"></i>
                                 </div>
                             </div>
                             <h3 class="font-semibold text-[#1F2937] text-xl">ProfitReach</h3>
                             <p class="text-gray-600 mt-2">Great for businesses prioritizing profitability</p>
                         </div>
                     </div>
-                    
+
+                    <!-- Custom Name Input -->
                     <div class="text-center text-[#1F2937] font-medium text-xl mb-8">Or create your own Business Name</div>
-                    
                     <div class="flex justify-center">
                         <div class="w-full max-w-lg">
                             <div class="relative">
                                 <input 
                                     type="text" 
-                                    placeholder="Enter your business name" 
-                                    class="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-[#3B82F6]" 
-                                    id="businessNameInput" 
-                                    onkeyup="checkInput()">
+                                    id="businessNameInput"
+                                    placeholder="Enter your business name"
+                                    class="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-[#3B82F6]"
+                                    onkeyup="checkInput()" />
                                 <button 
                                     onclick="submitCustomName()" 
                                     class="absolute right-3 top-3 bg-[#25c247] text-white px-5 py-2 rounded-md hover:bg-[#10942d]/80 transition-all duration-300 text-lg">
@@ -84,22 +90,21 @@
         </div>
     </div>
 
-    <!-- Business Name Selection Modal -->
+    <!-- Modal for Confirmation -->
     <div id="businessNameModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
         <div class="bg-[#E5E7EB] border border-[#62666e] rounded-xl shadow-lg p-8 w-[450px] mx-auto text-center">
             <h2 class="text-2xl font-semibold text-[#1F2937] mb-6">Chosen Business Name</h2>
             <p id="businessNameText" class="text-[#1F2937] text-xl mb-8"></p>
+
             <form method="POST" action="{% url 'save_business_name' %}">
                 {% csrf_token %}
                 {{ form.name }}
                 {{ form.businessName }}
                 <div class="flex justify-between mt-6">
-                    <button type="button" onclick="closeBusinessNameModal()"
-                            class="bg-[#c22525] text-white px-6 py-3 rounded-lg hover:bg-[#bf1717]/80 transition-all duration-300 text-lg">
+                    <button type="button" onclick="closeBusinessNameModal()" class="bg-[#c22525] text-white px-6 py-3 rounded-lg hover:bg-[#bf1717]/80 transition-all duration-300 text-lg">
                         Cancel
                     </button>
-                    <button type="submit"
-                            class="bg-[#25c247] text-white px-6 py-3 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300 text-lg">
+                    <button type="submit" class="bg-[#25c247] text-white px-6 py-3 rounded-lg hover:bg-[#10942d]/80 transition-all duration-300 text-lg">
                         Continue
                     </button>
                 </div>
@@ -107,78 +112,68 @@
         </div>
     </div>
 
+    <!-- JavaScript Logic -->
     <script type="text/javascript" src="{% static 'player.js' %}"></script>
-
     <script>
-        let name = null;
-            document.getElementById("name").classList.add("hidden")
-    document.getElementById("name").removeAttribute("required");
-// icons
-document.addEventListener('DOMContentLoaded', function() {
-    feather.replace();
-});
-
-function checkInput() {
-    const input = document.getElementById('businessNameInput');
-    const nameOptions = document.querySelectorAll('.name-option');
-    
-    if (input.value.trim() !== '') {
-        nameOptions.forEach(option => {
-            option.classList.add('opacity-50', 'pointer-events-none');
+        document.addEventListener('DOMContentLoaded', function () {
+            feather.replace();
+            document.getElementById("name").classList.add("hidden");
+            document.getElementById("name").removeAttribute("required");
         });
-    } else {
-        nameOptions.forEach(option => {
-            option.classList.remove('opacity-50', 'pointer-events-none');
-        });
-    }
-}
 
-// handle name option selection
-function selectBusinessName(str) {
-    console.log(str)
-    document.getElementById("businessName").value = str;
+        // Disables name options when custom input is typed
+        function checkInput() {
+            const input = document.getElementById('businessNameInput');
+            const nameOptions = document.querySelectorAll('.name-option');
 
+            if (input.value.trim() !== '') {
+                nameOptions.forEach(option => {
+                    option.classList.add('opacity-50', 'pointer-events-none');
+                });
+            } else {
+                nameOptions.forEach(option => {
+                    option.classList.remove('opacity-50', 'pointer-events-none');
+                });
+            }
+        }
 
+        // Opens confirmation modal with selected name
+        function selectBusinessName(name) {
+            document.getElementById("businessName").value = name;
+            document.getElementById("businessNameText").innerHTML = `"<strong>${name}</strong>". Proceed?`;
+            toggleModal(true);
+        }
 
-    const modal = document.getElementById("businessNameModal");
-    const text = document.getElementById("businessNameText");
-    text.innerHTML = `"<strong>${str}</strong>". Proceed?`;
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
-}
+        // Closes modal and clears values
+        function closeBusinessNameModal() {
+            document.getElementById("businessName").value = "";
+            document.getElementById("name").classList.add("hidden");
+            document.getElementById("name").removeAttribute("required");
+            document.getElementById('businessNameInput').value = '';
+            checkInput(); // Refresh options visibility
+            toggleModal(false);
+        }
 
-function closeBusinessNameModal() {
-    document.getElementById("businessName").value = "";
-    document.getElementById("name").classList.add("hidden")
-    document.getElementById("name").removeAttribute("required");
-    document.getElementById('businessNameInput').value = null
-    const modal = document.getElementById("businessNameModal");
-    modal.classList.remove("flex");
-    modal.classList.add("hidden");
-    
-    const nameOptions = document.querySelectorAll('.name-option');
-    nameOptions.forEach(option => {
-        option.classList.remove('opacity-50', 'pointer-events-none');
-    });
-}
+        // Opens modal for custom name
+        function submitCustomName() {
+            const input = document.getElementById('businessNameInput');
+            const name = input.value.trim();
 
+            if (name !== '') {
+                document.getElementById("businessName").value = name;
+                document.getElementById("businessNameText").innerHTML = `"<strong>${name}</strong>". Proceed?`;
+                toggleModal(true);
+            } else {
+                alert('Please enter a business name');
+            }
+        }
 
-// custom name
-function submitCustomName() {
-    const input = document.getElementById('businessNameInput');
-    const str = input.value.trim();
-    
-    if (str !== '') {
-        document.getElementById("businessName").value = str;
-        const modal = document.getElementById("businessNameModal");
-        const text = document.getElementById("businessNameText");
-        text.innerHTML = `"<strong>${str}</strong>". Proceed?`;
-        modal.classList.remove("hidden");
-        modal.classList.add("flex");
-    } else {
-        alert('Please enter a business name');
-    }
-}
+        // Show/hide modal
+        function toggleModal(show) {
+            const modal = document.getElementById("businessNameModal");
+            modal.classList.toggle("hidden", !show);
+            modal.classList.toggle("flex", show);
+        }
     </script>
 </body>
 </html>
