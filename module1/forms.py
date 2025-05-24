@@ -41,7 +41,7 @@ class PlayerForm(forms.ModelForm):
     targetMarket = forms.CharField(
         label= '',
         required= False,
-        widget=forms.TextInput(attrs={"id":"targetMarket","class": "w-full p-3 rounded bg-gray-700 text-white hidden",})
+        widget=forms.HiddenInput(attrs={"id":"targetMarket","class": "w-full p-3 rounded bg-gray-700 text-white hidden",})
     )
     maxNumberOfWorkers = forms.IntegerField(
         label= '',

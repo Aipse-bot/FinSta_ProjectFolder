@@ -219,10 +219,10 @@
                         {% csrf_token %}
                         <div class="hidden">
                             {{form.name}}
+                            {{form.businessLocation}}
+                            {{form.targetMarket}}
+                            {{form.maxNumberOfWorkers}}
                         </div>
-                        {{form.targetMarket}}
-                        {{form.maxNumberOfWorkers}}
-                        {{form.businessLocation}}
 
                         <div class="flex justify-between p-4 border-t border-[#62666e]">
                             <button id="closebtn" type="button" onclick="closeModal()" 
@@ -247,18 +247,21 @@
         let locationData = {
             "home-based": {
                 location: "Home-Based",
+                targetMarket: "Teens and young adults, Small businesses, Event organizers",
                 maxNumberOfWorkers: 3,
                 research_adv: "✅ Over 69% of home-based businesses earn at least $50,000 annually, showing strong potential for growth and profitability.",
                 research_disadv: "⚠️ Over 50% of home-based businesses fail due to factors like cash flow issues and ineffective marketing strategies."
             },
             "physical-store": {
                 location: "Physical Store",
+                targetMarket: "Professionals needing bespoke suits, Fashion-forward individuals, High-income earners",
                 maxNumberOfWorkers: 10,
                 research_adv: "✅ Over 55% of consumers still prefer to shop in physical stores engage products before purchasing.",
                 research_disadv: "⚠️ Over 20% of physical stores businesses fail because of high overhead costs, poor location choices, and shifting consumer behavior toward online shopping"
             },
             "commercial-space": {
                 location: "Commercial Space",
+                targetMarket: "Working professionals, Stress-relief seekers, Health-conscious individuals",
                 maxNumberOfWorkers: 20,
                 research_adv: "✅ Over 20-35% increase in customer acquisition compared to home-based operations, primarily due to increased visibility, foot traffic, and client trust.",
                 research_disadv: "⚠️ Over 40% of businesses in commercial spaces fail because of high rent costs, bad location selection, and low demand factors."
@@ -266,7 +269,7 @@
         };
         function openModal(id) {
             const selectedLocationData = locationData[id];
-
+        
             console.log(locationData[id])
 
             let modal = document.getElementById("modal");
@@ -277,9 +280,13 @@
             let dummyDiv = modal.querySelector("#dummy-div");
             let cancelButton = modal.querySelector("#closebtn");
             let proceedButton = modal.querySelector("#submitbtn");
-    
+
             document.getElementById("businessLocation").value = selectedLocationData.location;
+            document.getElementById("targetMarket").value = selectedLocationData.targetMarket;
             document.getElementById("maxNumberOfWorkers").value = selectedLocationData.maxNumberOfWorkers;
+            
+            console.log(document.getElementById("targetMarket"));
+            console.log(document.getElementById("maxNumberOfWorkers"));
 
             document.getElementById("name").removeAttribute("required");
             cancelButton.disabled = true;
@@ -329,7 +336,7 @@
                 
                 console.log(`Requested ${field}:`, data);
 
-                let category = data.data.businessCategory;
+                let category = data.businessCategory;
 
                 switch (category) {
                     case "Tech":
@@ -398,7 +405,7 @@
             updatePlayerProperty("businessLocation", selectedLocationData);
             addOption1ToPlayerObject();
             printPlayerInfo();
-            event.preventDefault();
+            // event.preventDefault();
         });
 
         // Moves information from sessionStorage to player object
@@ -452,8 +459,10 @@
                 ul.style.height = lMaxHeight + 'px';
             });
         }
+        document.addEventListener('DOMContentLoaded', adjustCardHeights);
         document.addEventListener('load', adjustCardHeights);
         window.addEventListener('resize', adjustCardHeights);
+        
     </script>
 </body>
 </html>

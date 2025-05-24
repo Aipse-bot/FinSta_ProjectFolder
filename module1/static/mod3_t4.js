@@ -3,14 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // loadSessionData();
     printPlayerInfo();
     // Add redirect logic for summary cards
-    document.querySelectorAll('.summary-card').forEach(function(card) {
-        card.addEventListener('click', function() {
-            const url = card.getAttribute('data-redirect');
-            if (url) {
-                window.location.href = url;
-            }
-        });
-    });
+    // cardRedirect();
 });
 
 function oldLoadSessionData() {
@@ -136,6 +129,18 @@ function replaceText(value, parentId) {
                 el.textContent = "N/A";
             }
         }
+    });
+}
+
+// moved unused function
+function cardRedirect() {
+    document.querySelectorAll('.summary-card').forEach(function(card) {
+        card.addEventListener('click', function() {
+            const url = card.getAttribute('data-redirect');
+            if (url) {
+                window.location.href = url;
+            }
+        });
     });
 }
 
