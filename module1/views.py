@@ -175,6 +175,10 @@ def mod3t4_view(request):
     return render(request, "mod3_t4.html", context)  # ✅ Pass data to template
 
 @login_required
+def mod4t1_view(request):
+    return render(request, "mod4_t1.html")
+
+@login_required
 def intro_view(request):
     form = PlayerForm()
     return render(request, "introScreen.html", {"form": form})
