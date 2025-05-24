@@ -97,19 +97,19 @@
                     </div>
                     <div class="options grid grid-cols-3 gap-6">
                         <div id="services-opt1" class="options-1 bg-white p-5 rounded-lg cursor-pointer shadow-sm hover:shadow-md hover:bg-[#22C55E]/20 transition-all duration-300" onclick="openModal(9)">
-                            <div class="icon bg-[#3B82F6]/30 p-5 rounded-lg">
+                            <div class="icon bg-[#8B5CF6]/30 p-5 rounded-lg">
                                 <img src="{% static 'module1/images/spa.png' %}" alt="Spa and Massage Center" class="option-icon w-full h-24 object-contain">
                             </div>
                             <div class="type text-sm text-[#1F2937] mt-3 text-center">Spa and Massage Center</div>
                         </div>
                         <div id="services-opt2" class="options-2 bg-white p-5 rounded-lg cursor-pointer shadow-sm hover:shadow-md hover:bg-[#22C55E]/20 transition-all duration-300" onclick="openModal(10)">
-                            <div class="icon bg-[#3B82F6]/30 p-5 rounded-lg">
+                            <div class="icon bg-[#8B5CF6]/30 p-5 rounded-lg">
                                 <img src="{% static 'module1/images/house.png' %}" alt="Home Cleaning Service" class="option-icon w-full h-24 object-contain">
                             </div>
                             <div class="type text-sm text-[#1F2937] mt-3 text-center">Home Cleaning Service</div>
                         </div>
                         <div id="services-opt3" class="options-3 bg-white p-5 rounded-lg cursor-pointer shadow-sm hover:shadow-md hover:bg-[#22C55E]/20 transition-all duration-300" onclick="openModal(11)">
-                            <div class="icon bg-[#3B82F6]/30 p-5 rounded-lg">
+                            <div class="icon bg-[#8B5CF6]/30 p-5 rounded-lg">
                                 <img src="{% static 'module1/images/interior-design.png' %}" alt="Interior Design and Home Staging" class="option-icon w-full h-24 object-contain">
                             </div>
                             <div class="type text-sm text-[#1F2937] mt-3 text-center">Interior Design and Home Staging</div>
@@ -120,38 +120,47 @@
         </div>
     </div>
     <!-- Modal -->
-        <div id="modal" class="fixed inset-0 hidden bg-black bg-opacity-50 flex items-center justify-center">
-            <div class="bg-gray-200 rounded-xl shadow-lg w-full max-w-lg">
-
-                <!-- Modal Header -->
-                <div class="border-b border-gray-600 p-4 flex justify-between items-center">
-                    <h5 id="modalTitle" class="text-xl font-semibold text-gray-900">Confirm Your Selection</h5>
-                    <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 text-lg">✖</button>
-                </div>
-                <div class="p-4" id="modalBody">sfsdfds</div>
-                <!-- 🚀 Modal Form -->
-                <form id="playerForm" method="POST" class="p-4" action="{% url 'save_business_category_type' %}">
-                    <!-- Hidden Inputs for Player Data -->
-                    {% csrf_token %}
-                    {{ form.name }}
-                    {{ form.businessCategory }}
-                    {{ form.businessType }}
-                    
-
-                    <div class="border-t border-gray-600 p-4 flex justify-between">
-                        <button type="button" onclick="closeModal()" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-all">
-                            Cancel
-                        </button>
-
-                        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-all">
-                            Confirm Selection
-                        </button>
-                    </div>
-                </form>
+    <div id="modal" class="fixed inset-0 hidden bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-lg transform transition-all duration-200 ease-out">
+            <!-- Modal Header -->
+            <div class="border-b border-gray-200 p-5 flex justify-between items-center bg-gray-50 rounded-t-xl">
+                <h5 id="modalTitle" class="text-xl font-bold text-gray-800">Confirm Your Selection</h5>
+                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 bg-transparent hover:bg-gray-100 rounded-full p-2 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
             </div>
+            
+            <!-- Modal Body -->
+            <div class="p-6 bg-white" id="modalBody">
+                <!-- Content will be dynamically inserted here -->
+            </div>
+            
+            <!-- 🚀 Modal Form -->
+            <form id="playerForm" method="POST" class="px-6 pb-6" action="{% url 'save_business_category_type' %}">
+                <!-- Hidden Inputs for Player Data -->
+                {% csrf_token %}
+                {{ form.name }}
+                {{ form.businessCategory }}
+                {{ form.businessType }}
+                
+                <div class="border-t border-gray-200 pt-4 mt-4 flex justify-between items-center">
+                    <button type="button" onclick="closeModal()" class="bg-red-600 border border-gray-300 text-white px-4 py-2 rounded-lg hover:bg-gray-50 shadow-sm transition-colors">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 shadow-sm transition-colors">
+                        Confirm Selection
+                    </button>
+                </div>
+            </form>
         </div>
+    </div>
+
 
 <script>
+// Array of business options with details
 let selectedOptionNumber = null;
 let option1;
 let option2;
@@ -343,7 +352,7 @@ let options = [
     },
 ]
 
-
+// Function to open the modal with the selected option's details
 function openModal(optId) {
     // Get modal elements
     document.getElementById("modalTitle").innerText = options[optId].type;
@@ -361,6 +370,7 @@ function openModal(optId) {
     console.log(`Clicked option: ${optId}`);
 }
 
+// Function to close the modal and reset fields
 function closeModal() {
     document.getElementById("modalTitle").innerText = ""
     document.getElementById("modalBody").innerText = ""
@@ -371,6 +381,9 @@ function closeModal() {
     document.getElementById("modal").classList.add("hidden");
 }
 
+/**
+ * Add event listeners to all business option divs after DOM is loaded
+ * */
 
 function choiceT1T2(choiceID){
     let id = choiceID;
