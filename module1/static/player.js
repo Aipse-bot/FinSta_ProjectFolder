@@ -5,6 +5,7 @@ let player = JSON.parse(sessionStorage.getItem("playerData")) || {
     businessGoal: null,
     businessName: null,
     businessLocation: null,
+    targetMarket: null,
     balance: null,
     repaymentOption: null
 };
