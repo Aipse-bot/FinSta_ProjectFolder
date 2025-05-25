@@ -1248,6 +1248,10 @@
 
     window.closeActionOutcomeModal = function() {
         actionOutcomeModal.classList.add('hidden');
+        // Check for game over immediately after an action outcome
+        if (window.checkGameOverConditions()) { 
+            return; // If game is over, stop further progression
+        }
 
         if (actionPoints === 0 && quarterEndModal.classList.contains('hidden')) {
             window.showQuarterEndModal();
@@ -1344,7 +1348,13 @@
 
     window.proceedToNextQuarter = function() {
         quarterEndModal.classList.add('hidden');
+        // Check for game over condition BEFORE advancing the quarter
+        if (window.checkGameOverConditions()) {
+            return; // Stop game progression
+        }
+
         window.advanceQuarter();
+        window.checkGameOverConditions(); // Check for game over after advancing quarter
     }
 
     // --- Settings Modal Logic ---
@@ -1696,15 +1706,15 @@
                         div.classList.add("dropdown-item-active", "hover:bg-purple-400", "cursor-pointer");
                         div.onclick = () => window.openModal(item.actionKey);
                     } else if (index < currentSoftwareDevelopmentStageIndex || (productV1Launched && actionKey === "Launch: Launch your product" && currentSoftwareDevelopmentStageIndex === 0) ) {
-                             if (productV1Launched && actionKey === "Launch: Launch your product" && currentSoftwareDevelopmentStageIndex === 0) {
-                                 div.classList.add("dropdown-item-completed");
-                             } else if (index < currentSoftwareDevelopmentStageIndex) {
-                                 div.classList.add("dropdown-item-completed");
-                             } else {  
-                                 div.classList.add("dropdown-item-disabled");
-                             }
-                    }
-                     else {  
+                              if (productV1Launched && actionKey === "Launch: Launch your product" && currentSoftwareDevelopmentStageIndex === 0) {
+                                   div.classList.add("dropdown-item-completed");
+                              } else if (index < currentSoftwareDevelopmentStageIndex) {
+                                   div.classList.add("dropdown-item-completed");
+                              } else {  
+                                   div.classList.add("dropdown-item-disabled");
+                              }
+                    }  
+                      else {  
                         div.classList.add("dropdown-item-disabled");
                     }
                     dropdownMenu.appendChild(div);
@@ -1938,12 +1948,6 @@
 
     // --- Game Loop / Turn Advancement ---
     window.advanceQuarter = function() {
-        // Check for game end condition BEFORE advancing the quarter
-        if (currentYear === 2 && currentQuarter === 4) {
-            window.showGameEndModal();
-            return; // Stop game progression
-        }
-
         currentQuarter++;
         if (currentQuarter > 4) {
             currentQuarter = 1;
@@ -2007,26 +2011,140 @@
     }
 
     // --- Game End Logic ---
-    window.showGameEndModal = function() {
+    window.showGameEndModal = function(reason = "time_up") {
         let finalHealth = window.calculateCompanyHealth(); // Recalculate final health
         let message = "";
         let scoreClass = "";
+        let title = "Game Over!";
 
-        if (finalHealth >= 50) {
-            message = "Congratulations! Your company health is strong. You made excellent decisions and guided your business to success!";
-            scoreClass = "good";
-        } else {
-            message = "Game Over! Your company health is low. You made some bad decisions. Try again to build a thriving business!";
+        if (reason === "bankrupt") {
+            title = "Game Over: Bankruptcy!";
+            message = "Your company has run out of funds. You've gone bankrupt!";
             scoreClass = "bad";
+        } else if (reason === "no_affordable_actions") {
+            title = "Game Over: No Viable Actions!";
+            message = "You have action points, but no actions can be afforded. Your business is stuck!";
+            scoreClass = "bad";
+        } else if (reason === "time_up") { // End of Year 2, Q4
+            title = "Game Over: Time's Up!";
+            if (finalHealth >= 70) { // Higher threshold for winning by time
+                message = "Congratulations! You've successfully navigated two years of business. Your company is thriving!";
+                scoreClass = "good";
+            } else if (finalHealth >= 50) {
+                message = "Time's up! Your company is stable, but there's room for more growth. A decent run!";
+                scoreClass = "neutral";
+            } else {
+                message = "Time's up! Your company struggled to stay afloat. Better luck next time!";
+                scoreClass = "bad";
+            }
+        } else { // Generic game over (shouldn't happen if reasons are covered)
+             if (finalHealth >= 50) {
+                message = "Congratulations! Your company health is strong. You made excellent decisions and guided your business to success!";
+                scoreClass = "good";
+            } else {
+                message = "Game Over! Your company health is low. You made some bad decisions. Try again to build a thriving business!";
+                scoreClass = "bad";
+            }
         }
 
-        gameEndTitle.textContent = "Game Over!";
+        gameEndTitle.textContent = title;
         gameEndMessage.textContent = message;
         gameEndScore.textContent = `Final Company Health: ${finalHealth.toFixed(0)}%`;
         gameEndScore.className = `modal-score ${scoreClass}`; // Apply class for styling
 
         gameEndModal.classList.remove('hidden');
-        window.businessLog("Game Over! Final Company Health: " + finalHealth.toFixed(0) + "%", scoreClass === "good" ? "bonus" : "penalty");
+        window.businessLog(title + ": " + message, scoreClass === "good" ? "bonus" : "penalty");
+    }
+
+    window.canPlayerTakeAnyAction = function() {
+        const currentCategoryKey = businessTypeToCategoryMapping[businessType] || "2";
+        const allActions = { ...window.businessTypeActions[currentCategoryKey], ...window.commonActions };
+
+        for (const actionKey in allActions) {
+            const actionDetails = allActions[actionKey];
+
+            // Check if action is generally available based on sequential logic or always available flag
+            let isActionAvailable = true;
+            if (actionDetails.isSequential) {
+                if (currentCategoryKey === "1") {
+                    const expectedIndex = category1StageOrder.indexOf(actionKey);
+                    if (expectedIndex !== currentSoftwareDevelopmentStageIndex) {
+                        isActionAvailable = false;
+                    }
+                } else if (currentCategoryKey === "2") {
+                    const expectedIndex = category2StageOrder.indexOf(actionKey);
+                    if (expectedIndex !== currentCategory2StageIndex) {
+                        isActionAvailable = false;
+                    }
+                }
+            }
+            // Specific overrides for "always available" actions that might be disabled
+            if (actionKey === "Purchase Business Insurance" && hasActiveInsurance) {
+                isActionAvailable = false;
+            }
+            if (actionKey === "Hire a Lawyer" && hasActiveLawyer) {
+                isActionAvailable = false;
+            }
+            if (actionKey === "Fire a Person" && employees === 0) {
+                isActionAvailable = false;
+            }
+            // Hiring actions check against max employees
+            if (["Local Outreach", "Online Websites", "Recruiter"].includes(actionKey)) {
+                let maxEmployeesForLocation = 0;
+                switch(businessLocation) {
+                    case "Home-Based": maxEmployeesForLocation = MAX_EMPLOYEES_HOME_BASED; break;
+                    case "Physical Store": maxEmployeesForLocation = MAX_EMPLOYEES_PHYSICAL_STORE; break;
+                    case "Commercial Space": maxEmployeesForLocation = MAX_EMPLOYEES_COMMERCIAL_SPACE; break;
+                    default: maxEmployeesForLocation = MAX_EMPLOYEES_HOME_BASED;
+                }
+                if (employees >= maxEmployeesForLocation) {
+                    isActionAvailable = false;
+                }
+            }
+            // Product launch requires v1 launched for category 1
+            if (actionKey === "Announce new product/version" && currentCategoryKey === "1" && !productV1Launched) {
+                isActionAvailable = false;
+            }
+            // Make a Sale requires v1 launched for category 2
+            if (actionKey === "Make a Sale" && currentCategoryKey === "2" && !productV1Launched) {
+                isActionAvailable = false;
+            }
+            // Hide hiring/services dropdowns in Q1 Y1
+            if (currentYear === 1 && currentQuarter === 1 && (actionKey in window.commonActions)) {
+                if (["Local Outreach", "Online Websites", "Recruiter", "Fire a Person", "Hire a Lawyer", "Purchase Business Insurance", "Marketing Campaign"].includes(actionKey)) {
+                    isActionAvailable = false;
+                }
+            }
+
+
+            // If the action is available based on game state, check costs
+            if (isActionAvailable) {
+                if (actionPoints >= (actionDetails.apCost || 0) && balance >= (actionDetails.financialCost || 0)) {
+                    return true; // Found at least one affordable action
+                }
+            }
+        }
+        return false; // No affordable actions found
+    }
+
+    window.checkGameOverConditions = function() {
+        if (balance < 0) {
+            window.showGameEndModal("bankrupt");
+            return true;
+        }
+
+        // Only check if no affordable actions if action points are available
+        if (actionPoints > 0 && !window.canPlayerTakeAnyAction()) {
+            window.showGameEndModal("no_affordable_actions");
+            return true;
+        }
+
+        // Check for end of game by time
+        if (currentYear === 2 && currentQuarter === 4 && actionPoints === 0) { // All quarters passed and no AP left
+            window.showGameEndModal("time_up");
+            return true;
+        }
+        return false;
     }
 
 
@@ -2079,9 +2197,9 @@
                    const dropdownMenuToClose = document.getElementById(`dropdownMenu${openDropdownId}`);
                    const chevronToReset = document.querySelector(`button[onclick="window.openDropDown(${openDropdownId})"] svg[data-chevron-id]`);
                    if (dropdownMenuToClose && !dropdownMenuToClose.classList.contains('hidden')) {
-                                          dropdownMenuToClose.classList.add('hidden');
-                                          if(chevronToReset) chevronToReset.classList.remove('rotate-180');
-                                          openDropdownId = null;
+                                   dropdownMenuToClose.classList.add('hidden');
+                                   if(chevronToReset) chevronToReset.classList.remove('rotate-180');
+                                   openDropdownId = null;
                    }
             }
         }
