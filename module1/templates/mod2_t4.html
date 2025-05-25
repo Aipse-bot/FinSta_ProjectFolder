@@ -5,65 +5,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Project Ideation - Business Name</title>
-
-    <!-- TailwindCSS and Feather Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body class="bg-[#1F2937] min-h-screen font-sans">
     <div class="container mx-auto px-4 py-12">
         <div class="max-w-6xl mx-auto">
-
             <!-- Header Section -->
             <div class="relative flex items-center justify-center mb-12">
-                <!-- Back Button -->
                 <a href="javascript:history.back()" class="absolute left-0 inline-flex items-center text-[#E5E7EB] hover:text-[#22C55E] transition-colors">
                     <i data-feather="arrow-left" class="w-5 h-5 mr-2" aria-hidden="true"></i>
                     <span class="text-lg">Back</span>
                 </a>
-
-                <!-- Page Title -->
                 <h1 class="text-4xl font-bold text-center text-[#E5E7EB]">Select your Business Name</h1>
             </div>
 
             <!-- Main Selection Container -->
             <div class="bg-[#E5E7EB] rounded-xl p-8 shadow-lg">
                 <div class="name-options rounded-xl p-6">
-                    
                     <!-- Suggested Business Names -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                        <!-- Card: MarketSoar -->
-                        <div class="name-option bg-white rounded-lg p-8 shadow-md hover:shadow-lg hover:bg-[#22C55E]/20 transition-all duration-300 cursor-pointer border border-gray-200 hover:border-[#22C55E] text-center transform hover:-translate-y-1" onclick="selectBusinessName('MarketSoar')">
-                            <div class="flex items-center justify-center mb-4">
-                                <div class="w-16 h-16 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
-                                    <i data-feather="zap" class="w-8 h-8 text-[#1F2937]" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                            <h3 class="font-semibold text-[#1F2937] text-xl">MarketSoar</h3>
-                            <p class="text-gray-600 mt-2">Perfect for businesses focused on market expansion</p>
-                        </div>
-
-                        <!-- Card: OptimizePro -->
-                        <div class="name-option bg-white rounded-lg p-8 shadow-md hover:shadow-lg hover:bg-[#22C55E]/20 transition-all duration-300 cursor-pointer border border-gray-200 hover:border-[#22C55E] text-center transform hover:-translate-y-1" onclick="selectBusinessName('OptimizePro')">
-                            <div class="flex items-center justify-center mb-4">
-                                <div class="w-16 h-16 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
-                                    <i data-feather="trending-up" class="w-8 h-8 text-[#1F2937]" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                            <h3 class="font-semibold text-[#1F2937] text-xl">OptimizePro</h3>
-                            <p class="text-gray-600 mt-2">Ideal for efficiency-focused operations</p>
-                        </div>
-
-                        <!-- Card: ProfitReach -->
-                        <div class="name-option bg-white rounded-lg p-8 shadow-md hover:shadow-lg hover:bg-[#22C55E]/20 transition-all duration-300 cursor-pointer border border-gray-200 hover:border-[#22C55E] text-center transform hover:-translate-y-1" onclick="selectBusinessName('ProfitReach')">
-                            <div class="flex items-center justify-center mb-4">
-                                <div class="w-16 h-16 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
-                                    <i data-feather="settings" class="w-8 h-8 text-[#1F2937]" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                            <h3 class="font-semibold text-[#1F2937] text-xl">ProfitReach</h3>
-                            <p class="text-gray-600 mt-2">Great for businesses prioritizing profitability</p>
-                        </div>
+                    <div id="name-options-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                        <!-- Cards will be dynamically populated -->
                     </div>
 
                     <!-- Custom Name Input -->
@@ -95,7 +57,6 @@
         <div class="bg-[#E5E7EB] border border-[#62666e] rounded-xl shadow-lg p-8 w-[450px] mx-auto text-center">
             <h2 class="text-2xl font-semibold text-[#1F2937] mb-6">Chosen Business Name</h2>
             <p id="businessNameText" class="text-[#1F2937] text-xl mb-8"></p>
-
             <form method="POST" action="{% url 'save_business_name' %}">
                 {% csrf_token %}
                 {{ form.name }}
@@ -115,17 +76,143 @@
     <!-- JavaScript Logic -->
     <script type="text/javascript" src="{% static 'player.js' %}"></script>
     <script>
+        // Suggested business names from user-provided JS
+        const suggestedBusinessNames = {
+            Tech: [
+                { Name: "GadgetGuard", Icon: "shield", Description: "Protect and repair your gadgets swiftly." },
+                { Name: "Reboot Rescue", Icon: "refresh-cw", Description: "Expert reboot and troubleshooting services." },
+                { Name: "TechFix Haven", Icon: "tool", Description: "Reliable tech repair solutions." }
+            ],
+            IoT: [
+                { Name: "SmartSphere", Icon: "cpu", Description: "Innovative smart home and business devices." },
+                { Name: "LinkLogic Labs", Icon: "wifi", Description: "Connecting devices with smart logic." },
+                { Name: "IoT Nexus", Icon: "cast", Description: "Central hub for smart device integration." }
+            ],
+            Web: [
+                { Name: "WebCrafters Hub", Icon: "code", Description: "Custom web design and development." },
+                { Name: "PixelPerfect Solutions", Icon: "image", Description: "Precision in every pixel and design." },
+                { Name: "CodeCanvas", Icon: "layers", Description: "Building your web vision from scratch." }
+            ],
+            Coffee: [
+                { Name: "Brew Haven", Icon: "coffee", Description: "Your cozy spot for perfect brews." },
+                { Name: "The Roastery", Icon: "wind", Description: "Expert roasting for rich flavors." },
+                { Name: "Caffeine Chronicle", Icon: "book-open", Description: "Telling stories one cup at a time." }
+            ],
+            Bakery: [
+                { Name: "Whisk & Wonder", Icon: "heart", Description: "Baking with love and magic." },
+                { Name: "Golden Crust Bakery", Icon: "star", Description: "Golden crusts baked to perfection." },
+                { Name: "Flourish Bakes", Icon: "gift", Description: "Delightful treats for every occasion." }
+            ],
+            Trucks: [
+                { Name: "Rolling Flavors", Icon: "truck", Description: "Delicious meals on wheels." },
+                { Name: "Bite on Wheels", Icon: "shopping-bag", Description: "Tasty bites wherever you go." },
+                { Name: "Street Treats", Icon: "tag", Description: "Savory street food favorites." }
+            ],
+            Clothes: [
+                { Name: "Stitch & Style", Icon: "scissors", Description: "Tailored fashion with flair." },
+                { Name: "Your Fit Studio", Icon: "user-check", Description: "Clothes that fit your lifestyle." },
+                { Name: "The Bespoke Threa", Icon: "pen-tool", Description: "Custom garments crafted uniquely." }
+            ],
+            Wear: [
+                { Name: "FlexFit Apparel", Icon: "activity", Description: "Activewear for every move." },
+                { Name: "ActiVate", Icon: "zap", Description: "Gear up for action and comfort." },
+                { Name: "Momentum Gear", Icon: "repeat", Description: "Performance wear for momentum." }
+            ],
+            Shirt: [
+                { Name: "Inked Threads", Icon: "feather", Description: "Expressive printed shirt designs." },
+                { Name: "Printify", Icon: "printer", Description: "Custom prints on quality shirts." },
+                { Name: "Tee-lor Swift", Icon: "music", Description: "Stylish tees with a fun twist." }
+            ],
+            Spa: [
+                { Name: "Serenity Spa", Icon: "droplet", Description: "Relaxation and wellness retreat." },
+                { Name: "Harmony Haven", Icon: "sun", Description: "Balance your body and mind." },
+                { Name: "Ethereal Touch Spa", Icon: "cloud-drizzle", Description: "Gentle care for your soul." }
+            ],
+            Cleaning: [
+                { Name: "Go Sparkle", Icon: "zap", Description: "Quick and thorough cleaning." },
+                { Name: "Friday Cleaners", Icon: "calendar", Description: "Scheduled cleaning made easy." },
+                { Name: "Spotless", Icon: "droplet", Description: "Leave no spot behind." }
+            ],
+            Design: [
+                { Name: "Dream Spaces", Icon: "layout", Description: "Designing your ideal environment." },
+                { Name: "Refined Interiors", Icon: "home", Description: "Elegant interior transformations." },
+                { Name: "Style & Stage Studio", Icon: "pen-tool", Description: "Creative designs that impress." }
+            ]
+        };
+
+        // Business type to category key mapping
+        const businessTypeToCategory = {
+            "Tech Repair and Support Service": "Tech",
+            "IoT Device Development": "IoT",
+            "Web Development Services": "Web",
+            "Specialty Coffee Shop": "Coffee",
+            "Artisan Bakery": "Bakery",
+            "Food Truck Business": "Trucks",
+            "Custom Tailored Clothing Service": "Clothes",
+            "Activewear Line": "Wear",
+            "Online T-Shirt Printing": "Shirt",
+            "Spa and Massage Center": "Spa",
+            "Home Cleaning Service": "Cleaning",
+            "Interior Design and Home Staging": "Design"
+        };
+
+        // Options array from mod2t1t2.html for reference
+        const options = [
+            { category: "Tech", type: "Tech Repair and Support Service" },
+            { category: "Tech", type: "IoT Device Development" },
+            { category: "Tech", type: "Web Development Services" },
+            { category: "Food", type: "Specialty Coffee Shop" },
+            { category: "Food", type: "Artisan Bakery" },
+            { category: "Food", type: "Food Truck Business" },
+            { category: "Clothing", type: "Custom Tailored Clothing Service" },
+            { category: "Clothing", type: "Activewear Line" },
+            { category: "Clothing", type: "Online T-Shirt Printing" },
+            { category: "Expert", type: "Spa and Massage Center" },
+            { category: "Expert", type: "Home Cleaning Service" },
+            { category: "Expert", type: "Interior Design and Home Staging" }
+        ];
+
         document.addEventListener('DOMContentLoaded', function () {
             feather.replace();
             document.getElementById("name").classList.add("hidden");
             document.getElementById("name").removeAttribute("required");
+
+            // Get selected business type from sessionStorage
+            const selectedOption = sessionStorage.getItem('option1');
+            let businessNames = [
+                { Name: "MarketSoar", Icon: "zap", Description: "Perfect for businesses focused on market expansion" },
+                { Name: "OptimizePro", Icon: "trending-up", Description: "Ideal for efficiency-focused operations" },
+                { Name: "ProfitReach", Icon: "settings", Description: "Great for businesses prioritizing profitability" }
+            ]; // Fallback names
+
+            if (selectedOption !== null) {
+                const selectedType = options[selectedOption]?.type;
+                const categoryKey = businessTypeToCategory[selectedType];
+                if (categoryKey && suggestedBusinessNames[categoryKey]) {
+                    businessNames = suggestedBusinessNames[categoryKey];
+                }
+            }
+
+            // Populate name options dynamically
+            const grid = document.getElementById('name-options-grid');
+            grid.innerHTML = businessNames.map(nameOption => `
+                <div class="name-option bg-white rounded-lg p-8 shadow-md hover:shadow-lg hover:bg-[#22C55E]/20 transition-all duration-300 cursor-pointer border border-gray-200 hover:border-[#22C55E] text-center transform hover:-translate-y-1" onclick="selectBusinessName('${nameOption.Name}')">
+                    <div class="flex items-center justify-center mb-4">
+                        <div class="w-16 h-16 bg-[#3B82F6]/20 rounded-lg flex items-center justify-center">
+                            <i data-feather="${nameOption.Icon}" class="w-8 h-8 text-[#1F2937]" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <h3 class="font-semibold text-[#1F2937] text-xl">${nameOption.Name}</h3>
+                    <p class="text-gray-600 mt-2">${nameOption.Description}</p>
+                </div>
+            `).join('');
+            feather.replace(); // Re-run feather icons after dynamic content
         });
 
         // Disables name options when custom input is typed
         function checkInput() {
             const input = document.getElementById('businessNameInput');
             const nameOptions = document.querySelectorAll('.name-option');
-
             if (input.value.trim() !== '') {
                 nameOptions.forEach(option => {
                     option.classList.add('opacity-50', 'pointer-events-none');
@@ -150,7 +237,7 @@
             document.getElementById("name").classList.add("hidden");
             document.getElementById("name").removeAttribute("required");
             document.getElementById('businessNameInput').value = '';
-            checkInput(); // Refresh options visibility
+            checkInput();
             toggleModal(false);
         }
 
@@ -158,7 +245,6 @@
         function submitCustomName() {
             const input = document.getElementById('businessNameInput');
             const name = input.value.trim();
-
             if (name !== '') {
                 document.getElementById("businessName").value = name;
                 document.getElementById("businessNameText").innerHTML = `"<strong>${name}</strong>". Proceed?`;

@@ -51,7 +51,7 @@ function closeModal() {
 }
 
 /**
- * Continues to the next step after confirmation, storing selected values.
+ * Continues to the next step after confirmation, storing selected values. For mod3
  */
 function continueAction() {
     const locationData = {
