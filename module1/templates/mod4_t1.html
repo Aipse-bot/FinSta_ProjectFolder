@@ -10,7 +10,7 @@
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
-            /* overflow: hidden;   Initially hide overflow for loading, JS will manage it */
+            /* overflow: hidden;    Initially hide overflow for loading, JS will manage it */
             display: flex;  
             min-height: 100vh;  
         }
@@ -225,6 +225,46 @@
             background-color: #4299E1; /* Tailwind blue-500 */
         }
 
+        /* Highlight Glow for Tutorial */
+        .highlight-glow {
+            box-shadow: 0 0 15px 5px rgba(252, 211, 77, 0.75); /* Tailwind yellow-300/75 */
+            z-index: 60; /* Higher than modals */
+            position: relative; /* Ensure z-index works */
+            transition: box-shadow 0.3s ease-in-out;
+        }
+        /* Specific styling for the tutorial modal content area */
+        #tutorialModalQ1 .bg-slate-800 {
+            max-width: 500px; /* Example fixed max-width, adjust as needed */
+            width: 90%; /* Responsive width */
+            min-height: 200px; /* Ensures a minimum height for the modal panel */
+            max-height: 90vh; /* Limits the overall height of the modal panel */
+            display: flex; /* Make it a flex container */
+            flex-direction: column; /* Stack children vertically */
+        }
+
+        #tutorialModalQ1 #tutorialContent {
+            flex-grow: 1; /* Allows the content area to take up available space */
+            overflow-y: auto; /* Enables scrolling for the content itself */
+            padding-right: 1rem; /* Add padding-right to prevent content from being hidden under scrollbar */
+            min-height: 100px; /* Ensures content area has some initial height */
+            max-height: 200px; /* Set max-height to match operations dropdown */
+        }
+
+        /* Custom scrollbar styles for tutorial content */
+        #tutorialModalQ1 #tutorialContent::-webkit-scrollbar {
+            width: 8px;
+        }
+        #tutorialModalQ1 #tutorialContent::-webkit-scrollbar-track {
+            background: #4a5568; /* Tailwind gray-700 */
+            border-radius: 10px;
+        }
+        #tutorialModalQ1 #tutorialContent::-webkit-scrollbar-thumb {
+            background: #718096; /* Tailwind gray-500 */
+            border-radius: 10px;
+        }
+        #tutorialModalQ1 #tutorialContent::-webkit-scrollbar-thumb:hover {
+            background: #a0aec0; /* Tailwind gray-400 */
+        }
     </style>
     <script>
         // --- Game State Variables ---
@@ -270,7 +310,7 @@
             "Activewear Line": "🏃‍♀️",
             "Tech Repair and Support": "🛠️",
             "Specialty Coffee Shop": "☕",
-            "Artisan Bakery": "�",
+            "Artisan Bakery": "🥐",
             "Food Truck Business": "🚚",
             "Custom Tailored Clothing": "🧵",
             "Online T-Shirt Printing": "🖨️", // Corrected emoji
@@ -641,7 +681,7 @@
                     <div>Balance: <span class="font-semibold text-emerald-400" id="accountBalance"></span></div>
                 </div>
             </div>
-            <div class="bg-slate-800 p-3 md:p-4 rounded-lg shadow">
+            <div class="bg-slate-800 p-3 md:p-4 rounded-lg shadow" id="companyStatsSection">
                 <div class="text-sm md:text-base font-semibold text-white mb-2 md:mb-3">Company Stats</div>
                 <div class="space-y-3 md:space-y-4">  
                     <div class="text-xs md:text-sm">
@@ -682,12 +722,19 @@
             <div id="activity-log" class="space-y-2 flex-grow overflow-y-auto"></div>
         </aside>
 
-        <button onclick="window.toggleSettingsModal()" title="Game Settings" class="fixed bottom-4 left-4 bg-slate-700 hover:bg-slate-600 text-white p-3 rounded-full shadow-lg z-30 transition-colors duration-150">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.646.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 1.905c-.007.379.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.333.183-.582.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.759 6.759 0 010-1.905c.007-.379-.137-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-        </button>
+        <div class="fixed bottom-4 left-4 flex space-x-3 z-30">
+            <button onclick="window.toggleSettingsModal()" title="Game Settings" class="bg-slate-700 hover:bg-slate-600 text-white p-3 rounded-full shadow-lg transition-colors duration-150">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.646.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 1.905c-.007.379.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.333.183-.582.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.759 6.759 0 010-1.905c.007-.379-.137-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+            </button>
+            <button onclick="window.toggleTutorialModal()" title="Tutorial" class="bg-blue-700 hover:bg-blue-600 text-white p-3 rounded-full shadow-lg transition-colors duration-150">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.006 0-2.01.07-3.006.204l1.293 1.293A7.5 7.5 0 0 1 12 4.5c1.867 0 3.675.43 5.243 1.204l1.293-1.293A8.967 8.967 0 0 0 12 3.75zm0 14.208a8.967 8.967 0 0 1 6-2.292c1.006 0 2.01-.07 3.006-.204l-1.293-1.293A7.5 7.5 0 0 0 12 19.5c-1.867 0-3.675-.43-5.243-1.204l-1.293 1.293A8.967 8.967 0 0 1 12 20.25zM12 12c2.109 0 4.06.636 5.66 1.722l1.293-1.293A8.967 8.967 0 0 0 12 9.75c-2.109 0-4.06.636-5.66 1.722L5.047 11.25A8.967 8.967 0 0 0 12 12z" />
+                </svg>
+            </button>
+        </div>
 
         <div class="fixed top-6 right-6 z-30">
             <div class="relative">
@@ -877,7 +924,7 @@
                         Continue
                     </button>
                 </div>
-            </div>
+                </div>
         </div>
 
         <div id="gameEndModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden p-4">
@@ -888,6 +935,30 @@
                 <button onclick="window.handleStartNewWithoutSaving()" class="modal-button">
                     Play Again
                 </button>
+            </div>
+        </div>
+
+        <div id="tutorialModalQ1" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden p-4">
+            <div class="bg-slate-800 rounded-lg shadow-xl w-full max-w-lg p-6 md:p-8 text-white relative flex flex-col">
+                <h2 id="tutorialTitle" class="text-xl md:text-2xl font-semibold mb-4 text-sky-400 text-center"></h2>
+                <button onclick="window.toggleTutorialModal()" class="absolute top-3 right-3 text-gray-400 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                <div id="tutorialContent" class="space-y-4 text-sm md:text-base flex-grow overflow-y-auto pr-2">
+                    </div>
+                <div id="tutorialNavButtons" class="flex justify-center items-center mt-6 space-x-3">
+                    <button id="tutorialBackButton" onclick="window.prevTutorialStep()" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-150">
+                        Back
+                    </button>
+                    <button id="tutorialSkipButton" onclick="window.skipTutorial()" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-150">
+                        Skip Tutorial
+                    </button>
+                    <button id="tutorialNextButton" onclick="window.nextTutorialStep()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-150">
+                        Next
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -904,7 +975,9 @@
         qEndNetProfit, qEndCurrentBalance, settingsModal, confirmNewGameModal,  
         actionOutcomeModal, actionOutcomeTitle, actionOutcomeMessage,  
         activityLog, mainElement, loadingScreen, contentWrapper, businessLocationDisplayElement,
-        gameEndModal, gameEndTitle, gameEndMessage, gameEndScore; // Added gameEndModal elements
+        gameEndModal, gameEndTitle, gameEndMessage, gameEndScore, tutorialModalQ1,
+        tutorialTitle, tutorialContent, tutorialBackButton, tutorialNextButton, tutorialSkipButton,
+        companyStatsSection, tutorialNavButtons; // Added tutorialNavButtons
 
     function initializeDOMElements() {
         companyHealthBar = document.getElementById("companyHealthBar");
@@ -938,9 +1011,9 @@
         qEndServiceCosts = document.getElementById('qEndServiceCosts');
         qEndRent = document.getElementById('qEndRent');
         qEndWages = document.getElementById('qEndWages');
-        qEndInsurance = document.getElementById('qEndInsurance');
+        qEndInsurance = document.getElementById('qEndInsurance');  
         qEndLawyerFees = document.getElementById('qEndLawyerFees'); // NEW
-        qEndActionExpenses = document.getElementById('qEndActionExpenses');
+        qEndActionExpenses = document.getElementById('qEndActionExpenses');  
         qEndLoanRepayment = document.getElementById('qEndLoanRepayment');
         qEndNetProfit = document.getElementById('qEndNetProfit');
         qEndCurrentBalance = document.getElementById('qEndCurrentBalance');
@@ -959,6 +1032,14 @@
         gameEndTitle = document.getElementById('gameEndTitle');
         gameEndMessage = document.getElementById('gameEndMessage');
         gameEndScore = document.getElementById('gameEndScore');
+        tutorialModalQ1 = document.getElementById('tutorialModalQ1');  
+        tutorialTitle = document.getElementById('tutorialTitle');
+        tutorialContent = document.getElementById('tutorialContent');
+        tutorialBackButton = document.getElementById('tutorialBackButton');
+        tutorialNextButton = document.getElementById('tutorialNextButton');
+        tutorialSkipButton = document.getElementById('tutorialSkipButton');
+        companyStatsSection = document.getElementById('companyStatsSection'); // Get the company stats section
+        tutorialNavButtons = document.getElementById('tutorialNavButtons'); // Get the tutorial navigation buttons container
     }
 
 
@@ -968,8 +1049,88 @@
     let latestActionKey = "";  
     let currentModalType = "";
     let isSettingsModalVisible = false;  
+    let isTutorialModalVisible = false;  
+    let currentTutorialStepIndex = 0; // New: Tracks current tutorial step
     let currentRandomEventEffect = null;  
     let currentRandomEventIndex = -1;  
+
+    let currentHighlightedElement = null; // Track currently highlighted element
+
+    // --- Highlighting Functions ---
+    window.applyHighlight = function(element) {
+        window.removeHighlight(); // Remove any existing highlight first
+        if (element) {
+            element.classList.add('highlight-glow');
+            // Ensure the element is visible if it was hidden by default (e.g., inside a closed dropdown)
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            currentHighlightedElement = element;
+        }
+    };
+
+    window.removeHighlight = function() {
+        if (currentHighlightedElement) {
+            currentHighlightedElement.classList.remove('highlight-glow');
+            currentHighlightedElement = null;
+        }
+        // Ensure actions dropdown is closed if it was opened just for tutorial highlighting
+        // This is tricky: we only want to close it if the tutorial was the one that opened it.
+        // For now, it will stay open until user clicks away or it's implicitly closed.
+    };
+
+    // --- Tutorial Steps Definition ---
+    const tutorialSteps = [
+        {
+            title: "The beginning",
+            content: `
+                <p>It's time to get to work! You will have 2 years to prove that you have what it takes to run a business. Let me show you the ropes...</p>
+            `,
+            highlightId: null // No highlight for this step
+        },
+        {
+            title: "Quarter",
+            content: `
+                <p>We will be breaking each year up into 4 quarters. We business folks refer to the quarters as Q1-Q4. You can think of each quarter as a "round". There will be 8 rounds total.</p>
+            `,
+            highlightId: 'yearQuarterDisplay' // Highlight Year 1, Q1
+        },
+        {
+            title: "Company Status",
+            content: `
+                <p>Company Status shows how you are doing. Keep an eye on your Company Health, Market Domination, Customer Satisfaction, and Legal Papers on the left sidebar.</p>
+            `,
+            highlightId: 'companyStatsSection' // Highlight the company stats section
+        },
+        {
+            title: "Actions",
+            content: `
+                <p>Each quarter (round) you are able to take up to 4 actions. So choose wisely!</p>
+            `,
+            highlightId: 'actionPointsDisplay' // Highlight action points
+        },
+        {
+            title: "Actions",
+            content: `
+                <p>In order to run your business you must complete actions. Keep in mind these will affect your long-term goal. As you play you will unlock more actions!</p>
+            `,
+            highlightId: null // No specific highlight, continuation of previous
+        },
+        {
+            title: "Operations",
+            content: `
+                <p>To keep your company afloat, you will have to do the work! Completing individual operations will result in more money each quarter.</p>
+                <p>The "Operations" menu has already been opened for you. Click on the highlighted button to explore the operations actions!</p>
+            `,
+            highlightOperationsMenu: true // Special flag to handle opening actions and highlighting operations button
+        },
+        {
+            title: "That's it for now!",
+            content: `
+                <p>I know you have a lot to do so I will get out of your hair. Good luck!</p>
+                <p>Remember to check your Company Stats and Activity Log regularly!</p>
+            `,
+            highlightId: null // No highlight for this step
+        }
+    ];
 
 
     // --- Initial Setup ---
@@ -1027,7 +1188,7 @@
 
     window.updateCompanyHealth = function() {  
         let baseHealth = window.calculateCompanyHealth();
-        companyHealthPercentage = Math.max(0, Math.min(100, baseHealth + insuranceBonus));
+        companyHealthPercentage = Math.max(0, Math.min(100, baseHealth + insuranceBonus)); // Ensure health doesn't go below 0 or above 100
         if(companyHealthBar) companyHealthBar.style.width = `${companyHealthPercentage}%`;
     }
     window.updateMarketDomination = function(value) {
@@ -1037,7 +1198,7 @@
     }
     window.updateCustomerSatisfaction = function(value) {
         customerSatisfactionPercentage = Math.max(0, Math.min(100, value));
-        if(customerSatisfactionBar) customerSatisfactionBar.style.width = `${customerSatisfactionPercentage}%`;
+        if(customerSatisfactionBar) customerSatisfactionBar.style.width = `${customerSatisfactionBar}%`;
         window.updateCompanyHealth();  
     }
     window.updateBalancedBooks = function(value) {  
@@ -1083,7 +1244,7 @@
         if(employeeCountDisplay) employeeCountDisplay.textContent = employees;
         if(actionPointsDisplay) actionPointsDisplay.textContent = actionPoints;
         if(marketDominationBar) marketDominationBar.style.width = `${marketDominationPercentage}%`;
-        if(customerSatisfactionBar) customerSatisfactionBar.style.width = `${customerSatisfactionPercentage}%`;
+        if(customerSatisfactionBar) customerSatisfactionBar.style.width = `${customerSatisfactionBar}%`;
         if(balancedBooksBar) balancedBooksBar.style.width = `${balancedBooksPercentage}%`;
         window.updateCompanyHealth();  
         window.updateYearQuarterDisplay();
@@ -1372,6 +1533,100 @@
         }
     }
 
+    // --- Tutorial Modal Logic ---
+    window.toggleTutorialModal = function() {
+        isTutorialModalVisible = !isTutorialModalVisible;
+        tutorialModalQ1.classList.toggle('hidden', !isTutorialModalVisible);
+        
+        if (isTutorialModalVisible) {
+            // Ensure actions dropdown is visible
+            actionsDropdown.classList.remove("hidden");
+            actionsChevron.classList.add("rotate-180");
+            actionsVisible = true; // Update state variable
+
+            // Open Operations dropdown (dropdown ID 1)
+            window.openDropDown(1); 
+            
+            currentTutorialStepIndex = 0; // Always start from first step if opened normally
+            window.showTutorialStep(currentTutorialStepIndex);
+            window.businessLog("Opened tutorial.", "system");
+        } else {
+            // When closing the tutorial, remove any active highlights
+            window.removeHighlight();
+            // Optionally close the actions dropdown when tutorial closes
+            if (actionsVisible) {
+                window.toggleActions();
+            }
+        }
+    }
+
+    window.showTutorialStep = function(stepIndex) {
+        if (stepIndex < 0 || stepIndex >= tutorialSteps.length) {
+            console.error("Invalid tutorial step index:", stepIndex);
+            return;
+        }
+        currentTutorialStepIndex = stepIndex;
+        const step = tutorialSteps[currentTutorialStepIndex];
+
+        tutorialTitle.textContent = step.title;
+        tutorialContent.innerHTML = step.content;
+
+        // Remove previous highlight before applying new one
+        window.removeHighlight();
+
+        // Apply highlight based on the current step
+        if (step.highlightId) {
+            const elementToHighlight = document.getElementById(step.highlightId);
+            if (elementToHighlight) {
+                window.applyHighlight(elementToHighlight);
+            }
+        } else {
+            // No specific highlight for this step
+            window.removeHighlight();
+        }
+
+        // Update button visibility and text
+        tutorialBackButton.classList.toggle('hidden', currentTutorialStepIndex === 0);
+
+        if (currentTutorialStepIndex === tutorialSteps.length - 1) {
+            tutorialNextButton.textContent = "Done";
+            tutorialNextButton.onclick = window.toggleTutorialModal; // Clicking done closes the modal
+            tutorialSkipButton.classList.add('hidden'); // Hide skip on last step
+        } else if (currentTutorialStepIndex === 5) {
+            tutorialNextButton.textContent = "Next";
+            tutorialNextButton.onclick = function() {
+                window.toggleActions();
+                window.nextTutorialStep();
+            };
+            tutorialSkipButton.classList.remove('hidden');
+        } else {
+            tutorialNextButton.textContent = "Next";
+            tutorialNextButton.onclick = window.nextTutorialStep; // Clicking next advances step
+            tutorialSkipButton.classList.remove('hidden'); // Show skip on other steps
+        }
+    }
+
+    window.nextTutorialStep = function() {
+        if (currentTutorialStepIndex < tutorialSteps.length - 1) {
+            window.showTutorialStep(currentTutorialStepIndex + 1);
+        } else {
+            // This case is handled by the "Done" button now
+            window.toggleTutorialModal(); // Fallback to close if somehow called on last step
+        }
+    }
+
+    window.prevTutorialStep = function() {
+        if (currentTutorialStepIndex > 0) {
+            window.showTutorialStep(currentTutorialStepIndex - 1);
+        }
+    }
+
+    window.skipTutorial = function() {
+        window.toggleTutorialModal(); // Just close the modal
+        window.businessLog("Tutorial skipped.", "system");
+    }
+
+
     window.confirmNewGame = function() {
         window.toggleSettingsModal();  
         confirmNewGameModal.classList.remove('hidden');  
@@ -1395,7 +1650,7 @@
         businessName = "Stellar Innovations";  
         businessType = "Web Development Services";  
         businessLocation = "Home-Based";  
-        icon = "💻";  
+        icon = "�";  
         businessGoal = "Market Domination"; // Reset business goal
 
         currentYear = 1;
@@ -1438,11 +1693,12 @@
 
         if (loadSuccessful) {
             window.businessLog("Game data loaded successfully.", "system");
+            window.toggleTutorialModal();
         } else {
             window.businessLog("Failed to load existing game data or no data found. Using default values.", "system");
             balance = 15000;
             companyHealthPercentage = 50;
-            marketDominationPercentage = 50; // Ensure default on error
+            marketDominationPercentage = 50;  
             businessLocation = "Home-Based";  
             hasActiveInsurance = false;
             hasActiveLawyer = false;
@@ -1625,7 +1881,7 @@
             if (customerSatisfactionPercentage > 60) {  
                 outcomeMessage = actionDetails.effects.success.message + (currentFinancialCost > 0 ? ` (-$${currentFinancialCost.toLocaleString()})` : "");
                 if(actionDetails.effects.success.csChange) window.updateCustomerSatisfaction(customerSatisfactionPercentage + actionDetails.effects.success.csChange);
-                if(actionDetails.effects.success.mdChange) window.updateMarketDomination(marketDominationPercentage + actionDetails.effects.success.mdChange);
+                if(actionDetails.effects.mdChange) window.updateMarketDomination(marketDominationPercentage + actionDetails.effects.mdChange);
                 outcomeType = "bonus";
                 currentSoftwareDevelopmentStageIndex = 0;  
             } else {  
@@ -1715,14 +1971,14 @@
                         div.onclick = () => window.openModal(item.actionKey);
                     } else if (index < currentSoftwareDevelopmentStageIndex || (productV1Launched && actionKey === "Launch: Launch your product" && currentSoftwareDevelopmentStageIndex === 0) ) {
                              if (productV1Launched && actionKey === "Launch: Launch your product" && currentSoftwareDevelopmentStageIndex === 0) {
-                                    div.classList.add("dropdown-item-completed");
+                                     div.classList.add("dropdown-item-completed");
                              } else if (index < currentSoftwareDevelopmentStageIndex) {
-                                    div.classList.add("dropdown-item-completed");
+                                     div.classList.add("dropdown-item-completed");
                              } else {  
-                                    div.classList.add("dropdown-item-disabled");
+                                     div.classList.add("dropdown-item-disabled");
                              }
                     }  
-                     else {  
+                    else {  
                         div.classList.add("dropdown-item-disabled");
                     }
                     dropdownMenu.appendChild(div);
@@ -1953,6 +2209,8 @@
         window.location.hash = "";  
 
         window.businessLog("Welcome! Your new business journey starts now. Your first step is Research.", "system");
+        // Automatically open the tutorial modal for Q1
+        window.toggleTutorialModal();
     }
 
 
@@ -2207,6 +2465,9 @@
         const settingsButton = document.querySelector('button[onclick="window.toggleSettingsModal()"]');
         const isClickInsideSettingsButton = settingsButton ? settingsButton.contains(event.target) : false;
         const isClickInsideSettingsModal = settingsModal ? settingsModal.contains(event.target) : false;
+        const tutorialButton = document.querySelector('button[onclick="window.toggleTutorialModal()"]');
+        const isClickInsideTutorialButton = tutorialButton ? tutorialButton.contains(event.target) : false;
+        const isClickInsideTutorialModal = tutorialModalQ1 ? tutorialModalQ1.contains(event.target) : false;
         const isClickInsideConfirmNewGameModal = confirmNewGameModal ? confirmNewGameModal.contains(event.target) : false;
         
         if (!isClickInsideActionsButton && !isClickInsideActionsDropdown && actionsVisible) {
@@ -2219,18 +2480,28 @@
                                                  (event.target.closest(`button[onclick="window.openDropDown(${openDropdownId})"]`));
 
             if (!isClickInsideSpecificDropdown && !isClickInsideActionsButton) {
-                   const dropdownMenuToClose = document.getElementById(`dropdownMenu${openDropdownId}`);
-                   const chevronToReset = document.querySelector(`button[onclick="window.openDropDown(${openDropdownId})"] svg[data-chevron-id]`);
-                   if (dropdownMenuToClose && !dropdownMenuToClose.classList.contains('hidden')) {
-                             dropdownMenuToClose.classList.add('hidden');
-                             if(chevronToReset) chevronToReset.classList.remove('rotate-180');
-                             openDropdownId = null;
-                   }
+                       const dropdownMenuToClose = document.getElementById(`dropdownMenu${openDropdownId}`);
+                       const chevronToReset = document.querySelector(`button[onclick="window.openDropDown(${openDropdownId})"] svg[data-chevron-id]`);
+                       if (dropdownMenuToClose && !dropdownMenuToClose.classList.contains('hidden')) {
+                               dropdownMenuToClose.classList.add('hidden');
+                               if(chevronToReset) chevronToReset.classList.remove('rotate-180');
+                               openDropdownId = null;
+                       }
             }
         }
 
         if (!isClickInsideSettingsButton && !isClickInsideSettingsModal && isSettingsModalVisible) {
             window.toggleSettingsModal();
+        }
+
+        // Handle clicks outside the tutorial modal, but NOT on the navigation buttons
+        if (!isClickInsideTutorialButton && !isClickInsideTutorialModal && isTutorialModalVisible) {
+            const isClickOnTutorialNavButton = event.target.closest('#tutorialBackButton') ||  
+                                               event.target.closest('#tutorialNextButton') ||  
+                                               event.target.closest('#tutorialSkipButton');
+            if (!isClickOnTutorialNavButton) {
+                window.toggleTutorialModal();
+            }
         }
     });
 
@@ -2302,7 +2573,7 @@
             // If there's a network error, reset to default game state to allow play
             balance = 15000;
             companyHealthPercentage = 50;
-            marketDominationPercentage = 50; 
+            marketDominationPercentage = 50;  
             businessLocation = "Home-Based";  
             hasActiveInsurance = false;
             hasActiveLawyer = false;
