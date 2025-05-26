@@ -151,24 +151,22 @@
     <script type="text/javascript" src="{% static 'player.js' %}" ></script>
     <!-- <script type="text/javascript" src="{% static 'mod3t1t2t3.js' %}" ></script> -->
     <script>
+        let str = "";
         let locationData = {
             "home-based": {
                 location: "Home-Based",
-                targetMarket: "Teens and young adults, Small businesses, Event organizers",
                 maxNumberOfWorkers: 3,
                 research_adv: "✅ Over 69% of home-based businesses earn at least $50,000 annually, showing strong potential for growth and profitability.",
                 research_disadv: "⚠️ Over 50% of home-based businesses fail due to factors like cash flow issues and ineffective marketing strategies."
             },
             "physical-store": {
                 location: "Physical Store",
-                targetMarket: "Professionals needing bespoke suits, Fashion-forward individuals, High-income earners",
                 maxNumberOfWorkers: 10,
                 research_adv: "✅ Over 55% of consumers still prefer to shop in physical stores engage products before purchasing.",
                 research_disadv: "⚠️ Over 20% of physical stores businesses fail because of high overhead costs, poor location choices, and shifting consumer behavior toward online shopping"
             },
             "commercial-space": {
                 location: "Commercial Space",
-                targetMarket: "Working professionals, Stress-relief seekers, Health-conscious individuals",
                 maxNumberOfWorkers: 20,
                 research_adv: "✅ Over 20-35% increase in customer acquisition compared to home-based operations, primarily due to increased visibility, foot traffic, and client trust.",
                 research_disadv: "⚠️ Over 40% of businesses in commercial spaces fail because of high rent costs, bad location selection, and low demand factors."
@@ -189,7 +187,7 @@
             let proceedButton = modal.querySelector("#submitbtn");
 
             document.getElementById("businessLocation").value = selectedLocationData.location;
-            document.getElementById("targetMarket").value = selectedLocationData.targetMarket;
+            document.getElementById("targetMarket").value = str
             document.getElementById("maxNumberOfWorkers").value = selectedLocationData.maxNumberOfWorkers;
             
             console.log(document.getElementById("targetMarket"));
@@ -235,14 +233,14 @@
         }
         
         async function fetchBusinessData(field) {
-            let str = "";
+            
             try {
                 const response = await fetch(`get_business_data/?field=${field}`);
                 const data = await response.json();
                 
                 console.log(`Requested ${field}:`, data);
-
-                let category = data.businessCategory;
+                console.log(data.businesses[0].businessCategory);
+                let category =  data.businesses[0].businessCategory;
 
                 switch (category) {
                     case "Tech":
@@ -253,7 +251,7 @@
                         break;
                     case "Food":
                         document.querySelectorAll("ul li").forEach(item => {
-                            item.innerText = "People seeking convenient and affordable meal options.";
+                            item.innerText = "People seeking convenient and affordable food or drink options.";
                         });
                         str = "People seeking convenient and affordable meal options.";
                         break;
@@ -271,6 +269,7 @@
                         break;
                 }
                 document.getElementById("targetMarket").value = str;
+                console.log(str)
                 return str;
 
             } catch (error) {
@@ -279,62 +278,63 @@
             }
         }
         fetchBusinessData("businessCategory");  // Fetch business category
+        
         // Force reflow on the <ul> container for md sized screens
-        const ul = document.querySelectorAll(".list-disc");
-        ul.forEach(ul => {
-            ul.style.display = "none";
-            ul.offsetHeight;
-            ul.style.display = "block";
-        });
+        // const ul = document.querySelectorAll(".list-disc");
+        // ul.forEach(ul => {
+        //     ul.style.display = "none";
+        //     ul.offsetHeight;
+        //     ul.style.display = "block";
+        // });
         
         // JS handler before form submission
-        document.getElementById('marketResearchForm').addEventListener('submit', function(event) {
-            let savedLocationData = {
-                "home-based": {
-                    location: "Home-Based",
-                    targetMarket: "Teens and young adults, Small businesses, Event organizers",
-                    maxEmployee: 3
-                },
-                "physical-store": {
-                    location: "Physical Store",
-                    targetMarket: "Professionals needing bespoke suits, Fashion-forward individuals, High-income earners",
-                    maxEmployee: 10
-                },
-                "commercial-space": {
-                    location: "Commercial Space",
-                    targetMarket: "Working professionals, Stress-relief seekers, Health-conscious individuals",
-                    maxEmployee: 20
-                }
-            };
-            // Store selected location data in player object
-            const selectedLocationData = savedLocationData[current_open_modal_id];
-            updatePlayerProperty("businessLocation", selectedLocationData);
-            addOption1ToPlayerObject();
-            printPlayerInfo();
-            // event.preventDefault();
-        });
+        // document.getElementById('marketResearchForm').addEventListener('submit', function(event) {
+        //     let savedLocationData = {
+        //         "home-based": {
+        //             location: "Home-Based",
+        //             targetMarket: "Teens and young adults, Small businesses, Event organizers",
+        //             maxEmployee: 3
+        //         },
+        //         "physical-store": {
+        //             location: "Physical Store",
+        //             targetMarket: "Professionals needing bespoke suits, Fashion-forward individuals, High-income earners",
+        //             maxEmployee: 10
+        //         },
+        //         "commercial-space": {
+        //             location: "Commercial Space",
+        //             targetMarket: "Working professionals, Stress-relief seekers, Health-conscious individuals",
+        //             maxEmployee: 20
+        //         }
+        //     };
+        //     // Store selected location data in player object
+        //     const selectedLocationData = savedLocationData[current_open_modal_id];
+        //     updatePlayerProperty("businessLocation", selectedLocationData);
+        //     addOption1ToPlayerObject();
+        //     printPlayerInfo();
+        //     // event.preventDefault();
+        // });
 
         // Moves information from sessionStorage to player object
-        function addOption1ToPlayerObject() {
-            // Define business types (same as in mod1_t1_t2.js)
-            const businessTypes = [
-                "Tech Repair and Support Service",
-                "IoT Device Development",
-                "Web Development Services",
-                "Specialty Coffee Shop",
-                "Artisan Bakery",
-                "Food Truck Business",
-                "Custom Tailored Clothing Service",
-                "Activewear Line",
-                "Online T-Shirt Printing",
-                "Spa and Massage Center",
-                "Home Cleaning Service",
-                "Interior Design and Home Staging"
-            ];
-            const option1 = sessionStorage.getItem('option1'); // Business type index
-            const businessType = option1 !== null && businessTypes[parseInt(option1)] ? businessTypes[parseInt(option1)] : "Not Selected";
-            updatePlayerProperty("businessType", businessType);
-        }
+        // function addOption1ToPlayerObject() {
+        //     // Define business types (same as in mod1_t1_t2.js)
+        //     const businessTypes = [
+        //         "Tech Repair and Support Service",
+        //         "IoT Device Development",
+        //         "Web Development Services",
+        //         "Specialty Coffee Shop",
+        //         "Artisan Bakery",
+        //         "Food Truck Business",
+        //         "Custom Tailored Clothing Service",
+        //         "Activewear Line",
+        //         "Online T-Shirt Printing",
+        //         "Spa and Massage Center",
+        //         "Home Cleaning Service",
+        //         "Interior Design and Home Staging"
+        //     ];
+        //     const option1 = sessionStorage.getItem('option1'); // Business type index
+        //     const businessType = option1 !== null && businessTypes[parseInt(option1)] ? businessTypes[parseInt(option1)] : "Not Selected";
+        //     updatePlayerProperty("businessType", businessType);
+        // }
 
         // Card Element height adjustment
         function adjustCardHeights() {

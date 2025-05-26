@@ -215,6 +215,7 @@ def get_business_data(request):
             "businessCategory": player.businessCategory # If needed
             # Add any other fields from the Player model that your game logic/JS needs.
         }
+        print(business_data.get("businessCategory"))
         return JsonResponse({"businesses": [business_data]})
     except Player.DoesNotExist:
         return JsonResponse({"error": "Player data not found for the logged-in user."}, status=404)
