@@ -2198,7 +2198,133 @@
                     effect: () => { window.updateCustomerSatisfaction(customerSatisfactionPercentage + 5); }
                 }
             ]
+        },
+        {
+        title: "Store Break-In!",
+        message: "You arrived at work to find your store broken into. Looks like they took $1000 worth of merchandise.",
+        type: 'choice',
+        choices: [
+        {
+            buttonText: "Replace Merchandise (-$1,000)",
+            cost: -1000,
+            effectText: "Merchandise replaced. Cost $1,000.",
+            effect: () => {
+            window.updateBalance(-1000, "merchandise replacement cost");
+            console.log("Merchandise replaced. Balance updated by -$1000.");
+            }
+        },
+        {
+            buttonText: "Security Upgrade (-$2,000)",
+            cost: -2000,
+            effectText: "Security system upgraded. Cost $2,000.",
+            effect: () => {
+            window.updateBalance(-2000, "security upgrade cost");
+            console.log("Security upgraded. Balance updated by -$2000.");
+            
+            }
+        },
+        {
+            buttonText: "Replace Merchandise & Upgrade Security (-$3,000)",
+            cost: -3000,
+            effectText: "Merchandise replaced and security upgraded. Cost $3,000.",
+            effect: () => {
+            window.updateBalance(-3000, "merchandise and security cost");
+            console.log("Merchandise replaced and security upgraded. Balance updated by -$3000.");
+            
+            }
         }
+        ]
+    },
+
+    {
+        title: "Microwave Fire!",
+        message: "The microwave caught fire. No one was hurt, but the sprinklers went off, causing significant downtime while you evacuated and cleaned up.",
+        type: 'event', // This is a direct event, not a choice
+        cost: -500,
+        effectText: "Cleaned up after microwave fire and managed downtime. Cost $500.",
+        effect: () => {
+        window.updateBalance(-500, "cleanup and downtime cost");
+        console.log("Microwave fire aftermath. Balance updated by -$500.");
+
+        }
+    },
+
+    {
+        title: "Award Winner!",
+        message: "You won “Most Promising New Business\" from the local Chamber of Commerce. The honor comes with a cash reward of $1,000 and positive PR. Keep up the good work!",
+        type: 'event',
+        cost: 1000, // Positive value indicates a gain
+        effectText: "Received $1,000 cash reward and positive PR!",
+        effect: () => {
+        window.updateBalance(1000, "award cash prize");
+        console.log("Won award! Balance updated by +$1000.");
+
+        }
+    },
+
+
+    {
+        title: "Top 10 Business & Donation!",
+        message: "You made the list for Top 10 local small businesses! “Wow! They really look like they know what they are doing!”. Your press leads to a donation from an anonymous donor.",
+        type: 'event',
+        cost: 1500, // Positive value indicates a gain
+        effectText: "Received a $1,500 donation due to positive press!",
+        effect: () => {
+        window.updateBalance(1500, "anonymous donation");
+        console.log("Made Top 10 list and received donation! Balance updated by +$1500.");
+        }
+    },
+
+    {
+        title: "Employee Suggestion",
+        message: "An employee has a suggestion to improve a production process and requests a meeting.",
+        type: 'choice',
+        choices: [
+        {
+            buttonText: "Do nothing (Ignore it)",
+            cost: 0,
+            effectText: "You ignored the employee's suggestion. You know what you're doing, right?",
+            effect: () => {
+            console.log("Ignored employee suggestion.");
+            }
+        },
+        {
+            buttonText: "Reward Employee (-$500)",
+            cost: -500,
+            effectText: "Paid employee a bonus for the suggestion. Morale is up company-wide! Cost $500.",
+            effect: () => {
+            window.updateBalance(-500, "employee bonus");
+            console.log("Rewarded employee. Balance updated by -$500.");
+            }
+        }
+        ]
+    },
+    {
+        title: "Competitor Wages Issue",
+        message: "Your best employee informs you that your competitor is paying their employees 25% higher wages. What do you want to do?",
+        type: 'choice',
+        choices: [
+        {
+            buttonText: "Do nothing",
+            cost: 0,
+            effectText: "You decided not to address the wage disparity. Your best employee might leave.",
+            effect: () => {
+            console.log("Did nothing about competitor wages.");
+            employeeCount--;
+            }
+        },
+        {
+            buttonText: "Raise wages (-$1,000)", 
+            cost: -1000,
+
+            effectText: "Raised wages for employees. Everyone is happy and productivity is up! Cost $1,000.",
+            effect: () => {
+            window.updateBalance(-1000, "wage increase cost");
+            console.log("Raised wages. Balance updated by -$1000.");
+            }
+        }
+        ]
+    }
     ];
 
 
