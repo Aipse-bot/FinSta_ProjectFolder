@@ -1445,11 +1445,11 @@
         }
         // Modified condition for random events to start after Year 1 Quarter 1
         // and trigger 100% on the first action point of Year 1, Quarter 2
-        // then 50% chance on subsequent action points.
+        // then 60% chance on subsequent action points.
         else if (currentYear === 1 && currentQuarter === 2 && actionPoints === 3) { // This means 1st action point spent in Q2 Y1
             window.triggerRandomEvent();
         }
-        else if (((currentYear > 1) || (currentYear === 1 && currentQuarter > 1)) && Math.random() < 0.5) {
+        else if (((currentYear > 1) || (currentYear === 1 && currentQuarter > 1)) && Math.random() < 0.6) {
             window.triggerRandomEvent();
         }
     }
